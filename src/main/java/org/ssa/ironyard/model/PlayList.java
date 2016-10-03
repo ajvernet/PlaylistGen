@@ -13,7 +13,54 @@ public class PlayList extends DomainObject{
         super(id, loaded);
         // TODO Auto-generated constructor stub
     }
-
+    
+    public PlayList()
+    {
+        this(null, false);
+    }
+    
+    public List<Podcast> getPodcasts()
+    {
+        return new ArrayList<>(this.podcasts);
+    }
+    
+    public List<Podcast> addPodcast(Podcast podcast)
+    {
+        this.podcasts.add(podcast);
+        return new ArrayList<>(this.podcasts);
+    }
+    
+    public List<Podcast> deletePodcast(int podcastId)
+    {
+        this.podcasts.remove(podcastId);
+        return new ArrayList<>(this.podcasts);
+    }
+    
+    public List<Podcast> addPodcasts(List<Podcast> podcasts)
+    {
+        this.podcasts.addAll(podcasts);
+        return new ArrayList<>(this.podcasts);
+    }
+    
+    public List<Podcast> replacePodcasts(List<Podcast> podcasts)
+    {
+        this.podcasts.clear();
+        this.podcasts.addAll(podcasts);
+        
+        return new ArrayList<>(this.podcasts);
+        
+    }
+    
+    public PlayList setId(Integer id)
+    {
+        return new PlayList(id, this.loaded);
+    }
+    
+    public PlayList setLoaded()
+    {
+        return new PlayList(this.id, true);
+    }
+    
     @Override
     public boolean deeplyEquals(Object obj) {
         if (this == obj)
