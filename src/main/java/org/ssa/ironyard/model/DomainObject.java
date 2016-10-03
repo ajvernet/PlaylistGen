@@ -1,29 +1,71 @@
 package org.ssa.ironyard.model;
 
-public abstract class DomainObject {
+import java.util.Objects;
 
+/**
+ *
+ * @author thurston
+ */
+public abstract class DomainObject implements Cloneable
+{
+    
     final Integer id;
-    final String name;
-    final Boolean isLoaded; 
+    final boolean loaded;
     
     
-    public DomainObject(int id, String name, Boolean isLoaded) {
+    
+    public DomainObject(Integer id, boolean loaded) {
         super();
         this.id = id;
-        this.name = name;
-        this.isLoaded = isLoaded;
+        this.loaded = loaded;
     }
     
-    public DomainObject(int id, String name){
-        this(id, name, false);
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
+    
+    public Integer getId()
+    {
+        return this.id;
     }
     
+    public boolean isLoaded()
+    {
+        return this.loaded;
+    }
+    
+    abstract boolean deeplyEquals(Object other);
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
+    
+    @Override
+    public String toString() {
+        return "DomainObject [id=" + id + ", loaded=" + loaded + "]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DomainObject other = (DomainObject) obj;
+        if (id == null) {
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
+    }
+
+    public DomainObject clone()
+    {
+        return this;
+    }
 }
+
+
