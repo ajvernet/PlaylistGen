@@ -17,9 +17,6 @@
 			<AppenderREf ref="log-file" />
 		</Logger>
 		<Logger name="org.ssa.ironyard" level="debug">
-			<AppenderREf ref="log-file" />
-		</Logger>
-		<Logger name="org.ssa.ironyard" level="debug">
 			<AppenderREf ref="Console" />
 		</Logger>
 	</Loggers>

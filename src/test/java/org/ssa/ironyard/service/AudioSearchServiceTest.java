@@ -9,7 +9,7 @@ public class AudioSearchServiceTest {
     @Test
     public void test() {
 	AudioSearchService ass = new AudioSearchService();
-	System.out.println(ass.getTrending());
+	System.out.println(ass.getTrending()); 
     }
 
 }

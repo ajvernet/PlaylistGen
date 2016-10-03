@@ -1,0 +1,645 @@
+{
+  "query": "*",
+  "total_results": 16,
+  "page": 1,
+  "results_per_page": 10,
+  "results": [
+    {
+      "id": 136669,
+      "title": "#094: MLB All-Star Recap | Red Sox v Yankees | Drew Pomeranz | Dave Dombrowski | Red Sox Talk | Powered by CLNS Radio",
+      "description": " This week we recap the All Star festivites and the short week that was vs the Yankees! We then break down the Drew Pomeranz deal and what this move does for the rest of the rotation and expectations moving forward. Is Dave Dombrowski done dealing? Also, where has Sandy Leon come from?! We talk his success this season and what that does for Christian Vazquez.    Breaking down the midseason recap article from the written team and weekly predictions round out episode 96 of Red Sox Beat (4 more to 100!). ",
+      "date_created": "2016-07-17",
+      "date_added": "2016-07-18T08:43:29.102Z",
+      "identifier": "e2241a7b854ad7202ac25449e85cea37",
+      "show_id": 5490,
+      "show_title": "Red Sox Beat Podcast",
+      "digital_location": "http://www.podtrac.com/pts/redirect.mp3/media.blubrry.com/redsoxbeat/http://traffic.cast.plus/573b195954199c6167dd8555/traffic.libsyn.com/redsoxbeat/Red_Sox_Beat_Ep._94.mp3",
+      "physical_location": "rss",
+      "duration": 4065,
+      "updated_at": "2016-07-18T08:46:34.610Z",
+      "itunes_episode": 372646971,
+      "categories": [
+        {
+          "id": 22,
+          "parent_id": 2,
+          "name": "Professional",
+          "name_lc": "professional"
+        },
+        {
+          "id": 2,
+          "parent_id": null,
+          "name": "Sports & Recreation",
+          "name_lc": "sports & recreation"
+        },
+        {
+          "id": 34,
+          "parent_id": 2,
+          "name": "College & High School",
+          "name_lc": "college & high school"
+        }
+      ],
+      "audio_files": [
+        {
+          "id": 135922,
+          "mp3": "https://www.audiosear.ch/media/87701bb95e5265f0441aa26e8b664b7a/0/public/audio_file/135922/Red_Sox_Beat_Ep-_94.mp3",
+          "ogg": "https://www.audiosear.ch/media/23a67a822049e5bd1925d5ebc08f3d90/0/public/audio_file/135922/Red_Sox_Beat_Ep-_94.ogg",
+          "duration": "01:07:45",
+          "url_title": "094-mlb-all-star-recap--red-sox-v-yankees--drew-pomeranz--dave-dombrowski--red-sox-talk--powered-by-clns-radio",
+          "listenlen": "long"
+        }
+      ],
+      "entities": [
+        {
+          "entity": "Sports",
+          "category": "topic",
+          "score": 0.774,
+          "type": null
+        }
+      ],
+      "topics": [
+        {
+          "id": 858479,
+          "is_confirmed": false,
+          "identifier": null,
+          "name": "Sports",
+          "score": 0.774,
+          "category": "topic",
+          "entity_type": null,
+          "item_id": 136669,
+          "extra": "---\noriginal: Sports\nrentities:\n- Marseille\n- Communes of Bouches-du-Rhône\n- Prefectures in France\n",
+          "created_at": "2016-07-18T08:44:39.551Z",
+          "updated_at": "2016-07-18T08:46:34.437Z"
+        }
+      ],
+      "image_urls": {
+        "full": "https://www.audiosear.ch/media/a211c80772addb80b5e85ad4b0e1eb4c/0/public/image_file/67074/NewEpRelease_LIBSYN.png",
+        "thumb": "https://www.audiosear.ch/media/9491aefd0670a18be9755304184245d5/0/thumb/image_file/67074/NewEpRelease_LIBSYN.png"
+      },
+      "urls": {
+        "self": "https://www.audiosear.ch/api/episodes/136669",
+        "ui": "https://www.audiosear.ch/a/215dd/094-mlb-all-star-recap--red-sox-v-yankees--drew-pomeranz--dave-dombrowski--red-sox-talk--powered-by-clns-radio"
+      }
+    },
+    {
+      "id": 102914,
+      "title": "#089 | Dan Roche | WBZ Sports | The Sports Hub | Xander Bogaerts | David Price | Red Sox Talk | Powered by CLNS Radio",
+      "description": " This week DAN ROCHE of WBZ TV and 98.5 The Sports Hub joins RSB and talks all things your Red Sox!   We then break down the week that was with Jess' recap, react to the thoughts of Rochie and talk some MLB news before breaking down the week ahead for your first place club.  ",
+      "date_created": "2016-06-13",
+      "date_added": "2016-06-15T09:48:04.274Z",
+      "identifier": "e860d652fbebf0edcbccb2047519798a",
+      "show_id": 5490,
+      "show_title": "Red Sox Beat Podcast",
+      "digital_location": "http://redsoxbeat.clns-radio.libsynpro.com/089-dan-roche-wbz-sports-the-sports-hub-xander-bogaerts-david-price-red-sox-talk-powered-by-clns-radio",
+      "physical_location": "rss",
+      "duration": 4142,
+      "updated_at": "2016-06-15T09:48:07.313Z",
+      "itunes_episode": 370575978,
+      "categories": [
+        {
+          "id": 22,
+          "parent_id": 2,
+          "name": "Professional",
+          "name_lc": "professional"
+        },
+        {
+          "id": 2,
+          "parent_id": null,
+          "name": "Sports & Recreation",
+          "name_lc": "sports & recreation"
+        },
+        {
+          "id": 34,
+          "parent_id": 2,
+          "name": "College & High School",
+          "name_lc": "college & high school"
+        }
+      ],
+      "audio_files": [
+        {
+          "id": 102368,
+          "mp3": "https://www.audiosear.ch/media/918c769ef3b75547be2d6dd7c9aa6bdc/0/public/audio_file/102368/Red_Sox_Beat_Ep-_89.mp3",
+          "ogg": "https://www.audiosear.ch/media/0ba160c5e8b82bc9258ac99548f11a0e/0/public/audio_file/102368/Red_Sox_Beat_Ep-_89.ogg",
+          "duration": "01:09:02",
+          "url_title": "089--dan-roche--wbz-sports--the-sports-hub--xander-bogaerts--david-price--red-sox-talk--powered-by-clns-radio",
+          "listenlen": "long"
+        }
+      ],
+      "image_urls": {
+        "full": "https://www.audiosear.ch/media/66822d22267c347c51687190d1142898/0/public/image_file/41446/6-11-16_DanRoche_LIBSYNmediaPLAYER.png",
+        "thumb": "https://www.audiosear.ch/media/4cbee17c5e9cdacc686ac47badc02f52/0/thumb/image_file/41446/6-11-16_DanRoche_LIBSYNmediaPLAYER.png"
+      },
+      "urls": {
+        "self": "https://www.audiosear.ch/api/episodes/102914",
+        "ui": "https://www.audiosear.ch/a/19202/089--dan-roche--wbz-sports--the-sports-hub--xander-bogaerts--david-price--red-sox-talk--powered-by-clns-radio"
+      }
+    },
+    {
+      "id": 150115,
+      "title": "#096: David Price | Dustin Pedroia | John Farrell | MLB Trade Deadline | Red Sox Talk | Powered by CLNS Radio",
+      "description": " This week is trade deadline week! We break down the moves that already happened for the Red Sox and around the league, as well as look into our looking glass for the Red Sox and their front office!   We also break down the bad week that was for the Red Sox and how some late week fireworks made us feel a little better about this team moving forward. The Red Sox saw losses, Farrell ejected and Steven Wright do something he said he wouldn't do. We talk that and give predictions for this week on an all new RSB! ",
+      "date_created": "2016-08-01",
+      "date_added": "2016-08-02T06:10:32.819Z",
+      "identifier": "b17d2fff5c03563b08f8d13ff40f2d00",
+      "show_id": 5490,
+      "show_title": "Red Sox Beat Podcast",
+      "digital_location": "http://www.podtrac.com/pts/redirect.mp3/media.blubrry.com/redsoxbeat/http://traffic.cast.plus/573b195954199c6167dd8555/traffic.libsyn.com/redsoxbeat/Red_Sox_Beat_Ep._96.mp3",
+      "physical_location": "rss",
+      "duration": 4448,
+      "updated_at": "2016-08-03T07:44:39.303Z",
+      "itunes_episode": 0,
+      "categories": [
+        {
+          "id": 22,
+          "parent_id": 2,
+          "name": "Professional",
+          "name_lc": "professional"
+        },
+        {
+          "id": 2,
+          "parent_id": null,
+          "name": "Sports & Recreation",
+          "name_lc": "sports & recreation"
+        },
+        {
+          "id": 34,
+          "parent_id": 2,
+          "name": "College & High School",
+          "name_lc": "college & high school"
+        }
+      ],
+      "audio_files": [
+        {
+          "id": 149294,
+          "mp3": "https://www.audiosear.ch/media/336da9b2a58d6fc27198a28ca191ab75/0/public/audio_file/149294/Red_Sox_Beat_Ep-_96.mp3",
+          "ogg": "https://www.audiosear.ch/media/3c51ddbfb88e641b1197052e9bddfd18/0/public/audio_file/149294/Red_Sox_Beat_Ep-_96.ogg",
+          "duration": "01:14:08",
+          "url_title": "096-david-price--dustin-pedroia--john-farrell--mlb-trade-deadline--red-sox-talk--powered-by-clns-radio",
+          "listenlen": "long"
+        }
+      ],
+      "entities": [
+        {
+          "entity": "Sports",
+          "category": "topic",
+          "score": 0.876,
+          "type": null
+        }
+      ],
+      "topics": [
+        {
+          "id": 876752,
+          "is_confirmed": false,
+          "identifier": null,
+          "name": "Sports",
+          "score": 0.876,
+          "category": "topic",
+          "entity_type": null,
+          "item_id": 150115,
+          "extra": "---\noriginal: Sports\nrentities:\n- Marseille\n- Communes of Bouches-du-Rhône\n- Prefectures in France\n",
+          "created_at": "2016-08-02T16:01:31.042Z",
+          "updated_at": "2016-08-03T07:44:39.102Z"
+        }
+      ],
+      "image_urls": {
+        "full": "https://www.audiosear.ch/media/95108b14fead45cfb02839c9c94a5fa8/0/public/image_file/70372/NewEpRelease_LIBSYN.png",
+        "thumb": "https://www.audiosear.ch/media/2e25dcb6a5eebf774e73c83e2190c4a8/0/thumb/image_file/70372/NewEpRelease_LIBSYN.png"
+      },
+      "urls": {
+        "self": "https://www.audiosear.ch/api/episodes/150115",
+        "ui": "https://www.audiosear.ch/a/24a63/096-david-price--dustin-pedroia--john-farrell--mlb-trade-deadline--red-sox-talk--powered-by-clns-radio"
+      }
+    },
+    {
+      "id": 124053,
+      "title": "#092: John Farrell | Clay Buchholz | Buy or Sell | MLB | Powered By CLNS Radio",
+      "description": " This week is a lot of bad as the Red Sox are coming off a tough week against the Rays and Angels. We break down why Farrell still is the manager, Eduardo Rodqiguez, and we even go as far as already predicting buy or sell for this team come trade deadline time.   We round out the show with some MLB news and a preview of the week to come vs the Rangers and Rays!  ",
+      "date_created": "2016-07-03",
+      "date_added": "2016-07-04T08:43:58.257Z",
+      "identifier": "80ee0b7304e6373e4fcbc3f3d43f2e26",
+      "show_id": 5490,
+      "show_title": "Red Sox Beat Podcast",
+      "digital_location": "http://redsoxbeat.clns-radio.libsynpro.com/092-john-farrell-clay-buchholz-buy-or-sell-mlb-powered-by-clns-radio",
+      "physical_location": "rss",
+      "duration": 3266,
+      "updated_at": "2016-07-04T10:23:52.191Z",
+      "itunes_episode": 371848897,
+      "categories": [
+        {
+          "id": 22,
+          "parent_id": 2,
+          "name": "Professional",
+          "name_lc": "professional"
+        },
+        {
+          "id": 2,
+          "parent_id": null,
+          "name": "Sports & Recreation",
+          "name_lc": "sports & recreation"
+        },
+        {
+          "id": 34,
+          "parent_id": 2,
+          "name": "College & High School",
+          "name_lc": "college & high school"
+        }
+      ],
+      "audio_files": [
+        {
+          "id": 123380,
+          "mp3": "https://www.audiosear.ch/media/d125169b9c8a220c3a2757a81d6d18d5/0/public/audio_file/123380/Red_Sox_Beat_Ep-_92.mp3",
+          "ogg": "https://www.audiosear.ch/media/eae0e6954140a1c300ea5cb39374bd14/0/public/audio_file/123380/Red_Sox_Beat_Ep-_92.ogg",
+          "duration": "00:54:26",
+          "url_title": "092-john-farrell--clay-buchholz--buy-or-sell--mlb--powered-by-clns-radio",
+          "listenlen": "long"
+        }
+      ],
+      "entities": [
+        {
+          "entity": "Sports",
+          "category": "topic",
+          "score": 0.925,
+          "type": null
+        }
+      ],
+      "topics": [
+        {
+          "id": 844390,
+          "is_confirmed": false,
+          "identifier": null,
+          "name": "Sports",
+          "score": 0.925,
+          "category": "topic",
+          "entity_type": null,
+          "item_id": 124053,
+          "extra": "---\noriginal: Sports\nrentities:\n- Marseille\n- Communes of Bouches-du-Rhône\n- Prefectures in France\n",
+          "created_at": "2016-07-04T08:44:58.812Z",
+          "updated_at": "2016-07-04T10:23:52.005Z"
+        }
+      ],
+      "image_urls": {
+        "full": "https://www.audiosear.ch/media/4d7e00b89ae49a715b2f6f731dd09d5c/0/public/image_file/52814/Red_Sox_Best_Logo.jpg",
+        "thumb": "https://www.audiosear.ch/media/5961c238c1fefd0d92de8ba658125763/0/thumb/image_file/52814/Red_Sox_Best_Logo.jpg"
+      },
+      "urls": {
+        "self": "https://www.audiosear.ch/api/episodes/124053",
+        "ui": "https://www.audiosear.ch/a/1e495/092-john-farrell--clay-buchholz--buy-or-sell--mlb--powered-by-clns-radio"
+      }
+    },
+    {
+      "id": 174913,
+      "title": "#098: Steven Wright | Andrew Benintendi | Rick Porcello | Red Sox Recap | Powered By CLNS Radio",
+      "description": " We are back stronger than ever with an all new episode as there has been a lot going on since the last time we had a show! We break down thelast few weeks as the Red Sox are now back battling for the AL East with the Toronto Blue Jays!   This week also include Jared agreeing with something John Farrell said (yeah that's right!), the team talking about Steven Wright's absence and of course Jess praising Clay Buchholz. We round out the new episode talking MLB Headlines (AROD, Papelbon and Giancarlo Stanton) and making our predictions for the week!! ",
+      "date_created": "2016-08-22",
+      "date_added": "2016-08-23T05:42:33.970Z",
+      "identifier": "42f4a5a30cdbb01323cdc3299a2af1d7",
+      "show_id": 5490,
+      "show_title": "Red Sox Beat Podcast",
+      "digital_location": "http://dts.podtrac.com/redirect.mp3/media.blubrry.com/redsoxbeat/traffic.cast.plus/573b195954199c6167dd8555/traffic.libsyn.com/redsoxbeat/Red_Sox_Beat_Ep._98.mp3",
+      "physical_location": "rss",
+      "duration": 4381,
+      "updated_at": "2016-08-23T05:42:37.096Z",
+      "itunes_episode": 374416718,
+      "categories": [
+        {
+          "id": 22,
+          "parent_id": 2,
+          "name": "Professional",
+          "name_lc": "professional"
+        },
+        {
+          "id": 2,
+          "parent_id": null,
+          "name": "Sports & Recreation",
+          "name_lc": "sports & recreation"
+        },
+        {
+          "id": 34,
+          "parent_id": 2,
+          "name": "College & High School",
+          "name_lc": "college & high school"
+        }
+      ],
+      "audio_files": [
+        {
+          "id": 173975,
+          "mp3": "https://www.audiosear.ch/media/5b35ab4522a686d7f5f168efb108b786/0/public/audio_file/173975/Red_Sox_Beat_Ep-_98.mp3",
+          "ogg": "https://www.audiosear.ch/media/a27fa294ba8c29717de13f4bbf88c86c/0/public/audio_file/173975/Red_Sox_Beat_Ep-_98.ogg",
+          "duration": "01:13:01",
+          "url_title": "098-steven-wright--andrew-benintendi--rick-porcello--red-sox-recap--powered-by-clns-radio",
+          "listenlen": "long"
+        }
+      ],
+      "image_urls": {
+        "full": "https://www.audiosear.ch/media/f7b66fe8193c5ab442168dc3ee24a1e2/0/public/image_file/77468/NewEpRelease_LIBSYN.png",
+        "thumb": "https://www.audiosear.ch/media/cfde98c696739513bb119f8951f5f2be/0/thumb/image_file/77468/NewEpRelease_LIBSYN.png"
+      },
+      "urls": {
+        "self": "https://www.audiosear.ch/api/episodes/174913",
+        "ui": "https://www.audiosear.ch/a/2ab41/098-steven-wright--andrew-benintendi--rick-porcello--red-sox-recap--powered-by-clns-radio"
+      }
+    },
+    {
+      "id": 131169,
+      "title": "#093: MLB All Star Game | Dave Dombrowski | Red Sox Talk | David Ortiz | Powered By CLNS Radio",
+      "description": " This week the crew talks the first half and what the Red Sox have to look forward to after the All Star break! Also, we talk Dave Dombrowski and his ninja trading, Craig Kimbrel going to the DL and more on an all new RSB! ",
+      "date_created": "2016-07-11",
+      "date_added": "2016-07-12T08:43:04.366Z",
+      "identifier": "e32e528070144fd5f44d7056baeed866",
+      "show_id": 5490,
+      "show_title": "Red Sox Beat Podcast",
+      "digital_location": "http://redsoxbeat.clns-radio.libsynpro.com/093-mlb-all-star-game-dave-dombrowski-red-sox-talk-david-ortiz-powered-by-clns-radio",
+      "physical_location": "rss",
+      "duration": 3768,
+      "updated_at": "2016-07-13T15:45:57.043Z",
+      "itunes_episode": 372277681,
+      "categories": [
+        {
+          "id": 22,
+          "parent_id": 2,
+          "name": "Professional",
+          "name_lc": "professional"
+        },
+        {
+          "id": 2,
+          "parent_id": null,
+          "name": "Sports & Recreation",
+          "name_lc": "sports & recreation"
+        },
+        {
+          "id": 34,
+          "parent_id": 2,
+          "name": "College & High School",
+          "name_lc": "college & high school"
+        }
+      ],
+      "audio_files": [
+        {
+          "id": 130457,
+          "mp3": "https://www.audiosear.ch/media/780d7161d4e56b83779a82b90bee17e6/0/public/audio_file/130457/Red_Sox_Beat_Ep-_93.mp3",
+          "ogg": "https://www.audiosear.ch/media/4806ab5701b745e3f723da0fe0a3cb93/0/public/audio_file/130457/Red_Sox_Beat_Ep-_93.ogg",
+          "duration": "01:02:48",
+          "url_title": "093-mlb-all-star-game--dave-dombrowski--red-sox-talk--david-ortiz--powered-by-clns-radio",
+          "listenlen": "long"
+        }
+      ],
+      "entities": [
+        {
+          "entity": "Business & Finance",
+          "category": "topic",
+          "score": 0.613,
+          "type": null
+        },
+        {
+          "entity": "Human Interest",
+          "category": "topic",
+          "score": 0.555,
+          "type": null
+        }
+      ],
+      "topics": [
+        {
+          "id": 853179,
+          "is_confirmed": false,
+          "identifier": null,
+          "name": "Business & Finance",
+          "score": 0.613,
+          "category": "topic",
+          "entity_type": null,
+          "item_id": 131169,
+          "extra": "---\noriginal: Business_Finance\nrentities:\n- Irish magazines\n- Publications established in 1964\n- Business magazines\n",
+          "created_at": "2016-07-13T08:09:43.363Z",
+          "updated_at": "2016-07-13T15:45:38.564Z"
+        },
+        {
+          "id": 853180,
+          "is_confirmed": false,
+          "identifier": null,
+          "name": "Human Interest",
+          "score": 0.555,
+          "category": "topic",
+          "entity_type": null,
+          "item_id": 131169,
+          "extra": "---\noriginal: Human Interest\nrentities:\n- Journalism genres\n",
+          "created_at": "2016-07-13T08:09:43.795Z",
+          "updated_at": "2016-07-13T15:45:56.823Z"
+        }
+      ],
+      "image_urls": {
+        "full": "https://www.audiosear.ch/media/d2196a6cc141db2721cc201da3307661/0/public/image_file/65806/Red_Sox_Best_Logo.jpg",
+        "thumb": "https://www.audiosear.ch/media/7a17870f2306cdabd89f140c73cc8058/0/thumb/image_file/65806/Red_Sox_Best_Logo.jpg"
+      },
+      "urls": {
+        "self": "https://www.audiosear.ch/api/episodes/131169",
+        "ui": "https://www.audiosear.ch/a/20061/093-mlb-all-star-game--dave-dombrowski--red-sox-talk--david-ortiz--powered-by-clns-radio"
+      }
+    },
+    {
+      "id": 188620,
+      "title": "#100: Yoan Moncada | Hanley Ramirez | Clay  Buchholz | John Farrell | Red Sox Talk | Powered by CLNS Radio",
+      "description": " This week we are new for our 100th EPISODE! Huge thanks to all our listeners who have made these first 100 episodes possible. This week we are talking an A.L. East Pennant race! Does Steven Wright pitch again this season? Will Rick Porcello ever lose at home? Those and so many more questions were answered this week!   Round it out with a recap of the week and some MLB Headlines and you have the 100th episode of RSB!          ",
+      "date_created": "2016-09-05",
+      "date_added": "2016-09-06T05:41:28.385Z",
+      "identifier": "0f0cc56a1401f575ecc249fda83fa19a",
+      "show_id": 5490,
+      "show_title": "Red Sox Beat Podcast",
+      "digital_location": "http://dts.podtrac.com/redirect.mp3/media.blubrry.com/redsoxbeat/traffic.cast.plus/573b195954199c6167dd8555/traffic.libsyn.com/redsoxbeat/Red_Sox_Beat_Ep._100.mp3",
+      "physical_location": "rss",
+      "duration": 0,
+      "updated_at": "2016-09-06T05:41:28.385Z",
+      "categories": [
+        {
+          "id": 22,
+          "parent_id": 2,
+          "name": "Professional",
+          "name_lc": "professional"
+        },
+        {
+          "id": 2,
+          "parent_id": null,
+          "name": "Sports & Recreation",
+          "name_lc": "sports & recreation"
+        },
+        {
+          "id": 34,
+          "parent_id": 2,
+          "name": "College & High School",
+          "name_lc": "college & high school"
+        }
+      ],
+      "audio_files": [
+        {
+          "id": 187479,
+          "mp3": "https://www.audiosear.ch/media/12fc766d2d128ed7f2d70f677f1d28aa/0/public/audio_file/187479/Red_Sox_Beat_Ep-_100.mp3",
+          "ogg": "https://www.audiosear.ch/media/7c1f1d5c88bdaba1d182a9268eddb549/0/public/audio_file/187479/Red_Sox_Beat_Ep-_100.ogg",
+          "duration": "00:00:00",
+          "url_title": "100-yoan-moncada--hanley-ramirez--clay-buchholz--john-farrell--red-sox-talk--powered-by-clns-radio",
+          "listenlen": null
+        }
+      ],
+      "image_urls": {
+        "full": "https://www.audiosear.ch/media/060fe96b0cbb0cef3779afeabd69dfd8/0/public/image_file/61962/600x600bb.jpg",
+        "thumb": "https://www.audiosear.ch/media/8f9f46151625f50753cfff34789890cb/0/thumb/image_file/61962/600x600bb.jpg"
+      },
+      "urls": {
+        "self": "https://www.audiosear.ch/api/episodes/188620",
+        "ui": "https://www.audiosear.ch/a/2e0cc/100-yoan-moncada--hanley-ramirez--clay-buchholz--john-farrell--red-sox-talk--powered-by-clns-radio"
+      }
+    },
+    {
+      "id": 196959,
+      "title": "#101: Rick Porcello | David Ortiz | Hanley Ramirez | Red Sox Talk | Powered by CLNS Radio",
+      "description": " This week the full crew is back talking about, once again, your FIRST PLACE Boston Red Sox! Pedroia is still raking, Hanley is almost at 100 RBI for only the 2nd time in his career and someone named \"Pretty Ricky\" is a 20-game winner!   We also touch on David Price pitching well for a certain reason, the awards that some members of this team are vying for and so much more as we over all things Red Sox as the penant race roles on! ",
+      "date_created": "2016-09-13",
+      "date_added": "2016-09-14T05:45:23.083Z",
+      "identifier": "1860c58e0e82944599c622f31519e2c6",
+      "show_id": 5490,
+      "show_title": "Red Sox Beat Podcast",
+      "digital_location": "http://dts.podtrac.com/redirect.mp3/media.blubrry.com/redsoxbeat/traffic.cast.plus/573b195954199c6167dd8555/traffic.libsyn.com/redsoxbeat/Red_Sox_Beat_Ep._101.mp3",
+      "physical_location": "rss",
+      "duration": 0,
+      "updated_at": "2016-09-14T05:45:23.083Z",
+      "categories": [
+        {
+          "id": 22,
+          "parent_id": 2,
+          "name": "Professional",
+          "name_lc": "professional"
+        },
+        {
+          "id": 2,
+          "parent_id": null,
+          "name": "Sports & Recreation",
+          "name_lc": "sports & recreation"
+        },
+        {
+          "id": 34,
+          "parent_id": 2,
+          "name": "College & High School",
+          "name_lc": "college & high school"
+        }
+      ],
+      "audio_files": [
+        {
+          "id": 195762,
+          "mp3": "https://www.audiosear.ch/media/86ebf1d5c3522357bc8d3883e75116a3/0/public/audio_file/195762/Red_Sox_Beat_Ep-_101.mp3",
+          "ogg": "https://www.audiosear.ch/media/03fd627fe9991e6a9f115fe555d06f82/0/public/audio_file/195762/Red_Sox_Beat_Ep-_101.ogg",
+          "duration": "00:00:00",
+          "url_title": "101-rick-porcello--david-ortiz--hanley-ramirez--red-sox-talk--powered-by-clns-radio",
+          "listenlen": null
+        }
+      ],
+      "image_urls": {
+        "full": "https://www.audiosear.ch/media/060fe96b0cbb0cef3779afeabd69dfd8/0/public/image_file/61962/600x600bb.jpg",
+        "thumb": "https://www.audiosear.ch/media/8f9f46151625f50753cfff34789890cb/0/thumb/image_file/61962/600x600bb.jpg"
+      },
+      "urls": {
+        "self": "https://www.audiosear.ch/api/episodes/196959",
+        "ui": "https://www.audiosear.ch/a/3015f/101-rick-porcello--david-ortiz--hanley-ramirez--red-sox-talk--powered-by-clns-radio"
+      }
+    },
+    {
+      "id": 201873,
+      "title": "#102: Hanley Ramirez | Drew Pomeranz | Clay Buchholz | AL East | Red Sox Talk | MLB | Powered by CLNS Radio",
+      "description": " This week Jared and Jess break down the great week that was for your first place Boston Red Sox! We recap the week which included Hanley Ramirez's walk-off vs the Yankees as well as good pitching.   We than talk whether or not this team really is clutch, the bullpen and the push for October.   Finally we around the league and talk key news including the issue in San Diego!   That and more make an all new RSB! ",
+      "date_created": "2016-09-19",
+      "date_added": "2016-09-19T05:44:21.872Z",
+      "identifier": "fb1e8b5d8b64bc82417665ac9fa4b9ce",
+      "show_id": 5490,
+      "show_title": "Red Sox Beat Podcast",
+      "digital_location": "http://redsoxbeat.clns-radio.libsynpro.com/102-hanley-ramirez-drew-pomeranz-clay-buchholz-al-east-red-sox-talk-mlb-powered-by-clns-radio",
+      "physical_location": "rss",
+      "duration": 0,
+      "updated_at": "2016-09-19T05:44:21.872Z",
+      "categories": [
+        {
+          "id": 22,
+          "parent_id": 2,
+          "name": "Professional",
+          "name_lc": "professional"
+        },
+        {
+          "id": 2,
+          "parent_id": null,
+          "name": "Sports & Recreation",
+          "name_lc": "sports & recreation"
+        },
+        {
+          "id": 34,
+          "parent_id": 2,
+          "name": "College & High School",
+          "name_lc": "college & high school"
+        }
+      ],
+      "audio_files": [
+        {
+          "id": 200642,
+          "mp3": "https://www.audiosear.ch/media/423c6b01a0c136a6174dbf97d9773905/0/public/audio_file/200642/Red_Sox_Beat_Ep-_102.mp3",
+          "ogg": "https://www.audiosear.ch/media/cf282fb09a4f76a7b4b9a554ee291321/0/public/audio_file/200642/Red_Sox_Beat_Ep-_102.ogg",
+          "duration": "00:00:00",
+          "url_title": "102-hanley-ramirez--drew-pomeranz--clay-buchholz--al-east--red-sox-talk--mlb--powered-by-clns-radio",
+          "listenlen": null
+        }
+      ],
+      "image_urls": {
+        "full": "https://www.audiosear.ch/media/060fe96b0cbb0cef3779afeabd69dfd8/0/public/image_file/61962/600x600bb.jpg",
+        "thumb": "https://www.audiosear.ch/media/8f9f46151625f50753cfff34789890cb/0/thumb/image_file/61962/600x600bb.jpg"
+      },
+      "urls": {
+        "self": "https://www.audiosear.ch/api/episodes/201873",
+        "ui": "https://www.audiosear.ch/a/31491/102-hanley-ramirez--drew-pomeranz--clay-buchholz--al-east--red-sox-talk--mlb--powered-by-clns-radio"
+      }
+    },
+    {
+      "id": 216211,
+      "title": "#RSB: David Ortiz | Red Sox Recap | MLB Playoffs | ALDS | Cleveland Indians | Powered by CLNS Radio",
+      "description": " This week the full crew is back and we are talking the final week of the regular season and look ahead to the ALDS where your Red Sox will take on the Cleveland Indians!   The team also talks the Ortiz ceremony weekend and of course Jared has a strong opinion on the celebration of Big Papi.   Jess and Jared get in a heated argument about the manager role and John Farrell that you don't want to miss come the water cooler tomorrow at work!    We round out the show with Red Sox series predictions and going around the MLB! ",
+      "date_created": "2016-10-03",
+      "date_added": "2016-10-03T05:42:17.364Z",
+      "identifier": "3881bfccac052d46f2f468d4cc644606",
+      "show_id": 5490,
+      "show_title": "Red Sox Beat Podcast",
+      "digital_location": "http://redsoxbeat.clns-radio.libsynpro.com/rsb-david-ortiz-red-sox-recap-mlb-playoffs-alds-cleveland-indians-powered-by-clns-radio",
+      "physical_location": "rss",
+      "duration": 0,
+      "updated_at": "2016-10-03T05:42:17.364Z",
+      "categories": [
+        {
+          "id": 22,
+          "parent_id": 2,
+          "name": "Professional",
+          "name_lc": "professional"
+        },
+        {
+          "id": 2,
+          "parent_id": null,
+          "name": "Sports & Recreation",
+          "name_lc": "sports & recreation"
+        },
+        {
+          "id": 34,
+          "parent_id": 2,
+          "name": "College & High School",
+          "name_lc": "college & high school"
+        }
+      ],
+      "audio_files": [
+        {
+          "id": 214900,
+          "mp3": "https://www.audiosear.ch/media/0fb27741b2994eaa57b09dde4ed2f848/0/public/audio_file/214900/Red_Sox_Beat_Ep-_104.mp3",
+          "ogg": "https://www.audiosear.ch/media/1b8a055c77f24277e01b4d560d409474/0/public/audio_file/214900/Red_Sox_Beat_Ep-_104.ogg",
+          "duration": "00:00:00",
+          "url_title": "rsb-david-ortiz--red-sox-recap--mlb-playoffs--alds--cleveland-indians--powered-by-clns-radio",
+          "listenlen": null
+        }
+      ],
+      "image_urls": {
+        "full": "https://www.audiosear.ch/media/060fe96b0cbb0cef3779afeabd69dfd8/0/public/image_file/61962/600x600bb.jpg",
+        "thumb": "https://www.audiosear.ch/media/8f9f46151625f50753cfff34789890cb/0/thumb/image_file/61962/600x600bb.jpg"
+      },
+      "urls": {
+        "self": "https://www.audiosear.ch/api/episodes/216211",
+        "ui": "https://www.audiosear.ch/a/34c93/rsb-david-ortiz--red-sox-recap--mlb-playoffs--alds--cleveland-indians--powered-by-clns-radio"
+      }
+    }
+  ]
+}
