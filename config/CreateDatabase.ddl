@@ -108,4 +108,3 @@ CREATE TABLE `users_playlists` (
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB
 ;
-
