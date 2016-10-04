@@ -5,7 +5,6 @@ public class AuthToken {
     private String token_type;
 
     public AuthToken(String access_token, String token_type) {
-	super();
 	this.access_token = access_token;
 	this.token_type = token_type;
     }
