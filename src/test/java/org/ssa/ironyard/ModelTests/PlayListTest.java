@@ -22,9 +22,9 @@ public class PlayListTest {
     @Before
     public void setup()
     {
-        cast1 = new Podcast(1, true, "lowName", 3000.00f, LocalDate.of(2015, 1, 1), "something.com");
-        cast2 = new Podcast(2, true, "medName", 2500.00f, LocalDate.of(2015, 2, 1), "something.com");
-        cast3 = new Podcast(3, true, "ultName", 3000.00f, LocalDate.of(2015, 3, 1), "something.com");
+        cast1 = new Podcast(1, true, "lowName", 3000, LocalDate.of(2015, 1, 1), "something.com");
+        cast2 = new Podcast(2, true, "medName", 2500, LocalDate.of(2015, 2, 1), "something.com");
+        cast3 = new Podcast(3, true, "ultName", 3000, LocalDate.of(2015, 3, 1), "something.com");
   
         podcasts = Arrays.asList(cast1, cast2, cast3);
     }

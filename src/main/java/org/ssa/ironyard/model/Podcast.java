@@ -7,7 +7,7 @@ import java.util.List;
 public class Podcast extends DomainObject{
 
     final String name;
-    final  Float duration;
+    final Integer duration;
     final LocalDate publishDate;
     final List<String> tags = new ArrayList<>();
     final String fileUrl;
@@ -15,7 +15,7 @@ public class Podcast extends DomainObject{
 
 
 
-    public Podcast(Integer id, boolean loaded, String name, Float duration, LocalDate publishDate, String fileUrl) {
+    public Podcast(Integer id, boolean loaded, String name, Integer duration, LocalDate publishDate, String fileUrl) {
         super(id, loaded);
         this.name = name;
         this.duration = duration;
@@ -23,7 +23,7 @@ public class Podcast extends DomainObject{
         this.fileUrl = fileUrl;
     }
 
-    public Podcast(String name, Float duration, LocalDate publishDate, String fileUrl)
+    public Podcast(String name, Integer duration, LocalDate publishDate, String fileUrl)
     {
         this(null, false, name, duration, publishDate, fileUrl);
     }
@@ -54,7 +54,7 @@ public class Podcast extends DomainObject{
         return this.name;
     }
 
-    public Float getDuration() {
+    public Integer getDuration() {
         return duration;
     }
 
