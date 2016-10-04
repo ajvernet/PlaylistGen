@@ -97,11 +97,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.codehaus.groovy</groupId>
-			<artifactId>groovy-all</artifactId>
-			<version>2.4.7</version>
-		</dependency>
-		<dependency>
 			<groupId>org.easymock</groupId>
 			<artifactId>easymock</artifactId>
 			<version>3.4</version>
@@ -129,17 +124,7 @@
 
 			</plugin>
 
-			<plugin>
-				<groupId>com.heroku.sdk</groupId>
-				<artifactId>heroku-maven-plugin</artifactId>
-				<version>1.1.1</version>
-				<configuration>
-					<appName>${heroku.appName}</appName>
-					<processTypes>
-						<web>spring-boot:run</web>
-					</processTypes>
-				</configuration>
-			</plugin>
+
 		</plugins>
 	</build>
 	<name>PlaylistGen</name>
