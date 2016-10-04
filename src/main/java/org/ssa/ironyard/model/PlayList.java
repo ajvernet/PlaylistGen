@@ -6,7 +6,7 @@ import java.util.List;
 public class PlayList extends DomainObject{
 
     
-    final List<Podcast> podcasts = new ArrayList<>();
+    final List<Episode> podcasts = new ArrayList<>();
     
     
     public PlayList(Integer id, boolean loaded) {
@@ -19,30 +19,30 @@ public class PlayList extends DomainObject{
         this(null, false);
     }
     
-    public List<Podcast> getPodcasts()
+    public List<Episode> getPodcasts()
     {
         return new ArrayList<>(this.podcasts);
     }
     
-    public List<Podcast> addPodcast(Podcast podcast)
+    public List<Episode> addPodcast(Episode podcast)
     {
         this.podcasts.add(podcast);
         return new ArrayList<>(this.podcasts);
     }
     
-    public List<Podcast> deletePodcast(int podcastId)
+    public List<Episode> deletePodcast(int podcastId)
     {
         this.podcasts.remove(podcastId);
         return new ArrayList<>(this.podcasts);
     }
     
-    public List<Podcast> addPodcasts(List<Podcast> podcasts)
+    public List<Episode> addPodcasts(List<Episode> podcasts)
     {
         this.podcasts.addAll(podcasts);
         return new ArrayList<>(this.podcasts);
     }
     
-    public List<Podcast> replacePodcasts(List<Podcast> podcasts)
+    public List<Episode> replacePodcasts(List<Episode> podcasts)
     {
         this.podcasts.clear();
         this.podcasts.addAll(podcasts);

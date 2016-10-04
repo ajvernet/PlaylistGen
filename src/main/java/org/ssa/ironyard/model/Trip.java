@@ -4,6 +4,6 @@ public class Trip {
 
     String startLocation;
     String endLocation;
-    
+    Integer duration;
     
 }

@@ -66,8 +66,6 @@ public class UserTest {
     public void setLoadedTest()
     {
         User testUser = new User(email);
-        
-        
         testUser = testUser.setLoaded();
         assertTrue(testUser.isLoaded());
         
