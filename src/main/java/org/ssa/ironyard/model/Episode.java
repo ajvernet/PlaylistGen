@@ -6,14 +6,14 @@ import java.util.List;
 
 public class Episode extends DomainObject{
 
-    final PodcastSeries series;
+    final Series series;
     final String name;
     final Integer duration;
     final LocalDate publishDate;
     final List<String> tags = new ArrayList<>();
     final String fileUrl;
 
-    public Episode(Integer id, boolean loaded, PodcastSeries series, String name, Integer duration,
+    public Episode(Integer id, boolean loaded, Series series, String name, Integer duration,
             LocalDate publishDate, String fileUrl) {
         super(id, loaded);
         this.series = series;
@@ -23,7 +23,7 @@ public class Episode extends DomainObject{
         this.fileUrl = fileUrl;
     }
 
-    public Episode(PodcastSeries series, String name, Integer duration, LocalDate publishDate, String fileUrl)
+    public Episode(Series series, String name, Integer duration, LocalDate publishDate, String fileUrl)
     {
         this(null, false, series, name, duration, publishDate, fileUrl);
     }
@@ -50,7 +50,7 @@ public class Episode extends DomainObject{
         return new ArrayList<>(tags);
     }
     
-    public PodcastSeries getSeries() {
+    public Series getSeries() {
         return this.series;
     }
 

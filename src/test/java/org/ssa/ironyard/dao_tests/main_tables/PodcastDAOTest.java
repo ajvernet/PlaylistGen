@@ -1,4 +1,4 @@
-package org.ssa.ironyard.dao_tests;
+package org.ssa.ironyard.dao_tests.main_tables;
 
 import static org.junit.Assert.*;
 
@@ -13,7 +13,7 @@ public class PodcastDAOTest {
     }
     
     @Test
-    public void writeTest()
+    public void insertTest()
     {
         
     }
