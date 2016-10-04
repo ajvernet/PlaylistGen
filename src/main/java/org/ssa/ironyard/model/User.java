@@ -6,7 +6,7 @@ import java.util.List;
 public class User extends DomainObject{
 
     final String email;
-    final List<PlayList> playLists = new ArrayList<PlayList>();
+    final List<PlayList> playLists = new ArrayList<>();
     
     public User(Integer id, boolean loaded, String email) {
         super(id, loaded);
