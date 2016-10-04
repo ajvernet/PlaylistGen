@@ -1,4 +1,4 @@
-package org.ssa.ironyard.dao_tests.main_tables;
+package org.ssa.ironyard.dao.main_table_DAOs;
 
 import static org.junit.Assert.*;
 
