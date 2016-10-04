@@ -4,14 +4,12 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class Link_Ser_EpiDAOTest {
+public class Link_Epi_TagDAOTest {
 
     @Test
     public void readTest()
     {
         
     }
-    
-
 
 }

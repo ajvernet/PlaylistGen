@@ -1,11 +1,14 @@
-package org.ssa.ironyard.dao.orm;
+package org.ssa.ironyard.dao.orm.main_table_ORMs;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.ssa.ironyard.model.Episode;
+import org.ssa.ironyard.dao.orm.ORM;
+import org.ssa.ironyard.model.Series;
 
-public class EpisodeORM implements ORM<Episode>{
+
+
+public class SeriesORM implements ORM<Series> {
 
     @Override
     public String projection() {
@@ -26,13 +29,13 @@ public class EpisodeORM implements ORM<Episode>{
     }
 
     @Override
-    public Episode map(ResultSet results) throws SQLException {
+    public Series map(ResultSet results) throws SQLException {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public Episode eagerMap(ResultSet results) throws SQLException {
+    public Series eagerMap(ResultSet results) throws SQLException {
         // TODO Auto-generated method stub
         return null;
     }
