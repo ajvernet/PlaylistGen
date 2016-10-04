@@ -14,7 +14,7 @@ import org.ssa.ironyard.model.Podcast;
 public class PodCastTest {
 
     String name;
-    Float duration;
+    Integer duration;
     LocalDate date;
     List<String> tags;
     String url;
@@ -24,7 +24,7 @@ public class PodCastTest {
     public void setup()
     {
         name = "Somecast";
-        duration = 3600.00f;
+        duration = 3600;
         date = LocalDate.now();
         tags = new ArrayList<>(Arrays.asList("Alex", "Andy", "Dan"));
         url = "www.url.com";
@@ -120,11 +120,11 @@ public class PodCastTest {
     public void equalsTest()
     {
         Podcast testCast1 = new Podcast(1, true, name, duration, date, url);
-        Podcast testCast2 = new Podcast(1, true, "other", 2500f, date, "something else.com");
+        Podcast testCast2 = new Podcast(1, true, "other", 2500, date, "something else.com");
         assertTrue(testCast1.equals(testCast2));
         
         Podcast testCast3 = new Podcast(1, true, name, duration, date, url);
-        Podcast testCast4 = new Podcast(2, true, "other", 2500f, date, "something else.com");
+        Podcast testCast4 = new Podcast(2, true, "other", 2500, date, "something else.com");
         assertFalse(testCast3.equals(testCast4));
     }
     
@@ -135,7 +135,7 @@ public class PodCastTest {
         assertTrue(testCast1.deeplyEquals(testCast2));
         
         Podcast testCast3 = new Podcast(1, true, name, duration, date, url);
-        Podcast testCast4 = new Podcast(2, true, "other", 2500f, date, "something else.com");
+        Podcast testCast4 = new Podcast(2, true, "other", 2500, date, "something else.com");
         assertFalse(testCast3.deeplyEquals(testCast4));
     }
     
