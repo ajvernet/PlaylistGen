@@ -1,4 +1,4 @@
-package org.ssa.ironyard.ModelTests;
+package org.ssa.ironyard.model_tests;
 
 import static org.junit.Assert.*;
 

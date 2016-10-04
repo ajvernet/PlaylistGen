@@ -1,33 +1,45 @@
 package org.ssa.ironyard.model;
 
-public class PodcastSeries extends DomainObject{
+    public class PodcastSeries extends DomainObject{
 
-    public PodcastSeries(Integer id, boolean loaded) {
-        super(id, loaded);
-        // TODO Auto-generated constructor stub
-    }
-    
-    public PodcastSeries setId(Integer id)
-    {
-        return new PodcastSeries(id, this.loaded);
-    }
-    
-    public PodcastSeries setLoaded()
-    {
-        return new PodcastSeries(this.id, true);
-    }
-    
-    @Override
-    public Integer getId() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    boolean deeplyEquals(Object other) {
+        final String name;
         
-        return super.equals(other);
-    }
-    
+
+        public PodcastSeries(Integer id, boolean loaded, String name) {
+            super(id, loaded);
+            this.name = name;
+        }
+        
+        public PodcastSeries(String name)
+        {
+            this(null, false, name);
+        }
+
+        public PodcastSeries setId(Integer id)
+        {
+            return new PodcastSeries(id, this.loaded, this.name);
+        }
+        
+        public PodcastSeries setLoaded()
+        {
+            return new PodcastSeries(this.id, true, this.name);
+        }
+        
+        @Override
+        boolean deeplyEquals(Object obj) {
+            if (this == obj)
+                return true;
+            if (!super.equals(obj))
+                return false;
+            if (getClass() != obj.getClass())
+                return false;
+            PodcastSeries other = (PodcastSeries) obj;
+            if (name == null) {
+                if (other.name != null)
+                    return false;
+            } else if (!name.equals(other.name))
+                return false;
+            return true;
+        }
     
 }
