@@ -12,6 +12,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.ssa.ironyard.dao.orm.ORM;
 import org.ssa.ironyard.model.DomainObject;
+import java.sql.ResultSet;
 
 /**
  *
@@ -36,8 +37,11 @@ public abstract class AbstractSpringDAO<T extends DomainObject> implements DAO<T
     {
         if (null == id)
             return null;
-        return this.springTemplate.query(this.orm.prepareRead(), (PreparedStatement ps) -> ps.setInt(1, id), 
-                                         this.orm::map);
+        return this.springTemplate.query(this.orm.prepareRead(), (PreparedStatement ps) -> ps.setInt(1, id), (ResultSet cursor) -> 
+     {  if (cursor.next())
+          return this.orm.map(cursor);
+       return null;
+     });
 
     }
 
