@@ -57,11 +57,7 @@ public class PodCastTest {
     public void getSeriesTest()
     {
         Podcast testCast = new Podcast(series, name, duration, date, url);
-        System.out.println(series);
-        System.out.println(testCast.getSeries());
-        
-        
-        
+        assertTrue(series.deeplyEquals(testCast.getSeries()));
     }
     
     @Test

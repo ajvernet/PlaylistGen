@@ -26,7 +26,7 @@ package org.ssa.ironyard.model;
         }
         
         @Override
-        boolean deeplyEquals(Object obj) {
+        public boolean deeplyEquals(Object obj) {
             if (this == obj)
                 return true;
             if (!super.equals(obj))
@@ -41,5 +41,12 @@ package org.ssa.ironyard.model;
                 return false;
             return true;
         }
+
+        @Override
+        public String toString() {
+            return super.toString() + "PodcastSeries [name=" + name + "]";
+        }
+        
+        
     
 }

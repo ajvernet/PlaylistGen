@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.ssa.ironyard.model.PlayList;
 import org.ssa.ironyard.model.Podcast;
+import org.ssa.ironyard.model.PodcastSeries;
 
 public class PlayListTest {
 
@@ -22,9 +23,9 @@ public class PlayListTest {
     @Before
     public void setup()
     {
-        cast1 = new Podcast(1, true, "lowName", 3000, LocalDate.of(2015, 1, 1), "something.com");
-        cast2 = new Podcast(2, true, "medName", 2500, LocalDate.of(2015, 2, 1), "something.com");
-        cast3 = new Podcast(3, true, "ultName", 3000, LocalDate.of(2015, 3, 1), "something.com");
+        cast1 = new Podcast(1, true, new PodcastSeries("series"), "lowName", 3000, LocalDate.of(2015, 1, 1), "something.com");
+        cast2 = new Podcast(2, true,  new PodcastSeries("series2"), "medName", 2500, LocalDate.of(2015, 2, 1), "something.com");
+        cast3 = new Podcast(3, true,  new PodcastSeries("series3"),"ultName", 3000, LocalDate.of(2015, 3, 1), "something.com");
   
         podcasts = Arrays.asList(cast1, cast2, cast3);
     }
