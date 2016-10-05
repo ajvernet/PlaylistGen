@@ -1,4 +1,4 @@
-package org.ssa.ironyard.model_tests;
+package org.ssa.ironyard.model;
 
 import static org.junit.Assert.*;
 
@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.ssa.ironyard.model.PlayList;
-import org.ssa.ironyard.model.User;
+
 
 public class UserTest {
 

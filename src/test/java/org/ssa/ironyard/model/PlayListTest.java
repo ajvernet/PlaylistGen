@@ -1,4 +1,4 @@
-package org.ssa.ironyard.model_tests;
+package org.ssa.ironyard.model;
 
 import static org.junit.Assert.*;
 
@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.ssa.ironyard.model.PlayList;
 import org.ssa.ironyard.model.Episode;
-import org.ssa.ironyard.model.PodcastSeries;
+import org.ssa.ironyard.model.Series;
 
 public class PlayListTest {
 
@@ -23,9 +23,9 @@ public class PlayListTest {
     @Before
     public void setup()
     {
-        cast1 = new Episode(1, true, new PodcastSeries("series"), "lowName", 3000, LocalDate.of(2015, 1, 1), "something.com");
-        cast2 = new Episode(2, true,  new PodcastSeries("series2"), "medName", 2500, LocalDate.of(2015, 2, 1), "something.com");
-        cast3 = new Episode(3, true,  new PodcastSeries("series3"),"ultName", 3000, LocalDate.of(2015, 3, 1), "something.com");
+        cast1 = new Episode(1, true, new Series("series"), "lowName", 3000, LocalDate.of(2015, 1, 1), "something.com");
+        cast2 = new Episode(2, true,  new Series("series2"), "medName", 2500, LocalDate.of(2015, 2, 1), "something.com");
+        cast3 = new Episode(3, true,  new Series("series3"),"ultName", 3000, LocalDate.of(2015, 3, 1), "something.com");
   
         podcasts = Arrays.asList(cast1, cast2, cast3);
     }

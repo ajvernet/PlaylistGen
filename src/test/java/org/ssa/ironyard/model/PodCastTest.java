@@ -1,4 +1,4 @@
-package org.ssa.ironyard.model_tests;
+package org.ssa.ironyard.model;
 
 import static org.junit.Assert.*;
 
@@ -10,11 +10,11 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.ssa.ironyard.model.Episode;
-import org.ssa.ironyard.model.PodcastSeries;
+import org.ssa.ironyard.model.Series;
 
 public class PodCastTest {
 
-    PodcastSeries series;
+    Series series;
     String name;
     Integer duration;
     LocalDate date;
@@ -25,7 +25,7 @@ public class PodCastTest {
     @Before
     public void setup()
     {
-        series = new PodcastSeries("series");
+        series = new Series("series");
         name = "Somecast";
         duration = 3600;
         date = LocalDate.now();

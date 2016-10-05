@@ -1,10 +1,10 @@
-package org.ssa.ironyard.dao_tests;
+package org.ssa.ironyard.dao.main_table_DAOs;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class SeriesDAOTest {
+public class PodcastDAOTest {
 
     @Test
     public void readTest()
@@ -13,7 +13,7 @@ public class SeriesDAOTest {
     }
     
     @Test
-    public void writeTest()
+    public void insertTest()
     {
         
     }
@@ -25,7 +25,19 @@ public class SeriesDAOTest {
     }
     
     @Test
-    public void joinOnTag()
+    public void joinOnSeriesTest()
+    {
+        
+    }
+    
+    @Test
+    public void joinOnTagsTest()
+    {
+        
+    }
+    
+    @Test
+    public void joinOnPlayListTest()
     {
         
     }
