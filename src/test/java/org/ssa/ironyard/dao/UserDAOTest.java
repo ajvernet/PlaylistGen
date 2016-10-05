@@ -23,24 +23,7 @@ public class UserDAOTest {
     {
         
     }
-    
-    @Test
-    public void updateName()
-    {
-        
-    }
-    
-    @Test
-    public void joinOnPlayList()
-    {
-        
-    }
-    
-    @Test
-    public void joinOnEpisodes()
-    {
-        
-    }
+
    // @Test
     public void joinOnState()
     {
