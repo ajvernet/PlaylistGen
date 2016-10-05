@@ -9,7 +9,7 @@ import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.client.RestTemplate;
-import org.ssa.ironyard.service.model.AuthToken;
+import org.ssa.ironyard.model.AuthToken;
 
 import com.google.common.io.ByteSource;
 import com.google.common.io.Resources;
