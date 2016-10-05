@@ -1,4 +1,4 @@
-package org.ssa.ironyard.service.model;
+package org.ssa.ironyard.model;
 
 public class AuthToken {
     private String access_token;
