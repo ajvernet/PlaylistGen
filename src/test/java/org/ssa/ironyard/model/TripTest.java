@@ -6,10 +6,6 @@ import org.junit.Test;
 
 public class TripTest {
 
-    @Test
-    public void test() {
-        fail("Not yet implemented");
-    }
     
     @Test
     public void getIdTest()

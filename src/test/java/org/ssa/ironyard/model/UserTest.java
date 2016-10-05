@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.ssa.ironyard.model.PlayList;
-import org.ssa.ironyard.model.User;
+
 
 public class UserTest {
 

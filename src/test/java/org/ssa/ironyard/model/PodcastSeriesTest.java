@@ -3,7 +3,7 @@ package org.ssa.ironyard.model;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import org.ssa.ironyard.model.Series;
+
 
 public class PodcastSeriesTest {
 
@@ -11,8 +11,7 @@ public class PodcastSeriesTest {
     public void test() {
         
         Series series = new Series("series");
-       
-        fail("Not yet implemented");
+  
     }
 
 }
