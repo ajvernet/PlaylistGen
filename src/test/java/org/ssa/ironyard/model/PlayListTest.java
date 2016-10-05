@@ -18,6 +18,7 @@ public class PlayListTest {
     Episode cast2;
     Episode cast3;
     
+    User user;
     List<Episode> podcasts;
     
     @Before
@@ -26,7 +27,8 @@ public class PlayListTest {
         cast1 = new Episode(1, true, new Series("series"), "lowName", 3000, LocalDate.of(2015, 1, 1), "something.com");
         cast2 = new Episode(2, true,  new Series("series2"), "medName", 2500, LocalDate.of(2015, 2, 1), "something.com");
         cast3 = new Episode(3, true,  new Series("series3"),"ultName", 3000, LocalDate.of(2015, 3, 1), "something.com");
-  
+        
+        user = new User("joe", new Password("salt", "hash"));
         podcasts = Arrays.asList(cast1, cast2, cast3);
     }
     
@@ -36,7 +38,7 @@ public class PlayListTest {
         PlayList testList = new PlayList();
         assertTrue(testList.getId() == null);
         
-        PlayList testList2 = new PlayList(1, true);
+        PlayList testList2 = new PlayList(1, true, user);
         assertEquals(new Integer(1), testList2.getId());
     }
     

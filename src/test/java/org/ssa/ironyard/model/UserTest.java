@@ -7,12 +7,15 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.ssa.ironyard.crypto.BCryptSecurePassword;
 import org.ssa.ironyard.model.PlayList;
 
 
 public class UserTest {
 
     String email;
+    Password password;
+    final BCryptSecurePassword security = new BCryptSecurePassword();
     PlayList list1; 
     PlayList list2;
     PlayList list3; 
@@ -22,6 +25,7 @@ public class UserTest {
     public void setup()
     {
         email = "user@email.com";
+        password = security.secureHash("test");
         list1 = new PlayList();
         list2 = new PlayList();
         list3 = new PlayList();
@@ -31,7 +35,7 @@ public class UserTest {
     @Test
     public void getIdTest()
     {
-        User testUser = new User(email);
+        User testUser = new User(email, password);
         assertEquals(null, testUser.getId());
 
     }
@@ -39,24 +43,17 @@ public class UserTest {
     @Test
     public void getLoadedTest()
     {
-        User testUser = new User(email);
+        User testUser = new User(email, password);
         assertFalse(testUser.isLoaded());
 
     }
     
-    @Test
-    public void getPlaylistsTest()
-    {
-        
-        User testUser = new User(email);
-        assertTrue(testUser.getLists().size() == 0);
 
-    }
     
     @Test
     public void setIdTest()
     {
-        User testUser = new User(email);
+        User testUser = new User(email, password);
         
         testUser = testUser.setId(3);
         assertEquals(new Integer(3), testUser.getId());
@@ -65,37 +62,10 @@ public class UserTest {
     @Test
     public void setLoadedTest()
     {
-        User testUser = new User(email);
+        User testUser = new User(email, password);
         testUser = testUser.setLoaded();
         assertTrue(testUser.isLoaded());
         
     }
-    
-    @Test
-    public void addPlaylistTest()
-    {
-       User testUser = new User(email);
-       
-       testUser.addList(list1);
-       testUser.addList(list2);
-       testUser.addList(list3);
-
-       assertTrue(testUser.getLists().size() == 3);
-    }
-    
-    @Test
-    public void deletePlaylistTest()
-    {
-        User testUser = new User(email);
-        
-        testUser.addList(list1);
-        testUser.addList(list2);
-        
-        testUser.deleteList(0);
-        
-        assertTrue(testUser.getLists().size() == 1);
-        
-    }
-    
 
 }

@@ -1,12 +1,11 @@
-package org.ssa.ironyard.dao.main_table_DAOs;
+package org.ssa.ironyard.dao;
 
-import org.ssa.ironyard.dao.DAO;
-import org.ssa.ironyard.model.DomainObject;
+import org.ssa.ironyard.model.PlayList;
 
-public class UserDAO implements DAO{
+public class PlayListDAO implements DAO<PlayList>{
 
     @Override
-    public DomainObject insert(DomainObject domain) {
+    public PlayList insert(PlayList domain) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -18,13 +17,13 @@ public class UserDAO implements DAO{
     }
 
     @Override
-    public DomainObject update(DomainObject domain) {
+    public PlayList update(PlayList domain) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public DomainObject read(Integer id) {
+    public PlayList read(Integer id) {
         // TODO Auto-generated method stub
         return null;
     }

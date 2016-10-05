@@ -5,18 +5,19 @@ import java.util.List;
 
 public class PlayList extends DomainObject{
 
-    
+    final User user;
     final List<Episode> podcasts = new ArrayList<>();
     
     
-    public PlayList(Integer id, boolean loaded) {
+    public PlayList(Integer id, boolean loaded, User user) {
         super(id, loaded);
+        this.user = user;
         // TODO Auto-generated constructor stub
     }
     
     public PlayList()
     {
-        this(null, false);
+        this(null, false, null);
     }
     
     public List<Episode> getPodcasts()
@@ -53,14 +54,18 @@ public class PlayList extends DomainObject{
     
     public PlayList setId(Integer id)
     {
-        return new PlayList(id, this.loaded);
+        return new PlayList(id, this.loaded, this.user);
     }
     
     public PlayList setLoaded()
     {
-        return new PlayList(this.id, true);
+        return new PlayList(this.id, true, this.user);
     }
     
+    public PlayList setUser(User user)
+    {
+        return new PlayList(this.id, this.loaded, user);
+    }
     @Override
     public boolean deeplyEquals(Object obj) {
         if (this == obj)
