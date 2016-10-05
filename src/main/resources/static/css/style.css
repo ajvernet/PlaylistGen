@@ -1,0 +1,41 @@
+.resultsDiv {
+	display: block;
+	float: right;
+	width: 50%;
+}
+
+.playlistDiv {
+	display: block;
+	float: left;
+	width: 50%;
+}
+
+li {
+	display: block;
+}
+
+.playlistDiv ul {
+	border: black solid 2px;
+}
+
+.playlistDiv li {
+	border: black dotted 1px;
+}
+
+.resultsDiv button {
+	display: block;
+	width: 100%;
+	padding: 2px;
+	text-align: left;
+}
+
+.seekBase {
+  height: 30px;
+  width: 90%;
+  border: 1px solid #cccccc;
+}
+.seekLoad {
+	height: 30px;
+  width: 0;
+  background-color: #E0EAF1;
+}
