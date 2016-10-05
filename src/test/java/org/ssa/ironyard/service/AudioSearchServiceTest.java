@@ -12,7 +12,7 @@ public class AudioSearchServiceTest {
     
     @Before
     public void setup() throws IOException{
-	ass = new AudioSearchService();
+	ass = new AudioSearchService(new AuthorizationService());
     }
 
     @Ignore

@@ -1,12 +1,11 @@
-package org.ssa.ironyard.dao.main_table_DAOs;
+package org.ssa.ironyard.dao;
 
-import org.ssa.ironyard.dao.DAO;
-import org.ssa.ironyard.model.Series;
+import org.ssa.ironyard.model.Episode;
 
-public class SeriesDAO implements DAO<Series>{
+public class EpisodeDAO implements DAO<Episode>{
 
     @Override
-    public Series insert(Series domain) {
+    public Episode insert(Episode domain) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -18,13 +17,13 @@ public class SeriesDAO implements DAO<Series>{
     }
 
     @Override
-    public Series update(Series domain) {
+    public Episode update(Episode domain) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public Series read(Integer id) {
+    public Episode read(Integer id) {
         // TODO Auto-generated method stub
         return null;
     }

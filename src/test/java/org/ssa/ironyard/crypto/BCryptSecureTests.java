@@ -2,6 +2,8 @@ package org.ssa.ironyard.crypto;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
+import org.ssa.ironyard.crypto.BCryptSecurePassword;
+import org.ssa.ironyard.crypto.SecurePassword;
 import org.ssa.ironyard.model.Password;
 /**
  *
@@ -17,7 +19,6 @@ public class BCryptSecureTests
         final String raw = "s3cr3t";
         Password pass = this.security.secureHash(raw);
         assertTrue("", this.security.verify(raw, pass));
-        System.err.println(pass);
     }
     
     @Test

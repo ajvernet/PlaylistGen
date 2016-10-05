@@ -8,12 +8,14 @@ import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.ssa.ironyard.service.model.AuthToken;
+import org.ssa.ironyard.model.AuthToken;
 
 import com.google.common.io.ByteSource;
 import com.google.common.io.Resources;
 
+@Service
 public class AuthorizationService {
 
     private final String oauthBaseUri;
@@ -24,12 +26,14 @@ public class AuthorizationService {
 
     Logger LOGGER = LogManager.getLogger(AuthorizationService.class);
 
-    public AuthorizationService() throws IOException {
+    public AuthorizationService()  {
 
 	ByteSource byteSource = Resources.asByteSource(Resources.getResource("secrets.properties"));
 	Properties p = new Properties();
 	try (InputStream inputStream = byteSource.openStream()) {
 	    p.load(inputStream);
+	}catch (IOException e){
+	    throw new RuntimeException();
 	}
 	oauthBaseUri = "https://www.audiosear.ch/oauth/token";
 	appId = p.getProperty("appId");

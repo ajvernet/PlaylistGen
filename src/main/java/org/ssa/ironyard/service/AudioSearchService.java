@@ -2,27 +2,30 @@ package org.ssa.ironyard.service;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+@Service
 public class AudioSearchService {
     static String apiBaseUri = "https://www.audiosear.ch/api";
     static String trendingUriFragment = "/trending";
 
-    private AuthorizationService authorizationService;
+    private final AuthorizationService authorizationService;
 
     private Logger LOGGER = LogManager.getLogger(AudioSearchService.class);
 
-    public AudioSearchService() throws IOException {
-	authorizationService = new AuthorizationService();
+    @Autowired
+    public AudioSearchService(AuthorizationService authorizationService) {
+	this.authorizationService = authorizationService;
     }
 
     public String getTrending() {
