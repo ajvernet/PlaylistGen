@@ -22,6 +22,12 @@ public class Episode extends DomainObject{
         this.publishDate = publishDate;
         this.fileUrl = fileUrl;
     }
+    
+    public Episode()
+    {
+        this(null, false, null, null, null, null, null);
+    }
+    
 
     public Episode(Series series, String name, Integer duration, LocalDate publishDate, String fileUrl)
     {
@@ -38,6 +44,25 @@ public class Episode extends DomainObject{
         return new Episode(this.id, true, this.series, this.name, this.duration, this.publishDate, this.fileUrl);
     }    
     
+    public Episode setSeries(Series series)
+    {
+        return new Episode(this.id, this.loaded, series, this.name, this.duration, this.publishDate, this.fileUrl);
+    }
+    
+    public Episode setDuration(Integer duration)
+    {
+        return new Episode(this.id, this.loaded, this.series, this.name, duration, this.publishDate, this.fileUrl);
+    }
+    
+    public Episode setPublishDate(LocalDate date)
+    {
+        return new Episode(this.id, this.loaded, this.series, this.name, this.duration, date, this.fileUrl);
+    }
+    
+    public Episode setURL(String url)
+    {
+        return new Episode(this.id, this.loaded, this.series, this.name, this.duration, this.publishDate, url);
+    }
     public List<String> addTag(String tag)
     {
         this.tags.add(tag);
