@@ -1,4 +1,4 @@
-package org.ssa.ironyard.controller.model;
+package org.ssa.ironyard.model;
 
 public class ResponseObject {
 
