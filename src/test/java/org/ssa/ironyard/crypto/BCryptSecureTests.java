@@ -17,6 +17,7 @@ public class BCryptSecureTests
         final String raw = "s3cr3t";
         Password pass = this.security.secureHash(raw);
         assertTrue("", this.security.verify(raw, pass));
+        System.err.println(pass);
     }
     
     @Test
