@@ -26,13 +26,13 @@ public class AuthorizationService {
 
     Logger LOGGER = LogManager.getLogger(AuthorizationService.class);
 
-    public AuthorizationService()  {
-
+    public AuthorizationService() {
+	LOGGER.info("Authorization Service is loading");
 	ByteSource byteSource = Resources.asByteSource(Resources.getResource("secrets.properties"));
 	Properties p = new Properties();
 	try (InputStream inputStream = byteSource.openStream()) {
 	    p.load(inputStream);
-	}catch (IOException e){
+	} catch (IOException e) {
 	    throw new RuntimeException();
 	}
 	oauthBaseUri = "https://www.audiosear.ch/oauth/token";
@@ -50,9 +50,7 @@ public class AuthorizationService {
 	oauthConfig.put("client_id", appId);
 	oauthConfig.put("client_secret", secret);
 	RestTemplate restTemplate = new RestTemplate();
-	LOGGER.debug(restTemplate.postForEntity(oauthBaseUri, oauthConfig, String.class).getBody());
 	AuthToken a = restTemplate.postForEntity(oauthBaseUri, oauthConfig, AuthToken.class).getBody();
-	LOGGER.debug("AuthToken: {}", a.getAccess_token());
 
 	return a;
 
