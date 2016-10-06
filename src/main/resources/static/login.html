@@ -38,8 +38,8 @@ angular.module('login', []).controller('LoginController', function($http) {
 	    url : "/podcasts/login",
 	    dataType : "json",
 	    data: {
-            "user" : controller.userEmail,
-            "pass" : controller.userPW
+            "user" : this.userEmail,
+            "pass" : this.userPW
         }
 	}).success(function(reponse) {
 		console.log(reponse);

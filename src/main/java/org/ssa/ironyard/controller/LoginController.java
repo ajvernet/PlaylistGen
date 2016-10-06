@@ -6,16 +6,17 @@ import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.servlet.View;
-import org.springframework.web.servlet.view.InternalResourceView;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.InternalResourceView;
 import org.ssa.ironyard.model.ResponseObject;
 import org.ssa.ironyard.model.ResponseObject.STATUS;
 import org.ssa.ironyard.model.User;
+import org.ssa.ironyard.model.UserPass;
 import org.ssa.ironyard.service.LoginService;
 
 @RestController
@@ -32,9 +33,11 @@ public class LoginController {
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public ResponseEntity<ResponseObject> authenticateUser(HttpServletRequest request, HttpSession session) {
-	String username = request.getParameter("user");
-	String password = request.getParameter("pass");
+    public ResponseEntity<ResponseObject> authenticateUser( @RequestBody UserPass up, HttpServletRequest request, HttpSession session) {
+//	String username = request.getParameter("user");
+//	String password = request.getParameter("pass");
+	String username = up.getUser();
+	String password = up.getPass();
 	LOGGER.debug("Processing login attempt for {} - {}", username, password);
 	User user = loginService.authenticateUser(username, password);
 	if (user == null)
@@ -43,10 +46,9 @@ public class LoginController {
 	session.setAttribute("UserID", user.getId());
 	return ResponseEntity.ok()
 		.body(ResponseObject.instanceOf(STATUS.SUCCESS, "Congratulations, you are a valid user", user.getId()));
-
     }
     
-    @RequestMapping(value="login", method=RequestMethod.GET)
+    @RequestMapping(value="", method=RequestMethod.GET)
     public View showLoginPage(){
 	return new InternalResourceView("/login.html");
     }

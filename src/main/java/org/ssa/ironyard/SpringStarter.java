@@ -14,5 +14,4 @@ public class SpringStarter {
 	LOGGER.info("Starting application Playlist Generator");
 	SpringApplication.run(SpringStarter.class, args);
     }
-
 }
