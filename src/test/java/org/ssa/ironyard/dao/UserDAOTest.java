@@ -51,6 +51,7 @@ public class UserDAOTest {
     public void testUpdate(){
 	User dbUser = users.insert(testUser);
 	User changedUser = User.builder(dbUser).firstName("Jane").build();
+	assertFalse(dbUser.deeplyEquals(changedUser));
 	dbUser = users.update(changedUser);
 	assertTrue(dbUser.deeplyEquals(changedUser));
     }
