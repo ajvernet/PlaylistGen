@@ -27,26 +27,33 @@ public class UserDAO extends AbstractSpringDAO<User> implements DAO<User> {
 
     @Override
     protected void insertPreparer(PreparedStatement insertStatement, User domainToInsert) throws SQLException {
-	// TODO Auto-generated method stub
-
+	insertStatement.setString(1, domainToInsert.getEmail());
+	insertStatement.setString(2, domainToInsert.getPassword().getSalt());
+	insertStatement.setString(3, domainToInsert.getPassword().getHash());
     }
 
     @Override
     protected User afterInsert(User copy, Integer id) {
-	// TODO Auto-generated method stub
-	return null;
+	return copy.setId(id);
     }
 
     @Override
     protected User afterUpdate(User copy) {
-	// TODO Auto-generated method stub
-	return null;
+	return copy.setLoaded();
     }
 
     @Override
     protected PreparedStatementSetter updatePreparer(User domainToUpdate) {
-	// TODO Auto-generated method stub
-	return null;
+	return new PreparedStatementSetter(){
+
+	    @Override
+	    public void setValues(PreparedStatement ps) throws SQLException {
+		ps.setString(1, domainToUpdate.getEmail());
+		ps.setString(2, domainToUpdate.getPassword().getSalt());
+		ps.setString(3, domainToUpdate.getPassword().getHash());
+	    }
+	    
+	};
     }
 
 }

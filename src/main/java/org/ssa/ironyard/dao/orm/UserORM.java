@@ -18,62 +18,51 @@ public interface UserORM extends ORM<User> {
 
     @Override
     default String eagerProjection() {
-        // TODO Auto-generated method stub
-        return null;
+        return projection();
     }
 
     @Override
     default String table() {
-        // TODO Auto-generated method stub
-        return " users ";
+        return "users";
     }
 
     @Override
     default User map(ResultSet results) throws SQLException {
-        // TODO Auto-generated method stub
         Integer id = results.getInt(1);
         String email = results.getString(2);
         String salt = results.getString(3);
         String hash = results.getString(4);
-        
-        
         return new User(id, true, email, new Password(salt, hash));
- 
     }
 
     @Override
     default User eagerMap(ResultSet results) throws SQLException {
-        // TODO Auto-generated method stub
-        return null;
+        return map(results);
     }
 
     @Override
     default String prepareInsert() {
-        // TODO Auto-generated method stub
-        return "Insert Into" + table() + "(" + projection() +")" + " Values(?, ?, ?, ?)";
+        return "INSERT INTO" + table() + "(email, salt, hash)" + " VALUES(?, ?, ?)";
     }
 
     @Override
     default String prepareUpdate() {
-        // TODO Auto-generated method stub
-        return null;
+        return "UPDATE " + table() + " SET email=?, salt=?, hash=? WHERE id=?)";
     }
 
     @Override
     default String prepareRead() {
-        return "Select " + projection() + " from " + table() + " Where id=?";
+        return "SELECT " + projection() + " FROM " + table() + " WHERE id=?";
     }
 
     @Override
     default String prepareDelete() {
-        // TODO Auto-generated method stub
-        return "Delete From " + table() + " Where id=?";
+        return "DELETE FROM " + table() + " WHERE id=?";
     }
 
     @Override
     default String prepareEagerRead() {
-        // TODO Auto-generated method stub
-        return null;
+        return prepareRead();
     }
 
 }
