@@ -1,10 +1,12 @@
 package org.ssa.ironyard.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.ssa.ironyard.model.ResponseObject;
 import org.ssa.ironyard.model.ResponseObject.STATUS;
@@ -23,8 +25,8 @@ public class LoginController {
 	this.loginService = loginService;
     }
     
-    @RequestMapping("login")
-    public ResponseEntity<ResponseObject> authenticateUser(HttpServletRequest request){
+    @RequestMapping(value="login", method=RequestMethod.POST)
+    public ResponseEntity<ResponseObject> authenticateUser(HttpServletRequest request, HttpSession session){
 	String username = request.getParameter("user");
 	String password = request.getParameter("pass");
 	User user = loginService.authenticateUser(username, password);
