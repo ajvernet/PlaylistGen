@@ -6,6 +6,7 @@ import org.ssa.ironyard.crypto.BCryptSecurePassword;
 import org.ssa.ironyard.dao.UserDAO;
 import org.ssa.ironyard.model.Password;
 import org.ssa.ironyard.model.User;
+import org.ssa.ironyard.model.User.UserBuilder;
 
 @Service
 public class LoginService {
@@ -19,9 +20,9 @@ public class LoginService {
 	this.verifier = verifier;
     }
     
-    public User authenticateUser(String username, String password){
-	
-	User user =  new User(1, true, "test@user.com", new Password("$2a$04$5XIJBbX7Y4DiaJ9H4bkYe.", "Iyl4CRhVdmg2hKWMVd2lZ6tqdXZmUI."));
+    public User authenticateUser(String email, String password){
+	Password secretWithThrees = new Password("$2a$04$5XIJBbX7Y4DiaJ9H4bkYe.", "Iyl4CRhVdmg2hKWMVd2lZ6tqdXZmUI.");
+	User user =  new UserBuilder().email(email).password(secretWithThrees).build();
 	if(verifier.verify(password, user.getPassword()))
 	    return user;
 	return null;

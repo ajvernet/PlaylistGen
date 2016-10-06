@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.ssa.ironyard.crypto.BCryptSecurePassword;
 import org.ssa.ironyard.model.PlayList;
 
+import org.ssa.ironyard.model.User.UserBuilder;
 
 public class UserTest {
 
@@ -35,7 +36,7 @@ public class UserTest {
     @Test
     public void getIdTest()
     {
-        User testUser = new User(email, password);
+        User testUser = new UserBuilder().email(email).password(password).build();
         assertEquals(null, testUser.getId());
 
     }
@@ -43,7 +44,7 @@ public class UserTest {
     @Test
     public void getLoadedTest()
     {
-        User testUser = new User(email, password);
+        User testUser = new UserBuilder().email(email).password(password).build();
         assertFalse(testUser.isLoaded());
 
     }
@@ -53,17 +54,14 @@ public class UserTest {
     @Test
     public void setIdTest()
     {
-        User testUser = new User(email, password);
-        
-        testUser = testUser.setId(3);
+        User testUser = new UserBuilder().email(email).password(password).id(3).build();
         assertEquals(new Integer(3), testUser.getId());
     }
     
     @Test
     public void setLoadedTest()
     {
-        User testUser = new User(email, password);
-        testUser = testUser.setLoaded();
+        User testUser = new UserBuilder().email(email).password(password).loaded(true).build();
         assertTrue(testUser.isLoaded());
         
     }

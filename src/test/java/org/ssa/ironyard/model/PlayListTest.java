@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.ssa.ironyard.model.PlayList;
 import org.ssa.ironyard.model.Episode;
 import org.ssa.ironyard.model.Series;
+import org.ssa.ironyard.model.User.UserBuilder;
 
 public class PlayListTest {
 
@@ -28,7 +29,7 @@ public class PlayListTest {
         cast2 = new Episode(2, true,  new Series("series2"), "medName", 2500, LocalDate.of(2015, 2, 1), "something.com");
         cast3 = new Episode(3, true,  new Series("series3"),"ultName", 3000, LocalDate.of(2015, 3, 1), "something.com");
         
-        user = new User("joe", new Password("salt", "hash"));
+        user = new UserBuilder().firstName("joe").password(new Password("salt", "hash")).build();
         podcasts = Arrays.asList(cast1, cast2, cast3);
     }
     
