@@ -127,7 +127,6 @@ public abstract class AbstractSpringDAO<T extends DomainObject> implements DAO<T
 	} finally {
 	    cleanup(clear);
 	    cleanup(connection);
-
 	}
 	return 0;
     }

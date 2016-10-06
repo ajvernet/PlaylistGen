@@ -1,34 +1,35 @@
-package org.ssa.ironyard.dao.orm.maintableORMs;
+package org.ssa.ironyard.dao.orm;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.StringJoiner;
 
-import org.ssa.ironyard.dao.orm.ORM;
 import org.ssa.ironyard.model.Password;
 import org.ssa.ironyard.model.User;
 
-public class UserORM implements ORM<User> {
+public interface UserORM extends ORM<User> {
 
     @Override
-    public String projection() {
-        // TODO Auto-generated method stub
-        return "id, email, salt, hash";
+    default String projection() {
+	StringJoiner joiner = new StringJoiner(", " + table() + ".", table() + ".", "");
+        joiner.add("id").add("email").add("salt").add("hash");
+        return joiner.toString();
     }
 
     @Override
-    public String eagerProjection() {
+    default String eagerProjection() {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public String table() {
+    default String table() {
         // TODO Auto-generated method stub
         return " users ";
     }
 
     @Override
-    public User map(ResultSet results) throws SQLException {
+    default User map(ResultSet results) throws SQLException {
         // TODO Auto-generated method stub
         Integer id = results.getInt(1);
         String email = results.getString(2);
@@ -41,36 +42,36 @@ public class UserORM implements ORM<User> {
     }
 
     @Override
-    public User eagerMap(ResultSet results) throws SQLException {
+    default User eagerMap(ResultSet results) throws SQLException {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public String prepareInsert() {
+    default String prepareInsert() {
         // TODO Auto-generated method stub
         return "Insert Into" + table() + "(" + projection() +")" + " Values(?, ?, ?, ?)";
     }
 
     @Override
-    public String prepareUpdate() {
+    default String prepareUpdate() {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public String prepareRead() {
+    default String prepareRead() {
         return "Select " + projection() + " from " + table() + " Where id=?";
     }
 
     @Override
-    public String prepareDelete() {
+    default String prepareDelete() {
         // TODO Auto-generated method stub
         return "Delete From " + table() + " Where id=?";
     }
 
     @Override
-    public String prepareEagerRead() {
+    default String prepareEagerRead() {
         // TODO Auto-generated method stub
         return null;
     }

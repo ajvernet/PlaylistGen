@@ -1,9 +1,8 @@
-package org.ssa.ironyard.dao.orm.maintableORMs;
+package org.ssa.ironyard.dao.orm;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.ssa.ironyard.dao.orm.ORM;
 import org.ssa.ironyard.model.Series;
 
 
