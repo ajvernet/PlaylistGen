@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import org.ssa.ironyard.dao.orm.ORM;
 import org.ssa.ironyard.dao.orm.UserORM;
 import org.ssa.ironyard.model.User;
-import org.ssa.ironyard.model.User.UserBuilder;
 
 @Component
 public class UserDAO extends AbstractSpringDAO<User> {
@@ -42,12 +41,12 @@ public class UserDAO extends AbstractSpringDAO<User> {
 
     @Override
     protected User afterInsert(User copy, Integer id) {
-	return new UserBuilder(copy).id(id).loaded(true).build();
+	return User.builder(copy).id(id).loaded(true).build();
     }
 
     @Override
     protected User afterUpdate(User copy) {
-	return new UserBuilder(copy).loaded(true).build();
+	return User.builder(copy).loaded(true).build();
     }
 
     @Override

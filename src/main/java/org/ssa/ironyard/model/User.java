@@ -1,7 +1,5 @@
 package org.ssa.ironyard.model;
 
-import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
-
 public class User extends DomainObject {
 
     private final String firstName;
@@ -79,6 +77,10 @@ public class User extends DomainObject {
 
     public static UserBuilder builder() {
 	return new UserBuilder();
+    }
+
+    public static UserBuilder builder(User user) {
+	return new UserBuilder(user);
     }
 
     @Override

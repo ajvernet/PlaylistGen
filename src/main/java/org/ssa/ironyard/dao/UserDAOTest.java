@@ -48,4 +48,10 @@ public class UserDAOTest {
 	assertTrue(dbUser.deeplyEquals(users.readByEmail(testUser.getEmail())));
     }
 
+    public void testUpdate(){
+	User dbUser = users.insert(testUser);
+	User changedUser = User.builder(dbUser).firstName("Jane").build();
+	dbUser = users.update(changedUser);
+	assertTrue(dbUser.deeplyEquals(changedUser));
+    }
 }
