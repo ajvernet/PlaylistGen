@@ -4,13 +4,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.StringJoiner;
 
-import org.ssa.ironyard.model.Address;
-import org.ssa.ironyard.model.Password;
-import org.ssa.ironyard.model.User;
+import org.ssa.ironyard.model.Address.AddressBuilder;
 import org.ssa.ironyard.model.Address.State;
 import org.ssa.ironyard.model.Address.ZipCode;
+import org.ssa.ironyard.model.Password;
+import org.ssa.ironyard.model.User;
 import org.ssa.ironyard.model.User.UserBuilder;
-import org.ssa.ironyard.model.Address.AddressBuilder;
 
 public interface UserORM extends ORM<User> {
 
@@ -18,16 +17,16 @@ public interface UserORM extends ORM<User> {
     default String projection() {
 	StringJoiner joiner = new StringJoiner(", " + table() + ".", table() + ".", "");
         joiner
-        .add("id")
-        .add("email")
-        .add("salt")
-        .add("hash")
-        .add("firstname")
-        .add("lastname")
-        .add("street")
-        .add("city")
-        .add("state")
-        .add("zip");
+            .add("id")
+            .add("email")
+            .add("salt")
+            .add("hash")
+            .add("firstname")
+            .add("lastname")
+            .add("street")
+            .add("city")
+            .add("state")
+            .add("zip");
         return joiner.toString();
     }
 
@@ -78,12 +77,12 @@ public interface UserORM extends ORM<User> {
 
     @Override
     default String prepareInsert() {
-        return "INSERT INTO" + table() + "(email, salt, hash)" + " VALUES(?, ?, ?)";
+        return "INSERT INTO" + table() + "(email, salt, hash, firstname, lastname, street, city, state, zip)" + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
     @Override
     default String prepareUpdate() {
-        return "UPDATE " + table() + " SET email=?, salt=?, hash=? WHERE id=?)";
+        return "UPDATE " + table() + " SET email=?, salt=?, hash=?, firstname=?, lastname=?, street=?, city=?, state=?, zip=? WHERE id=?)";
     }
 
     @Override
