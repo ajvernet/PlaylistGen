@@ -77,7 +77,7 @@ public interface UserORM extends ORM<User> {
 
     @Override
     default String prepareInsert() {
-        return "INSERT INTO" + table() + "(email, salt, hash, firstname, lastname, street, city, state, zip)" + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        return "INSERT INTO " + table() + "(email, salt, hash, firstname, lastname, street, city, state, zip)" + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
     @Override
@@ -98,6 +98,10 @@ public interface UserORM extends ORM<User> {
     @Override
     default String prepareEagerRead() {
         return prepareRead();
+    }
+
+    default String prepareReadByEmail(){
+	return "SELECT " + projection() + " FROM " + table() + " WHERE email=?";
     }
 
 }

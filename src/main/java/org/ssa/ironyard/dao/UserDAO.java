@@ -1,6 +1,7 @@
 package org.ssa.ironyard.dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.sql.DataSource;
@@ -14,7 +15,7 @@ import org.ssa.ironyard.model.User;
 import org.ssa.ironyard.model.User.UserBuilder;
 
 @Component
-public class UserDAO extends AbstractSpringDAO<User>{
+public class UserDAO extends AbstractSpringDAO<User> {
 
     public UserDAO(DataSource datasource, ORM<User> orm) {
 	super(orm, datasource);
@@ -51,7 +52,7 @@ public class UserDAO extends AbstractSpringDAO<User>{
 
     @Override
     protected PreparedStatementSetter updatePreparer(User domainToUpdate) {
-	return new PreparedStatementSetter(){
+	return new PreparedStatementSetter() {
 
 	    @Override
 	    public void setValues(PreparedStatement ps) throws SQLException {
@@ -65,10 +66,17 @@ public class UserDAO extends AbstractSpringDAO<User>{
 		ps.setString(8, domainToUpdate.getAddress().getState().getAbbreviation());
 		ps.setString(9, domainToUpdate.getAddress().getZip().datafy());
 		ps.setInt(10, domainToUpdate.getId());
-		
 	    }
-	    
 	};
+    }
+
+    public User readByEmail(String email){
+	return this.springTemplate.query(((UserORM)this.orm).prepareReadByEmail(), (PreparedStatement ps) -> ps.setString(1, email),
+		(ResultSet cursor) -> 
+	     {  if (cursor.next())
+	          return this.orm.map(cursor);
+	       return null;
+	     });
     }
 
 }
