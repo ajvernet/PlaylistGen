@@ -10,8 +10,8 @@ import org.ssa.ironyard.model.User;
 @Service
 public class LoginService {
     
-    UserDAO userDao;
-    BCryptSecurePassword verifier;
+    private final UserDAO userDao;
+    private final BCryptSecurePassword verifier;
 
     @Autowired
     public LoginService(UserDAO userDao, BCryptSecurePassword verifier){

@@ -3,6 +3,8 @@ package org.ssa.ironyard.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,24 +19,28 @@ import org.ssa.ironyard.service.LoginService;
 @RequestMapping("/podcasts")
 public class LoginController {
 
-    
-    private LoginService loginService;
-    
+    private final LoginService loginService;
+
+    Logger LOGGER = LogManager.getLogger(LoginController.class);
+
     @Autowired
-    public LoginController(LoginService loginService){
+    public LoginController(LoginService loginService) {
 	this.loginService = loginService;
     }
-    
-    @RequestMapping(value="login", method=RequestMethod.POST)
-    public ResponseEntity<ResponseObject> authenticateUser(HttpServletRequest request, HttpSession session){
+
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    public ResponseEntity<ResponseObject> authenticateUser(HttpServletRequest request, HttpSession session) {
 	String username = request.getParameter("user");
 	String password = request.getParameter("pass");
+	LOGGER.debug("Processing login attempt for {} - {}", username, password);
 	User user = loginService.authenticateUser(username, password);
-	if(user!=null)
+	session.setAttribute("UserID", user.getId());
+	if (user == null)
 	    return ResponseEntity.ok()
-			.body(ResponseObject.instanceOf(STATUS.SUCCESS, "Congratulations, you are a valid user", user.getId()));
+		    .body(ResponseObject.instanceOf(STATUS.ERROR, "Username or password invalid", null));
+
 	return ResponseEntity.ok()
-		.body(ResponseObject.instanceOf(STATUS.ERROR, "Username or password invalid", null));
-	
+		.body(ResponseObject.instanceOf(STATUS.SUCCESS, "Congratulations, you are a valid user", user.getId()));
+
     }
 }
