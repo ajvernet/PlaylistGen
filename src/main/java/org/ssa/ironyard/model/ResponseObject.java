@@ -4,16 +4,16 @@ public class ResponseObject {
 
     private final STATUS status;
     private final String msg;
-    private final Object data;
+    private final Object obj;
 
-    private ResponseObject(STATUS status, String msg, Object data) {
+    private ResponseObject(STATUS status, String msg, Object obj) {
 	this.status = status;
 	this.msg = msg;
-	this.data = data;
+	this.obj = obj;
     }
 
-    public static ResponseObject instanceOf(STATUS status, String msg, Object data) {
-	return new ResponseObject(status, msg, data);
+    public static ResponseObject instanceOf(STATUS status, String msg, Object obj) {
+	return new ResponseObject(status, msg, obj);
     }
 
     public String getMsg() {
@@ -25,7 +25,7 @@ public class ResponseObject {
     }
 
     public Object getData() {
-	return data;
+	return obj;
     }
 
     public enum STATUS {
