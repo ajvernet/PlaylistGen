@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<script src="/vendor/angular.min.js"></script>
+<script src="/vendor/jquery-3.1.0.min.js"></script>
 
 <html ng-app="login">
 
@@ -13,45 +13,39 @@
         <h1>Login</h1>
     </header>
 
-<form ng-submit="LC.login()" name="MyForm">
-	<label for="userEmail">Email: </label>
-	<input id="userEmail" type="text" ng-model="LC.userEmail" required>
+<label for="userEmail">Email: </label>
+	<input id="userEmail" type="text">
 	<br>
 	<label for="userPW">Password: </label>
-	<input id="userPW" type="text" ng-model="LC.userPW" required>
-	<br>
-	<input type="submit" value="Login" ng-disabled="MyForm.$invalid">
-</form>
+	<input id="userPW" type="text">
+	<button id="submitLogin">post</button>
 
 <script>
-angular.module('login', []).controller('LoginController', function($http) {
+
+$(document).ready(function(){
+
+$("#submitLogin").click(function(){
 	
-	var controller = this;
+	console.log($("#userEmail").val());
 	
-	controller.userEmail = "";
-	controller.userPW = "";
-	
-	controller.login = function(){
-	
-	$http({
-	    method: "POST",
-	    url : "/podcasts/login",
-	    dataType : "json",
-	    data: {
-            "user" : controller.userEmail,
-            "pass" : controller.userPW
+	$.ajax({
+        type : "POST",
+        url : "/podcasts/login",
+        dataType : "json",
+        data : {
+            "user" : $("#userEmail").val(),
+            "pass" : $("#userPW").val()
         }
-	}).success(function(reponse) {
+    }).done(function(reponse) {
 		console.log(reponse);
-		console.log(controller.userEmail + " - " + controller.userPW);
-	}).error(function(reponse) {
-		console.log("failed: " + reponse);
+		console.log($("#userEmail").val() + " - " + $("#userPW").val());
 	})
+
+	    //header: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'},
 		
-	}
-		
-	
+});	
 });
+
 </script>
 
 </body>

@@ -1,0 +1,20 @@
+<head>
+    <link href="/css/map-style.css" rel="stylesheet">
+</head>
+
+<div ng-model="MC.map" id="floating-panel">
+    <b>Start: </b>
+    <input type="text" ng-model="MC.start" id="start">
+  
+    <b>End: </b>
+    <input type="text" ng-model="MC.end" id="end">
+    
+    <div ng-model="MC.tripDuration"></div>
+    
+</div>
+
+<div id="map"></div>
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4JJmBrEKHOjclyDdkaxZp4JtvYrSpeWc&callback=initMap">
+    </script>
