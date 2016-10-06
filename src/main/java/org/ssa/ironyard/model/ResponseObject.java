@@ -24,7 +24,7 @@ public class ResponseObject {
 	return status;
     }
 
-    public Object getData() {
+    public Object getObj() {
 	return obj;
     }
 
