@@ -54,4 +54,11 @@ public class UserDAOTest {
 	dbUser = users.update(changedUser);
 	assertTrue(dbUser.deeplyEquals(changedUser));
     }
+    
+    public void testDelete(){
+	User dbUser = users.insert(testUser);
+	assertNotNull(users.read(dbUser.getId()));
+	users.delete(dbUser.getId());
+	assertNull(users.read(dbUser.getId()));
+    }
 }
