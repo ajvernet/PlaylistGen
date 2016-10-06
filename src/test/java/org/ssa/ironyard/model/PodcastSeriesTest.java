@@ -10,7 +10,7 @@ public class PodcastSeriesTest {
     @Test
     public void test() {
         
-        Series series = new Series("series");
+        Show series = new Show("series");
   
     }
 

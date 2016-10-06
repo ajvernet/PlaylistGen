@@ -3,19 +3,19 @@ package org.ssa.ironyard.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayList extends DomainObject{
+public class Playlist extends DomainObject{
 
     final User user;
     final List<Episode> podcasts = new ArrayList<>();
     
     
-    public PlayList(Integer id, boolean loaded, User user) {
+    public Playlist(Integer id, boolean loaded, User user) {
         super(id, loaded);
         this.user = user;
         // TODO Auto-generated constructor stub
     }
     
-    public PlayList()
+    public Playlist()
     {
         this(null, false, null);
     }
@@ -52,19 +52,19 @@ public class PlayList extends DomainObject{
         
     }
     
-    public PlayList setId(Integer id)
+    public Playlist setId(Integer id)
     {
-        return new PlayList(id, this.loaded, this.user);
+        return new Playlist(id, this.loaded, this.user);
     }
     
-    public PlayList setLoaded()
+    public Playlist setLoaded()
     {
-        return new PlayList(this.id, true, this.user);
+        return new Playlist(this.id, true, this.user);
     }
     
-    public PlayList setUser(User user)
+    public Playlist setUser(User user)
     {
-        return new PlayList(this.id, this.loaded, user);
+        return new Playlist(this.id, this.loaded, user);
     }
     @Override
     public boolean deeplyEquals(Object obj) {
@@ -74,7 +74,7 @@ public class PlayList extends DomainObject{
             return false;
         if (getClass() != obj.getClass())
             return false;
-        PlayList other = (PlayList) obj;
+        Playlist other = (Playlist) obj;
         if (podcasts == null) {
             if (other.podcasts != null)
                 return false;

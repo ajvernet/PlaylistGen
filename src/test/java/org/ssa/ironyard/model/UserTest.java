@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.ssa.ironyard.crypto.BCryptSecurePassword;
-import org.ssa.ironyard.model.PlayList;
+import org.ssa.ironyard.model.Playlist;
 
 import org.ssa.ironyard.model.User.UserBuilder;
 
@@ -17,17 +17,17 @@ public class UserTest {
     String email;
     Password password;
     final BCryptSecurePassword security = new BCryptSecurePassword();
-    PlayList list1;
-    PlayList list2;
-    PlayList list3;
+    Playlist list1;
+    Playlist list2;
+    Playlist list3;
 
     @Before
     public void setup() {
 	email = "user@email.com";
 	password = security.secureHash("test");
-	list1 = new PlayList();
-	list2 = new PlayList();
-	list3 = new PlayList();
+	list1 = new Playlist();
+	list2 = new Playlist();
+	list3 = new Playlist();
 
     }
 

@@ -1,28 +1,28 @@
 package org.ssa.ironyard.model;
 
-    public class Series extends DomainObject{
+    public class Show extends DomainObject{
 
         final String name;
         
 
-        public Series(Integer id, boolean loaded, String name) {
+        public Show(Integer id, boolean loaded, String name) {
             super(id, loaded);
             this.name = name;
         }
         
-        public Series(String name)
+        public Show(String name)
         {
             this(null, false, name);
         }
 
-        public Series setId(Integer id)
+        public Show setId(Integer id)
         {
-            return new Series(id, this.loaded, this.name);
+            return new Show(id, this.loaded, this.name);
         }
         
-        public Series setLoaded()
+        public Show setLoaded()
         {
-            return new Series(this.id, true, this.name);
+            return new Show(this.id, true, this.name);
         }
         
         @Override
@@ -33,7 +33,7 @@ package org.ssa.ironyard.model;
                 return false;
             if (getClass() != obj.getClass())
                 return false;
-            Series other = (Series) obj;
+            Show other = (Show) obj;
             if (name == null) {
                 if (other.name != null)
                     return false;
