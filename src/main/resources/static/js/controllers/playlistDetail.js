@@ -1,7 +1,7 @@
-angular.module("podcaster").controller("BenchmarkDetailController", BenchmarkDetailController)
-BenchmarkDetailController.$inject = ['$state', 'Benchmarks']
+angular.module("podcaster").controller("PlaylistDetailController", PlaylistDetailController)
+PlaylistDetailController.$inject = ['$state', 'Benchmarks']
 
-function BenchmarkDetailController($state, Benchmarks) {
+function PlaylistDetailController($state, Benchmarks) {
     var ctrl = this
     console.log('state is', $state)
     console.log('id is', $state.params.id)

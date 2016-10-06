@@ -1,0 +1,27 @@
+<h2>Podcasts</h2>
+<div class="row">
+    <div class="col-sm-6">
+        <table class="table table-hover table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        <div class="btn" ng-click="PC.sortBy('name')">ID</div><span class="sortorder" ng-show="bc.propertyName === 'id'" ng-class="{reverse: bc.reverse}"></span></th>
+                    <th>
+                        <div class="btn" ng-click="PC.sortBy('language.name')">Source</div><span class="sortorder" ng-show="bc.propertyName === 'source'" ng-class="{reverse: bc.reverse}"></span></th>
+                    <th>
+                        <div class="btn" ng-click="PC.sortBy('server.name')">Description</div><span class="sortorder" ng-show="bc.propertyName === 'text'" ng-class="{reverse: bc.reverse}"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="x in PC.benchmarks | orderBy:bc.propertyName:bc.reverse">
+                    <td> <a ui-sref="playlists.detail({id: x.id})">{{x.id}} </a> </td>
+                    <td>{{x.source}}</td>
+                    <td>{{x.text}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-6">
+        <aside ui-view>Click on a Podcast to see the same thing below!</aside>
+    </div>
+</div>

@@ -12,4 +12,10 @@ public class Home
     {
         return "/index.html";
     }
+    
+    @RequestMapping(value = "/login")
+    public String login()
+    {
+        return "/login.html";
+    }
 }

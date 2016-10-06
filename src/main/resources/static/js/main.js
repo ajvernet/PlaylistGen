@@ -11,19 +11,17 @@ function configure($stateProvider, $urlRouterProvider) {
         url: '/createPlaylist'
         , controller: 'CreatePlaylistController'
         , controllerAs: 'MC'
-        , templateUrl: '/templates/createPlaylist.html'    	
-        	
-        	
-    }).state('benchmarks', {
-        url: '/benchmarks'
-        , controller: 'BenchmarkController'
-        , controllerAs: 'bc'
-        , templateUrl: '/templates/benchmarks.html'
-    }).state('benchmarks.detail', {
+        , templateUrl: '/templates/createPlaylist.html'    	   	
+    }).state('playlists', {
+        url: '/playlists'
+        , controller: 'PlaylistController'
+        , controllerAs: 'PC'
+        , templateUrl: '/templates/savedPlaylists.html'
+    }).state('playlists.detail', {
         url: '/:id'
-        , controller: 'BenchmarkDetailController'
-        , controllerAs: 'bc'
-        , templateUrl: '/templates/benchmark.html'
+        , controller: 'PlaylistDetailController'
+        , controllerAs: 'PC'
+        , templateUrl: '/templates/playlistDetail.html'
     })
     $urlRouterProvider.otherwise('/')
     console.log("setting up", $stateProvider)
