@@ -1,8 +1,5 @@
 package org.ssa.ironyard.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class User extends DomainObject{
 
     final String email;
