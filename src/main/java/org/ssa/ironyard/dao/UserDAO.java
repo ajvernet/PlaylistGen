@@ -35,7 +35,7 @@ public class UserDAO extends AbstractSpringDAO<User>{
 
     @Override
     protected User afterInsert(User copy, Integer id) {
-	return new UserBuilder(copy).id(id).build();
+	return new UserBuilder(copy).id(id).loaded(true).build();
     }
 
     @Override

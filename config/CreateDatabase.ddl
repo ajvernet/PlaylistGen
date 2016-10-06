@@ -74,7 +74,7 @@ CREATE TABLE `series_tags` (
 	`Tag` VARCHAR(50) NOT NULL,
 
 	CONSTRAINT `series_tags_ibfk_1` FOREIGN KEY (`Series_ID`) REFERENCES `series` (`ID`),
-	PRIMARY KEY (Series_ID, Tag)
+	PRIMARY KEY (Tag, Series_ID)
 
 )
 COLLATE='utf8_general_ci'
