@@ -23,7 +23,7 @@
 </form>
 
 <script>
-angular.module('login', []).controller('LoginController', function($http) {
+angular.module('login', []).controller('LoginController', function($http, $window) {
 	
 	var controller = this;
 	
@@ -40,11 +40,17 @@ angular.module('login', []).controller('LoginController', function($http) {
             "user" : controller.userEmail,
             "pass" : controller.userPW
         }
-	}).success(function(reponse) {
-		console.log(reponse);
-		console.log(controller.userEmail + " - " + controller.userPW);
-	}).error(function(reponse) {
-		console.log("failed: " + reponse);
+	}).success(function(response) {
+		console.log(response.status + " - " + response.msg);
+		if(response.status === "SUCCESS"){
+		$window.location.href = '/podcaster/';
+		}
+		if(response.status === "ERROR"){
+			controller.userPW = "";
+		}
+		
+	}).error(function(response) {
+		console.log("http error");
 	})
 		
 	}

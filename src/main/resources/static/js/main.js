@@ -19,10 +19,20 @@ function configure($stateProvider, $urlRouterProvider) {
         , templateUrl: '/templates/savedPlaylists.html'
     }).state('playlists.detail', {
         url: '/:id'
-        , controller: 'PlaylistDetailController'
+        , controller: 'PlaylistQuickDetailController'
         , controllerAs: 'PC'
-        , templateUrl: '/templates/playlistDetail.html'
-    })
+        , templateUrl: '/templates/playlistQuickDetail.html'
+    }).state('player', {
+        url: '/player'
+            , controller: 'PlayerController'
+            , controllerAs: 'PC'
+            , templateUrl: '/templates/player.html'
+    }).state('playlistDetail', {
+        url: '/playlistDetail'
+            , controller: 'PlaylistDetailController'
+            , controllerAs: 'PC'
+            , templateUrl: '/templates/playlistDetail.html'
+            })
     $urlRouterProvider.otherwise('/')
     console.log("setting up", $stateProvider)
 }
