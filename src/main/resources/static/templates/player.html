@@ -1,25 +1,4 @@
-<div id="playlistDiv" class="row"  ng-show="PC.shown">
-
-todo - single playlist detail play/edit/delete
-
-    <div>
-        <table class="table table-hover table-striped table-bordered">
-            
-            <tbody>
-                <tr ng-repeat="x in PC.benchmarks | orderBy:bc.propertyName:bc.reverse">
-                    <td> <a ng-click="PC.playPL()">{{x.id}} </a> </td>
-                    <td>{{x.episode.title}}</td>
-                    <td>{{x.episode.show_title}}</td>
-                    <td>{{x.episode.audio_files[0].duration}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    
-</div>
-
-<div>
-<div id="playerDiv" ng-hide="PC.shown">
+<div class="playerDiv">
 		<sound-manager></sound-manager>
 		
 		<ul>
@@ -42,4 +21,3 @@ todo - single playlist detail play/edit/delete
 			<div class="seekLoad" ng-style="{width : ( progress + '%' ) }"></div>
 		</div>
 	</div>
-</div>

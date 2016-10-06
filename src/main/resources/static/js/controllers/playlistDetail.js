@@ -1,15 +1,21 @@
-angular.module("podcaster").controller("PlaylistDetailController", PlaylistDetailController)
-PlaylistDetailController.$inject = ['$state', 'Benchmarks']
+angular.module("podcaster").controller("PlaylistDetailController", PlaylistDetailCtrl)
+PlaylistDetailCtrl.$inject = ['$scope', 'Benchmarks']
 
-function PlaylistDetailController($state, Benchmarks) {
-    var ctrl = this
-    console.log('state is', $state)
-    console.log('id is', $state.params.id)
+function PlaylistDetailCtrl($scope, Benchmarks) {
+    
+    var ctrl = this;
+    
+    ctrl.shown = true;
+    
     Benchmarks.all().then(function (benchmarks) {
-        benchmarks.forEach(function (obj) {
-            if (obj.id === Number($state.params.id)) {
-                ctrl.benchmark = obj
-            }
-        })
+        ctrl.benchmarks = benchmarks;
     })
+    
+    
+
+    ctrl.playPL = function(){
+    	ctrl.shown = false;
+    }
+
+    
 }
