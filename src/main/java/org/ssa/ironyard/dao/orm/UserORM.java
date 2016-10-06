@@ -6,6 +6,7 @@ import java.util.StringJoiner;
 
 import org.ssa.ironyard.model.Password;
 import org.ssa.ironyard.model.User;
+import org.ssa.ironyard.model.User.UserBuilder;
 
 public interface UserORM extends ORM<User> {
 
@@ -32,7 +33,12 @@ public interface UserORM extends ORM<User> {
         String email = results.getString(2);
         String salt = results.getString(3);
         String hash = results.getString(4);
-        return new User(id, true, email, new Password(salt, hash));
+        return new UserBuilder()
+        	.id(id)
+        	.loaded(true)
+        	.email(email)
+        	.password(new Password(salt,hash))
+        	.build();
     }
 
     @Override
