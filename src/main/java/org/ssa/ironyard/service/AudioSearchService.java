@@ -1,6 +1,5 @@
 package org.ssa.ironyard.service;
 
-import java.io.IOException;
 import java.util.Arrays;
 
 import org.apache.logging.log4j.LogManager;
@@ -13,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.HtmlUtils;
 
 @Service
 public class AudioSearchService {
@@ -20,41 +20,53 @@ public class AudioSearchService {
     static String trendingUriFragment = "/trending";
 
     private final AuthorizationService authorizationService;
-
     private Logger LOGGER = LogManager.getLogger(AudioSearchService.class);
+    private final HttpEntity<String> oauth;
 
     @Autowired
     public AudioSearchService(AuthorizationService authorizationService) {
+	LOGGER.info("AudioSearchService is loading");
 	this.authorizationService = authorizationService;
+	this.oauth = getHeaders();
     }
 
     public String getTrending() {
 	final String uri = apiBaseUri + "/trending";
-	LOGGER.debug("URI: {}", uri);
 	RestTemplate restTemplate = new RestTemplate();
 	ResponseEntity<String> result;
-	result = restTemplate.exchange(uri, HttpMethod.GET, getHeaders(), String.class);
-	LOGGER.debug(result.toString());
+	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, String.class);
 	return result.getBody();
     }
 
     public String getRandomEpisode() {
 	final String uri = apiBaseUri + "/random_episode";
-	LOGGER.debug("URI: {}", uri);
 	RestTemplate restTemplate = new RestTemplate();
 	ResponseEntity<String> result;
-	result = restTemplate.exchange(uri, HttpMethod.GET, getHeaders(), String.class);
-	LOGGER.debug(result.toString());
+	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, String.class);
+	return result.getBody();
+    }
+
+    public String getEpisodeById(Integer id) {
+	final String uri = apiBaseUri + "/episodes/" + id;
+	RestTemplate restTemplate = new RestTemplate();
+	ResponseEntity<String> result;
+	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, String.class);
 	return result.getBody();
     }
 
     public String getChartDaily() {
 	final String uri = apiBaseUri + "/chart_daily";
-	LOGGER.debug("URI: {}", uri);
 	RestTemplate restTemplate = new RestTemplate();
 	ResponseEntity<String> result;
-	result = restTemplate.exchange(uri, HttpMethod.GET, getHeaders(), String.class);
-	LOGGER.debug(result.toString());
+	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, String.class);
+	return result.getBody();
+    }
+    
+    public String searchEpisodesByShowName(String showName){
+	final String uri = apiBaseUri + "/episodes/" + HtmlUtils.htmlEscape(showName);
+	RestTemplate restTemplate = new RestTemplate();
+	ResponseEntity<String> result;
+	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, String.class);
 	return result.getBody();
     }
 

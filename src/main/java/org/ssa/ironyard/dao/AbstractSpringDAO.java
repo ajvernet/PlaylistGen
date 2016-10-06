@@ -6,13 +6,14 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.sql.DataSource;
+
+import java.sql.ResultSet;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.ssa.ironyard.dao.orm.ORM;
 import org.ssa.ironyard.model.DomainObject;
-import java.sql.ResultSet;
 
 /**
  *
@@ -86,6 +87,12 @@ public abstract class AbstractSpringDAO<T extends DomainObject> implements DAO<T
         if (null == id)
             return false;
         return 1 == this.springTemplate.update(this.orm.prepareDelete(), (PreparedStatement ps) -> ps.setInt(1, id));
+    }
+    
+    @Override
+    public int clear() throws UnsupportedOperationException {
+	
+	return this.springTemplate.update("DELETE FROM " + orm.table());
     }
 
     /**

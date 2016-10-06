@@ -13,11 +13,9 @@
 		<Root level="warn">
 			<AppenderRef ref="Console" />
 		</Root>
-		<Logger name="org.ssa.ironyard" level="debug">
-			<AppenderREf ref="log-file" />
-		</Logger>
-		<Logger name="org.ssa.ironyard" level="debug">
-			<AppenderREf ref="Console" />
+		<Logger name="org.ssa.ironyard" level="debug" additivity="false">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="log-file" />
 		</Logger>
 	</Loggers>
 </Configuration>

@@ -35,4 +35,12 @@ public class AudioSearchController {
 	return ResponseEntity.ok()
 		.body(ResponseObject.instanceOf(STATUS.SUCCESS, "Daily Chart results returned", ass.getChartDaily()));
     }
+    
+    @RequestMapping("episodes/random")
+    ResponseEntity<ResponseObject> getRandomEpisode() {
+	LOGGER.debug("Contacting AudioSearch for trending podcasts");
+	return ResponseEntity.ok()
+		.body(ResponseObject.instanceOf(STATUS.SUCCESS, "Random Episode returned", ass.getRandomEpisode()));
+    }
+    
 }

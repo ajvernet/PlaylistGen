@@ -1,8 +1,5 @@
 package org.ssa.ironyard.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class User extends DomainObject{
 
     final String email;
@@ -18,6 +15,21 @@ public class User extends DomainObject{
     {
         this(null, false, email, password);
     }
+    
+    public User()
+    {
+        this(null, false, null, null);
+    }
+    
+    public String getEmail()
+    {
+        return this.email;
+    }
+    
+    public Password getPassword()
+    {
+        return this.password;
+    }
 
     public User setId(Integer id)
     {
@@ -27,7 +39,17 @@ public class User extends DomainObject{
     public User setLoaded()
     {
         return new User(this.id, true,  this.email, this.password);
-    }    
+    }  
+    
+    public User setEmail(String email)
+    {
+        return new User(this.id, this.loaded, email, this.password);
+    }
+    
+    public User setPassword(Password password)
+    {
+        return new User(this.id, this.loaded, this.email, password);
+    }
 
     @Override
     boolean deeplyEquals(Object obj) {

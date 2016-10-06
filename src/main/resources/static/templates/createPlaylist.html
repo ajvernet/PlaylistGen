@@ -1,0 +1,63 @@
+<div>
+	<div class="resultsDiv">
+
+		<h5>Songs</h5>
+
+		<ul>
+			<li ng-repeat="song in MC.songs">
+				<button ng-click="MC.addToPL(song)">{{ song.title }}</button>
+			</li>
+		</ul>
+
+	</div>
+
+	<div class="playlistDiv">
+
+		<h5>Playlist</h5>
+		{{ MC.playlistDurationBuilder }}
+
+		<ul>
+			<li ng-repeat="song in MC.createdPlaylist">{{ song.title }} -
+				<button ng-click="MC.dropSong($index, song)">remove</button>
+				<button ng-click="MC.raiseSong($index)" ng-hide="$first">up</button>
+				<button ng-click="MC.lowerSong($index)" ng-hide="$last">down</button>
+			</li>
+		</ul>
+
+
+	</div>
+
+	<br> <br>
+
+	<button play-all="MC.createdPlaylist" data-play="false">Launch
+		Playlist</button>
+	<!--	<button ng-click="MC.launchPL()">Launch Playlist</button> -->
+
+	<br> <br> <br>
+	<button play-music ng-click="MC.playPL()">Play</button>
+	<button pause-music ng-click="MC.pausePL()">Pause</button>
+	<br> <br> Volume: {{ volume }} -
+	<button music-volume data-type="increase">+</button>
+	-
+	<button music-volume data-type="decrease">-</button>
+	<br> <br> <br>
+
+	<div class="playerDiv">
+		<sound-manager></sound-manager>
+
+		<h5>Player</h5>
+
+		<p>Currently Playing: {{ currentPlaying.title }} by {{
+			currentPlaying.artist }} ({{ currentPostion }} / {{ currentDuration
+			}})</p>
+		<div class="seekBase" seek-track>
+			<div class="seekLoad" ng-style="{width : ( progress + '%' ) }"></div>
+		</div>
+	</div>
+
+</div>
+
+<p ng-bind="MC.counter"></p>
+<button ng-click="MC.stop()">Stop</button>
+<button ng-click="MC.countdown()">Start</button>
+</div>

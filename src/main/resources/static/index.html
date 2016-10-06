@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="podcaster">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="/vendor/angular.min.js"></script>
+    <script src="/vendor/angular-ui-router.min.js"></script>
+    <script src="/vendor/angular-soundmanager2.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/controllers/dashboard.js"></script>
+    <script src="/js/controllers/createPlaylist.js"></script>
+    <script src="/js/controllers/benchmark-list.js"></script>
+    <script src="/js/controllers/benchmark-detail.js"></script>
+    <script src="/js/services/benchmarks.js"></script>
+    <link href="/vendor/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>Podcaster</h1>
+        <nav class="navbar navbar-default">
+            <ul class="nav navbar-nav">
+                <li><a ui-sref="dashboard" ui-sref-active="active">Dashboard</a></li>
+                <li><a ui-sref="createPlaylist" ui-sref-active="active">Create Playlist</a></li>
+                <li><a ui-sref="benchmarks" ui-sref-active="active">Podcasts</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <main ui-view> </main>
+    </div>
+</body>
+
+</html>
