@@ -22,7 +22,7 @@ CREATE TABLE `episodes` (
 )
 ;
 
-CREATE TABLE customer
+CREATE TABLE users
 (id INT AUTO_INCREMENT PRIMARY KEY,
 email VARCHAR(255) NOT NULL,
 salt VARCHAR(50) NOT NULL,
@@ -32,7 +32,7 @@ lastname VARCHAR(50) NOT NULL,
 street VARCHAR(50) NOT NULL,
 city VARCHAR(50) NOT NULL,
 state VARCHAR(2) NOT NULL,
-zip VARCHAR(5) NOT NULL,
+zip VARCHAR(9) NOT NULL,
 UNIQUE (email))
 ENGINE = InnoDB;
 
@@ -74,7 +74,7 @@ CREATE TABLE `series_tags` (
 	`Tag` VARCHAR(50) NOT NULL,
 
 	CONSTRAINT `series_tags_ibfk_1` FOREIGN KEY (`Series_ID`) REFERENCES `series` (`ID`),
-	PRIMARY KEY (Series_ID, Tag)
+	PRIMARY KEY (Tag, Series_ID)
 
 )
 COLLATE='utf8_general_ci'
