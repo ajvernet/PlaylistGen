@@ -18,6 +18,8 @@ public class BCryptSecureTests
     {
         final String raw = "s3cr3t";
         Password pass = this.security.secureHash(raw);
+        System.out.println(pass.getSalt());
+        System.out.println(pass.getHash());
         assertTrue("", this.security.verify(raw, pass));
     }
     

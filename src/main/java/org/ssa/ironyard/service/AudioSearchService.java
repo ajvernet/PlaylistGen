@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.HtmlUtils;
 
 @Service
 public class AudioSearchService {
@@ -58,6 +59,15 @@ public class AudioSearchService {
 	RestTemplate restTemplate = new RestTemplate();
 	ResponseEntity<String> result;
 	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, String.class);
+	return result.getBody();
+    }
+    
+    public String searchEpisodesByShowName(String showName){
+	final String uri = apiBaseUri + "/episodes/" + HtmlUtils.htmlEscape(showName);
+	RestTemplate restTemplate = new RestTemplate();
+	ResponseEntity<String> result;
+	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, String.class);
+	
 	return result.getBody();
     }
 

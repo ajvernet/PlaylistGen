@@ -1,7 +1,7 @@
-angular.module('podcaster').controller("BenchmarkController", BenchmarkCtrl)
-BenchmarkCtrl.$inject = ['Benchmarks']
+angular.module('podcaster').controller("PlaylistController", PlaylistCtrl)
+PlaylistCtrl.$inject = ['Benchmarks']
 
-function BenchmarkCtrl(Benchmarks) {
+function PlaylistCtrl(Benchmarks) {
     var ctrl = this;
     Benchmarks.all().then(function (benchmarks) {
         ctrl.benchmarks = benchmarks;

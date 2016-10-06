@@ -2,12 +2,14 @@
 package org.ssa.ironyard.crypto;
 
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.stereotype.Component;
 import org.ssa.ironyard.model.Password;
 
 /**
  *
  * @author thurston
  */
+@Component
 public class BCryptSecurePassword implements SecurePassword
 {
 
