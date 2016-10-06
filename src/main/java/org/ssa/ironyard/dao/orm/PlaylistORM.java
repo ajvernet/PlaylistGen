@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import org.ssa.ironyard.model.Playlist;
 
-public class PlayListORM implements ORM<Playlist> {
+public class PlaylistORM implements ORM<Playlist> {
 
     @Override
     public String projection() {

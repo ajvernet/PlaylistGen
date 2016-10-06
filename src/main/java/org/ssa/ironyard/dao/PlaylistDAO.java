@@ -2,7 +2,7 @@ package org.ssa.ironyard.dao;
 
 import org.ssa.ironyard.model.Playlist;
 
-public class PlayListDAO implements DAO<Playlist>{
+public class PlaylistDAO implements DAO<Playlist>{
 
     @Override
     public Playlist insert(Playlist domain) {
