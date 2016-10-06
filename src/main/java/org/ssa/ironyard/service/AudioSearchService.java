@@ -67,6 +67,7 @@ public class AudioSearchService {
 	RestTemplate restTemplate = new RestTemplate();
 	ResponseEntity<String> result;
 	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, String.class);
+	
 	return result.getBody();
     }
 
