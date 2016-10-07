@@ -1,6 +1,9 @@
 package org.ssa.ironyard.service;
 
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,7 +15,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.HtmlUtils;
+import org.ssa.ironyard.model.AudioFile;
+import org.ssa.ironyard.model.Episode;
+import org.ssa.ironyard.model.ImageUrl;
+import org.ssa.ironyard.model.PodcastEpisode;
+import org.ssa.ironyard.model.SearchResults;
+import org.ssa.ironyard.model.Show;
 
 @Service
 public class AudioSearchService {
@@ -61,16 +69,65 @@ public class AudioSearchService {
 	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, String.class);
 	return result.getBody();
     }
-    
-    public String searchEpisodesByShowName(String showName){
-	final String uri = apiBaseUri + "/episodes/" + HtmlUtils.htmlEscape(showName);
+
+    public String searchEpisodesByShowName(String showName) {
+	final String uri = apiBaseUri + "/episodes/" + showName;
 	RestTemplate restTemplate = new RestTemplate();
 	ResponseEntity<String> result;
 	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, String.class);
-	
+
 	return result.getBody();
     }
 
+    public List<Episode> searchEpisodesByGenre(String genre) throws UnsupportedEncodingException {
+	final String uri = apiBaseUri + "/search/episodes/" + "filters[categories.name]=" + genre;
+	System.err.println(uri);
+	RestTemplate restTemplate = new RestTemplate();
+	ResponseEntity<SearchResults> result;
+	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, SearchResults.class);
+	return processSearchResults(result.getBody());
+    }
+    
+    public List<Episode> searchEpisodesByKeywords(String searchText){
+	final String uri = apiBaseUri + "/search/episodes/" + searchText;
+	System.err.println(uri);
+	RestTemplate restTemplate = new RestTemplate();
+	ResponseEntity<SearchResults> result;
+	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, SearchResults.class);
+	return processSearchResults(result.getBody());
+    }
+
+    private List<Episode> processSearchResults(SearchResults searchResults){
+	List<Episode> episodes = new ArrayList<>();
+	for(PodcastEpisode p : searchResults.getResults()){
+	    String fileUrl = "";
+	    for(AudioFile a : p.getAudio_files()){
+		if(a.getMp3()!=null)
+		fileUrl = a.getMp3();
+		else if(a.getUrl()!=null)
+		    fileUrl = a.getUrl();
+	    }
+	    String fullImgUrl = "";
+	    String thumbImgUrl = "";
+	    for(ImageUrl u : p.getImg_urls()){
+		if(u.getFull()!= null)
+		    fullImgUrl = u.getFull();
+		if(u.getThumb()!=null)
+		    thumbImgUrl = u.getThumb();
+	    }	    
+	    Episode e = Episode.builder()
+		    .episodeId(p.getId())
+		    .name(p.getTitle())
+		    .show(new Show(null, false, p.getShow_title(), p.getShow_id(), fullImgUrl, thumbImgUrl))
+		    .duration(p.getDuration())
+		    .fileUrl(fileUrl)
+		    .build();
+	    if(e.getFileUrl().endsWith("mp3"))
+		episodes.add(e);
+	}
+	return episodes;
+    }
+    
     private HttpEntity<String> getHeaders() {
 	HttpHeaders headers = new HttpHeaders();
 	headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));

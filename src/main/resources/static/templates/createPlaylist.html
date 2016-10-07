@@ -1,3 +1,4 @@
+<!--
 <div id="mapsDiv">
 <form ng-submit="MC.driveTime()" name="MyForm">
 	<label for="startAddress">Start: </label>
@@ -10,9 +11,10 @@
 </form>
 </div>
 <br><br>
+-->
 User Defined Duration:
-<input id="manualDurHours" type="text" ng-model="MC.userDurHours">
-<input id="manualDurMinutes" type="text" ng-model="MC.userDurMinutes">
+<input id="manualDurHours" type="number" min="0" value="0" ng-model="MC.userDurHours">
+<input id="manualDurMinutes" type="number" min="0" value="0" ng-model="MC.userDurMinutes">
 <br>
 <button ng-click="MC.manualTime()">Get Manual Time</button>
 
@@ -27,14 +29,30 @@ User Defined Duration:
 	<div class="resultsDiv">
 
 		<h5>Podcast Search</h5>
-
+<!--
 		<ul>
 			<li ng-repeat="song in MC.songs">
 				<button ng-click="MC.addToPL(song)">{{ song.title }}</button>
 			</li>
 		</ul>
+-->
+
+<table class="table table-hover table-striped table-bordered">
+	<tr ng-repeat="song in MC.songs" ng-mouseover="MC.hoverDetail(song, $event)" ng-mouseleave="MC.hoverLeave()">
+		<td ng-click="MC.addToPL(song)">{{ song.title }}</td>
+	</tr>
+</table>
 
 	</div>
+	
+	<div id="podcastDetail" class="podcastDetail" ng-show="MC.detailShow" ng-style="{'left':MC.offsetLeft, 'top':MC.offsetTop}">
+	
+		{{ MC.detailTitle }}
+		{{ MC.detailArtist }}
+		{{ MC.detailDuration }}
+	
+	</div>
+	
 
 	<div class="playlistDiv">
 
@@ -42,7 +60,7 @@ User Defined Duration:
 		{{ MC.playlistDurationBuilder }}
 
 		<ul>
-			<li ng-repeat="song in MC.createdPlaylist">{{ song.title }} -
+			<li ng-repeat="song in MC.createdPlaylist" ng-class="{'color-red': song.duration > {{ MC.userDuration }}, 'color-blue': s.state === 'Warning', 'color-green': s.state === 'Ignored'}">{{ song.title }} -
 				<button ng-click="MC.dropSong($index, song)">remove</button>
 				<button ng-click="MC.raiseSong($index)" ng-hide="$first">up</button>
 				<button ng-click="MC.lowerSong($index)" ng-hide="$last">down</button>

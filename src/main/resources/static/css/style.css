@@ -39,3 +39,14 @@ li {
   width: 0;
   background-color: #E0EAF1;
 }
+
+.podcastDetail{
+	display: block;
+	position: absolute;
+	width: 500px;
+	height: 30px	;
+	z-index: 1000;
+	background-color: white;
+	border: black solid 2px;
+	text-align: right;
+}
