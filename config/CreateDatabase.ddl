@@ -49,17 +49,6 @@ CREATE TABLE `playlists` (
 )
 ;
 
-
-CREATE TABLE `episodes_tags` (
-	Episode_ID INT(10) UNSIGNED NOT NULL,
-	Tag VARCHAR(50) NOT NULL,
-
-	FOREIGN KEY (Episode_ID) REFERENCES episodes (ID),
-	PRIMARY KEY (Episode_ID, Tag)
-
-)
-
-;
 CREATE TABLE `playlists_episodes` (
 	`Series_ID` INT(10) UNSIGNED NOT NULL,
 	`Episode_ID` INT(10) UNSIGNED NOT NULL,
@@ -71,15 +60,4 @@ CREATE TABLE `playlists_episodes` (
 )
 ;
 
-CREATE TABLE `series_tags` (
-	`Series_ID` INT(10) UNSIGNED NOT NULL,
-	`Tag` VARCHAR(50) NOT NULL,
-
-	CONSTRAINT `series_tags_ibfk_1` FOREIGN KEY (`Series_ID`) REFERENCES `series` (`ID`),
-	PRIMARY KEY (Tag, Series_ID)
-
-)
-COLLATE='utf8_general_ci'
-ENGINE=InnoDB
-;
 
