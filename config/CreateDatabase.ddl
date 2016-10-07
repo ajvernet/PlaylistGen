@@ -2,7 +2,7 @@ CREATE DATABASE playlistdb;
 
 USE playlistdb;
 
-CREATE TABLE `series` (
+CREATE TABLE `shows` (
 	`ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`Name` VARCHAR(500) NULL DEFAULT NULL,
 	PRIMARY KEY (`ID`)
@@ -10,12 +10,21 @@ CREATE TABLE `series` (
 
 ;
 CREATE TABLE `episodes` (
+
+            .add("id")
+            .add("episodeId")
+            .add("name")
+            .add("duration")
+            .add("fileUrl")
+            .add("showId")
+            .add("playlistId");
 	`ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-	`Series_ID` INT(10) UNSIGNED NOT NULL,
-	`Name` VARCHAR(500) NULL DEFAULT NULL,
-	`Duration` INT(11) NOT NULL,
-	`Published` DATE NOT NULL,
-	`URL` VARCHAR(300) NULL DEFAULT NULL,
+	`episodeId` INT(10) UNSIGNED NOT NULL,
+	`name` VARCHAR(500) NULL DEFAULT NULL,
+	`duration` INT(11) NOT NULL,
+	`fileUrl` VARCHAR(300) NULL DEFAULT NULL,
+	`showId` INT(10) UNSIGNED NOT NULL,
+	`playlistId` INT(10) UNSIGNED NOT NULL,
 	PRIMARY KEY (`ID`),
 	INDEX `Series_ID` (`Series_ID`),
 	CONSTRAINT `episodes_ibfk_1` FOREIGN KEY (`Series_ID`) REFERENCES `series` (`ID`)

@@ -1,12 +1,22 @@
 angular.module('podcaster').controller("CreatePlaylistController", CreatePlaylistCtrl)
-CreatePlaylistCtrl.$inject = ['$scope', '$timeout']
+CreatePlaylistCtrl.$inject = ['$scope', '$timeout', "$http"]
 
-function CreatePlaylistCtrl($scope, $timeout) {
+function CreatePlaylistCtrl($scope, $timeout, $http) {
 
 var controller = this;
 
 controller.playlistDurationBuilder = 0;
 controller.playlistDuration = 0;
+controller.startAddress = "";
+controller.endAddress = "";
+
+controller.tripDuration = "";
+controller.userDuration = "";
+	
+controller.userDuruserDurHours = "";
+controller.userDuruserDurHours = "";
+	
+
 controller.counter = controller.playlistDurationBuilder;
 
 controller.songs = [
@@ -118,5 +128,21 @@ controller.countdown = function() {
    $timeout.cancel(stopped);
     
     }
+  
+  controller.driveTime = function(){
+	   $http.get("/podcasts/trip")
+	    .then(function(response) {
+	    	console.log(response);
+	    	controller.tripDuration = response.duration;
+	    })
+	  
+	    }
+  
+  controller.manualTime = function(){
+	  	var hourToSec = Number(controller.userDurHours) * 3600;
+	  	var minuteToSec = Number(controller.userDurMinutes) * 60;
+	  	console.log(hourToSec + minuteToSec);
+	  	controller.userDuration = hourToSec + minuteToSec;
+  		}
 
 }

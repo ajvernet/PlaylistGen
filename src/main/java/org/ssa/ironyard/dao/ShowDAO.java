@@ -1,11 +1,11 @@
 package org.ssa.ironyard.dao;
 
-import org.ssa.ironyard.model.Series;
+import org.ssa.ironyard.model.Show;
 
-public class SeriesDAO implements DAO<Series>{
+public class ShowDAO implements DAO<Show>{
 
     @Override
-    public Series insert(Series domain) {
+    public Show insert(Show domain) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -17,13 +17,13 @@ public class SeriesDAO implements DAO<Series>{
     }
 
     @Override
-    public Series update(Series domain) {
+    public Show update(Show domain) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public Series read(Integer id) {
+    public Show read(Integer id) {
         // TODO Auto-generated method stub
         return null;
     }

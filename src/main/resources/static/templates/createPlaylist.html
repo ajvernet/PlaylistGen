@@ -1,7 +1,32 @@
+<div id="mapsDiv">
+<form ng-submit="MC.driveTime()" name="MyForm">
+	<label for="startAddress">Start: </label>
+	<input id="startAddress" type="text" ng-model="MC.startAddress" required>
+	<br>
+	<label for="endAddress">Destination: </label>
+	<input id="endAddress" type="text" ng-model="MC.endAddress" required>
+	<br>
+	<input type="submit" value="Get Trip Time" ng-disabled="MyForm.$invalid">
+</form>
+</div>
+<br><br>
+User Defined Duration:
+<input id="manualDurHours" type="text" ng-model="MC.userDurHours">
+<input id="manualDurMinutes" type="text" ng-model="MC.userDurMinutes">
+<br>
+<button ng-click="MC.manualTime()">Get Manual Time</button>
+
+<br><br><br><br>
+
+<div id="durationsDiv">
+{{ MC.tripDuration }}
+{{ MC.userDuration }}
+</div>
+
 <div>
 	<div class="resultsDiv">
 
-		<h5>Songs</h5>
+		<h5>Podcast Search</h5>
 
 		<ul>
 			<li ng-repeat="song in MC.songs">

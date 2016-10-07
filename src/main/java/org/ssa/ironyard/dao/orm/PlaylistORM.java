@@ -3,11 +3,9 @@ package org.ssa.ironyard.dao.orm;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.ssa.ironyard.model.Series;
+import org.ssa.ironyard.model.Playlist;
 
-
-
-public class SeriesORM implements ORM<Series> {
+public class PlaylistORM implements ORM<Playlist> {
 
     @Override
     public String projection() {
@@ -28,13 +26,13 @@ public class SeriesORM implements ORM<Series> {
     }
 
     @Override
-    public Series map(ResultSet results) throws SQLException {
+    public Playlist map(ResultSet results) throws SQLException {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public Series eagerMap(ResultSet results) throws SQLException {
+    public Playlist eagerMap(ResultSet results) throws SQLException {
         // TODO Auto-generated method stub
         return null;
     }

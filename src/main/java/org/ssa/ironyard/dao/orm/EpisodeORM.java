@@ -2,15 +2,26 @@ package org.ssa.ironyard.dao.orm;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.StringJoiner;
 
 import org.ssa.ironyard.model.Episode;
+import org.ssa.ironyard.model.Playlist;
+import org.ssa.ironyard.model.Show;
 
 public class EpisodeORM implements ORM<Episode>{
 
     @Override
     public String projection() {
-        // TODO Auto-generated method stub
-        return null;
+	StringJoiner joiner = new StringJoiner(", " + table() + ".", table() + ".", "");
+        joiner
+            .add("id")
+            .add("episodeId")
+            .add("name")
+            .add("duration")
+            .add("fileUrl")
+            .add("showId")
+            .add("playlistId");
+        return joiner.toString();
     }
 
     @Override

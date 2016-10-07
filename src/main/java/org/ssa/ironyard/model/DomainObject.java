@@ -31,7 +31,7 @@ public abstract class DomainObject implements Cloneable
         return this.loaded;
     }
     
-    abstract boolean deeplyEquals(Object other);
+    abstract boolean deeplyEquals(Object obj);
 
     @Override
     public int hashCode() {
