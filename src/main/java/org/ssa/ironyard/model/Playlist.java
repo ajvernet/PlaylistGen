@@ -4,11 +4,17 @@ public class Playlist extends DomainObject {
 
     private final String name;
     private final User user;
+    private final Integer targetDuration;
 
-    public Playlist(Integer id, boolean loaded, String name, User user) {
+    public Playlist(Integer id, boolean loaded, String name, User user, Integer targetDuration) {
 	super(id, loaded);
 	this.name = name;
 	this.user = user;
+	this.targetDuration = targetDuration;
+    }
+
+    public Integer getTargetDuration() {
+	return targetDuration;
     }
 
     public String getName() {
@@ -44,7 +50,7 @@ public class Playlist extends DomainObject {
     }
 
     @Override
-    boolean deeplyEquals(Object obj) {
+    public boolean deeplyEquals(Object obj) {
 	if (this == obj)
 	    return true;
 	if (!super.equals(obj))
@@ -56,6 +62,11 @@ public class Playlist extends DomainObject {
 	    if (other.name != null)
 		return false;
 	} else if (!name.equals(other.name))
+	    return false;
+	if (targetDuration == null) {
+	    if (other.targetDuration != null)
+		return false;
+	} else if (!targetDuration.equals(other.targetDuration))
 	    return false;
 	if (user == null) {
 	    if (other.user != null)
