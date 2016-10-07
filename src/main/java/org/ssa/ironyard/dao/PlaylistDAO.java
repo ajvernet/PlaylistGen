@@ -1,6 +1,5 @@
 package org.ssa.ironyard.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +11,6 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.ssa.ironyard.dao.orm.PlaylistORM;
-import org.ssa.ironyard.dao.orm.UserORM;
 import org.ssa.ironyard.model.Playlist;
 
 
@@ -68,18 +66,6 @@ public class PlaylistDAO extends AbstractSpringDAO<Playlist>{
                       
                      return lists;
         }); 
-    }
-
-    @Override
-    public boolean delete(Integer id) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public int clear() throws UnsupportedOperationException {
-        // TODO Auto-generated method stub
-        return 0;
     }
 
 

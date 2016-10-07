@@ -43,7 +43,6 @@ public interface PlaylistORM extends ORM<Playlist> {
     @Override
     default Playlist eagerMap(ResultSet results) throws SQLException {
         return Playlist.builder(map(results)).user(userORM.map(results)).build();
-
     }
 
     @Override
@@ -75,6 +74,5 @@ public interface PlaylistORM extends ORM<Playlist> {
         return "SELECT " + projection() + ", " + userORM.projection() + " FROM " + table() + " INNER JOIN "
                 + userORM.table() + " ON " + table() + ".user_id = " + userORM.table() + ".ID " + "WHERE " + table()
                 + ".id=?";
-
     }
 }
