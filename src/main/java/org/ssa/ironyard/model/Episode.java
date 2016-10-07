@@ -8,9 +8,10 @@ public class Episode extends DomainObject {
     private final String fileUrl;
     private final Show show;
     private final Playlist playlist;
+    private final Integer playOrder;
 
     public Episode(Integer id, boolean loaded, Integer episodeId, String name, Integer duration, String fileUrl,
-	    Show show, Playlist playlist) {
+	    Show show, Playlist playlist, Integer playOrder) {
 	super(id, loaded);
 	this.episodeId = episodeId;
 	this.name = name;
@@ -18,6 +19,11 @@ public class Episode extends DomainObject {
 	this.fileUrl = fileUrl;
 	this.show = show;
 	this.playlist = playlist;
+	this.playOrder = playOrder;
+    }
+
+    public Integer getPlayOrder() {
+	return playOrder;
     }
 
     public Integer getEpisodeId() {
@@ -42,30 +48,6 @@ public class Episode extends DomainObject {
 
     public Playlist getPlaylist() {
 	return playlist;
-    }
-
-    @Override
-    public int hashCode() {
-	final int prime = 31;
-	int result = 1;
-	result = prime * result + ((id == null) ? 0 : id.hashCode());
-	return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-	if (this == obj)
-	    return true;
-	if (obj == null)
-	    return false;
-	if (getClass() != obj.getClass())
-	    return false;
-	DomainObject other = (DomainObject) obj;
-	if (id == null) {
-	    return false;
-	} else if (!id.equals(other.id))
-	    return false;
-	return true;
     }
 
     @Override
@@ -133,6 +115,7 @@ public class Episode extends DomainObject {
 	private String fileUrl;
 	private Show show;
 	private Playlist playlist;
+	private Integer playOrder;
 
 	public EpisodeBuilder() {
 	}
@@ -144,6 +127,7 @@ public class Episode extends DomainObject {
 	    this.fileUrl = episode.getFileUrl();
 	    this.show = episode.getShow();
 	    this.playlist = episode.getPlaylist();
+	    this.playOrder = episode.getPlayOrder();
 	}
 
 	public EpisodeBuilder id(Integer id) {
@@ -155,13 +139,13 @@ public class Episode extends DomainObject {
 	    this.loaded = loaded;
 	    return this;
 	}
-	
-	public EpisodeBuilder episodeId(Integer episodeId){
+
+	public EpisodeBuilder episodeId(Integer episodeId) {
 	    this.episodeId = episodeId;
 	    return this;
 	}
-	
-	public EpisodeBuilder name(String name){
+
+	public EpisodeBuilder name(String name) {
 	    this.name = name;
 	    return this;
 	}
@@ -186,8 +170,13 @@ public class Episode extends DomainObject {
 	    return this;
 	}
 
+	public EpisodeBuilder playOrder(Integer playOrder) {
+	    this.playOrder = playOrder;
+	    return this;
+	}
+
 	public Episode build() {
-	    return new Episode(id, loaded, episodeId, name, duration, fileUrl, show, playlist);
+	    return new Episode(id, loaded, episodeId, name, duration, fileUrl, show, playlist, playOrder);
 	}
     }
 }
