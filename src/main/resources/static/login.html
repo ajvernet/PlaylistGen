@@ -28,9 +28,9 @@
 
 <body ng-controller="LoginController as LC">
     <div class="container">
-        <div class="row">
-            <div class="col-sm-6 col-sm-offset-6" style="padding-top:20%">
-                <form class="form" ng-submit="LC.login()" name="MyForm">
+        <form ng-submit="LC.login()" name="MyForm">
+            <div class="row">
+                <div class="col-sm-3 col-sm-offset-5" style="padding-top:25%">
                     <header>
                         <h1>Login</h1> </header>
                     <div class="form-group">
@@ -39,9 +39,9 @@
                     <div class="form-group">
                         <label for="userPW">Password: </label>
                         <input id="userPW" type="password" class="form-control" ng-model="LC.userPW" required> </div>
-                    <input class="btn btn-default" type="submit" value="Login" ng-disabled="MyForm.$invalid"> </form>
+                    <input class="btn btn-default" type="submit" value="Login" ng-disabled="MyForm.$invalid"> </div>
             </div>
-        </div>
+        </form>
     </div>
     <script>
         angular.module('login', []).controller('LoginController', function ($http, $window) {
