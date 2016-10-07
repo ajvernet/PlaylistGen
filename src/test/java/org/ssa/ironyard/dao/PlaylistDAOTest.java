@@ -1,20 +1,18 @@
 package org.ssa.ironyard.dao;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Objects;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.ssa.ironyard.crypto.BCryptSecurePassword;
 import org.ssa.ironyard.dao.orm.PlaylistORM;
 import org.ssa.ironyard.model.Address;
-import org.ssa.ironyard.model.Password;
-import org.ssa.ironyard.model.Playlist;
-import org.ssa.ironyard.model.User;
 import org.ssa.ironyard.model.Address.State;
 import org.ssa.ironyard.model.Address.ZipCode;
+import org.ssa.ironyard.model.Playlist;
+import org.ssa.ironyard.model.User;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 
@@ -67,7 +65,23 @@ public class PlaylistDAOTest {
 
     @Test
     public void readByUserTest() {
-
-    }
+        Playlist list1 = Playlist.builder().name("testPlaylist").user(user).build();
+        list1 = dao.insert(list1);
+        
+        Playlist list2 = Playlist.builder().name("testPlaylist").user(user).build();
+        list1 = dao.insert(list2);
+        
+        Playlist list3 = Playlist.builder().name("testPlaylist").user(user).build();
+        list1 = dao.insert(list3);
+       
+        Playlist list4 = Playlist.builder().name("testPlaylist").user(user2).build();
+        list1 = dao.insert(list4);
+        
+        Playlist list5 = Playlist.builder().name("testPlaylist").user(user2).build();
+        list1 = dao.insert(list5);
+        
+        assertEquals(dao.readByUser(user2.getId()).size(), 2);
+        
+        }
 
 }
