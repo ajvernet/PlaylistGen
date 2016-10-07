@@ -58,9 +58,31 @@ public class PlaylistDAOTest {
         Playlist list1 = Playlist.builder().name("testPlaylist").user(user).build();
         list1 = dao.insert(list1);
         assertTrue(Objects.nonNull(dao.read(list1.getId())));
+        
+        assertTrue(list1.isLoaded());
 
     }
 
+    @Test
+    public void updatePlaylist(){
+        Playlist list1 = Playlist.builder().name("testPlaylist").user(user).targetDuration(100).build();
+
+        list1 = dao.insert(list1);
+        
+        list1 = dao.update(Playlist.builder(list1).name("updatedPlaylist").build());
+        
+        assertEquals("updatedPlaylist", dao.read(list1.getId()).getName());
+    }
+    
+    @Test
+    public void deletePlaylist(){
+        Playlist list1 = Playlist.builder().name("testPlaylist").user(user).build();
+        list1 = dao.insert(list1);
+        
+        dao.delete(list1.getId());
+        
+        assertTrue(Objects.isNull(dao.read(list1.getId())));
+    }
 
 
     @Test

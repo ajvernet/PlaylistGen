@@ -66,7 +66,7 @@ public interface PlaylistORM extends ORM<Playlist> {
 
     @Override
     default String prepareUpdate() {
-        return "UPDATE " + table() + " SET name=?, User_ID=?, target_duration=? WHERE " + table() + ".id=?)";
+        return "UPDATE " + table() + " SET name=?, User_ID=?, target_duration=? WHERE " + table() + ".id=?";
     }
 
     @Override
