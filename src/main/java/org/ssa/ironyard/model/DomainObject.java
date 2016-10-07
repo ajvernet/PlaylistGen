@@ -12,8 +12,6 @@ public abstract class DomainObject implements Cloneable
     final Integer id;
     final boolean loaded;
     
-    
-    
     public DomainObject(Integer id, boolean loaded) {
         super();
         this.id = id;
