@@ -4,11 +4,23 @@ public class Show extends DomainObject {
 
     final String name;
     final Integer showId;
+    final String imgUrl;
+    final String thumbnailUrl;
 
-    public Show(Integer id, boolean loaded, String name, Integer showId) {
+    public Show(Integer id, boolean loaded, String name, Integer showId, String imgUrl, String thumbnailUrl) {
 	super(id, loaded);
 	this.name = name;
 	this.showId = showId;
+	this.imgUrl = imgUrl;
+	this.thumbnailUrl = thumbnailUrl;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
     }
 
     public String getName() {
@@ -44,7 +56,7 @@ public class Show extends DomainObject {
     }
 
     @Override
-    boolean deeplyEquals(Object obj) {
+    public boolean deeplyEquals(Object obj) {
 	if (this == obj)
 	    return true;
 	if (!super.equals(obj))
@@ -52,6 +64,11 @@ public class Show extends DomainObject {
 	if (getClass() != obj.getClass())
 	    return false;
 	Show other = (Show) obj;
+	if (imgUrl == null) {
+	    if (other.imgUrl != null)
+		return false;
+	} else if (!imgUrl.equals(other.imgUrl))
+	    return false;
 	if (name == null) {
 	    if (other.name != null)
 		return false;
@@ -62,7 +79,14 @@ public class Show extends DomainObject {
 		return false;
 	} else if (!showId.equals(other.showId))
 	    return false;
+	if (thumbnailUrl == null) {
+	    if (other.thumbnailUrl != null)
+		return false;
+	} else if (!thumbnailUrl.equals(other.thumbnailUrl))
+	    return false;
 	return true;
     }
+
+
 
 }
