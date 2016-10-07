@@ -42,16 +42,16 @@ public interface UserORM extends ORM<User> {
 
     @Override
     default User map(ResultSet results) throws SQLException {
-        Integer id = results.getInt(1);
-        String email = results.getString(2);
-        String salt = results.getString(3);
-        String hash = results.getString(4);
-        String firstName = results.getString(5);
-        String lastName  = results.getString(6);
-        String street = results.getString(7);
-        String city = results.getString(8);
-        String state = results.getString(9);
-        String zip = results.getString(10);
+        Integer id = results.getInt(table() + ".id");
+        String email = results.getString(table() + ".email");
+        String salt = results.getString(table() + ".salt");
+        String hash = results.getString(table() + ".hash");
+        String firstName = results.getString(table() + ".firstname");
+        String lastName  = results.getString(table() + ".lastname");
+        String street = results.getString(table() + ".street");
+        String city = results.getString(table() + ".city");
+        String state = results.getString(table() + ".state");
+        String zip = results.getString(table() + ".zip");
         
         return new UserBuilder()
         	.id(id)

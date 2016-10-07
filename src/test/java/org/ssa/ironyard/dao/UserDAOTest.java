@@ -1,8 +1,12 @@
 package org.ssa.ironyard.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.ssa.ironyard.crypto.BCryptSecurePassword;
 import org.ssa.ironyard.model.Address;
@@ -37,6 +41,7 @@ public class UserDAOTest {
 	assertFalse(testUser.isLoaded());
     }
 
+ 
     @Test
     public void testRead() {
 	User dbUser = users.insert(testUser);

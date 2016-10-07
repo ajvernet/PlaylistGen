@@ -78,6 +78,16 @@ public class Playlist extends DomainObject {
 	return true;
     }
 
+    public static PlaylistBuilder builder()
+    {
+        return new PlaylistBuilder();
+    }
+    
+    public static PlaylistBuilder builder(Playlist playlist)
+    {
+        return new PlaylistBuilder(playlist);
+    }
+    
     public static class PlaylistBuilder {
         private Integer id;
         private boolean loaded = false;
