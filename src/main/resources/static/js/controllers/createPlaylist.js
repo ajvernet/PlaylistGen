@@ -15,9 +15,17 @@ controller.userDuration = "";
 	
 controller.userDuruserDurHours = "";
 controller.userDuruserDurHours = "";
-	
+
+controller.detailShow = false;
+controller.detailTitle = "";
+controller.detailArtist = "";
+controller.detailDuration = "";
+controller.offsetLeft = "0px";
+controller.offsetTop = "0px";
 
 controller.counter = controller.playlistDurationBuilder;
+
+
 
 controller.songs = [
 		{
@@ -139,10 +147,32 @@ controller.countdown = function() {
 	    }
   
   controller.manualTime = function(){
-	  	var hourToSec = Number(controller.userDurHours) * 3600;
-	  	var minuteToSec = Number(controller.userDurMinutes) * 60;
-	  	console.log(hourToSec + minuteToSec);
-	  	controller.userDuration = hourToSec + minuteToSec;
+	  controller.userDurHours = controller.userDurHours || 0;
+	  controller.userDurMinutes = controller.userDurMinutes || 0;
+	  
+	  var hourToSec = Number(controller.userDurHours) * 3600;
+	  var minuteToSec = Number(controller.userDurMinutes) * 60;
+	  //console.log(hourToSec + minuteToSec);
+	  controller.userDuration = hourToSec + minuteToSec;
   		}
+  
+  controller.hoverDetail = function(song, $event){
+	  console.log($event.screenX + " , " + $event.screenY);
+	  var posLeft = $event.screenX - 500;
+	  var posTop = $event.screenY - 30;
+	  controller.offsetLeft = posLeft + "px";
+	  controller.offsetTop = posTop + "px";
+	  console.log(posLeft + " , " + posTop);
+	  controller.detailTitle = song.title;
+	  controller.detailArtist = song.artist;
+	  controller.detailDuration = song.duration;
+	  controller.detailShow = true;
+  }
+  
+  controller.hoverLeave = function(){
+	  controller.detailShow = false;
+  }
+  
+  
 
 }
