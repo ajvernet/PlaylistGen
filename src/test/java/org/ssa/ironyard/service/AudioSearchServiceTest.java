@@ -1,11 +1,14 @@
 package org.ssa.ironyard.service;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.ssa.ironyard.model.Episode;
+import org.ssa.ironyard.model.SearchResults;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -50,7 +53,19 @@ public class AudioSearchServiceTest {
     public void parseRandomEpisode() throws JsonProcessingException, IOException {
 	String randomEpisode;
 	randomEpisode = ass.getRandomEpisode();
-	findmp3(randomEpisode);
+	// findmp3(randomEpisode);
+    }
+
+    @Test
+    public void testSearchResultsByGenre() throws JsonProcessingException, IOException {
+	List<Episode> searchResults = ass.searchEpisodesByGenre("Comedy");
+	System.err.println(searchResults);
+    }
+    
+    @Test
+    public void testSearchResultsByKeyword() throws JsonProcessingException, IOException {
+	List<Episode> searchResults = ass.searchEpisodesByKeywords("Comedy");
+	System.err.println(searchResults);
     }
 
     private String findmp3(String genreJson) throws JsonProcessingException, IOException {
@@ -64,7 +79,5 @@ public class AudioSearchServiceTest {
 		    return node.path("audio_files").get(0).path("url").get(0).asText();
 	return "";
     }
-    
-    
 
 }
