@@ -48,7 +48,7 @@ public interface PlaylistORM extends ORM<Playlist> {
 
     @Override
     default String prepareInsert() {
-        return "INSERT INTO" + table() + "(name, user_id)" + " VALUES(?, ?)";
+        return "INSERT INTO " + table() + "(name, user_id)" + " VALUES(?, ?)";
     }
 
     @Override

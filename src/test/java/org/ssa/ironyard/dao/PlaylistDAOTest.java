@@ -9,13 +9,15 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.ssa.ironyard.crypto.BCryptSecurePassword;
 import org.ssa.ironyard.dao.orm.PlaylistORM;
+import org.ssa.ironyard.model.Address;
 import org.ssa.ironyard.model.Password;
 import org.ssa.ironyard.model.Playlist;
 import org.ssa.ironyard.model.User;
+import org.ssa.ironyard.model.Address.State;
+import org.ssa.ironyard.model.Address.ZipCode;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 
-@Ignore
 public class PlaylistDAOTest {
 
     static String URL = "jdbc:mysql://localhost/Playlistdb?" + "user=root&password=root&" + "useServerPrepStmts=true";
@@ -34,28 +36,34 @@ public class PlaylistDAOTest {
 
         orm = new PlaylistORM() {
         };
+        
         dao = new PlaylistDAO(orm, dataSource);
 
         UserDAO userDao = new UserDAO(dataSource);
-        user = userDao.insert(User.builder().email("Test@test.com")
-                .password(new BCryptSecurePassword().secureHash("password")).build());
-
+        
+        userDao.clear();
+        
+        user = User.builder().email("test@test.com").firstName("Bob").lastName("Loblaw")
+                .address(Address.builder().street("123 Mockingbird Ln").city("Mockingbird Heights").state(State.ALABAMA)
+                    .zip(new ZipCode("12345")).build())
+                .password(new BCryptSecurePassword().secureHash("munsters")).build();
+       
+        user = userDao.insert(user);
+        
         user2 = userDao.insert(User.builder(user).email("Test2@test.com").build());
     }
 
-    @Ignore
-    @Test
-    public void insertTest() {
-        Playlist list1 = Playlist.builder().name("testPlaylist").user(user).build();
 
+    
+    @Test
+    public void insertAndReadTest() {
+        Playlist list1 = Playlist.builder().name("testPlaylist").user(user).build();
+        list1 = dao.insert(list1);
         assertTrue(Objects.nonNull(dao.read(list1.getId())));
 
     }
 
-    @Test
-    public void readtest() {
 
-    }
 
     @Test
     public void readByUserTest() {

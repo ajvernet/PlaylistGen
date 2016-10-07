@@ -11,13 +11,6 @@ CREATE TABLE `shows` (
 ;
 CREATE TABLE `episodes` (
 
-            .add("id")
-            .add("episodeId")
-            .add("name")
-            .add("duration")
-            .add("fileUrl")
-            .add("showId")
-            .add("playlistId");
 	`ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`episodeId` INT(10) UNSIGNED NOT NULL,
 	`name` VARCHAR(500) NULL DEFAULT NULL,
@@ -32,16 +25,16 @@ CREATE TABLE `episodes` (
 ;
 
 CREATE TABLE users
-(id INT AUTO_INCREMENT PRIMARY KEY,
+(id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 email VARCHAR(255) NOT NULL,
 salt VARCHAR(50) NOT NULL,
 hash VARCHAR(50) NOT NULL,
 firstname VARCHAR(50) NOT NULL,
 lastname VARCHAR(50) NOT NULL,
-street VARCHAR(50) NOT NULL,
-city VARCHAR(50) NOT NULL,
-state VARCHAR(2) NOT NULL,
-zip VARCHAR(9) NOT NULL,
+street VARCHAR(50),
+city VARCHAR(50),
+state VARCHAR(2),
+zip VARCHAR(9),
 UNIQUE (email))
 ENGINE = InnoDB;
 
@@ -50,10 +43,10 @@ CREATE TABLE `playlists` (
 	`ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`Name` VARCHAR(500) NULL DEFAULT NULL,
 	User_ID int unsigned not null,
+	Target_Duration int unsigned,
 	PRIMARY KEY (`ID`),
-	foreign key (User_ID) references users(ID)
+	foreign key (User_ID) references users(ID) on delete cascade
 )
-
 ;
 
 
