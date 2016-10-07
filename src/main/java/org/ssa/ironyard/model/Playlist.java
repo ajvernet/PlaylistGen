@@ -1,5 +1,7 @@
 package org.ssa.ironyard.model;
 
+import org.ssa.ironyard.model.User.UserBuilder;
+
 public class Playlist extends DomainObject {
 
     private final String name;
@@ -76,4 +78,53 @@ public class Playlist extends DomainObject {
 	return true;
     }
 
+    public static class PlaylistBuilder {
+        private Integer id;
+        private boolean loaded = false;
+        private String name;
+        private User user;
+        private Integer targetDuration;
+        
+        public PlaylistBuilder() {
+        }
+    
+        public PlaylistBuilder(Playlist playlist) {
+            this.id = playlist.getId();
+            this.loaded = playlist.isLoaded();
+            this.name = playlist.getName();
+            this.user = playlist.getUser();
+            this.targetDuration = playlist.getTargetDuration();
+    
+        }
+    
+        public PlaylistBuilder id(Integer id) {
+            this.id = id;
+            return this;
+        }
+    
+        public PlaylistBuilder loaded(boolean loaded) {
+            this.loaded = loaded;
+            return this;
+        }
+    
+        public PlaylistBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+    
+        public PlaylistBuilder user(User user) {
+            this.user = user;
+            return this;
+        }
+    
+        public PlaylistBuilder targetDuration(Integer targetDuration) {
+            this.targetDuration = targetDuration;
+            return this;
+        }
+    
+    
+        public Playlist build() {
+            return new Playlist(id, loaded, name, user, targetDuration);
+        }
+    }
 }
