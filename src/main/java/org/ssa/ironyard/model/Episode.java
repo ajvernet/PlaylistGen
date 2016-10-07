@@ -110,6 +110,12 @@ public class Episode extends DomainObject {
 	return true;
     }
 
+    @Override
+    public String toString() {
+	return "Episode [episodeId=" + episodeId + ", name=" + name + ", duration=" + duration + ", fileUrl=" + fileUrl
+		+ ", show=" + show + ", playlist=" + playlist + "]";
+    }
+
     public static EpisodeBuilder builder() {
 	return new EpisodeBuilder();
     }
@@ -147,6 +153,16 @@ public class Episode extends DomainObject {
 
 	public EpisodeBuilder loaded(boolean loaded) {
 	    this.loaded = loaded;
+	    return this;
+	}
+	
+	public EpisodeBuilder episodeId(Integer episodeId){
+	    this.episodeId = episodeId;
+	    return this;
+	}
+	
+	public EpisodeBuilder name(String name){
+	    this.name = name;
 	    return this;
 	}
 

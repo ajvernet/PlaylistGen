@@ -87,6 +87,12 @@ public class Show extends DomainObject {
 	return true;
     }
 
+    @Override
+    public String toString() {
+	return "Show [name=" + name + ", showId=" + showId + ", imgUrl=" + imgUrl + ", thumbnailUrl=" + thumbnailUrl
+		+ "]";
+    }
+
 
 
 }
