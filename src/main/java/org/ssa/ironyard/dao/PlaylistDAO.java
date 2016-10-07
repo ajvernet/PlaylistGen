@@ -1,6 +1,5 @@
 package org.ssa.ironyard.dao;
 
-<<<<<<< HEAD:src/main/java/org/ssa/ironyard/dao/PlayListDAO.java
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,69 +12,60 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.ssa.ironyard.dao.orm.ORM;
-import org.ssa.ironyard.dao.orm.PlayListORM;
-import org.ssa.ironyard.model.PlayList;
-
-public class PlayListDAO extends AbstractSpringDAO<PlayList>{
-
-  final PlayListORM listorm = new PlayListORM();
-    
-    protected PlayListDAO(PlayListORM orm, DataSource dataSource) {
-        super(orm, dataSource);
-        // TODO Auto-generated constructor stub
-=======
+import org.ssa.ironyard.dao.orm.PlaylistORM;
 import org.ssa.ironyard.model.Playlist;
 
-public class PlaylistDAO implements DAO<Playlist>{
+public class PlaylistDAO extends AbstractSpringDAO<Playlist>{
+
+  final PlaylistORM listorm = new PlaylistORM();
+    
+    protected PlaylistDAO(PlaylistORM orm, DataSource dataSource) {
+        super(orm, dataSource);
+    }
 
     @Override
     public Playlist insert(Playlist domain) {
         // TODO Auto-generated method stub
         return null;
->>>>>>> 6a94ade0474692028e5e533afb7bfb10a92baab6:src/main/java/org/ssa/ironyard/dao/PlaylistDAO.java
-    }
+   }
 
 //    @Autowired
-//    public PlayListDAO(DataSource dataSource){
-//        this(dataSource, new PlayListORM<PlayList>() {
+//    public PlaylistDAO(DataSource dataSource){
+//        this(dataSource, new PlaylistORM<Playlist>() {
 //        });        
 //    }
     
     @Override
-    protected void insertPreparer(PreparedStatement insertStatement, PlayList domainToInsert) throws SQLException {
+    protected void insertPreparer(PreparedStatement insertStatement, Playlist domainToInsert) throws SQLException {
         insertStatement.setString(1, domainToInsert.getName());
         insertStatement.setInt(2, domainToInsert.getUser().getId());
     }
 
     @Override
-<<<<<<< HEAD:src/main/java/org/ssa/ironyard/dao/PlayListDAO.java
-    protected PlayList afterInsert(PlayList copy, Integer id) {
-=======
-    public Playlist update(Playlist domain) {
->>>>>>> 6a94ade0474692028e5e533afb7bfb10a92baab6:src/main/java/org/ssa/ironyard/dao/PlaylistDAO.java
-        // TODO Auto-generated method stub
+    protected Playlist afterInsert(Playlist copy, Integer id) {
+    }
+    
+    public Playlist update(Playlist domain) {        // TODO Auto-generated method stub
         return copy.setId(id).setLoaded();
     }
 
     @Override
-<<<<<<< HEAD:src/main/java/org/ssa/ironyard/dao/PlayListDAO.java
-    protected PlayList afterUpdate(PlayList copy) {
+    protected Playlist afterUpdate(Playlist copy) {
         return copy.setLoaded();
-=======
+
     public Playlist read(Integer id) {
         // TODO Auto-generated method stub
         return null;
->>>>>>> 6a94ade0474692028e5e533afb7bfb10a92baab6:src/main/java/org/ssa/ironyard/dao/PlaylistDAO.java
-    }
+   }
 
     @Override
-    protected PreparedStatementSetter updatePreparer(PlayList domainToUpdate) {
+    protected PreparedStatementSetter updatePreparer(Playlist domainToUpdate) {
         // TODO Auto-generated method stub
         return null;
     }
     
-    public List<PlayList> readByUser(Integer user_id){
-        List<PlayList> lists = new ArrayList<PlayList>();
+    public List<Playlist> readByUser(Integer user_id){
+        List<Playlist> lists = new ArrayList<Playlist>();
         Connection connection = null;
         PreparedStatement readStatement;
         
@@ -88,7 +78,7 @@ public class PlaylistDAO implements DAO<Playlist>{
             
             while (results.next())
                 {
-                PlayList p = listorm.map(results);
+                Playlist p = listorm.map(results);
                 lists.add(p);
                 }
             
@@ -102,6 +92,18 @@ public class PlaylistDAO implements DAO<Playlist>{
         return lists;
         
         
+    }
+
+    @Override
+    public boolean delete(Integer id) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public int clear() throws UnsupportedOperationException {
+        // TODO Auto-generated method stub
+        return 0;
     }
 
 
