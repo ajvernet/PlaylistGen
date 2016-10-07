@@ -2,7 +2,7 @@ package org.ssa.ironyard.dao;
 
 import org.ssa.ironyard.model.Show;
 
-public class SeriesDAO implements DAO<Show>{
+public class ShowDAO implements DAO<Show>{
 
     @Override
     public Show insert(Show domain) {

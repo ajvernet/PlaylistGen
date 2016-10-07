@@ -7,7 +7,7 @@ import org.ssa.ironyard.model.Show;
 
 
 
-public class SeriesORM implements ORM<Show> {
+public class ShowORM implements ORM<Show> {
 
     @Override
     public String projection() {

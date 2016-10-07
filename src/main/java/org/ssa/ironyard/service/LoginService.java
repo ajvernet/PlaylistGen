@@ -11,18 +11,18 @@ import org.ssa.ironyard.model.User.UserBuilder;
 @Service
 public class LoginService {
     
-    private final UserDAO userDao;
+    private final UserDAO users;
     private final BCryptSecurePassword verifier;
 
     @Autowired
-    public LoginService(UserDAO userDao, BCryptSecurePassword verifier){
-	this.userDao = userDao;
+    public LoginService(UserDAO users, BCryptSecurePassword verifier){
+	this.users = users;
 	this.verifier = verifier;
     }
     
     public User authenticateUser(String email, String password){
-	Password secretWithThrees = new Password("$2a$04$5XIJBbX7Y4DiaJ9H4bkYe.", "Iyl4CRhVdmg2hKWMVd2lZ6tqdXZmUI.");
-	User user =  new UserBuilder().email(email).password(secretWithThrees).build();
+	User user = users.readByEmail(email);
+	if(user == null) return null;
 	if(verifier.verify(password, user.getPassword()))
 	    return user;
 	return null;
