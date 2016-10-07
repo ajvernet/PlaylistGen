@@ -6,13 +6,13 @@ import java.util.StringJoiner;
 import org.ssa.ironyard.model.Playlist;
 import org.ssa.ironyard.model.User;
 
-public class PlaylistORM implements ORM<Playlist> {
+public interface PlaylistORM extends ORM<Playlist> {
 
     public static UserORM userORM = new UserORM() {
     };
 
     @Override
-    public String projection() {
+    default String projection() {
         StringJoiner joiner = new StringJoiner(", " + table() + ".", table() + ".", "");
         joiner.add("id").add("name").add("user_id").add("target_duration");
         System.out.println(joiner.toString());
@@ -20,17 +20,17 @@ public class PlaylistORM implements ORM<Playlist> {
     }
 
     @Override
-    public String eagerProjection() {
+    default String eagerProjection() {
         return projection();
     }
 
     @Override
-    public String table() {
+    default String table() {
         return "Playlists";
     }
 
     @Override
-    public Playlist map(ResultSet results) throws SQLException
+    default Playlist map(ResultSet results) throws SQLException
     {
         return Playlist.builder()
                 .id(results.getInt(table() + ".id"))
@@ -41,37 +41,37 @@ public class PlaylistORM implements ORM<Playlist> {
     }
 
     @Override
-    public Playlist eagerMap(ResultSet results) throws SQLException {
+    default Playlist eagerMap(ResultSet results) throws SQLException {
         return Playlist.builder(map(results)).user(userORM.map(results)).build();
 
     }
 
     @Override
-    public String prepareInsert() {
+    default String prepareInsert() {
         return "INSERT INTO" + table() + "(name, user_id)" + " VALUES(?, ?)";
     }
 
     @Override
-    public String prepareDelete() {
+    default String prepareDelete() {
         return "DELETE FROM " + table() + " WHERE " + table() + ".id=?";
     }
 
     @Override
-    public String prepareRead() {
+    default String prepareRead() {
         return "SELECT " + projection() + " FROM " + table() + " WHERE " + table() + ".id=?";
     }
 
-    public String prepareReadByUser() {
+    default String prepareReadByUser() {
         return "SELECT " + projection() + " FROM " + table() + " WHERE  " + table() + ".user_id=?";
     }
 
     @Override
-    public String prepareUpdate() {
+    default String prepareUpdate() {
         return "UPDATE " + table() + " SET name=?, User_ID=?, target_duration=? WHERE " + table() + ".id=?)";
     }
 
     @Override
-    public String prepareEagerRead() {
+    default String prepareEagerRead() {
         return "SELECT " + projection() + ", " + userORM.projection() + " FROM " + table() + " INNER JOIN "
                 + userORM.table() + " ON " + table() + ".user_id = " + userORM.table() + ".ID " + "WHERE " + table()
                 + ".id=?";
