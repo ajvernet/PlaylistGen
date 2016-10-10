@@ -1,6 +1,7 @@
 package org.ssa.ironyard.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Objects;
 
@@ -29,81 +30,78 @@ public class PlaylistDAOTest {
 
     @Before
     public void setup() {
-        dataSource = new MysqlDataSource();
-        dataSource.setURL(URL);
+	dataSource = new MysqlDataSource();
+	dataSource.setURL(URL);
 
-        orm = new PlaylistORM() {
-        };
-        
-        dao = new PlaylistDAO(orm, dataSource);
+	orm = new PlaylistORM() {
+	};
 
-        UserDAO userDao = new UserDAO(dataSource);
-        
-        userDao.clear();
-        
-        user = User.builder().email("test@test.com").firstName("Bob").lastName("Loblaw")
-                .address(Address.builder().street("123 Mockingbird Ln").city("Mockingbird Heights").state(State.ALABAMA)
-                    .zip(new ZipCode("12345")).build())
-                .password(new BCryptSecurePassword().secureHash("munsters")).build();
-       
-        user = userDao.insert(user);
-        
-        user2 = userDao.insert(User.builder(user).email("Test2@test.com").build());
+	dao = new PlaylistDAO(orm, dataSource);
+
+	UserDAO userDao = new UserDAO(dataSource);
+
+	userDao.clear();
+
+	user = User.builder().email("test@test.com").firstName("Bob").lastName("Loblaw")
+		.address(Address.builder().street("123 Mockingbird Ln").city("Mockingbird Heights").state(State.ALABAMA)
+			.zip(new ZipCode("12345")).build())
+		.password(new BCryptSecurePassword().secureHash("munsters")).build();
+
+	user = userDao.insert(user);
+
+	user2 = userDao.insert(User.builder(user).email("Test2@test.com").build());
     }
 
-
-    
     @Test
     public void insertAndReadTest() {
-        Playlist list1 = Playlist.builder().name("testPlaylist").user(user).build();
-        list1 = dao.insert(list1);
-        assertTrue(Objects.nonNull(dao.read(list1.getId())));
-        
-        assertTrue(list1.isLoaded());
+	Playlist list1 = Playlist.builder().name("testPlaylist").user(user).build();
+	list1 = dao.insert(list1);
+	assertTrue(Objects.nonNull(dao.read(list1.getId())));
+
+	assertTrue(list1.isLoaded());
 
     }
 
     @Test
-    public void updatePlaylist(){
-        Playlist list1 = Playlist.builder().name("testPlaylist").user(user).targetDuration(100).build();
+    public void updatePlaylist() {
+	Playlist list1 = Playlist.builder().name("testPlaylist").user(user).targetDuration(100).build();
 
-        list1 = dao.insert(list1);
-        
-        list1 = dao.update(Playlist.builder(list1).name("updatedPlaylist").build());
-        
-        assertEquals("updatedPlaylist", dao.read(list1.getId()).getName());
+	list1 = dao.insert(list1);
+
+	list1 = dao.update(Playlist.builder(list1).name("updatedPlaylist").build());
+
+	assertEquals("updatedPlaylist", dao.read(list1.getId()).getName());
     }
-    
+
     @Test
-    public void deletePlaylist(){
-        Playlist list1 = Playlist.builder().name("testPlaylist").user(user).build();
-        list1 = dao.insert(list1);
-        
-        dao.delete(list1.getId());
-        
-        assertTrue(Objects.isNull(dao.read(list1.getId())));
-    }
+    public void deletePlaylist() {
+	Playlist list1 = Playlist.builder().name("testPlaylist").user(user).build();
+	list1 = dao.insert(list1);
 
+	dao.delete(list1.getId());
+
+	assertTrue(Objects.isNull(dao.read(list1.getId())));
+    }
 
     @Test
     public void readByUserTest() {
-        Playlist list1 = Playlist.builder().name("testPlaylist").user(user).build();
-        list1 = dao.insert(list1);
-        
-        Playlist list2 = Playlist.builder().name("testPlaylist").user(user).build();
-        list1 = dao.insert(list2);
-        
-        Playlist list3 = Playlist.builder().name("testPlaylist").user(user).build();
-        list1 = dao.insert(list3);
-       
-        Playlist list4 = Playlist.builder().name("testPlaylist").user(user2).build();
-        list1 = dao.insert(list4);
-        
-        Playlist list5 = Playlist.builder().name("testPlaylist").user(user2).build();
-        list1 = dao.insert(list5);
-        
-        assertEquals(dao.readByUser(user2.getId()).size(), 2);
-        
-        }
+	Playlist list1 = Playlist.builder().name("testPlaylist").user(user).build();
+	list1 = dao.insert(list1);
+
+	Playlist list2 = Playlist.builder().name("testPlaylist").user(user).build();
+	list1 = dao.insert(list2);
+
+	Playlist list3 = Playlist.builder().name("testPlaylist").user(user).build();
+	list1 = dao.insert(list3);
+
+	Playlist list4 = Playlist.builder().name("testPlaylist").user(user2).build();
+	list1 = dao.insert(list4);
+
+	Playlist list5 = Playlist.builder().name("testPlaylist").user(user2).build();
+	list1 = dao.insert(list5);
+
+	assertEquals(dao.readByUser(user2.getId()).size(), 2);
+
+    }
 
 }

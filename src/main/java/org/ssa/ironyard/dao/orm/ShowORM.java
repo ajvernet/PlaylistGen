@@ -2,71 +2,74 @@ package org.ssa.ironyard.dao.orm;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.StringJoiner;
 
 import org.ssa.ironyard.model.Show;
 
 
 
-public class ShowORM implements ORM<Show> {
+public interface ShowORM extends ORM<Show> {
 
     @Override
-    public String projection() {
-        // TODO Auto-generated method stub
-        return null;
+    default String projection() {
+	StringJoiner joiner = new StringJoiner(", " + table() + ".", table() + ".", "");
+        joiner
+            .add("id")
+            .add("name")
+            .add("showId")
+            .add("imgUrl")
+            .add("thumbUrl");
+        return joiner.toString();
     }
 
     @Override
-    public String eagerProjection() {
-        // TODO Auto-generated method stub
-        return null;
+    default String eagerProjection() {
+	return projection();
     }
 
     @Override
-    public String table() {
-        // TODO Auto-generated method stub
-        return null;
+    default String table() {return "shows";
     }
 
     @Override
-    public Show map(ResultSet results) throws SQLException {
-        // TODO Auto-generated method stub
-        return null;
+    default Show map(ResultSet results) throws SQLException {
+	return Show.builder()
+		.id(results.getInt("id"))
+		.loaded(true)
+		.name(results.getString("name"))
+		.showId(results.getInt("showId"))
+		.imgUrl(results.getString("imgUrl"))
+		.thumbUrl(results.getString("thumbUrl"))		
+		.build();
     }
 
     @Override
-    public Show eagerMap(ResultSet results) throws SQLException {
-        // TODO Auto-generated method stub
-        return null;
+    default Show eagerMap(ResultSet results) throws SQLException {return map(results);
     }
 
     @Override
-    public String prepareInsert() {
-        // TODO Auto-generated method stub
-        return null;
+    default String prepareInsert() {
+	return "INSERT INTO " + table() + "(name, showId, imgUrl, thumbUrl) VALUES(?,?,?,?)";
     }
 
     @Override
-    public String prepareUpdate() {
-        // TODO Auto-generated method stub
-        return null;
+    default String prepareUpdate() {
+	return "UPDATE " + table() + "SET name=?, showId=?, imgUrl=?, thumbUrl=? WHERE id=?";
     }
 
     @Override
-    public String prepareRead() {
-        // TODO Auto-generated method stub
-        return null;
+    default String prepareRead() {
+	return "SELECT " + projection() + " FROM " + table() + " WHERE id=?";
     }
 
     @Override
-    public String prepareDelete() {
-        // TODO Auto-generated method stub
-        return null;
+    default String prepareDelete() {
+	return "DELETE FROM " + table() + " WHERE id=?";
     }
 
     @Override
-    public String prepareEagerRead() {
-        // TODO Auto-generated method stub
-        return null;
+    default String prepareEagerRead() {
+	return prepareRead();
     }
 
 }

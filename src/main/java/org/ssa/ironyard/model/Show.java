@@ -2,25 +2,25 @@ package org.ssa.ironyard.model;
 
 public class Show extends DomainObject {
 
-    final String name;
-    final Integer showId;
-    final String imgUrl;
-    final String thumbnailUrl;
+    private final String name;
+    private final Integer showId;
+    private final String imgUrl;
+    private final String thumbUrl;
 
     public Show(Integer id, boolean loaded, String name, Integer showId, String imgUrl, String thumbnailUrl) {
 	super(id, loaded);
 	this.name = name;
 	this.showId = showId;
 	this.imgUrl = imgUrl;
-	this.thumbnailUrl = thumbnailUrl;
+	this.thumbUrl = thumbnailUrl;
     }
 
     public String getImgUrl() {
-        return imgUrl;
+	return imgUrl;
     }
 
-    public String getThumbnailUrl() {
-        return thumbnailUrl;
+    public String getThumbUrl() {
+	return thumbUrl;
     }
 
     public String getName() {
@@ -79,20 +79,79 @@ public class Show extends DomainObject {
 		return false;
 	} else if (!showId.equals(other.showId))
 	    return false;
-	if (thumbnailUrl == null) {
-	    if (other.thumbnailUrl != null)
+	if (thumbUrl == null) {
+	    if (other.thumbUrl != null)
 		return false;
-	} else if (!thumbnailUrl.equals(other.thumbnailUrl))
+	} else if (!thumbUrl.equals(other.thumbUrl))
 	    return false;
 	return true;
     }
 
     @Override
     public String toString() {
-	return "Show [name=" + name + ", showId=" + showId + ", imgUrl=" + imgUrl + ", thumbnailUrl=" + thumbnailUrl
+	return "Show [name=" + name + ", showId=" + showId + ", imgUrl=" + imgUrl + ", thumbnailUrl=" + thumbUrl
 		+ "]";
     }
 
+    public static ShowBuilder builder() {
+	return new ShowBuilder();
+    }
 
+    public static ShowBuilder builder(Show show) {
+	return new ShowBuilder(show);
+    }
 
+    public static class ShowBuilder {
+	private Integer id;
+	private boolean loaded = false;
+	private String name;
+	private Integer showId;
+	private String imgUrl;
+	private String thumbUrl;
+
+	public ShowBuilder(){}
+	
+	public ShowBuilder(Show show){
+	    this.id = show.getId();
+	    this.loaded = show.isLoaded();
+	    this.name = show.getName();
+	    this.showId = show.getShowId();
+	    this.imgUrl = show.getImgUrl();
+	    this.thumbUrl = show.getThumbUrl();
+	}
+	
+	public ShowBuilder id(Integer id) {
+	    this.id = id;
+	    return this;
+	}
+
+	public ShowBuilder loaded(boolean loaded) {
+	    this.loaded = loaded;
+	    return this;
+	}
+
+	public ShowBuilder name(String name) {
+	    this.name = name;
+	    return this;
+	}
+
+	public ShowBuilder showId(Integer showId) {
+	    this.showId = showId;
+	    return this;
+	}
+
+	public ShowBuilder imgUrl(String imgUrl) {
+	    this.imgUrl = imgUrl;
+	    return this;
+	}
+
+	public ShowBuilder thumbUrl(String thumbUrl) {
+	    this.thumbUrl = thumbUrl;
+	    return this;
+	}
+
+	public Show build() {
+	    return new Show(id, loaded, name, showId, imgUrl, thumbUrl);
+	}
+    }
 }
