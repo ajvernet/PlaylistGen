@@ -34,7 +34,7 @@ public class PlaylistServiceTest {
     Episode episode2;
     
     @Before
-    public void setUp() throws Exception 
+    public void setUp()
     {
         dataSource = new MysqlDataSource();
         dataSource.setURL(URL);
@@ -54,35 +54,46 @@ public class PlaylistServiceTest {
 
         user2 = User.builder(user).email("Test2@test.com").build();
         
-        Playlist list1 = Playlist.builder().name("testPlaylist").user(user).targetDuration(1000).build();
-        Playlist list2 = Playlist.builder().name("testPlaylist2").user(user).targetDuration(1000).build();
-        
         episode1 = Episode.builder().episodeId(1).duration(1000).fileUrl("http://test.com/test").name("TestCast Audio").build();
-        episode2 = Episode.builder().episodeId(2).duration(1000).fileUrl("http://test.com/test2").name("TestCast Audio2").build();
-
+        episode2 = Episode.builder().episodeId(2).duration(100).fileUrl("http://test.com/test2").name("TestCast Audio2").build();
         
+        list1 = Playlist.builder().name("testPlaylist").user(user).targetDuration(1000).addEpisode(episode1).addEpisode(episode2).build();
+        list2 = Playlist.builder().name("testPlaylist2").user(user).targetDuration(1000).addEpisode(episode1).build();
+
+    }
+    
+    @Test
+    public void savePlaylistTest()
+    {
+        testService.savePlaylist(list1);
+        assertTrue(list1.deeplyEquals(playlistDAO.read(list1.getId())));
     }
 
     @Test
     public void deletePlaylistTest() 
     {
+       testService.savePlaylist(list1);
+       testService.deletePlaylist(list1.getId());
        
+       assertNull(playlistDAO.read(list1.getId()));
     }
     
     @Test
     public void getPlaylistByIdTest()
     {
-        
+        testService.savePlaylist(list1);
+        assertTrue(list1.deeplyEquals(testService.getPlaylistById(list1.getId())));
     }
     
+    @Test
     public void getAllPlaylistsTest()
     {
+        testService.savePlaylist(list1);
+        testService.savePlaylist(list2);
         
+        assertTrue(testService.getAllPlaylists(user.getId()).size() == 2);
     }
     
-    public void savePlaylistTest()
-    {
-        
-    }
+
 
 }
