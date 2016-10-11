@@ -1,5 +1,6 @@
 package org.ssa.ironyard.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Playlist extends DomainObject {
@@ -33,11 +34,11 @@ public class Playlist extends DomainObject {
     }
 
     public Integer getCurrentDuration() {
-        return currentDuration;
+	return currentDuration;
     }
 
     public List<Episode> getEpisodes() {
-        return episodes;
+	return episodes;
     }
 
     @Override
@@ -112,7 +113,7 @@ public class Playlist extends DomainObject {
 	private User user;
 	private Integer targetDuration;
 	private Integer currentDuration;
-	private List<Episode> episodes;
+	private List<Episode> episodes = new ArrayList<Episode>();
 
 	public PlaylistBuilder() {
 	}
@@ -151,18 +152,18 @@ public class Playlist extends DomainObject {
 	    this.targetDuration = targetDuration;
 	    return this;
 	}
-	
-	public PlaylistBuilder currentDuration(Integer currentDuration){
+
+	public PlaylistBuilder currentDuration(Integer currentDuration) {
 	    this.currentDuration = currentDuration;
 	    return this;
 	}
-	
-	public PlaylistBuilder episodes(List<Episode> episodes){
+
+	public PlaylistBuilder episodes(List<Episode> episodes) {
 	    this.episodes = episodes;
 	    return this;
 	}
-	
-	public PlaylistBuilder addEpisode(Episode episode){
+
+	public PlaylistBuilder addEpisode(Episode episode) {
 	    this.episodes.add(episode);
 	    return this;
 	}
