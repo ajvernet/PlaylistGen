@@ -21,7 +21,7 @@ public class EpisodeDAOTest {
 
     static String URL = "jdbc:mysql://localhost/Playlistdb?" + "user=root&password=root&" + "useServerPrepStmts=true";
     UserDAO users;
-    PlaylistDAO playlists;
+    PlaylistDAOImpl playlists;
     EpisodeDAO episodes;
     User user;
     Playlist playlist;
@@ -33,7 +33,7 @@ public class EpisodeDAOTest {
 	MysqlDataSource datasource = new MysqlDataSource();
 	datasource.setUrl(URL);
 	users = new UserDAO(datasource);
-	playlists = new PlaylistDAO(datasource);
+	playlists = new PlaylistDAOImpl(datasource);
 	episodes = new EpisodeDAO(datasource);
 	users.clear();
 	playlists.clear();
@@ -65,17 +65,6 @@ public class EpisodeDAOTest {
 	assertTrue(episodes.read(loadedEpisode.getId()).isLoaded());
 	assertTrue(episodes.delete(loadedEpisode.getId()));
 	assertNull(episodes.read(loadedEpisode.getId()));
-    }
-    @Ignore
-    @Test
-    public void testReadByPlaylist(){
-	assertTrue(episodes.getEpisodesByPlaylist(playlist.getId()).size()==0);
-	episodes.insert(episode);
-	assertTrue(episodes.getEpisodesByPlaylist(playlist.getId()).size()==1);
-	episodes.insert(episode);
-	assertTrue(episodes.getEpisodesByPlaylist(playlist.getId()).size()==2);
-	episodes.clear();
-	assertTrue(episodes.getEpisodesByPlaylist(playlist.getId()).size()==0);	
     }
 
 }

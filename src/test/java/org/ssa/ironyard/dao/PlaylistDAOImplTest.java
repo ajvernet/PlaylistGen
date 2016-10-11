@@ -17,22 +17,27 @@ import org.ssa.ironyard.model.User;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 
-public class PlaylistDAOTest {
+public class PlaylistDAOImplTest {
 
     static String URL = "jdbc:mysql://localhost/Playlistdb?" + "user=root&password=root&" + "useServerPrepStmts=true";
 
-    PlaylistDAO dao;
+    PlaylistDAOImpl dao;
     String name;
     User user;
     User user2;
     MysqlDataSource dataSource;
+    Playlist list1;
+    Playlist list2;
+    Playlist list3;
+    Playlist list4;
+    Playlist list5;
 
     @Before
     public void setup() {
 	dataSource = new MysqlDataSource();
 	dataSource.setURL(URL);
 
-	dao = new PlaylistDAO(dataSource);
+	dao = new PlaylistDAOImpl(dataSource);
 
 	UserDAO userDao = new UserDAO(dataSource);
 
@@ -46,11 +51,20 @@ public class PlaylistDAOTest {
 	user = userDao.insert(user);
 
 	user2 = userDao.insert(User.builder(user).email("Test2@test.com").build());
+	list1 = Playlist.builder().name("testPlaylist").user(user).targetDuration(1000).currentDuration(1).build();
+
+	list2 = list1;
+
+	list3 = list1;
+
+	list4 = Playlist.builder(list1).user(user2).build();
+
+	list5 = Playlist.builder(list1).user(user2).build();
+
     }
 
     @Test
     public void insertAndReadTest() {
-	Playlist list1 = Playlist.builder().name("testPlaylist").user(user).targetDuration(1000).build();
 	list1 = dao.insert(list1);
 	assertTrue(Objects.nonNull(dao.read(list1.getId())));
 
@@ -60,8 +74,6 @@ public class PlaylistDAOTest {
 
     @Test
     public void updatePlaylist() {
-	Playlist list1 = Playlist.builder().name("testPlaylist").user(user).targetDuration(100).build();
-
 	list1 = dao.insert(list1);
 
 	list1 = dao.update(Playlist.builder(list1).name("updatedPlaylist").build());
@@ -71,7 +83,6 @@ public class PlaylistDAOTest {
 
     @Test
     public void deletePlaylist() {
-	Playlist list1 = Playlist.builder().name("testPlaylist").user(user).targetDuration(100).build();
 	list1 = dao.insert(list1);
 
 	dao.delete(list1.getId());
@@ -81,19 +92,15 @@ public class PlaylistDAOTest {
 
     @Test
     public void readByUserTest() {
-	Playlist list1 = Playlist.builder().name("testPlaylist").targetDuration(100).user(user).build();
+
 	list1 = dao.insert(list1);
 
-	Playlist list2 = Playlist.builder().name("testPlaylist").targetDuration(100).user(user).build();
 	list1 = dao.insert(list2);
 
-	Playlist list3 = Playlist.builder().name("testPlaylist").targetDuration(100).user(user).build();
 	list1 = dao.insert(list3);
 
-	Playlist list4 = Playlist.builder().name("testPlaylist").targetDuration(100).user(user2).build();
 	list1 = dao.insert(list4);
 
-	Playlist list5 = Playlist.builder().name("testPlaylist").targetDuration(100).user(user2).build();
 	list1 = dao.insert(list5);
 
 	assertEquals(dao.readByUser(user2.getId()).size(), 2);
