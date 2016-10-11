@@ -1,4 +1,4 @@
-package org.ssa.ironyard.model;
+package org.ssa.ironyard.service.mapper;
 
 import java.util.ArrayList;
 import java.util.List;

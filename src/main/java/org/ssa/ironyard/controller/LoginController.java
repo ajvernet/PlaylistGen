@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.InternalResourceView;
+import org.ssa.ironyard.controller.mapper.UserPass;
 import org.ssa.ironyard.model.ResponseObject;
 import org.ssa.ironyard.model.ResponseObject.STATUS;
 import org.ssa.ironyard.model.User;
-import org.ssa.ironyard.model.UserPass;
 import org.ssa.ironyard.service.LoginService;
 
 @RestController

@@ -1,4 +1,4 @@
-package org.ssa.ironyard.model;
+package org.ssa.ironyard.service.mapper;
 
 public class ImageUrl {
     private String full;

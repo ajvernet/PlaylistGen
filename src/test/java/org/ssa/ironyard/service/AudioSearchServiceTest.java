@@ -8,7 +8,7 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.ssa.ironyard.model.Episode;
-import org.ssa.ironyard.model.SearchResults;
+import org.ssa.ironyard.service.mapper.SearchResults;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -68,6 +68,7 @@ public class AudioSearchServiceTest {
 	System.err.println(searchResults);
     }
 
+    @Ignore
     @Test
     public void testTasties(){
 	List<Episode> searchResults = ass.getTasties();
