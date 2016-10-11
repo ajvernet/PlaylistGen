@@ -1,4 +1,4 @@
-package org.ssa.ironyard.model;
+package org.ssa.ironyard.controller.mapper;
 
 public class UserPass {
     private String user;

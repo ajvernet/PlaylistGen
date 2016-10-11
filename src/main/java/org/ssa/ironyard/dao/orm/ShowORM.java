@@ -1,3 +1,4 @@
+
 package org.ssa.ironyard.dao.orm;
 
 import java.sql.ResultSet;

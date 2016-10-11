@@ -15,12 +15,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.ssa.ironyard.model.AudioFile;
 import org.ssa.ironyard.model.Episode;
-import org.ssa.ironyard.model.ImageUrl;
-import org.ssa.ironyard.model.PodcastEpisode;
-import org.ssa.ironyard.model.SearchResults;
 import org.ssa.ironyard.model.Show;
+import org.ssa.ironyard.service.mapper.AudioFile;
+import org.ssa.ironyard.service.mapper.ImageUrl;
+import org.ssa.ironyard.service.mapper.PodcastEpisode;
+import org.ssa.ironyard.service.mapper.SearchResults;
 
 @Service
 public class AudiosearchService {
@@ -89,6 +89,14 @@ public class AudiosearchService {
     
     public List<Episode> searchEpisodesByKeywords(String searchText){
 	final String uri = apiBaseUri + "/search/episodes/" + searchText;
+	RestTemplate restTemplate = new RestTemplate();
+	ResponseEntity<SearchResults> result;
+	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, SearchResults.class);
+	return processSearchResults(result.getBody());
+    }
+    
+    public List<Episode> getTasties(){
+	final String uri = apiBaseUri + "/tasties/1";
 	RestTemplate restTemplate = new RestTemplate();
 	ResponseEntity<SearchResults> result;
 	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, SearchResults.class);

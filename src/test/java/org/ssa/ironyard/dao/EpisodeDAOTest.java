@@ -47,7 +47,7 @@ public class EpisodeDAOTest {
 	user = users.insert(testUser);
 	playlist = playlists.insert(Playlist.builder().name("testPlaylist").user(user).targetDuration(1000).build());
 	show = shows.insert(Show.builder().name("Test show").showId(1).imgUrl("http://nowhere").thumbUrl("http://nowhere").build());
-	episode = Episode.builder().episodeId(1).duration(1000).fileUrl("http://test.com/test").name("TestCast Audio").playlist(playlist).playOrder(1).show(show).build();
+	episode = Episode.builder().episodeId(1).duration(1000).fileUrl("http://test.com/test").name("TestCast Audio").build();
     }
     
     @Test
