@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.StringJoiner;
 
 import org.ssa.ironyard.model.Episode;
-import org.ssa.ironyard.model.Playlist;
 import org.ssa.ironyard.model.Show;
 
 public interface EpisodeORM extends ORM<Episode> {
@@ -18,7 +17,7 @@ public interface EpisodeORM extends ORM<Episode> {
     @Override
     default String projection() {
 	StringJoiner joiner = new StringJoiner(", " + table() + ".", table() + ".", "");
-	joiner.add("id").add("episodeId").add("name").add("duration").add("fileUrl").add("showId").add("playlistId").add("playOrder");
+	joiner.add("id").add("episodeId").add("name").add("duration").add("fileUrl").add("showId");
 	return joiner.toString();
     }
 
@@ -37,26 +36,24 @@ public interface EpisodeORM extends ORM<Episode> {
 	return Episode.builder().id(results.getInt(table() + ".id")).loaded(true)
 		.episodeId(results.getInt(table() + ".episodeId")).name(results.getString(table() + ".name"))
 		.duration(results.getInt(table() + ".duration")).fileUrl(results.getString(table() + ".fileUrl"))
-		.show(Show.builder().id(results.getInt(table() + ".showId")).build())
-		.playlist(Playlist.builder().id(results.getInt(table() + ".playlistId")).build())
-		.playOrder(results.getInt(table() + ".playOrder")).build();
+		.show(Show.builder().id(results.getInt(table() + ".showId")).build()).build();
     }
 
     @Override
     default Episode eagerMap(ResultSet results) throws SQLException {
-	return Episode.builder(map(results)).show(showOrm.map(results)).playlist(playlistOrm.map(results)).build();
+	return Episode.builder(map(results)).show(showOrm.map(results)).build();
     }
 
     @Override
     default String prepareInsert() {
 	return "INSERT INTO " + table()
-		+ "(episodeId, name, duration, fileUrl, showId, playlistId, playOrder) VALUES (?,?,?,?,?,?,?)";
+		+ "(episodeId, name, duration, fileUrl, showId) VALUES (?,?,?,?,?)";
     }
 
     @Override
     default String prepareUpdate() {
 	return "UPDATE " + table()
-		+ " SET episodeId=?, name=?, duration=?, fileUrl=?, showId=?, playlistId=?, playOrder=? WHERE id=?";
+		+ " SET episodeId=?, name=?, duration=?, fileUrl=?, showId=? WHERE id=?";
     }
 
     @Override

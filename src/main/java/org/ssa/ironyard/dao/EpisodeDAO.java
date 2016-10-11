@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 import org.ssa.ironyard.dao.orm.EpisodeORM;
 import org.ssa.ironyard.dao.orm.ORM;
 import org.ssa.ironyard.model.Episode;
-import org.ssa.ironyard.model.Playlist;
 
 @Component
 public class EpisodeDAO extends AbstractSpringDAO<Episode> implements DAO<Episode> {
@@ -42,8 +41,6 @@ public class EpisodeDAO extends AbstractSpringDAO<Episode> implements DAO<Episod
 	insertStatement.setInt(3, domainToInsert.getDuration());
 	insertStatement.setString(4, domainToInsert.getFileUrl());
 	insertStatement.setInt(5, domainToInsert.getShow().getId());
-	insertStatement.setInt(6, domainToInsert.getPlaylist().getId());
-	insertStatement.setInt(7, domainToInsert.getPlayOrder());
     }
 
     @Override
@@ -67,8 +64,6 @@ public class EpisodeDAO extends AbstractSpringDAO<Episode> implements DAO<Episod
 		ps.setInt(3, domainToUpdate.getDuration());
 		ps.setString(4, domainToUpdate.getFileUrl());
 		ps.setInt(5, domainToUpdate.getShow().getId());
-		ps.setInt(6, domainToUpdate.getPlaylist().getId());
-		ps.setInt(7, domainToUpdate.getPlayOrder());
 		ps.setInt(8, domainToUpdate.getId());
 	    }
 	};
