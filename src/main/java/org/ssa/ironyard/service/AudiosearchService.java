@@ -128,7 +128,6 @@ public class AudiosearchService {
 	    Episode e = Episode.builder()
 		    .episodeId(p.getId())
 		    .name(p.getTitle())
-		    .show(new Show(null, false, p.getShow_title(), p.getShow_id(), fullImgUrl, thumbImgUrl))
 		    .duration(p.getDuration())
 		    .fileUrl(fileUrl)
 		    .build();

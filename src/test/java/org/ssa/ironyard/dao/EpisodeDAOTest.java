@@ -1,8 +1,10 @@
 package org.ssa.ironyard.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.ssa.ironyard.crypto.BCryptSecurePassword;
 import org.ssa.ironyard.model.Address;
@@ -20,7 +22,6 @@ public class EpisodeDAOTest {
     static String URL = "jdbc:mysql://localhost/Playlistdb?" + "user=root&password=root&" + "useServerPrepStmts=true";
     UserDAO users;
     PlaylistDAO playlists;
-    ShowDAO shows;
     EpisodeDAO episodes;
     User user;
     Playlist playlist;
@@ -34,10 +35,8 @@ public class EpisodeDAOTest {
 	users = new UserDAO(datasource);
 	playlists = new PlaylistDAO(datasource);
 	episodes = new EpisodeDAO(datasource);
-	shows = new ShowDAO(datasource);
 	users.clear();
 	playlists.clear();
-	shows.clear();
 	episodes.clear();
 	
 	User testUser = User.builder().email("test@test.com").firstName("Bob").lastName("Loblaw")
@@ -46,19 +45,19 @@ public class EpisodeDAOTest {
 		.password(new BCryptSecurePassword().secureHash("munsters")).build();
 	user = users.insert(testUser);
 	playlist = playlists.insert(Playlist.builder().name("testPlaylist").user(user).targetDuration(1000).build());
-	show = shows.insert(Show.builder().name("Test show").showId(1).imgUrl("http://nowhere").thumbUrl("http://nowhere").build());
+	//show = shows.insert(Show.builder().name("Test show").showId(1).imgUrl("http://nowhere").thumbUrl("http://nowhere").build());
 
 	episode = Episode.builder().episodeId(1).duration(1000).fileUrl("http://test.com/test").name("TestCast Audio").build();
 
     }
-    
+    @Ignore
     @Test
     public void testInsert() {
 	Episode loadedEpisode = episodes.insert(episode);
 	assertTrue(loadedEpisode.isLoaded());
 	assertTrue(loadedEpisode.getId() >= 0);
     }
-    
+    @Ignore
     @Test
     public void testDelete(){
 	Episode loadedEpisode = episodes.insert(episode);
@@ -67,7 +66,7 @@ public class EpisodeDAOTest {
 	assertTrue(episodes.delete(loadedEpisode.getId()));
 	assertNull(episodes.read(loadedEpisode.getId()));
     }
-    
+    @Ignore
     @Test
     public void testReadByPlaylist(){
 	assertTrue(episodes.getEpisodesByPlaylist(playlist.getId()).size()==0);

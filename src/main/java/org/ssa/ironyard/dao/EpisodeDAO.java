@@ -19,15 +19,10 @@ import org.ssa.ironyard.model.Episode;
 @Component
 public class EpisodeDAO extends AbstractSpringDAO<Episode> implements DAO<Episode> {
 
-    private PlaylistDAO playlistDao;
-    private ShowDAO showDAO;
-
     @Autowired
     public EpisodeDAO(DataSource dataSource) {
 	this(new EpisodeORM() {
 	}, dataSource);
-	this.playlistDao = new PlaylistDAO(dataSource);
-	this.showDAO = new ShowDAO(dataSource);
     }
 
     protected EpisodeDAO(ORM<Episode> orm, DataSource dataSource) {
@@ -40,7 +35,6 @@ public class EpisodeDAO extends AbstractSpringDAO<Episode> implements DAO<Episod
 	insertStatement.setString(2, domainToInsert.getName());
 	insertStatement.setInt(3, domainToInsert.getDuration());
 	insertStatement.setString(4, domainToInsert.getFileUrl());
-	insertStatement.setInt(5, domainToInsert.getShow().getId());
     }
 
     @Override
@@ -63,7 +57,6 @@ public class EpisodeDAO extends AbstractSpringDAO<Episode> implements DAO<Episod
 		ps.setString(2, domainToUpdate.getName());
 		ps.setInt(3, domainToUpdate.getDuration());
 		ps.setString(4, domainToUpdate.getFileUrl());
-		ps.setInt(5, domainToUpdate.getShow().getId());
 		ps.setInt(8, domainToUpdate.getId());
 	    }
 	};
@@ -79,6 +72,10 @@ public class EpisodeDAO extends AbstractSpringDAO<Episode> implements DAO<Episod
 
 		    return episodes;
 		});
+    }
+    
+    public void insertIfNotExist(Episode episode){
+	
     }
 
 }
