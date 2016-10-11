@@ -94,6 +94,14 @@ public class AudiosearchService {
 	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, SearchResults.class);
 	return processSearchResults(result.getBody());
     }
+    
+    public List<Episode> getTasties(){
+	final String uri = apiBaseUri + "/tasties/1";
+	RestTemplate restTemplate = new RestTemplate();
+	ResponseEntity<SearchResults> result;
+	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, SearchResults.class);
+	return processSearchResults(result.getBody());
+    }
 
     private List<Episode> processSearchResults(SearchResults searchResults){
 	List<Episode> episodes = new ArrayList<>();
