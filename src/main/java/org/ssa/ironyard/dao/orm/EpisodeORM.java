@@ -75,5 +75,9 @@ public interface EpisodeORM extends ORM<Episode> {
 		+ table() + "INNER JOIN " + playlistOrm.table() + " ON " + table() + ".id=" + playlistOrm.table()
 		+ ".id INNER JOIN " + showOrm.table() + " ON id=" + showOrm.table() + ".id WHERE id=?";
     }
+    
+    default String prepareReadByPlaylist(){
+	return "SELECT " + projection() + " FROM " + table() + " WHERE playlistId=?";
+    }
 
 }

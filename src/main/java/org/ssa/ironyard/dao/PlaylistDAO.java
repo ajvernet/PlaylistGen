@@ -31,6 +31,7 @@ public class PlaylistDAO extends AbstractSpringDAO<Playlist> {
     protected void insertPreparer(PreparedStatement insertStatement, Playlist domainToInsert) throws SQLException {
 	insertStatement.setString(1, domainToInsert.getName());
 	insertStatement.setInt(2, domainToInsert.getUser().getId());
+	insertStatement.setInt(3, domainToInsert.getTargetDuration());
     }
 
     @Override
@@ -57,11 +58,11 @@ public class PlaylistDAO extends AbstractSpringDAO<Playlist> {
 	};
     }
 
-    public List<Playlist> readByUser(Integer user_id) {
+    public List<Playlist> readByUser(Integer userId) {
 	List<Playlist> lists = new ArrayList<Playlist>();
 
 	return this.springTemplate.query(((PlaylistORM) this.orm).prepareReadByUser(),
-		(PreparedStatement ps) -> ps.setInt(1, user_id), (ResultSet cursor) -> {
+		(PreparedStatement ps) -> ps.setInt(1, userId), (ResultSet cursor) -> {
 		    while (cursor.next())
 			lists.add(this.orm.map(cursor));
 

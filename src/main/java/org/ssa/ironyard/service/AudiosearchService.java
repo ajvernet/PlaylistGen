@@ -23,16 +23,16 @@ import org.ssa.ironyard.model.SearchResults;
 import org.ssa.ironyard.model.Show;
 
 @Service
-public class AudioSearchService {
+public class AudiosearchService {
     static String apiBaseUri = "https://www.audiosear.ch/api";
     static String trendingUriFragment = "/trending";
 
-    private final AuthorizationService authorizationService;
-    private Logger LOGGER = LogManager.getLogger(AudioSearchService.class);
+    private final AudiosearchAuthorizationService authorizationService;
+    private Logger LOGGER = LogManager.getLogger(AudiosearchService.class);
     private final HttpEntity<String> oauth;
 
     @Autowired
-    public AudioSearchService(AuthorizationService authorizationService) {
+    public AudiosearchService(AudiosearchAuthorizationService authorizationService) {
 	LOGGER.info("AudioSearchService is loading");
 	this.authorizationService = authorizationService;
 	this.oauth = getHeaders();
@@ -81,7 +81,6 @@ public class AudioSearchService {
 
     public List<Episode> searchEpisodesByGenre(String genre) throws UnsupportedEncodingException {
 	final String uri = apiBaseUri + "/search/episodes/" + "filters[categories.name]=" + genre;
-	System.err.println(uri);
 	RestTemplate restTemplate = new RestTemplate();
 	ResponseEntity<SearchResults> result;
 	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, SearchResults.class);
@@ -90,7 +89,6 @@ public class AudioSearchService {
     
     public List<Episode> searchEpisodesByKeywords(String searchText){
 	final String uri = apiBaseUri + "/search/episodes/" + searchText;
-	System.err.println(uri);
 	RestTemplate restTemplate = new RestTemplate();
 	ResponseEntity<SearchResults> result;
 	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, SearchResults.class);
