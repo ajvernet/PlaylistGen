@@ -16,7 +16,7 @@ import com.google.common.io.ByteSource;
 import com.google.common.io.Resources;
 
 @Service
-public class AuthorizationService {
+public class AudiosearchAuthorizationService {
 
     private final String oauthBaseUri;
     private final String appId;
@@ -24,9 +24,9 @@ public class AuthorizationService {
     private final String redirect;
     private final String code;
 
-    Logger LOGGER = LogManager.getLogger(AuthorizationService.class);
+    Logger LOGGER = LogManager.getLogger(AudiosearchAuthorizationService.class);
 
-    public AuthorizationService() {
+    public AudiosearchAuthorizationService() {
 	LOGGER.info("Authorization Service is loading");
 	ByteSource byteSource = Resources.asByteSource(Resources.getResource("secrets.properties"));
 	Properties p = new Properties();

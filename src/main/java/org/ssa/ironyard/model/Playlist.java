@@ -1,7 +1,5 @@
 package org.ssa.ironyard.model;
 
-import org.ssa.ironyard.model.User.UserBuilder;
-
 public class Playlist extends DomainObject {
 
 

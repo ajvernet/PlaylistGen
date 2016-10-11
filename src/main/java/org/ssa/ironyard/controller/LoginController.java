@@ -33,9 +33,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public ResponseEntity<ResponseObject> authenticateUser( @RequestBody UserPass up, HttpServletRequest request, HttpSession session) {
-//	String username = request.getParameter("user");
-//	String password = request.getParameter("pass");
+    public ResponseEntity<ResponseObject> authenticateUser(@RequestBody UserPass up, HttpServletRequest request, HttpSession session) {
 	String username = up.getUser();
 	String password = up.getPass();
 	LOGGER.debug("Processing login attempt for {} - {}", username, password);
