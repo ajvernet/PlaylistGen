@@ -4,10 +4,12 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -95,12 +97,14 @@ public class AudiosearchService {
 	return processSearchResults(result.getBody());
     }
     
-    public List<Episode> getTasties(){
+    public void getTasties(){
 	final String uri = apiBaseUri + "/tasties/1";
 	RestTemplate restTemplate = new RestTemplate();
-	ResponseEntity<SearchResults> result;
-	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, SearchResults.class);
-	return processSearchResults(result.getBody());
+	ParameterizedTypeReference<List<Map<String, Object>>> typeRef = new ParameterizedTypeReference<List<Map<String, Object>>>() {};
+	ResponseEntity<List<Map<String, Object>>> result;
+	LOGGER.debug("{}", restTemplate.exchange(uri,HttpMethod.GET, oauth, String.class));
+	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, typeRef);
+	System.out.println(result.getBody().get(0).get("episode").getClass());
     }
 
     private List<Episode> processSearchResults(SearchResults searchResults){

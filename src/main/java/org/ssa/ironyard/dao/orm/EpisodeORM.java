@@ -10,21 +10,23 @@ import org.ssa.ironyard.model.Show;
 
 public interface EpisodeORM extends ORM<Episode> {
 
-    static final PlaylistORM playlistOrm = new PlaylistORM() {
-    };
-    static final ShowORM showOrm = new ShowORM() {
-    };
-
     @Override
     default String projection() {
 	StringJoiner joiner = new StringJoiner(", " + table() + ".", table() + ".", "");
-	joiner.add("id").add("episodeId").add("name").add("duration").add("fileUrl").add("showId").add("playlistId").add("playOrder");
+	joiner
+	.add("id")
+	.add("episodeId")
+	.add("name")
+	.add("duration")
+	.add("fileUrl")
+	.add("showName")
+	.add("showUrl");
 	return joiner.toString();
     }
 
     @Override
     default String eagerProjection() {
-	return projection() + ", " + playlistOrm.projection();
+	return projection();
     }
 
     @Override
@@ -37,14 +39,13 @@ public interface EpisodeORM extends ORM<Episode> {
 	return Episode.builder().id(results.getInt(table() + ".id")).loaded(true)
 		.episodeId(results.getInt(table() + ".episodeId")).name(results.getString(table() + ".name"))
 		.duration(results.getInt(table() + ".duration")).fileUrl(results.getString(table() + ".fileUrl"))
-		.show(Show.builder().id(results.getInt(table() + ".showId")).build())
-		.playlist(Playlist.builder().id(results.getInt(table() + ".playlistId")).build())
-		.playOrder(results.getInt(table() + ".playOrder")).build();
+		.show(new Show(results.getString(table()+ ".showName"), results.getString(table() + ".showUrl")))
+		.build();
     }
 
     @Override
     default Episode eagerMap(ResultSet results) throws SQLException {
-	return Episode.builder(map(results)).show(showOrm.map(results)).playlist(playlistOrm.map(results)).build();
+	return Episode.builder(map(results)).build();
     }
 
     @Override
@@ -71,9 +72,7 @@ public interface EpisodeORM extends ORM<Episode> {
 
     @Override
     default String prepareEagerRead() {
-	return "SELECT " + projection() + ", " + playlistOrm.projection() + ", " + showOrm.projection() + " FROM "
-		+ table() + "INNER JOIN " + playlistOrm.table() + " ON " + table() + ".id=" + playlistOrm.table()
-		+ ".id INNER JOIN " + showOrm.table() + " ON id=" + showOrm.table() + ".id WHERE id=?";
+	return prepareRead();
     }
     
     default String prepareReadByPlaylist(){

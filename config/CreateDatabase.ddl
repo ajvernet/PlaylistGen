@@ -19,7 +19,7 @@ CREATE TABLE `episodes` (
 	`name` VARCHAR(500) NULL DEFAULT NULL,
 	`duration` INT(11) NOT NULL,
 	`fileUrl` VARCHAR(300) NULL DEFAULT NULL,
-	`showId` INT(10) UNSIGNED NOT NULL,
+	`showName` VARCHAR(500) NULL DEFAULT NULL,
 	`playlistId` INT(10) UNSIGNED NOT NULL,
 	`playOrder` int(10) unsigned not null,
 	PRIMARY KEY (ID),

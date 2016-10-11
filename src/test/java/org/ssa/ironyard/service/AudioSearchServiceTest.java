@@ -68,11 +68,9 @@ public class AudioSearchServiceTest {
 	System.err.println(searchResults);
     }
 
-    @Ignore
     @Test
     public void testTasties(){
-	List<Episode> searchResults = ass.getTasties();
-	System.err.println(searchResults);
+	ass.getTasties();
     }
     
     private String findmp3(String genreJson) throws JsonProcessingException, IOException {

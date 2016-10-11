@@ -1,18 +1,23 @@
 package org.ssa.ironyard.model;
 
+import java.util.List;
+
 public class Playlist extends DomainObject {
-
-
 
     private final String name;
     private final User user;
     private final Integer targetDuration;
+    private final Integer currentDuration;
+    private final List<Episode> episodes;
 
-    public Playlist(Integer id, boolean loaded, String name, User user, Integer targetDuration) {
+    public Playlist(Integer id, boolean loaded, String name, User user, Integer targetDuration, Integer currentDuration,
+	    List<Episode> episodes) {
 	super(id, loaded);
 	this.name = name;
 	this.user = user;
 	this.targetDuration = targetDuration;
+	this.currentDuration = currentDuration;
+	this.episodes = episodes;
     }
 
     public Integer getTargetDuration() {
@@ -25,6 +30,14 @@ public class Playlist extends DomainObject {
 
     public User getUser() {
 	return user;
+    }
+
+    public Integer getCurrentDuration() {
+        return currentDuration;
+    }
+
+    public List<Episode> getEpisodes() {
+        return episodes;
     }
 
     @Override
@@ -80,66 +93,82 @@ public class Playlist extends DomainObject {
 
     @Override
     public String toString() {
-        return super.toString() + "Playlist [name=" + name + ", user=" + user + ", targetDuration=" + targetDuration + "]";
+	return super.toString() + "Playlist [name=" + name + ", user=" + user + ", targetDuration=" + targetDuration
+		+ "]";
     }
-    
-    public static PlaylistBuilder builder()
-    {
-        return new PlaylistBuilder();
+
+    public static PlaylistBuilder builder() {
+	return new PlaylistBuilder();
     }
-    
-    public static PlaylistBuilder builder(Playlist playlist)
-    {
-        return new PlaylistBuilder(playlist);
+
+    public static PlaylistBuilder builder(Playlist playlist) {
+	return new PlaylistBuilder(playlist);
     }
-    
+
     public static class PlaylistBuilder {
-        private Integer id;
-        private boolean loaded = false;
-        private String name;
-        private User user;
-        private Integer targetDuration;
-        
-        public PlaylistBuilder() {
-        }
-    
-        public PlaylistBuilder(Playlist playlist) {
-            this.id = playlist.getId();
-            this.loaded = playlist.isLoaded();
-            this.name = playlist.getName();
-            this.user = playlist.getUser();
-            this.targetDuration = playlist.getTargetDuration();
-    
-        }
-    
-        public PlaylistBuilder id(Integer id) {
-            this.id = id;
-            return this;
-        }
-    
-        public PlaylistBuilder loaded(boolean loaded) {
-            this.loaded = loaded;
-            return this;
-        }
-    
-        public PlaylistBuilder name(String name) {
-            this.name = name;
-            return this;
-        }
-    
-        public PlaylistBuilder user(User user) {
-            this.user = user;
-            return this;
-        }
-    
-        public PlaylistBuilder targetDuration(Integer targetDuration) {
-            this.targetDuration = targetDuration;
-            return this;
-        }
-    
-    
-        public Playlist build() {
-            return new Playlist(id, loaded, name, user, targetDuration);
-        }
+	private Integer id;
+	private boolean loaded = false;
+	private String name;
+	private User user;
+	private Integer targetDuration;
+	private Integer currentDuration;
+	private List<Episode> episodes;
+
+	public PlaylistBuilder() {
+	}
+
+	public PlaylistBuilder(Playlist playlist) {
+	    this.id = playlist.getId();
+	    this.loaded = playlist.isLoaded();
+	    this.name = playlist.getName();
+	    this.user = playlist.getUser();
+	    this.targetDuration = playlist.getTargetDuration();
+	    this.currentDuration = playlist.getCurrentDuration();
+	    this.episodes = playlist.getEpisodes();
+	}
+
+	public PlaylistBuilder id(Integer id) {
+	    this.id = id;
+	    return this;
+	}
+
+	public PlaylistBuilder loaded(boolean loaded) {
+	    this.loaded = loaded;
+	    return this;
+	}
+
+	public PlaylistBuilder name(String name) {
+	    this.name = name;
+	    return this;
+	}
+
+	public PlaylistBuilder user(User user) {
+	    this.user = user;
+	    return this;
+	}
+
+	public PlaylistBuilder targetDuration(Integer targetDuration) {
+	    this.targetDuration = targetDuration;
+	    return this;
+	}
+	
+	public PlaylistBuilder currentDuration(Integer currentDuration){
+	    this.currentDuration = currentDuration;
+	    return this;
+	}
+	
+	public PlaylistBuilder episodes(List<Episode> episodes){
+	    this.episodes = episodes;
+	    return this;
+	}
+	
+	public PlaylistBuilder addEpisode(Episode episode){
+	    this.episodes.add(episode);
+	    return this;
+	}
+
+	public Playlist build() {
+	    return new Playlist(id, loaded, name, user, targetDuration, currentDuration, episodes);
+	}
     }
 }
