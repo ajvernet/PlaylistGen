@@ -20,8 +20,6 @@ CREATE TABLE `episodes` (
 	`duration` INT(11) NOT NULL,
 	`fileUrl` VARCHAR(300) NULL DEFAULT NULL,
 	`showId` INT(10) UNSIGNED NOT NULL,
-	`playlistId` INT(10) UNSIGNED NOT NULL,
-	`playOrder` int(10) unsigned not null,
 	PRIMARY KEY (ID),
 	FOREIGN KEY (showId) REFERENCES shows(ID) ON DELETE CASCADE
 )
@@ -51,4 +49,13 @@ CREATE TABLE `playlists` (
 	foreign key (UserID) references users(ID) on delete cascade
 )
 ;
+
+CREATE TABLE PlaylistLinkEpisodes (
+	`Show_ID` INT(10) UNSIGNED NOT NULL,
+	`Episode_ID` INT(10) UNSIGNED NOT NULL,
+	`Ordinal` INT(10) UNSIGNED NOT NULL,	
+  	CONSTRAINT `playlists_episodes_ibfk_1` FOREIGN KEY (`Show_ID`) REFERENCES `shows` (`ID`) on delete cascade,
+  	CONSTRAINT `playlists_episodes_ibfk_2` FOREIGN KEY (`Episode_ID`) REFERENCES `episodes` (`ID`) on delete cascade,
+  	PRIMARY KEY (Show_ID, Episode_ID)
+);
 
