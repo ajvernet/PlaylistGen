@@ -52,3 +52,12 @@ CREATE TABLE `playlists` (
 )
 ;
 
+CREATE TABLE PlaylistLinkEpisodes (
+	`Show_ID` INT(10) UNSIGNED NOT NULL,
+	`Episode_ID` INT(10) UNSIGNED NOT NULL,
+	`Ordinal` INT(10) UNSIGNED NOT NULL,	
+  	CONSTRAINT `playlists_episodes_ibfk_1` FOREIGN KEY (`Show_ID`) REFERENCES `shows` (`ID`) on delete cascade,
+  	CONSTRAINT `playlists_episodes_ibfk_2` FOREIGN KEY (`Episode_ID`) REFERENCES `episodes` (`ID`) on delete cascade,
+  	PRIMARY KEY (Show_ID, Episode_ID)
+);
+

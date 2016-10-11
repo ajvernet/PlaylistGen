@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 import org.ssa.ironyard.dao.orm.EpisodeORM;
 import org.ssa.ironyard.dao.orm.ORM;
 import org.ssa.ironyard.model.Episode;
-import org.ssa.ironyard.model.Playlist;
 
 @Component
 public class EpisodeDAO extends AbstractSpringDAO<Episode> implements DAO<Episode> {
