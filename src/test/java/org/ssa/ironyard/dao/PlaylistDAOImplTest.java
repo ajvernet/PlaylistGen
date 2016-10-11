@@ -23,7 +23,7 @@ public class PlaylistDAOImplTest {
 
     static String URL = "jdbc:mysql://localhost/Playlistdb?" + "user=root&password=root&" + "useServerPrepStmts=true";
 
-    PlaylistDAOImpl dao;
+    PlaylistDAO dao;
     EpisodeDAO episodeDao;
     String name;
     User user;
@@ -46,8 +46,8 @@ public class PlaylistDAOImplTest {
 	dataSource.setURL(URL);
 
 	dao = new PlaylistDAOImpl(dataSource);
-	episodeDao = new EpisodeDAO(dataSource);
-	UserDAO userDao = new UserDAO(dataSource);
+	episodeDao = new EpisodeDAOImpl(dataSource);
+	UserDAO userDao = new UserDAOImpl(dataSource);
 	userDao.clear();
 
 	user = User.builder().email("test@test.com").firstName("Bob").lastName("Loblaw")

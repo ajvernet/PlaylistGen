@@ -20,9 +20,9 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 public class EpisodeDAOTest {
 
     static String URL = "jdbc:mysql://localhost/Playlistdb?" + "user=root&password=root&" + "useServerPrepStmts=true";
-    UserDAO users;
+    UserDAOImpl users;
     PlaylistDAOImpl playlists;
-    EpisodeDAO episodes;
+    EpisodeDAOImpl episodes;
     User user;
     Playlist playlist;
     Show show;
@@ -32,8 +32,8 @@ public class EpisodeDAOTest {
     public void setup(){
 	MysqlDataSource datasource = new MysqlDataSource();
 	datasource.setUrl(URL);
-	users = new UserDAO(datasource);
-	episodes = new EpisodeDAO(datasource);
+	users = new UserDAOImpl(datasource);
+	episodes = new EpisodeDAOImpl(datasource);
 	users.clear();
 	episodes.clear();
 	
