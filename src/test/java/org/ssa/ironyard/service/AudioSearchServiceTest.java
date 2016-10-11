@@ -17,12 +17,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class AudioSearchServiceTest {
 
-    private static AudioSearchService ass;
+    private static AudiosearchService ass;
     private static ObjectMapper mapper;
 
     @BeforeClass
     public static void initServices() {
-	ass = new AudioSearchService(new AuthorizationService());
+	ass = new AudiosearchService(new AudiosearchAuthorizationService());
 	mapper = new ObjectMapper(); // can reuse, share globally
 	mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
@@ -68,6 +68,12 @@ public class AudioSearchServiceTest {
 	System.err.println(searchResults);
     }
 
+    @Test
+    public void testTasties(){
+	List<Episode> searchResults = ass.getTasties();
+	System.err.println(searchResults);
+    }
+    
     private String findmp3(String genreJson) throws JsonProcessingException, IOException {
 	JsonNode node = mapper.readTree(genreJson);
 	System.err.println(node.path("id"));

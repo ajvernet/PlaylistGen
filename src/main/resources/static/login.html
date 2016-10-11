@@ -1,4 +1,24 @@
 <!DOCTYPE html>
+<link rel="stylesheet" href="vendor/bootstrap.min.css">
+<style>
+    html {
+        background: url(images/podcasts_background.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+    
+    body {
+        background-color: transparent;
+    }
+    
+    .vcenter {
+        display: inline-block;
+        vertical-align: middle;
+        float: none;
+    }
+</style>
 <script src="/vendor/angular.min.js"></script>
 <html ng-app="login">
 
@@ -7,58 +27,50 @@
 </head>
 
 <body ng-controller="LoginController as LC">
-    <header>
-
-        <h1>Login</h1>
-    </header>
-
-<form ng-submit="LC.login()" name="MyForm">
-	<label for="userEmail">Email: </label>
-	<input id="userEmail" type="text" ng-model="LC.userEmail" required>
-	<br>
-	<label for="userPW">Password: </label>
-	<input id="userPW" type="text" ng-model="LC.userPW" required>
-	<br>
-	<input type="submit" value="Login" ng-disabled="MyForm.$invalid">
-</form>
-
-<script>
-angular.module('login', []).controller('LoginController', function($http, $window) {
-	
-	var controller = this;
-	
-	controller.userEmail = "";
-	controller.userPW = "";
-	
-	controller.login = function(){
-	
-	$http({
-	    method: "POST",
-	    url : "/podcasts/login",
-	    dataType : "json",
-	    data: {
-            "user" : controller.userEmail,
-            "pass" : controller.userPW
-        }
-	}).success(function(response) {
-		console.log(response.status + " - " + response.msg);
-		if(response.status === "SUCCESS"){
-		$window.location.href = '/podcaster/';
-		}
-		if(response.status === "ERROR"){
-			controller.userPW = "";
-		}
-		
-	}).error(function(response) {
-		console.log("http error");
-	})
-		
-	}
-		
-	
-});
-</script>
-
+    <div class="container">
+        <form ng-submit="LC.login()" name="MyForm">
+            <div class="row">
+                <div class="col-sm-3 col-sm-offset-5" style="padding-top:25%">
+                    <header>
+                        <h1>Login</h1> </header>
+                    <div class="form-group">
+                        <label for="userEmail">Email: </label>
+                        <input id="userEmail" type="text" class="form-control" ng-model="LC.userEmail" required> </div>
+                    <div class="form-group">
+                        <label for="userPW">Password: </label>
+                        <input id="userPW" type="password" class="form-control" ng-model="LC.userPW" required> </div>
+                    <input class="btn btn-default" type="submit" value="Login" ng-disabled="MyForm.$invalid"> </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        angular.module('login', []).controller('LoginController', function ($http, $window) {
+            var controller = this;
+            controller.userEmail = "";
+            controller.userPW = "";
+            controller.login = function () {
+                $http({
+                    method: "POST"
+                    , url: "/podcasts/login"
+                    , dataType: "json"
+                    , data: {
+                        "user": controller.userEmail
+                        , "pass": controller.userPW
+                    }
+                }).success(function (response) {
+                    console.log(response.status + " - " + response.msg);
+                    if (response.status === "SUCCESS") {
+                        $window.location.href = '/podcaster/';
+                    }
+                    if (response.status === "ERROR") {
+                        controller.userPW = "";
+                    }
+                }).error(function (response) {
+                    console.log("http error");
+                })
+            }
+        });
+    </script>
 </body>
 
 </html>

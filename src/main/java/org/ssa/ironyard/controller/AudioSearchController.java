@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.ssa.ironyard.model.ResponseObject;
 import org.ssa.ironyard.model.ResponseObject.STATUS;
-import org.ssa.ironyard.service.AudioSearchService;
+import org.ssa.ironyard.service.AudiosearchService;
 
 @RestController
 @RequestMapping("/podcasts")
 public class AudioSearchController {
     static final Logger LOGGER = LogManager.getLogger(AudioSearchController.class);
 
-    private final AudioSearchService ass;
+    private final AudiosearchService ass;
 
     @Autowired
-    public AudioSearchController(AudioSearchService ass) {
+    public AudioSearchController(AudiosearchService ass) {
 	this.ass = ass;
     }
 

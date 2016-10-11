@@ -11,7 +11,7 @@ public class AuthorizationServiceTest {
 
     @Test
     public void test() throws IOException  {
-	AuthorizationService as = new AuthorizationService();
+	AudiosearchAuthorizationService as = new AudiosearchAuthorizationService();
 	as.getAccessToken();
     }
 

@@ -10,6 +10,10 @@
 	width: 50%;
 }
 
+.hoverPointer{
+	cursor: pointer;
+}
+
 li {
 	display: block;
 }
@@ -20,13 +24,6 @@ li {
 
 .playlistDiv li {
 	border: black dotted 1px;
-}
-
-.resultsDiv button {
-	display: block;
-	width: 100%;
-	padding: 2px;
-	text-align: left;
 }
 
 .seekBase {
@@ -44,9 +41,26 @@ li {
 	display: block;
 	position: absolute;
 	width: 500px;
-	height: 30px	;
+	height: 30px;
 	z-index: 1000;
 	background-color: white;
 	border: black solid 2px;
 	text-align: right;
+}
+
+.playlistTitle{
+	display: block;
+	font-size: 3em;
+	width: 100%;
+	text-align: center;
+}
+
+.namePL{
+	display: block;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 1001;
+	background-color: white;
+	text-align: center;
 }
