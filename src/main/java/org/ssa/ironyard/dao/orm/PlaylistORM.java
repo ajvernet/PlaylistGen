@@ -2,26 +2,30 @@ package org.ssa.ironyard.dao.orm;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringJoiner;
 
+import org.ssa.ironyard.model.Episode;
 import org.ssa.ironyard.model.Playlist;
+import org.ssa.ironyard.model.Playlist.PlaylistBuilder;
 import org.ssa.ironyard.model.User;
 
 public interface PlaylistORM extends ORM<Playlist> {
 
-    public static UserORM userORM = new UserORM() {
+    public static EpisodeORM episodeOrm = new EpisodeORM() {
     };
 
     @Override
     default String projection() {
 	StringJoiner joiner = new StringJoiner(", " + table() + ".", table() + ".", "");
-	joiner.add("id").add("name").add("userid").add("targetDuration");
+	joiner.add("id").add("name").add("userId").add("targetDuration").add("currentDuration");
 	return joiner.toString();
     }
 
     @Override
     default String eagerProjection() {
-	return projection();
+	return projection() + ", " + episodeOrm.projection();
     }
 
     @Override
@@ -33,17 +37,18 @@ public interface PlaylistORM extends ORM<Playlist> {
     default Playlist map(ResultSet results) throws SQLException {
 	return Playlist.builder().id(results.getInt(table() + ".id")).name(results.getString(table() + ".name"))
 		.user(User.builder().id(results.getInt(table() + ".userid")).build())
-		.targetDuration(results.getInt(table() + ".targetDuration")).build();
+		.targetDuration(results.getInt(table() + ".targetDuration"))
+		.currentDuration(results.getInt(table() + ".currentDuration")).build();
     }
 
     @Override
     default Playlist eagerMap(ResultSet results) throws SQLException {
-	return Playlist.builder(map(results)).user(userORM.map(results)).build();
+	return map(results);
     }
 
     @Override
     default String prepareInsert() {
-	return "INSERT INTO " + table() + "(name, userid, targetDuration)" + " VALUES(?, ?, ?)";
+	return "INSERT INTO " + table() + "(name, userid, targetDuration, currentDuration)" + " VALUES(?, ?, ?, ?)";
     }
 
     @Override
@@ -62,13 +67,13 @@ public interface PlaylistORM extends ORM<Playlist> {
 
     @Override
     default String prepareUpdate() {
-	return "UPDATE " + table() + " SET name=?, userid=?, targetDuration=? WHERE " + table() + ".id=?";
+	return "UPDATE " + table() + " SET name=?, userid=?, targetDuration=?, currentDuration=? WHERE " + table() + ".id=?";
     }
 
     @Override
     default String prepareEagerRead() {
-	return "SELECT " + projection() + ", " + userORM.projection() + " FROM " + table() + " INNER JOIN "
-		+ userORM.table() + " ON " + table() + ".userid = " + userORM.table() + ".ID " + "WHERE " + table()
-		+ ".id=?";
+	return "SELECT " + projection() + " FROM " + table() + " INNER JOIN PlaylistEpisodes ON " + table()
+		+ ".id=PlaylistEpisodes.id INNER JOIN " + episodeOrm.table() + " ON PlaylistEpisodes.id="
+		+ episodeOrm.table() + ".id WHERE " + table() + ".id=?";
     }
 }

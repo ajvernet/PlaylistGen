@@ -1,34 +1,22 @@
-CREATE DATABASE playlistdb;
+DROP DATABASE PlaylistDB;
+CREATE DATABASE PlaylistDB;
 
-USE playlistdb;
+USE PlaylistDB;
 
-CREATE TABLE `shows` (
-	`ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-	`Name` VARCHAR(500) NULL DEFAULT NULL,	
-	`showId` INT(10) UNSIGNED NOT NULL,
-	`imgUrl` VARCHAR(300) NULL DEFAULT NULL,
-	`thumbUrl` VARCHAR(300) NULL DEFAULT NULL,
-	PRIMARY KEY (`ID`)
-)
-
-;
-CREATE TABLE `episodes` (
-
-	`ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-	`episodeId` INT(10) UNSIGNED NOT NULL,
-	`name` VARCHAR(500) NULL DEFAULT NULL,
-	`duration` INT(11) NOT NULL,
-	`fileUrl` VARCHAR(300) NULL DEFAULT NULL,
-	`showName` VARCHAR(500) NULL DEFAULT NULL,
-	`playlistId` INT(10) UNSIGNED NOT NULL,
-	`playOrder` int(10) unsigned not null,
-	PRIMARY KEY (ID),
-	FOREIGN KEY (showId) REFERENCES shows(ID) ON DELETE CASCADE
+CREATE TABLE Episodes (
+	id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	episodeId INT UNSIGNED NOT NULL,
+	name VARCHAR(500) NOT NULL,
+	duration INT UNSIGNED NULL DEFAULT 0,
+	fileUrl VARCHAR(300) NULL DEFAULT NULL,
+	showName VARCHAR(500) NULL DEFAULT NULL,
+	thumbUrl VARCHAR(300) NULL DEFAULT NULL,
+	PRIMARY KEY (ID)
 )
 ;
 
-CREATE TABLE users
-(id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE Users
+(id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 email VARCHAR(255) NOT NULL,
 salt VARCHAR(50) NOT NULL,
 hash VARCHAR(50) NOT NULL,
@@ -42,22 +30,23 @@ UNIQUE (email))
 ;
 
 
-CREATE TABLE `playlists` (
-	`ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-	`Name` VARCHAR(500) NULL DEFAULT NULL,
-	`UserId` int unsigned not null,
-	`targetDuration` int unsigned,
-	PRIMARY KEY (`ID`),
-	foreign key (UserID) references users(ID) on delete cascade
+CREATE TABLE Playlists (
+	id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	name VARCHAR(500) NULL DEFAULT NULL,
+	userId int unsigned not null,
+	targetDuration int unsigned,
+	currentDuration int unsigned,
+	PRIMARY KEY (id),
+	foreign key (userID) references users(id) on delete cascade
 )
 ;
 
-CREATE TABLE PlaylistLinkEpisodes (
-	`Show_ID` INT(10) UNSIGNED NOT NULL,
-	`Episode_ID` INT(10) UNSIGNED NOT NULL,
-	`Ordinal` INT(10) UNSIGNED NOT NULL,	
-  	CONSTRAINT `playlists_episodes_ibfk_1` FOREIGN KEY (`Show_ID`) REFERENCES `shows` (`ID`) on delete cascade,
-  	CONSTRAINT `playlists_episodes_ibfk_2` FOREIGN KEY (`Episode_ID`) REFERENCES `episodes` (`ID`) on delete cascade,
-  	PRIMARY KEY (Show_ID, Episode_ID)
+CREATE TABLE PlaylistEpisodes (
+	playlistId INT UNSIGNED NOT NULL,
+	episodeId INT UNSIGNED NOT NULL,
+	sortOrder INT UNSIGNED NOT NULL,	
+  	CONSTRAINT playlistepisodes_ibfk_1 FOREIGN KEY (playlistId) REFERENCES Playlists(id) on delete cascade,
+  	CONSTRAINT playlistepisodes_ibfk_2 FOREIGN KEY (episodeId) REFERENCES Episodes(id) on delete cascade,
+  	PRIMARY KEY (playlistId, episodeId)
 );
 

@@ -62,18 +62,6 @@ public class EpisodeDAO extends AbstractSpringDAO<Episode> implements DAO<Episod
 	};
     }
     
-    public List<Episode> getEpisodesByPlaylist(Integer playlistId){
-	List<Episode> episodes = new ArrayList<Episode>();
-
-	return this.springTemplate.query(((EpisodeORM) this.orm).prepareReadByPlaylist(),
-		(PreparedStatement ps) -> ps.setInt(1, playlistId), (ResultSet cursor) -> {
-		    while (cursor.next())
-			episodes.add(this.orm.map(cursor));
-
-		    return episodes;
-		});
-    }
-    
     public void insertIfNotExist(Episode episode){
 	
     }
