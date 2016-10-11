@@ -93,13 +93,17 @@ public class PlaylistDAOImpl extends AbstractSpringDAO<Playlist> implements Play
 
     @Override
     public boolean replaceEpisodes(Integer playlistId, List<Episode> episodes) {
+	LOGGER.debug("Updating episodes in playlist: {}", playlistId);
+	LOGGER.debug("Updated playlist will have {} episodes", episodes.size());
 	this.springTemplate.update(("DELETE FROM PlaylistEpisodes WHERE playlistId = ?"),
 		(PreparedStatement ps) -> ps.setInt(1, playlistId));
+	LOGGER.debug("Old playlist data cleared");
 	StringBuilder updateString = new StringBuilder("INSERT INTO PlaylistEpisodes VALUES");
 	for (Episode episode : episodes) {
-	    StringJoiner joiner = new StringJoiner(", ", "(", "),");
-	    joiner.add(playlistId.toString()).add(episode.getId().toString());
-	    updateString.append(joiner.toString());
+	    updateString.append(
+		    "(" + playlistId + ", " + episode.getEpisodeId() + "),"		    
+		    );
+	    LOGGER.debug("UPDATE STRING: {}", updateString.toString());
 	}
 	updateString.deleteCharAt(updateString.length() - 1);
 	LOGGER.debug("{}", updateString.toString());

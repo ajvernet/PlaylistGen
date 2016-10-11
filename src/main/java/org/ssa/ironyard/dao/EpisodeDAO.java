@@ -2,10 +2,7 @@
 package org.ssa.ironyard.dao;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -35,6 +32,8 @@ public class EpisodeDAO extends AbstractSpringDAO<Episode> implements DAO<Episod
 	insertStatement.setString(2, domainToInsert.getName());
 	insertStatement.setInt(3, domainToInsert.getDuration());
 	insertStatement.setString(4, domainToInsert.getFileUrl());
+	insertStatement.setString(5, domainToInsert.getShow().getName());
+	insertStatement.setString(6, domainToInsert.getShow().getThumbUrl());
     }
 
     @Override

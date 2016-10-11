@@ -91,11 +91,12 @@ public class Playlist extends DomainObject {
 	    return false;
 	return true;
     }
+    
 
     @Override
     public String toString() {
-	return super.toString() + "Playlist [name=" + name + ", user=" + user + ", targetDuration=" + targetDuration
-		+ "]";
+	return "Playlist [name=" + name + ", user=" + user + ", targetDuration=" + targetDuration + ", currentDuration="
+		+ currentDuration + ", episodes=" + episodes + "]";
     }
 
     public static PlaylistBuilder builder() {
