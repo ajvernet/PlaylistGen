@@ -45,7 +45,7 @@ public class EpisodeDAOTest {
 	
 	//show = shows.insert(Show.builder().name("Test show").showId(1).imgUrl("http://nowhere").thumbUrl("http://nowhere").build());
 
-	episode = Episode.builder().episodeId(1).duration(1000).fileUrl("http://test.com/test").name("TestCast Audio").show(new Show("Test Show", "Test Show URL")).build();
+	episode = Episode.builder().episodeId(1).duration(1000).fileUrl("http://test.com/test").name("TestCast Audio").show(new Show(1, "Test Show", "Test Show URL")).build();
 	episode2 = Episode.builder(episode).episodeId(2).build();
 	episode3 = Episode.builder(episode).episodeId(3).build();
     }

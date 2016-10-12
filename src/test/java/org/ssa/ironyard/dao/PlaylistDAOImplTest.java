@@ -65,7 +65,7 @@ public class PlaylistDAOImplTest {
 	list4 = Playlist.builder(list1).user(user2).build();
 	list5 = Playlist.builder(list1).user(user2).build();
 	
-	episode1 = Episode.builder().duration(1).episodeId(1).fileUrl("1").name("Episode 1").show(new Show("Test Show", "Test Show URL")).build();
+	episode1 = Episode.builder().duration(1).episodeId(1).fileUrl("1").name("Episode 1").show(new Show(1, "Test Show", "Test Show URL")).build();
 	episode2 = Episode.builder(episode1).episodeId(2).name("Episode 2").build();
 	episode3 = Episode.builder(episode1).episodeId(3).name("Episode 3").build();
 	episode4 = Episode.builder(episode1).episodeId(4).name("Episode 4").build();
