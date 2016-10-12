@@ -137,9 +137,9 @@ public class AudiosearchService {
 	return episodes;
     }
     
-    public List<Genre> getGenres(){
-	
-	}
+//    public List<Genre> getGenres(){
+//	
+//	}
 
     private HttpEntity<String> getHeaders() {
 	HttpHeaders headers = new HttpHeaders();
