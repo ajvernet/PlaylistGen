@@ -70,6 +70,7 @@ public class PlaylistServiceTest {
         
     }
 
+    @Ignore
     @Test
     public void deletePlaylistTest() 
     {
