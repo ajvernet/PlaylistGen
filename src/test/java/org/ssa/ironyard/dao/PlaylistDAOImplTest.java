@@ -105,7 +105,7 @@ public class PlaylistDAOImplTest {
 
     @Test 
     public void eagerReadPlaylist(){
-	list1 = Playlist.builder(list1).addEpisode(episode1).addEpisode(episode2).build();
+	list1 = Playlist.builder(list1).addEpisode(episode2).addEpisode(episode1).build();
 	episodeDao.insert(episode1);
 	episodeDao.insert(episode2);
 	list1 = dao.insert(list1);

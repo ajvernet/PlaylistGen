@@ -82,7 +82,7 @@ public class EpisodeDAOImpl extends AbstractSpringDAO<Episode> implements Episod
     }
     
     @Override
-    public Episode insertIfNotExist(Episode episode){
+    public Episode insertIfAbsent(Episode episode){
 	Episode existingEpisode = readByEpisodeId(episode.getEpisodeId());
 	LOGGER.debug(existingEpisode);
 	if(existingEpisode==null)
