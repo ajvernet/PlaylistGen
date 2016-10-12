@@ -1,13 +1,13 @@
 .resultsDiv {
 	display: block;
-	float: right;
-	width: 50%;
+	float: left;
+	width: 45%;
 }
 
 .playlistDiv {
 	display: block;
-	float: left;
-	width: 50%;
+	float: right;
+	width: 45%;
 }
 
 .hoverPointer{
@@ -41,11 +41,9 @@ li {
 	display: block;
 	position: absolute;
 	width: 500px;
-	height: 30px;
 	z-index: 1000;
 	background-color: white;
 	border: black solid 2px;
-	text-align: right;
 }
 
 .playlistTitle{
@@ -55,12 +53,46 @@ li {
 	text-align: center;
 }
 
-.namePL{
+.namePopup{
 	display: block;
 	position: absolute;
+	top: 30%;
+	left: 25%;
+	width: 50%;
+	z-index: 2001;
+	background-color: white;
+	border: black solid 2px;
+	text-align: center;
+	padding: 30px;
+	margin: 30px;
+}
+
+.namePopupBG{
+	display: block;
+	position: absolute;
+	top: 0%;
+	left: 0%;
 	width: 100%;
 	height: 100%;
-	z-index: 1001;
-	background-color: white;
-	text-align: center;
+	z-index: 2000;
+	background-color: gray;
+	opacity: .7;
+}
+
+input[type=number]{
+    width: 70px;
+} 
+
+.container{
+	width: 95%;
+}
+
+.form-control{
+	width: 40%;
+	float: right;
+}
+
+.genreLabel{
+	float: right;
+	font-size: large;
 }

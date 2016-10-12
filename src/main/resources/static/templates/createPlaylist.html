@@ -14,33 +14,35 @@
 -->
 
 <div id="newPL" class="playlistTitle">
-{{ MC.playlistName }}
+{{ MC.playlistName }} 
 </div>
-
-<!-- temp name and duration inputs for testing -->
-<input type="text" ng-model="MC.playlistName">
-
-User Defined Duration:
-<input id="manualDurHours" type="number" min="0" value="0" ng-model="MC.userDurHours">
-<input id="manualDurMinutes" type="number" min="0" value="0" ng-model="MC.userDurMinutes">
-<br>
-<button ng-click="MC.manualTime()">Get Manual Time</button>
-<!-- end of temp -->
 <br><br><br><br>
 
-<div id="durationsDiv">
-{{ MC.tripDuration }}
-Trip Duration: {{ MC.userDuration }}
-</div>
-
-<div>
+<div class="listsContainer">
 
 	<div class="resultsDiv">
-	
-		<input type="text" ng-model="MC.keywordSearch">
-		<button id="submitSearchBtn" ng-click="MC.submitSearch()">Search</button>
+		<h3>Podcast Search</h3>
 
-		<h5>Podcast Search</h5>
+		<input type="text" size="30" ng-model="MC.keywordSearch">
+		
+		<select class="form-control" id="genre" ng-model="MC.genre">
+		<option></option>
+        <option>Comedy</option>
+        <option>Sports & Recreation</option>
+        <option>Business</option>
+        <option>Other</option>
+        <option>Society & Culture</option>
+        <option>Arts</option>
+        <option>News & Politics</option>
+        <option>Technology</option>
+        <option>Education</option>
+      </select>
+      
+      <span class="genreLabel">
+		Genre: 
+		</span>
+      
+		<button id="submitSearchBtn" ng-click="MC.submitSearch(MC.keywordSearch, MC.genre)">Search</button>
 		
 		
 <!--
@@ -52,7 +54,7 @@ Trip Duration: {{ MC.userDuration }}
 -->
 <div class="hoverPointer">
 <table class="table table-hover table-striped table-bordered">
-	<tr ng-repeat="podcast in MC.searchResults" ng-mouseover="MC.hoverDetail(podcast, $event)" ng-mouseleave="MC.hoverLeave()">
+	<tr ng-repeat="podcast in MC.searchResultsFromService" ng-mouseover="MC.hoverDetail(podcast, $event)" ng-mouseleave="MC.hoverLeave()">
 		<td ng-click="MC.addToPL(podcast)">{{ podcast.title }} --- {{ podcast.duration }}</td>
 	</tr>
 </table>
@@ -62,29 +64,56 @@ Trip Duration: {{ MC.userDuration }}
 	<div id="podcastDetail" class="podcastDetail" ng-show="MC.detailShow" ng-style="{'left':MC.offsetLeft, 'top':MC.offsetTop}">
 	
 		{{ MC.detailTitle }} ---
-		{{ MC.detailArtist }} ---
 		{{ MC.detailDuration }}
 	
 	</div>
 	
 
-	<div class="playlistDiv">
+	<div class="playlistDiv" ng-show="MC.createdPlaylist.length">
 
+Trip Duration: {{ MC.userDuration }}
+<br>
 Playlist Duration: {{ MC.playlistDurationBuilder }}
 		<h5>Playlist</h5>
 <table class="table table-hover table-striped table-bordered">
-			<tr ng-repeat="podcast in MC.createdPlaylist"><td>{{ podcast.title }} --- {{ podcast.duration }}
+			<tr ng-repeat="podcast in MC.createdPlaylist"  ng-style="podcast.loaded == true && {} || !podcasthasOwnProperty('loaded') && {'background-color': 'silver', 'opacity': '.6'}"><td>{{ podcast.title }} --- {{ podcast.duration }}
 				<button ng-click="MC.dropSong($index, podcast)">remove</button>
 				<button ng-click="MC.raiseSong($index)" ng-hide="$first">up</button>
 				<button ng-click="MC.lowerSong($index)" ng-hide="$last">down</button>
 			</td></tr>
 </table>
 
-	</div>
-	<button ng-click="MC.savePlaylist()">POST</button>
+<button ng-click="MC.savePlaylist()">Save Playlist</button>
 
-	<br> <br>
-<!-- remove player from view --- add to detail view -->
+	</div>
+	</div>
+
+
+<div class="namePopup" ng-show="MC.showNameDiv">
+<h3>Name your new playlist:</h3>
+<form ng-submit="MC.initializePL()" name="nameForm">
+	<label for="userEmail">Playlist Name: </label>
+	<input id="playlistName" type="text" ng-model="MC.playlistName" required>
+	<br><br>
+	<label for="userDurHours">Duration: </label>
+	<input id="userDurHours" type="number" min="0" value="0" placeholder="Hours" ng-model="MC.userDurHours"> -
+	<input id="userDurMinutes" type="number" min="0" value="0" placeholder="Minutes" ng-model="MC.userDurMinutes">
+	<br><br>
+	<input type="submit" value="Save" ng-disabled="nameForm.$invalid">
+</form>
+</div>
+
+<div class="namePopupBG" ng-show="MC.showNameDiv"></div>
+
+
+
+
+
+
+
+
+
+<!-- remove player from view --- add to detail view
 	<button play-all="MC.createdPlaylist" data-play="false">Launch
 		Playlist</button>
 
@@ -111,6 +140,7 @@ Playlist Duration: {{ MC.playlistDurationBuilder }}
 	</div>
 
 </div>
+-->
 
 <!--
 <div>
