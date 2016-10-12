@@ -47,6 +47,20 @@ public class Episode extends DomainObject {
 	return show;
     }
 
+    public Integer getGenreId() {
+        return genreId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public String toString() {
+	return "Episode [episodeId=" + episodeId + ", name=" + name + ", genreId=" + genreId + ", description="
+		+ description + ", duration=" + duration + ", fileUrl=" + fileUrl + ", show=" + show + "]";
+    }
+
     @Override
     public int hashCode() {
 	final int prime = 31;
