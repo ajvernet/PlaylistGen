@@ -18,6 +18,7 @@ public interface EpisodeORM extends ORM<Episode> {
 	.add("name")
 	.add("duration")
 	.add("fileUrl")
+	.add("showId")
 	.add("showName")
 	.add("thumbUrl");
 	return joiner.toString();
@@ -38,7 +39,7 @@ public interface EpisodeORM extends ORM<Episode> {
 	return Episode.builder().id(results.getInt(table() + ".id")).loaded(true)
 		.episodeId(results.getInt(table() + ".episodeId")).name(results.getString(table() + ".name"))
 		.duration(results.getInt(table() + ".duration")).fileUrl(results.getString(table() + ".fileUrl"))
-		.show(new Show(results.getString(table()+ ".showName"), results.getString(table() + ".thumbUrl")))
+		.show(new Show(results.getInt(table() + ".showId"),results.getString(table()+ ".showName"), results.getString(table() + ".thumbUrl")))
 		.build();
     }
 
@@ -50,13 +51,13 @@ public interface EpisodeORM extends ORM<Episode> {
     @Override
     default String prepareInsert() {
 	return "INSERT INTO " + table()
-		+ "(episodeId, name, duration, fileUrl, showName, thumbUrl) VALUES (?,?,?,?,?,?)";
+		+ "(episodeId, name, duration, fileUrl, showId, showName, thumbUrl) VALUES (?,?,?,?,?,?)";
     }
 
     @Override
     default String prepareUpdate() {
 	return "UPDATE " + table()
-		+ " SET episodeId=?, name=?, duration=?, fileUrl=?, showName=?, thumbUrl=? WHERE id=?";
+		+ " SET episodeId=?, name=?, duration=?, fileUrl=?, showId=?, showName=?, thumbUrl=? WHERE id=?";
     }
 
     @Override
