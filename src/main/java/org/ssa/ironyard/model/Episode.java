@@ -18,6 +18,13 @@ public class Episode extends DomainObject {
 	this.show = show;
     }
 
+    @Override
+    public Episode clone()
+    {
+        return this;
+    }
+    
+
     public Integer getEpisodeId() {
 	return episodeId;
     }
