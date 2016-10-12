@@ -10,5 +10,7 @@ public interface PlaylistDAO extends DAO<Playlist>{
     List<Playlist> readByUser(Integer userId);
 
     boolean replaceEpisodes(Integer playlistId, List<Episode> episodes);
+
+    Playlist readByPlaylistId(Integer playlistId);
     
 }

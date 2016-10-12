@@ -24,16 +24,14 @@ public class PlaylistDAOImpl extends AbstractSpringDAO<Playlist> implements Play
 
     Logger LOGGER = LogManager.getLogger(PlaylistDAOImpl.class);
 
-    private static EpisodeORM episodeOrm = new EpisodeORM(){};
-    private EpisodeDAO episodeDao;
+    private static final EpisodeORM episodeOrm = new EpisodeORM() {
+    };
 
-    protected PlaylistDAOImpl(PlaylistORM orm, DataSource dataSource) {
-	super(orm, dataSource);
-    }
+    private final EpisodeDAO episodeDao;
 
     @Autowired
     public PlaylistDAOImpl(DataSource dataSource, EpisodeDAO episodeDao) {
-	this(new PlaylistORM() {
+	super(new PlaylistORM() {
 	}, dataSource);
 	this.episodeDao = episodeDao;
     }
@@ -96,13 +94,12 @@ public class PlaylistDAOImpl extends AbstractSpringDAO<Playlist> implements Play
 	this.springTemplate.update(("DELETE FROM PlaylistEpisodes WHERE playlistId = ?"),
 		(PreparedStatement ps) -> ps.setInt(1, playlistId));
 	LOGGER.debug("Old playlist data cleared");
-	StringBuilder updateString = new StringBuilder("INSERT INTO PlaylistEpisodes(playlistId, episodeId, sortOrder) VALUES");
+	StringBuilder updateString = new StringBuilder(
+		"INSERT INTO PlaylistEpisodes(playlistId, episodeId, sortOrder) VALUES");
 	for (int i = 0; i < episodes.size(); i++) {
-	    Episode loadedEpisode = episodeDao.insertIfNotExist(episodes.get(i));
+	    Episode loadedEpisode = episodeDao.insertIfAbsent(episodes.get(i));
 	    LOGGER.debug("Insert If Not Exist returned episode w/ id: {}", loadedEpisode.getId());
-	    updateString.append(
-		    "(" + playlistId + ", " + loadedEpisode.getId() + ", " + i +"),"		    
-		    );
+	    updateString.append("(" + playlistId + ", " + loadedEpisode.getId() + ", " + i + "),");
 	    LOGGER.debug("UPDATE STRING: {}", updateString.toString());
 	}
 	updateString.deleteCharAt(updateString.length() - 1);
@@ -110,6 +107,7 @@ public class PlaylistDAOImpl extends AbstractSpringDAO<Playlist> implements Play
 	return this.springTemplate.update(updateString.toString()) == episodes.size();
     }
 
+    @Override
     public Playlist readByPlaylistId(Integer playlistId) {
 	return this.springTemplate.query(((PlaylistORM) this.orm).prepareEagerRead(),
 		(PreparedStatement ps) -> ps.setInt(1, playlistId), (ResultSet cursor) -> {

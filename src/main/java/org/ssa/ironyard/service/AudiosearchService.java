@@ -18,11 +18,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.ssa.ironyard.model.Episode;
+import org.ssa.ironyard.model.Genre;
 import org.ssa.ironyard.model.Show;
 import org.ssa.ironyard.service.mapper.AudioFile;
 import org.ssa.ironyard.service.mapper.ImageUrl;
 import org.ssa.ironyard.service.mapper.PodcastEpisode;
 import org.ssa.ironyard.service.mapper.SearchResults;
+
+import com.google.common.collect.Lists;
 
 @Service
 public class AudiosearchService {
@@ -81,8 +84,8 @@ public class AudiosearchService {
 	return result.getBody();
     }
 
-    public List<Episode> searchEpisodesByGenre(String genre) throws UnsupportedEncodingException {
-	final String uri = apiBaseUri + "/search/episodes/" + "filters[categories.name]=" + genre;
+    public List<Episode> searchEpisodesByGenre(Genre genre) throws UnsupportedEncodingException {
+	final String uri = apiBaseUri + "/search/episodes/" + "filters[categories.id]=" + genre.getId();
 	RestTemplate restTemplate = new RestTemplate();
 	ResponseEntity<SearchResults> result;
 	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, SearchResults.class);
@@ -133,6 +136,10 @@ public class AudiosearchService {
 	}
 	return episodes;
     }
+    
+//    public List<Genre> getGenres(){
+//	
+//	}
 
     private HttpEntity<String> getHeaders() {
 	HttpHeaders headers = new HttpHeaders();
