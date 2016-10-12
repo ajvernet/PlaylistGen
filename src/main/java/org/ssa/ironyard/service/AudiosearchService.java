@@ -88,55 +88,52 @@ public class AudiosearchService {
 	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, SearchResults.class);
 	return processSearchResults(result.getBody());
     }
-    
-    public List<Episode> searchEpisodesByKeywords(String searchText){
+
+    public List<Episode> searchEpisodesByKeywords(String searchText) {
 	final String uri = apiBaseUri + "/search/episodes/" + searchText;
 	RestTemplate restTemplate = new RestTemplate();
 	ResponseEntity<SearchResults> result;
 	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, SearchResults.class);
 	return processSearchResults(result.getBody());
     }
-    
-    public void getTasties(){
+
+    public void getTasties() {
 	final String uri = apiBaseUri + "/tasties/1";
 	RestTemplate restTemplate = new RestTemplate();
-	ParameterizedTypeReference<List<Map<String, Object>>> typeRef = new ParameterizedTypeReference<List<Map<String, Object>>>() {};
+	ParameterizedTypeReference<List<Map<String, Object>>> typeRef = new ParameterizedTypeReference<List<Map<String, Object>>>() {
+	};
 	ResponseEntity<List<Map<String, Object>>> result;
-	LOGGER.debug("{}", restTemplate.exchange(uri,HttpMethod.GET, oauth, String.class));
+	LOGGER.debug("{}", restTemplate.exchange(uri, HttpMethod.GET, oauth, String.class));
 	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, typeRef);
-	System.out.println(result.getBody().get(0).get("episode").getClass());
+	// System.out.println(result.getBody().get(0).get("episode").getClass());
     }
 
-    private List<Episode> processSearchResults(SearchResults searchResults){
+    private List<Episode> processSearchResults(SearchResults searchResults) {
 	List<Episode> episodes = new ArrayList<>();
-	for(PodcastEpisode p : searchResults.getResults()){
+	for (PodcastEpisode p : searchResults.getResults()) {
 	    String fileUrl = "";
-	    for(AudioFile a : p.getAudio_files()){
-		if(a.getMp3()!=null)
-		fileUrl = a.getMp3();
-		else if(a.getUrl()!=null)
+	    for (AudioFile a : p.getAudio_files()) {
+		if (a.getMp3() != null)
+		    fileUrl = a.getMp3();
+		else if (a.getUrl() != null)
 		    fileUrl = a.getUrl();
 	    }
 	    String fullImgUrl = "";
 	    String thumbImgUrl = "";
-	    for(ImageUrl u : p.getImg_urls()){
-		if(u.getFull()!= null)
+	    for (ImageUrl u : p.getImg_urls()) {
+		if (u.getFull() != null)
 		    fullImgUrl = u.getFull();
-		if(u.getThumb()!=null)
+		if (u.getThumb() != null)
 		    thumbImgUrl = u.getThumb();
-	    }	    
-	    Episode e = Episode.builder()
-		    .episodeId(p.getId())
-		    .name(p.getTitle())
-		    .duration(p.getDuration())
-		    .fileUrl(fileUrl)
-		    .build();
-	    if(e.getFileUrl().endsWith("mp3"))
+	    }
+	    Episode e = Episode.builder().episodeId(p.getId()).name(p.getTitle()).duration(p.getDuration())
+		    .fileUrl(fileUrl).build();
+	    if (e.getFileUrl().endsWith("mp3"))
 		episodes.add(e);
 	}
 	return episodes;
     }
-    
+
     private HttpEntity<String> getHeaders() {
 	HttpHeaders headers = new HttpHeaders();
 	headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
