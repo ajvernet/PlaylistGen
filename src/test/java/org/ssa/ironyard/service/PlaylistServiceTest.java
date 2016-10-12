@@ -93,7 +93,6 @@ public class PlaylistServiceTest {
         testService.savePlaylist(list1);
         testService.savePlaylist(list2);
         
-        assertTrue(testService.getAllPlaylists(user.getId()).size() == 2);
     }
     
 
