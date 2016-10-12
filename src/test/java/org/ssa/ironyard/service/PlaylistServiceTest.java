@@ -38,49 +38,59 @@ public class PlaylistServiceTest {
     User user1;
     User user2;
     
-    @Ignore
+
     @Before
     public void mock()
     {
         this.playlistDao = EasyMock.createNiceMock(PlaylistDAO.class);
         this.episodeDao = EasyMock.createNiceMock(EpisodeDAO.class);
         this.dataSource = EasyMock.createNiceMock(MysqlDataSource.class);
-        this.testService = new PlaylistService(playlistDao, episodeDao, dataSource);
+        
+        this.testService = new PlaylistService(playlistDao, episodeDao);
         
         this.user1 = User.builder().email("test@test.com").firstName("Bob").lastName("Loblaw")
                 .address(Address.builder().street("123 Mockingbird Ln").city("Mockingbird Heights").state(State.ALABAMA)
                     .zip(new ZipCode("12345")).build())
                 .password(new BCryptSecurePassword().secureHash("munsters")).build();
 
-        this.episode1 = Episode.builder().episodeId(1).duration(1000).fileUrl("http://test.com/test").id(1).name("TestCast Audio").build();
+        this.episode1 = Episode.builder().episodeId(null).duration(1000).fileUrl("http://test.com/test").name("TestCast Audio").build();
 
         this.episode2 = new Episode.EpisodeBuilder(episode1).id(2).build();
         
-        list1 = Playlist.builder().id(2).name("list1").addEpisode(episode1).build();
-        list2 = Playlist.builder(list1).build();
+        list1 = Playlist.builder().id(null).name("list1").addEpisode(episode1).build();
+        list2 = Playlist.builder(list1).id(1).addEpisode(episode1).addEpisode(episode2).build();
         
         
     }
     
-    @Ignore
     @Test
-    public void savePlaylistTest()
+    public void insertPlaylistTest()
     {
-        System.out.println(list1.getEpisodes());
+
         EasyMock.expect(this.playlistDao.replaceEpisodes(list1.getId(), list1.getEpisodes()))
         .andReturn(true);
         EasyMock.expect(this.playlistDao.insert(list1)).andReturn(list1);
         EasyMock.replay(this.playlistDao);
    
-        
         assertTrue(this.testService.savePlaylist(list1).deeplyEquals(list1));
-        
+
         EasyMock.verify(this.playlistDao);
-        
-        
-        
+
     }
 
+    
+    @Test
+    public void updatePlaylistTest()
+    {
+        EasyMock.expect(this.playlistDao.replaceEpisodes(list2.getId(), list2.getEpisodes()))
+        .andReturn(true);
+        EasyMock.expect(this.playlistDao.update(list2)).andReturn(list2);
+        EasyMock.replay(this.playlistDao);
+   
+        assertTrue(this.testService.savePlaylist(list2).deeplyEquals(list2));
+
+        EasyMock.verify(this.playlistDao);
+    }
     @Ignore
     @Test
     public void deletePlaylistTest() 
