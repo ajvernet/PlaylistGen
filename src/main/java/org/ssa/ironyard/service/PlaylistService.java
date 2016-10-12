@@ -21,8 +21,8 @@ public class PlaylistService {
     private final EpisodeDAO episodeDao;
     
     @Autowired
-    public PlaylistService(DataSource dataSource){
-	episodeDao = new EpisodeDAOImpl(dataSource);
+    public PlaylistService(){
+	episodeDao = new EpisodeDAOImpl();
 	playlistDao = new PlaylistDAOImpl(dataSource, episodeDao);
 
     }

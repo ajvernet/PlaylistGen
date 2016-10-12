@@ -12,7 +12,6 @@ import org.junit.Test;
 import org.ssa.ironyard.crypto.BCryptSecurePassword;
 import org.ssa.ironyard.dao.EpisodeDAO;
 import org.ssa.ironyard.dao.PlaylistDAO;
-import org.ssa.ironyard.dao.PlaylistDAOImpl;
 import org.ssa.ironyard.model.Address;
 import org.ssa.ironyard.model.Address.State;
 import org.ssa.ironyard.model.Address.ZipCode;
@@ -25,7 +24,7 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 public class PlaylistServiceTest {
 
     PlaylistService testService;
-    PlaylistDAOImpl playlistDao;
+    PlaylistDAO playlistDao;
     EpisodeDAO episodeDao;
 
     DataSource dataSource;
@@ -43,7 +42,7 @@ public class PlaylistServiceTest {
     @Before
     public void mock()
     {
-        this.playlistDao = EasyMock.createNiceMock(PlaylistDAOImpl.class);
+        this.playlistDao = EasyMock.createNiceMock(PlaylistDAO.class);
         this.episodeDao = EasyMock.createNiceMock(EpisodeDAO.class);
         this.dataSource = EasyMock.createNiceMock(MysqlDataSource.class);
         this.testService = new PlaylistService(playlistDao, episodeDao, dataSource);
@@ -53,7 +52,7 @@ public class PlaylistServiceTest {
                     .zip(new ZipCode("12345")).build())
                 .password(new BCryptSecurePassword().secureHash("munsters")).build();
 
-        this.episode1 = Episode.builder().episodeId(1).duration(1000).fileUrl("http://test.com/test").name("TestCast Audio").build();
+        this.episode1 = Episode.builder().episodeId(1).duration(1000).fileUrl("http://test.com/test").id(1).name("TestCast Audio").build();
 
         this.episode2 = new Episode.EpisodeBuilder(episode1).id(2).build();
         
@@ -67,7 +66,7 @@ public class PlaylistServiceTest {
     @Test
     public void savePlaylistTest()
     {
-        
+        System.out.println(list1.getEpisodes());
         EasyMock.expect(this.playlistDao.replaceEpisodes(list1.getId(), list1.getEpisodes()))
         .andReturn(true);
         EasyMock.expect(this.playlistDao.insert(list1)).andReturn(list1);
@@ -106,11 +105,6 @@ public class PlaylistServiceTest {
     {
         testService.savePlaylist(list1);
         testService.savePlaylist(list2);
-        
-<<<<<<< HEAD
-       // assertTrue(testService.getAllPlaylists(user.getId()).size() == 2);
-=======
->>>>>>> 41a1c70e7dbe1533d658f0cf3cdeb6b21c2e81be
     }
     
 
