@@ -1,6 +1,5 @@
 package org.ssa.ironyard.service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -20,10 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.ssa.ironyard.model.Episode;
 import org.ssa.ironyard.model.Genre;
-import org.ssa.ironyard.service.mapper.AudioFile;
-import org.ssa.ironyard.service.mapper.ImageUrl;
-import org.ssa.ironyard.service.mapper.PodcastEpisode;
-import org.ssa.ironyard.service.mapper.SearchResults;
+import org.ssa.ironyard.model.Show;
 
 @Service
 public class AudiosearchService {
@@ -41,68 +37,39 @@ public class AudiosearchService {
 	this.oauth = getHeaders();
     }
 
-    public String getTrending() {
-	final String uri = apiBaseUri + "/trending";
-	RestTemplate restTemplate = new RestTemplate();
-	ResponseEntity<String> result;
-	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, String.class);
-	return result.getBody();
-    }
-
-    public String getRandomEpisode() {
-	final String uri = apiBaseUri + "/random_episode";
-	RestTemplate restTemplate = new RestTemplate();
-	ResponseEntity<String> result;
-	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, String.class);
-	return result.getBody();
-    }
-
-    public String getEpisodeById(Integer id) {
-	final String uri = apiBaseUri + "/episodes/" + id;
-	RestTemplate restTemplate = new RestTemplate();
-	ResponseEntity<String> result;
-	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, String.class);
-	return result.getBody();
-    }
-
-    public String getChartDaily() {
-	final String uri = apiBaseUri + "/chart_daily";
-	RestTemplate restTemplate = new RestTemplate();
-	ResponseEntity<String> result;
-	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, String.class);
-	return result.getBody();
-    }
-
-    public String searchEpisodesByShowName(String showName) {
-	final String uri = apiBaseUri + "/episodes/" + showName;
-	RestTemplate restTemplate = new RestTemplate();
-	ResponseEntity<String> result;
-	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, String.class);
-
-	return result.getBody();
-    }
-
     public List<Episode> searchEpisodes(String genre, String searchText, Integer size) {
-	
+
 	String uri = apiBaseUri + "/search/episodes/" + searchText + "?";
-	if(genre != null && !genre.isEmpty())
-	  uri += "&filters[categories.id]=" + Genre.getInstance(genre).getId();
-	if(size != null)
+	if (genre != null && !genre.isEmpty())
+	    uri += "&filters[categories.id]=" + Genre.getInstance(genre).getId();
+	if (size != null)
 	    uri += "&size=" + size + "&from=0";
+	uri += "&sort_by=date_added&sort_order=desc";
 	LOGGER.debug("searchUrl: {}", uri);
 	RestTemplate restTemplate = new RestTemplate();
-	ResponseEntity<SearchResults> result;
-	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, SearchResults.class);
-	LOGGER.debug("Requested {} search results - received {}", size, result.getBody().getResults().size());
-	return processSearchResults(result.getBody());
-    }
+	ParameterizedTypeReference<Map<String, Object>> typeRef = new ParameterizedTypeReference<Map<String, Object>>() {
+	};
+	ResponseEntity<Map<String, Object>> response;
+	response = restTemplate.exchange(uri, HttpMethod.GET, oauth, typeRef);
+	List<Map<String, Object>> results = (List<Map<String, Object>>) response.getBody().get("results");
+	return results.stream().map(result -> {
 
-    public List<Episode> searchEpisodesByKeywords(String searchText) {
-	final String uri = apiBaseUri + "/search/episodes/" + searchText;
-	RestTemplate restTemplate = new RestTemplate();
-	ResponseEntity<SearchResults> result;
-	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, SearchResults.class);
-	return processSearchResults(result.getBody());
+	    if ((List<Map<String, String>>) result.getOrDefault("audio_files", null) == null)
+		return null;
+	    LOGGER.debug("PodcastID: {}", result.get("id"));
+	    LOGGER.debug("Audio: {}", result.get("audio_files"));
+	    String fileUrl = ((List<Map<String, String>>) result.get("audio_files")).get(0).getOrDefault("mp3", "");
+	    if (fileUrl == "")
+		fileUrl = ((List<Map<String, List<String>>>) result.get("audio_files")).get(0).get("url").get(0);
+	    if (fileUrl == null || !fileUrl.endsWith("mp3"))
+		return null;
+
+	    return Episode.builder().episodeId((Integer) result.get("id")).name((String) result.get("title"))
+		    .description((String) result.get("description")).duration((Integer) result.get("duration"))
+		    .fileUrl(fileUrl).show(new Show((Integer) result.get("show_id"), (String) result.get("show_title"),
+			    ((Map<String, String>) result.get("image_urls")).get("thumb")))
+		    .build();
+	}).filter(episode -> episode != null).collect(Collectors.toList());
     }
 
     public void getTasties() {
@@ -111,41 +78,12 @@ public class AudiosearchService {
 	ParameterizedTypeReference<List<Map<String, Object>>> typeRef = new ParameterizedTypeReference<List<Map<String, Object>>>() {
 	};
 	ResponseEntity<List<Map<String, Object>>> result;
-	LOGGER.debug("{}", restTemplate.exchange(uri, HttpMethod.GET, oauth, String.class));
 	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, typeRef);
 	// System.out.println(result.getBody().get(0).get("episode").getClass());
     }
 
-    private List<Episode> processSearchResults(SearchResults searchResults) {
-	List<Episode> episodes = new ArrayList<>();
-	for (PodcastEpisode p : searchResults.getResults()) {
-	    String fileUrl = "";
-	    for (AudioFile a : p.getAudio_files()) {
-		if (a.getMp3() != null)
-		    fileUrl = a.getMp3();
-		else if (a.getUrl() != null)
-		    fileUrl = a.getUrl();
-	    }
-	    String fullImgUrl = "";
-	    String thumbImgUrl = "";
-	    for (ImageUrl u : p.getImg_urls()) {
-		if (u.getFull() != null)
-		    fullImgUrl = u.getFull();
-		if (u.getThumb() != null)
-		    thumbImgUrl = u.getThumb();
-	    }
-	    Episode e = Episode.builder().episodeId(p.getId()).name(p.getTitle()).duration(p.getDuration())
-		    .fileUrl(fileUrl).build();
-	    if (e.getFileUrl().endsWith("mp3"))
-		episodes.add(e);
-	}
-	return episodes;
-    }
-
     public List<String> getGenres() {
-	return Stream.of(Genre.values())
-		.map(g -> g.getName())
-		.collect(Collectors.toList());
+	return Stream.of(Genre.values()).map(g -> g.getName()).collect(Collectors.toList());
     }
 
     private HttpEntity<String> getHeaders() {

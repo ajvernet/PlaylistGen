@@ -37,8 +37,9 @@ public class EpisodeDAOImpl extends AbstractSpringDAO<Episode> implements Episod
 	insertStatement.setString(2, domainToInsert.getName());
 	insertStatement.setInt(3, domainToInsert.getDuration());
 	insertStatement.setString(4, domainToInsert.getFileUrl());
-	insertStatement.setString(5, domainToInsert.getShow().getName());
-	insertStatement.setString(6, domainToInsert.getShow().getThumbUrl());
+	insertStatement.setInt(5, domainToInsert.getShow().getId());
+	insertStatement.setString(6, domainToInsert.getShow().getName());
+	insertStatement.setString(7, domainToInsert.getShow().getThumbUrl());
     }
 
     @Override
@@ -61,9 +62,10 @@ public class EpisodeDAOImpl extends AbstractSpringDAO<Episode> implements Episod
 		ps.setString(2, domainToUpdate.getName());
 		ps.setInt(3, domainToUpdate.getDuration());
 		ps.setString(4, domainToUpdate.getFileUrl());
-		ps.setString(5, domainToUpdate.getShow().getName());
-		ps.setString(6, domainToUpdate.getShow().getThumbUrl());
-		ps.setInt(7, domainToUpdate.getId());
+		ps.setInt(5, domainToUpdate.getShow().getId());
+		ps.setString(6, domainToUpdate.getShow().getName());
+		ps.setString(7, domainToUpdate.getShow().getThumbUrl());
+		ps.setInt(8, domainToUpdate.getId());
 	    }
 	};
     }

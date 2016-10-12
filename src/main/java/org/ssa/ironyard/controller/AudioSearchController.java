@@ -28,27 +28,6 @@ public class AudioSearchController {
     public AudioSearchController(AudiosearchService ass) {
 	this.ass = ass;
     }
-
-    @RequestMapping("episodes/trending")
-    ResponseEntity<ResponseObject> getTrending() {
-	LOGGER.debug("Contacting AudioSearch for trending podcasts");
-	return ResponseEntity.ok()
-		.body(ResponseObject.instanceOf(STATUS.SUCCESS, "Trending results returned", ass.getTrending()));
-    }
-
-    @RequestMapping("shows/chartdaily")
-    ResponseEntity<ResponseObject> getChartDaily() {
-	LOGGER.debug("Contacting AudioSearch for charting shows");
-	return ResponseEntity.ok()
-		.body(ResponseObject.instanceOf(STATUS.SUCCESS, "Daily Chart results returned", ass.getChartDaily()));
-    }
-    
-    @RequestMapping("episodes/random")
-    ResponseEntity<ResponseObject> getRandomEpisode() {
-	LOGGER.debug("Contacting AudioSearch for random podcast");
-	return ResponseEntity.ok()
-		.body(ResponseObject.instanceOf(STATUS.SUCCESS, "Random Episode returned", ass.getRandomEpisode()));
-    }
     
     @RequestMapping(value="search", method=RequestMethod.POST)
     ResponseEntity<ResponseObject> searchEpisodes(@RequestBody Map<String, Object> map){
