@@ -21,6 +21,13 @@ public class Playlist extends DomainObject {
 	this.episodes = episodes;
     }
 
+    @Override
+    public Playlist clone()
+    {
+        return this;
+    }
+
+    
     public Integer getTargetDuration() {
 	return targetDuration;
     }

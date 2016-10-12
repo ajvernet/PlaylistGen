@@ -85,10 +85,16 @@ public class EpisodeDAOImpl extends AbstractSpringDAO<Episode> implements Episod
     public Episode insertIfAbsent(Episode episode){
 	Episode existingEpisode = readByEpisodeId(episode.getEpisodeId());
 	LOGGER.debug(existingEpisode);
-	if(existingEpisode==null)
+	if (existingEpisode == null)
 	    return insert(episode);
-	LOGGER.debug("Update returned: {}", update(existingEpisode));
-	return update(existingEpisode);
+        /*
+         *  Update the persistent episode with the formal argument
+            need the persistent episode's id
+        */
+        episode = episode.of().id(existingEpisode.getId()).build();
+        Episode refreshed = update(episode);
+	LOGGER.debug("Update returned: {}", refreshed);
+	return refreshed;
     }
 
 }

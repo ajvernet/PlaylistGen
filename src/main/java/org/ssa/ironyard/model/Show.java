@@ -7,7 +7,6 @@ public class Show implements Cloneable {
     private final String thumbUrl;
 
     public Show(Integer id, String name, String thumbUrl) {
-	super();
 	this.id = id;
 	this.name = name;
 	this.thumbUrl = thumbUrl;
@@ -68,7 +67,8 @@ public class Show implements Cloneable {
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    public Show clone() 
+    {
 	return this;
     }
 

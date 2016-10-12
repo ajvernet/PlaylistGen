@@ -18,6 +18,13 @@ public class User extends DomainObject {
 	this.address = address;
     }
 
+    @Override
+    public User clone()
+    {
+        return this;
+    }
+
+    
     public String getFirstName() {
 	return firstName;
     }
