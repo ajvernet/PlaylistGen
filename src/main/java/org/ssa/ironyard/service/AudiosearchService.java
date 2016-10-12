@@ -1,10 +1,11 @@
 package org.ssa.ironyard.service;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -81,11 +82,18 @@ public class AudiosearchService {
 	return result.getBody();
     }
 
-    public List<Episode> searchEpisodesByGenre(Genre genre) throws UnsupportedEncodingException {
-	final String uri = apiBaseUri + "/search/episodes/" + "filters[categories.id]=" + genre.getId();
+    public List<Episode> searchEpisodes(String genre, String searchText, Integer size) {
+	
+	String uri = apiBaseUri + "/search/episodes/" + searchText + "?";
+	if(genre != null && !genre.isEmpty())
+	  uri += "&filters[categories.id]=" + Genre.getInstance(genre).getId();
+	if(size != null)
+	    uri += "&size=" + size + "&from=0";
+	LOGGER.debug("searchUrl: {}", uri);
 	RestTemplate restTemplate = new RestTemplate();
 	ResponseEntity<SearchResults> result;
 	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, SearchResults.class);
+	LOGGER.debug("Requested {} search results - received {}", size, result.getBody().getResults().size());
 	return processSearchResults(result.getBody());
     }
 
@@ -133,10 +141,12 @@ public class AudiosearchService {
 	}
 	return episodes;
     }
-    
-//    public List<Genre> getGenres(){
-//	
-//	}
+
+    public List<String> getGenres() {
+	return Stream.of(Genre.values())
+		.map(g -> g.getName())
+		.collect(Collectors.toList());
+    }
 
     private HttpEntity<String> getHeaders() {
 	HttpHeaders headers = new HttpHeaders();
