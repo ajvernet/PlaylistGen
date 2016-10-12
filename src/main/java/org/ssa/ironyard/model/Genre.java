@@ -21,12 +21,14 @@ public enum Genre {
 	    return this.name;
 	}
 
-	public static Genre getInstance(String id) {
+	public static Genre getInstance(String name) {
 	    for (Genre state : Genre.values()) {
-		if (state.id.equals(id))
+		if (state.name.equals(name))
 		    return state;
 	    }
 	    return null;
 	}
+	
+	
     }
 

@@ -123,7 +123,7 @@ public class PlaylistServiceTest {
         EasyMock.expect(this.playlistDao.readByUser(list2.getUser().getId()))
         .andReturn(new ArrayList<Playlist>(Arrays.asList(list2)));
         EasyMock.replay(this.playlistDao);
-        
+
         assertTrue(testService.getPlaylistsByUser(user1.getId())
                 .equals(new ArrayList<Playlist>(Arrays.asList(list2))));
         

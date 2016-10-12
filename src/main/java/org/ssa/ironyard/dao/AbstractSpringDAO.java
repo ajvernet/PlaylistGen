@@ -60,6 +60,7 @@ public abstract class AbstractSpringDAO<T extends DomainObject> implements DAO<T
                 return statement; 
             }, generatedId) == 1)
         {
+            @SuppressWarnings("unchecked")
             T copy = (T) domain.clone(); //necessary to maintain 'immutable' semantics
             return afterInsert(copy, generatedId.getKey().intValue());
         }
@@ -67,6 +68,7 @@ public abstract class AbstractSpringDAO<T extends DomainObject> implements DAO<T
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public T update(T domain)
     {
         if (null == domain || null == domain.getId())

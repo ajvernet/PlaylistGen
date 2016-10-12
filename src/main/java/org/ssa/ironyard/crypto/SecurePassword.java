@@ -24,3 +24,4 @@ public interface SecurePassword
      */
     boolean verify(String clearText, Password secure);
 }
+

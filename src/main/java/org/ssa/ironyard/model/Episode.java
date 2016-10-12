@@ -18,6 +18,13 @@ public class Episode extends DomainObject {
 	this.show = show;
     }
 
+    @Override
+    public Episode clone()
+    {
+        return this;
+    }
+    
+
     public Integer getEpisodeId() {
 	return episodeId;
     }
@@ -106,6 +113,15 @@ public class Episode extends DomainObject {
 	return true;
     }
 
+    /**
+     *
+     * @return {@link EpisodeBuilder builder} initialized from this
+     */
+    public EpisodeBuilder of()
+    {
+        return Episode.builder(this);
+    }
+    
     public static EpisodeBuilder builder() {
 	return new EpisodeBuilder();
     }
