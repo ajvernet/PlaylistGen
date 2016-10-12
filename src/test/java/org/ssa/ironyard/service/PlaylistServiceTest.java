@@ -69,14 +69,14 @@ public class PlaylistServiceTest {
         
     }
 
-    @Ignore
+   
     @Test
     public void deletePlaylistTest() 
     {
        testService.savePlaylist(list1);
        testService.deletePlaylist(list1.getId());
        
-       assertNull(playlistDAO.read(list1.getId()));
+       assertNull(playlistDao.read(list1.getId()));
     }
     
     @Test

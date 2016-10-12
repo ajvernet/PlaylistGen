@@ -56,6 +56,7 @@ public class AudioSearchServiceTest {
 	// findmp3(randomEpisode);
     }
 
+    @Ignore
     @Test
     public void testSearchResultsByGenre() throws JsonProcessingException, IOException {
 //	List<Episode> searchResults = ass.searchEpisodesByGenre("Comedy");
