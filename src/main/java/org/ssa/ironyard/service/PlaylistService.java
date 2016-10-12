@@ -21,17 +21,16 @@ public class PlaylistService {
     private final EpisodeDAO episodeDao;
     
     @Autowired
-    public PlaylistService(DataSource dataSource){
-	episodeDao = new EpisodeDAOImpl(dataSource);
-	playlistDao = new PlaylistDAOImpl(dataSource, episodeDao);
+    public PlaylistService(){
+	episodeDao = new EpisodeDAOImpl(null);
+	playlistDao = new PlaylistDAOImpl(null, episodeDao);
 
     }
     
-    public PlaylistService(PlaylistDAO playlistDao, EpisodeDAO episodeDao,
-    DataSource dataSource){
+    public PlaylistService(PlaylistDAO playlistDao, EpisodeDAO episodeDao){
 
-        this.episodeDao = new EpisodeDAOImpl(dataSource);        
-        this.playlistDao = new PlaylistDAOImpl(dataSource, episodeDao);
+        this.episodeDao = episodeDao;       
+        this.playlistDao = playlistDao;
     }
 
     
