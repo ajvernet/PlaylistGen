@@ -4,6 +4,6 @@ import org.ssa.ironyard.model.Episode;
 
 public interface EpisodeDAO extends DAO<Episode> {
 
-    void insertIfNotExist(Episode episode);
+    Episode insertIfNotExist(Episode episode);
 
 }

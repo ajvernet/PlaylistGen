@@ -45,8 +45,8 @@ public class PlaylistDAOImplTest {
 	dataSource = new MysqlDataSource();
 	dataSource.setURL(URL);
 
-	dao = new PlaylistDAOImpl(dataSource);
 	episodeDao = new EpisodeDAOImpl(dataSource);
+	dao = new PlaylistDAOImpl(dataSource, episodeDao);
 	UserDAO userDao = new UserDAOImpl(dataSource);
 	userDao.clear();
 
@@ -103,7 +103,6 @@ public class PlaylistDAOImplTest {
 	assertEquals(dao.readByUser(user2.getId()).size(), 2);
     }
 
-    @Ignore
     @Test 
     public void eagerReadPlaylist(){
 	list1 = Playlist.builder(list1).addEpisode(episode1).addEpisode(episode2).build();
@@ -112,7 +111,5 @@ public class PlaylistDAOImplTest {
 	list1 = dao.insert(list1);
 	dao.replaceEpisodes(list1.getId(), list1.getEpisodes());
 	System.out.println(list1);
-    }
-    
-    
+    }     
 }

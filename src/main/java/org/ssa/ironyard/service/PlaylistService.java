@@ -3,16 +3,21 @@ package org.ssa.ironyard.service;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.ssa.ironyard.dao.EpisodeDAO;
+import org.ssa.ironyard.dao.EpisodeDAOImpl;
+import org.ssa.ironyard.dao.PlaylistDAO;
 import org.ssa.ironyard.dao.PlaylistDAOImpl;
 import org.ssa.ironyard.model.Playlist;
 
 public class PlaylistService {
     
-    private final PlaylistDAOImpl playlistDao;
+    private final PlaylistDAO playlistDao;
+    private final EpisodeDAO episodeDao;
     
     @Autowired
     public PlaylistService(DataSource dataSource){
-	playlistDao = new PlaylistDAOImpl(dataSource);
+	episodeDao = new EpisodeDAOImpl(dataSource);
+	playlistDao = new PlaylistDAOImpl(dataSource, episodeDao);
     }
     
     public Playlist getPlaylistById(int id){

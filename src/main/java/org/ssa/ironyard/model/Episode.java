@@ -46,10 +46,11 @@ public class Episode extends DomainObject {
 	return result;
     }
 
+
     @Override
     public String toString() {
 	return "Episode [episodeId=" + episodeId + ", name=" + name + ", duration=" + duration + ", fileUrl=" + fileUrl
-		+ ", show=" + show + "]";
+		+ ", show=" + show + ", id=" + id + ", loaded=" + loaded + "]";
     }
 
     @Override
@@ -126,7 +127,9 @@ public class Episode extends DomainObject {
 	}
 
 	public EpisodeBuilder(Episode episode) {
-	    this.episodeId = episode.getId();
+	    this.loaded = episode.isLoaded();
+	    this.id = episode.getId();
+	    this.episodeId = episode.getEpisodeId();
 	    this.name = episode.getName();
 	    this.duration = episode.getDuration();
 	    this.fileUrl = episode.getFileUrl();
