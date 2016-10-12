@@ -58,8 +58,8 @@ public class AudioSearchServiceTest {
 
     @Test
     public void testSearchResultsByGenre() throws JsonProcessingException, IOException {
-	List<Episode> searchResults = ass.searchEpisodesByGenre("Comedy");
-	System.err.println(searchResults);
+//	List<Episode> searchResults = ass.searchEpisodesByGenre("Comedy");
+//	System.err.println(searchResults);
     }
     
     @Test
