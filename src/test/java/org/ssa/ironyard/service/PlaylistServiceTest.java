@@ -107,7 +107,10 @@ public class PlaylistServiceTest {
         testService.savePlaylist(list1);
         testService.savePlaylist(list2);
         
+<<<<<<< HEAD
        // assertTrue(testService.getAllPlaylists(user.getId()).size() == 2);
+=======
+>>>>>>> 41a1c70e7dbe1533d658f0cf3cdeb6b21c2e81be
     }
     
 

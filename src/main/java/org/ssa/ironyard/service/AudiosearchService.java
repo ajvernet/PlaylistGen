@@ -19,13 +19,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.ssa.ironyard.model.Episode;
 import org.ssa.ironyard.model.Genre;
-import org.ssa.ironyard.model.Show;
 import org.ssa.ironyard.service.mapper.AudioFile;
 import org.ssa.ironyard.service.mapper.ImageUrl;
 import org.ssa.ironyard.service.mapper.PodcastEpisode;
 import org.ssa.ironyard.service.mapper.SearchResults;
-
-import com.google.common.collect.Lists;
 
 @Service
 public class AudiosearchService {
