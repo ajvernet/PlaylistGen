@@ -51,17 +51,13 @@ public class PlaylistService {
     }
     
     public Playlist savePlaylist(Playlist playlist){
+        
 	if(playlist.getId() == null){
-	    for(Episode e: playlist.getEpisodes())
-	        episodeDao.insert(e);
 	    playlistDao.replaceEpisodes(playlist.getId(), playlist.getEpisodes());
 	    return playlistDao.insert(playlist);
 	}
 	else {
-	       for(Episode e: playlist.getEpisodes())
-	            episodeDao.insert(e);
-	    playlistDao.replaceEpisodes(playlist.getId(), playlist.getEpisodes());
-	       
+	    playlistDao.replaceEpisodes(playlist.getId(), playlist.getEpisodes());       
 	    return playlistDao.update(playlist);
 	    }
     }
