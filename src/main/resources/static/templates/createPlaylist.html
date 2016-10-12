@@ -54,7 +54,7 @@
 -->
 <div class="hoverPointer">
 <table class="table table-hover table-striped table-bordered">
-	<tr ng-repeat="podcast in MC.searchResultsFromService" ng-mouseover="MC.hoverDetail(podcast, $event)" ng-mouseleave="MC.hoverLeave()">
+	<tr ng-repeat="podcast in MC.searchResultsFromService" ng-mouseover="MC.hoverDetail(podcast, $event)" ng-mouseleave="MC.hoverLeave()" ng-style="(podcast.duration > (MC.userDuration - MC.playlistDurationBuilder) && MC.userDuration > 0) && {'background-color': '#ff3333'}">
 		<td ng-click="MC.addToPL(podcast)">{{ podcast.title }} --- {{ podcast.duration }}</td>
 	</tr>
 </table>
@@ -67,7 +67,6 @@
 		{{ MC.detailDuration }}
 	
 	</div>
-	
 
 	<div class="playlistDiv" ng-show="MC.createdPlaylist.length">
 
