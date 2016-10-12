@@ -2,13 +2,9 @@ package org.ssa.ironyard.dao.orm;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.StringJoiner;
 
-import org.ssa.ironyard.model.Episode;
 import org.ssa.ironyard.model.Playlist;
-import org.ssa.ironyard.model.Playlist.PlaylistBuilder;
 import org.ssa.ironyard.model.User;
 
 public interface PlaylistORM extends ORM<Playlist> {

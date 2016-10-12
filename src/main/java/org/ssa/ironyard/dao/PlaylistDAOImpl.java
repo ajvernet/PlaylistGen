@@ -4,9 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.StringJoiner;
 
 import javax.sql.DataSource;
 
@@ -26,18 +24,18 @@ public class PlaylistDAOImpl extends AbstractSpringDAO<Playlist> implements Play
 
     Logger LOGGER = LogManager.getLogger(PlaylistDAOImpl.class);
 
-    private static EpisodeORM episodeOrm;
+    private static EpisodeORM episodeOrm = new EpisodeORM(){};
+    private EpisodeDAO episodeDao;
 
     protected PlaylistDAOImpl(PlaylistORM orm, DataSource dataSource) {
 	super(orm, dataSource);
-	episodeOrm = new EpisodeORM() {
-	};
     }
 
     @Autowired
-    public PlaylistDAOImpl(DataSource dataSource) {
+    public PlaylistDAOImpl(DataSource dataSource, EpisodeDAO episodeDao) {
 	this(new PlaylistORM() {
 	}, dataSource);
+	this.episodeDao = episodeDao;
     }
 
     @Override
@@ -93,13 +91,19 @@ public class PlaylistDAOImpl extends AbstractSpringDAO<Playlist> implements Play
 
     @Override
     public boolean replaceEpisodes(Integer playlistId, List<Episode> episodes) {
+	LOGGER.debug("Updating episodes in playlist: {}", playlistId);
+	LOGGER.debug("Updated playlist will have {} episodes", episodes.size());
 	this.springTemplate.update(("DELETE FROM PlaylistEpisodes WHERE playlistId = ?"),
 		(PreparedStatement ps) -> ps.setInt(1, playlistId));
-	StringBuilder updateString = new StringBuilder("INSERT INTO PlaylistEpisodes VALUES");
-	for (Episode episode : episodes) {
-	    StringJoiner joiner = new StringJoiner(", ", "(", "),");
-	    joiner.add(playlistId.toString()).add(episode.getId().toString());
-	    updateString.append(joiner.toString());
+	LOGGER.debug("Old playlist data cleared");
+	StringBuilder updateString = new StringBuilder("INSERT INTO PlaylistEpisodes(playlistId, episodeId, sortOrder) VALUES");
+	for (int i = 0; i < episodes.size(); i++) {
+	    Episode loadedEpisode = episodeDao.insertIfNotExist(episodes.get(i));
+	    LOGGER.debug("Insert If Not Exist returned episode w/ id: {}", loadedEpisode.getId());
+	    updateString.append(
+		    "(" + playlistId + ", " + loadedEpisode.getId() + ", " + i +"),"		    
+		    );
+	    LOGGER.debug("UPDATE STRING: {}", updateString.toString());
 	}
 	updateString.deleteCharAt(updateString.length() - 1);
 	LOGGER.debug("{}", updateString.toString());

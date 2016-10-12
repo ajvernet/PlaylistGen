@@ -20,23 +20,21 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 public class EpisodeDAOTest {
 
     static String URL = "jdbc:mysql://localhost/Playlistdb?" + "user=root&password=root&" + "useServerPrepStmts=true";
-    UserDAO users;
+    UserDAOImpl users;
     PlaylistDAOImpl playlists;
-    EpisodeDAO episodes;
+    EpisodeDAOImpl episodes;
     User user;
     Playlist playlist;
     Show show;
-    Episode episode;
+    Episode episode, episode2, episode3;
     
     @Before
     public void setup(){
 	MysqlDataSource datasource = new MysqlDataSource();
 	datasource.setUrl(URL);
-	users = new UserDAO(datasource);
-	playlists = new PlaylistDAOImpl(datasource);
-	episodes = new EpisodeDAO(datasource);
+	users = new UserDAOImpl(datasource);
+	episodes = new EpisodeDAOImpl(datasource);
 	users.clear();
-	playlists.clear();
 	episodes.clear();
 	
 	User testUser = User.builder().email("test@test.com").firstName("Bob").lastName("Loblaw")
@@ -44,20 +42,22 @@ public class EpisodeDAOTest {
 			.zip(new ZipCode("12345")).build())
 		.password(new BCryptSecurePassword().secureHash("munsters")).build();
 	user = users.insert(testUser);
-	playlist = playlists.insert(Playlist.builder().name("testPlaylist").user(user).targetDuration(1000).build());
+	
 	//show = shows.insert(Show.builder().name("Test show").showId(1).imgUrl("http://nowhere").thumbUrl("http://nowhere").build());
 
-	episode = Episode.builder().episodeId(1).duration(1000).fileUrl("http://test.com/test").name("TestCast Audio").build();
-
+	episode = Episode.builder().episodeId(1).duration(1000).fileUrl("http://test.com/test").name("TestCast Audio").show(new Show("Test Show", "Test Show URL")).build();
+	episode2 = Episode.builder(episode).episodeId(2).build();
+	episode3 = Episode.builder(episode).episodeId(3).build();
     }
-    @Ignore
+    
+    
     @Test
     public void testInsert() {
 	Episode loadedEpisode = episodes.insert(episode);
 	assertTrue(loadedEpisode.isLoaded());
 	assertTrue(loadedEpisode.getId() >= 0);
     }
-    @Ignore
+    
     @Test
     public void testDelete(){
 	Episode loadedEpisode = episodes.insert(episode);

@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.StringJoiner;
 
 import org.ssa.ironyard.model.Episode;
-import org.ssa.ironyard.model.Playlist;
 import org.ssa.ironyard.model.Show;
 
 public interface EpisodeORM extends ORM<Episode> {
@@ -20,7 +19,7 @@ public interface EpisodeORM extends ORM<Episode> {
 	.add("duration")
 	.add("fileUrl")
 	.add("showName")
-	.add("showUrl");
+	.add("thumbUrl");
 	return joiner.toString();
     }
 
@@ -39,7 +38,7 @@ public interface EpisodeORM extends ORM<Episode> {
 	return Episode.builder().id(results.getInt(table() + ".id")).loaded(true)
 		.episodeId(results.getInt(table() + ".episodeId")).name(results.getString(table() + ".name"))
 		.duration(results.getInt(table() + ".duration")).fileUrl(results.getString(table() + ".fileUrl"))
-		.show(new Show(results.getString(table()+ ".showName"), results.getString(table() + ".showUrl")))
+		.show(new Show(results.getString(table()+ ".showName"), results.getString(table() + ".thumbUrl")))
 		.build();
     }
 
@@ -51,13 +50,13 @@ public interface EpisodeORM extends ORM<Episode> {
     @Override
     default String prepareInsert() {
 	return "INSERT INTO " + table()
-		+ "(episodeId, name, duration, fileUrl, showId, playlistId, playOrder) VALUES (?,?,?,?,?,?,?)";
+		+ "(episodeId, name, duration, fileUrl, showName, thumbUrl) VALUES (?,?,?,?,?,?)";
     }
 
     @Override
     default String prepareUpdate() {
 	return "UPDATE " + table()
-		+ " SET episodeId=?, name=?, duration=?, fileUrl=?, showId=?, playlistId=?, playOrder=? WHERE id=?";
+		+ " SET episodeId=?, name=?, duration=?, fileUrl=?, showName=?, thumbUrl=? WHERE id=?";
     }
 
     @Override

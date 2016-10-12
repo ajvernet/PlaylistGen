@@ -82,7 +82,7 @@ public interface UserORM extends ORM<User> {
 
     @Override
     default String prepareUpdate() {
-        return "UPDATE " + table() + " SET email=?, salt=?, hash=?, firstname=?, lastname=?, street=?, city=?, state=?, zip=? WHERE id=?)";
+        return "UPDATE " + table() + " SET email=?, salt=?, hash=?, firstname=?, lastname=?, street=?, city=?, state=?, zip=? WHERE id=?";
     }
 
     @Override
