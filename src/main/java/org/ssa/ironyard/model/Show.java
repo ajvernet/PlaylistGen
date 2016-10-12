@@ -1,34 +1,33 @@
 package org.ssa.ironyard.model;
 
-public class Show extends DomainObject {
+public class Show implements Cloneable {
 
+    private final Integer id;
     private final String name;
-    private final Integer showId;
-    private final String imgUrl;
     private final String thumbUrl;
 
-    public Show(Integer id, boolean loaded, String name, Integer showId, String imgUrl, String thumbnailUrl) {
-	super(id, loaded);
+    public Show(Integer id, String name, String thumbUrl) {
+	super();
+	this.id = id;
 	this.name = name;
-	this.showId = showId;
-	this.imgUrl = imgUrl;
-	this.thumbUrl = thumbnailUrl;
+	this.thumbUrl = thumbUrl;
     }
 
-    public String getImgUrl() {
-	return imgUrl;
-    }
-
-    public String getThumbUrl() {
-	return thumbUrl;
+    public Integer getId() {
+	return id;
     }
 
     public String getName() {
 	return name;
     }
 
-    public Integer getShowId() {
-	return showId;
+    public String getThumbUrl() {
+	return thumbUrl;
+    }
+
+    @Override
+    public String toString() {
+	return "Show [id=" + id + ", name=" + name + ", thumbUrl=" + thumbUrl + "]";
     }
 
     @Override
@@ -36,6 +35,8 @@ public class Show extends DomainObject {
 	final int prime = 31;
 	int result = 1;
 	result = prime * result + ((id == null) ? 0 : id.hashCode());
+	result = prime * result + ((name == null) ? 0 : name.hashCode());
+	result = prime * result + ((thumbUrl == null) ? 0 : thumbUrl.hashCode());
 	return result;
     }
 
@@ -47,37 +48,16 @@ public class Show extends DomainObject {
 	    return false;
 	if (getClass() != obj.getClass())
 	    return false;
-	DomainObject other = (DomainObject) obj;
-	if (id == null) {
-	    return false;
-	} else if (!id.equals(other.id))
-	    return false;
-	return true;
-    }
-
-    @Override
-    public boolean deeplyEquals(Object obj) {
-	if (this == obj)
-	    return true;
-	if (!super.equals(obj))
-	    return false;
-	if (getClass() != obj.getClass())
-	    return false;
 	Show other = (Show) obj;
-	if (imgUrl == null) {
-	    if (other.imgUrl != null)
+	if (id == null) {
+	    if (other.id != null)
 		return false;
-	} else if (!imgUrl.equals(other.imgUrl))
+	} else if (!id.equals(other.id))
 	    return false;
 	if (name == null) {
 	    if (other.name != null)
 		return false;
 	} else if (!name.equals(other.name))
-	    return false;
-	if (showId == null) {
-	    if (other.showId != null)
-		return false;
-	} else if (!showId.equals(other.showId))
 	    return false;
 	if (thumbUrl == null) {
 	    if (other.thumbUrl != null)
@@ -88,70 +68,8 @@ public class Show extends DomainObject {
     }
 
     @Override
-    public String toString() {
-	return "Show [name=" + name + ", showId=" + showId + ", imgUrl=" + imgUrl + ", thumbnailUrl=" + thumbUrl
-		+ "]";
+    protected Object clone() throws CloneNotSupportedException {
+	return this;
     }
 
-    public static ShowBuilder builder() {
-	return new ShowBuilder();
-    }
-
-    public static ShowBuilder builder(Show show) {
-	return new ShowBuilder(show);
-    }
-
-    public static class ShowBuilder {
-	private Integer id;
-	private boolean loaded = false;
-	private String name;
-	private Integer showId;
-	private String imgUrl;
-	private String thumbUrl;
-
-	public ShowBuilder(){}
-	
-	public ShowBuilder(Show show){
-	    this.id = show.getId();
-	    this.loaded = show.isLoaded();
-	    this.name = show.getName();
-	    this.showId = show.getShowId();
-	    this.imgUrl = show.getImgUrl();
-	    this.thumbUrl = show.getThumbUrl();
-	}
-	
-	public ShowBuilder id(Integer id) {
-	    this.id = id;
-	    return this;
-	}
-
-	public ShowBuilder loaded(boolean loaded) {
-	    this.loaded = loaded;
-	    return this;
-	}
-
-	public ShowBuilder name(String name) {
-	    this.name = name;
-	    return this;
-	}
-
-	public ShowBuilder showId(Integer showId) {
-	    this.showId = showId;
-	    return this;
-	}
-
-	public ShowBuilder imgUrl(String imgUrl) {
-	    this.imgUrl = imgUrl;
-	    return this;
-	}
-
-	public ShowBuilder thumbUrl(String thumbUrl) {
-	    this.thumbUrl = thumbUrl;
-	    return this;
-	}
-
-	public Show build() {
-	    return new Show(id, loaded, name, showId, imgUrl, thumbUrl);
-	}
-    }
 }

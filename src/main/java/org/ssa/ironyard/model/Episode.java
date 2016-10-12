@@ -7,23 +7,15 @@ public class Episode extends DomainObject {
     private final Integer duration;
     private final String fileUrl;
     private final Show show;
-    private final Playlist playlist;
-    private final Integer playOrder;
 
     public Episode(Integer id, boolean loaded, Integer episodeId, String name, Integer duration, String fileUrl,
-	    Show show, Playlist playlist, Integer playOrder) {
+	    Show show) {
 	super(id, loaded);
 	this.episodeId = episodeId;
 	this.name = name;
 	this.duration = duration;
 	this.fileUrl = fileUrl;
 	this.show = show;
-	this.playlist = playlist;
-	this.playOrder = playOrder;
-    }
-
-    public Integer getPlayOrder() {
-	return playOrder;
     }
 
     public Integer getEpisodeId() {
@@ -46,12 +38,39 @@ public class Episode extends DomainObject {
 	return show;
     }
 
-    public Playlist getPlaylist() {
-	return playlist;
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((id == null) ? 0 : id.hashCode());
+	return result;
+    }
+
+
+    @Override
+    public String toString() {
+	return "Episode [episodeId=" + episodeId + ", name=" + name + ", duration=" + duration + ", fileUrl=" + fileUrl
+		+ ", show=" + show + ", id=" + id + ", loaded=" + loaded + "]";
     }
 
     @Override
-    boolean deeplyEquals(Object obj) {
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	DomainObject other = (DomainObject) obj;
+	if (id == null) {
+	    return false;
+	} else if (!id.equals(other.id))
+	    return false;
+	return true;
+    }
+
+    @Override
+    public boolean deeplyEquals(Object obj) {
 	if (this == obj)
 	    return true;
 	if (!super.equals(obj))
@@ -79,23 +98,12 @@ public class Episode extends DomainObject {
 		return false;
 	} else if (!name.equals(other.name))
 	    return false;
-	if (playlist == null) {
-	    if (other.playlist != null)
-		return false;
-	} else if (!playlist.equals(other.playlist))
-	    return false;
 	if (show == null) {
 	    if (other.show != null)
 		return false;
 	} else if (!show.equals(other.show))
 	    return false;
 	return true;
-    }
-
-    @Override
-    public String toString() {
-	return "Episode [episodeId=" + episodeId + ", name=" + name + ", duration=" + duration + ", fileUrl=" + fileUrl
-		+ ", show=" + show + ", playlist=" + playlist + "]";
     }
 
     public static EpisodeBuilder builder() {
@@ -114,20 +122,18 @@ public class Episode extends DomainObject {
 	private Integer duration;
 	private String fileUrl;
 	private Show show;
-	private Playlist playlist;
-	private Integer playOrder;
 
 	public EpisodeBuilder() {
 	}
 
 	public EpisodeBuilder(Episode episode) {
-	    this.episodeId = episode.getId();
+	    this.loaded = episode.isLoaded();
+	    this.id = episode.getId();
+	    this.episodeId = episode.getEpisodeId();
 	    this.name = episode.getName();
 	    this.duration = episode.getDuration();
 	    this.fileUrl = episode.getFileUrl();
 	    this.show = episode.getShow();
-	    this.playlist = episode.getPlaylist();
-	    this.playOrder = episode.getPlayOrder();
 	}
 
 	public EpisodeBuilder id(Integer id) {
@@ -165,18 +171,8 @@ public class Episode extends DomainObject {
 	    return this;
 	}
 
-	public EpisodeBuilder playlist(Playlist playlist) {
-	    this.playlist = playlist;
-	    return this;
-	}
-
-	public EpisodeBuilder playOrder(Integer playOrder) {
-	    this.playOrder = playOrder;
-	    return this;
-	}
-
 	public Episode build() {
-	    return new Episode(id, loaded, episodeId, name, duration, fileUrl, show, playlist, playOrder);
+	    return new Episode(id, loaded, episodeId, name, duration, fileUrl, show);
 	}
     }
 }

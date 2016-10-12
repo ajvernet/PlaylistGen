@@ -1,8 +1,10 @@
 package org.ssa.ironyard.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.ssa.ironyard.crypto.BCryptSecurePassword;
 import org.ssa.ironyard.model.Address;
@@ -18,26 +20,21 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 public class EpisodeDAOTest {
 
     static String URL = "jdbc:mysql://localhost/Playlistdb?" + "user=root&password=root&" + "useServerPrepStmts=true";
-    UserDAO users;
-    PlaylistDAO playlists;
-    ShowDAO shows;
-    EpisodeDAO episodes;
+    UserDAOImpl users;
+    PlaylistDAOImpl playlists;
+    EpisodeDAOImpl episodes;
     User user;
     Playlist playlist;
     Show show;
-    Episode episode;
+    Episode episode, episode2, episode3;
     
     @Before
     public void setup(){
 	MysqlDataSource datasource = new MysqlDataSource();
 	datasource.setUrl(URL);
-	users = new UserDAO(datasource);
-	playlists = new PlaylistDAO(datasource);
-	episodes = new EpisodeDAO(datasource);
-	shows = new ShowDAO(datasource);
+	users = new UserDAOImpl(datasource);
+	episodes = new EpisodeDAOImpl(datasource);
 	users.clear();
-	playlists.clear();
-	shows.clear();
 	episodes.clear();
 	
 	User testUser = User.builder().email("test@test.com").firstName("Bob").lastName("Loblaw")
@@ -45,10 +42,14 @@ public class EpisodeDAOTest {
 			.zip(new ZipCode("12345")).build())
 		.password(new BCryptSecurePassword().secureHash("munsters")).build();
 	user = users.insert(testUser);
-	playlist = playlists.insert(Playlist.builder().name("testPlaylist").user(user).targetDuration(1000).build());
-	show = shows.insert(Show.builder().name("Test show").showId(1).imgUrl("http://nowhere").thumbUrl("http://nowhere").build());
-	episode = Episode.builder().episodeId(1).duration(1000).fileUrl("http://test.com/test").name("TestCast Audio").build();
+	
+	//show = shows.insert(Show.builder().name("Test show").showId(1).imgUrl("http://nowhere").thumbUrl("http://nowhere").build());
+
+	episode = Episode.builder().episodeId(1).duration(1000).fileUrl("http://test.com/test").name("TestCast Audio").show(new Show(1, "Test Show", "Test Show URL")).build();
+	episode2 = Episode.builder(episode).episodeId(2).build();
+	episode3 = Episode.builder(episode).episodeId(3).build();
     }
+    
     
     @Test
     public void testInsert() {
@@ -64,17 +65,6 @@ public class EpisodeDAOTest {
 	assertTrue(episodes.read(loadedEpisode.getId()).isLoaded());
 	assertTrue(episodes.delete(loadedEpisode.getId()));
 	assertNull(episodes.read(loadedEpisode.getId()));
-    }
-    
-    @Test
-    public void testReadByPlaylist(){
-	assertTrue(episodes.getEpisodesByPlaylist(playlist.getId()).size()==0);
-	episodes.insert(episode);
-	assertTrue(episodes.getEpisodesByPlaylist(playlist.getId()).size()==1);
-	episodes.insert(episode);
-	assertTrue(episodes.getEpisodesByPlaylist(playlist.getId()).size()==2);
-	episodes.clear();
-	assertTrue(episodes.getEpisodesByPlaylist(playlist.getId()).size()==0);	
     }
 
 }

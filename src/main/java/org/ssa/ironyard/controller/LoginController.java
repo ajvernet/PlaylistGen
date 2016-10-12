@@ -1,5 +1,8 @@
 package org.ssa.ironyard.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -7,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,9 +37,9 @@ public class LoginController {
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public ResponseEntity<ResponseObject> authenticateUser(@RequestBody UserPass up, HttpServletRequest request, HttpSession session) {
-	String username = up.getUser();
-	String password = up.getPass();
+    public ResponseEntity<ResponseObject> authenticateUser(@RequestBody Map<String, String> map, HttpServletRequest request, HttpSession session) {
+	String username = map.get("user");
+	String password = map.get("pass");
 	LOGGER.debug("Processing login attempt for {} - {}", username, password);
 	User user = loginService.authenticateUser(username, password);
 	if (user == null)

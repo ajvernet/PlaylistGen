@@ -1,5 +1,7 @@
 package org.ssa.ironyard.service;
 
+import static org.junit.Assert.*;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -56,10 +58,11 @@ public class AudioSearchServiceTest {
 	// findmp3(randomEpisode);
     }
 
+    @Ignore
     @Test
     public void testSearchResultsByGenre() throws JsonProcessingException, IOException {
-	List<Episode> searchResults = ass.searchEpisodesByGenre("Comedy");
-	System.err.println(searchResults);
+//	List<Episode> searchResults = ass.searchEpisodesByGenre("Comedy");
+//	System.err.println(searchResults);
     }
     
     @Test
@@ -68,11 +71,16 @@ public class AudioSearchServiceTest {
 	System.err.println(searchResults);
     }
 
-    @Ignore
     @Test
     public void testTasties(){
-	List<Episode> searchResults = ass.getTasties();
-	System.err.println(searchResults);
+	ass.getTasties();
+    }
+    
+    @Test
+    public void getGenreList(){
+	assertTrue(ass.getGenres().size() > 0);
+	assertTrue(ass.getGenres().size() == 9);
+	System.err.println(ass.getGenres());
     }
     
     private String findmp3(String genreJson) throws JsonProcessingException, IOException {

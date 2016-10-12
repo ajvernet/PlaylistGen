@@ -22,7 +22,7 @@ public class UserDAOTest {
     public void init() {
 	MysqlDataSource mysqlDataSource = new MysqlDataSource();
 	mysqlDataSource.setUrl(URL);
-	users = new UserDAO(mysqlDataSource);
+	users = new UserDAOImpl(mysqlDataSource);
 	users.clear();
 	testUser = User.builder().email("test@test.com").firstName("Bob").lastName("Loblaw")
 		.address(Address.builder().street("123 Mockingbird Ln").city("Mockingbird Heights").state(State.ALABAMA)
@@ -43,11 +43,13 @@ public class UserDAOTest {
 	assertTrue(dbUser.deeplyEquals(users.read(dbUser.getId())));
     }
     
+    @Test
     public void testReadByEmail(){
 	User dbUser = users.insert(testUser);
 	assertTrue(dbUser.deeplyEquals(users.readByEmail(testUser.getEmail())));
     }
 
+    @Test
     public void testUpdate(){
 	User dbUser = users.insert(testUser);
 	User changedUser = User.builder(dbUser).firstName("Jane").build();
@@ -56,6 +58,7 @@ public class UserDAOTest {
 	assertTrue(dbUser.deeplyEquals(changedUser));
     }
     
+    @Test
     public void testDelete(){
 	User dbUser = users.insert(testUser);
 	assertNotNull(users.read(dbUser.getId()));
