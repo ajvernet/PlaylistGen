@@ -3,6 +3,9 @@ package org.ssa.ironyard.service;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javax.sql.DataSource;
 
 import org.easymock.EasyMock;
@@ -48,7 +51,7 @@ public class PlaylistServiceTest {
         
         this.testService = new PlaylistService(playlistDao, episodeDao);
         
-        this.user1 = User.builder().email("test@test.com").firstName("Bob").lastName("Loblaw")
+        this.user1 = User.builder().id(1).email("test@test.com").firstName("Bob").lastName("Loblaw")
                 .address(Address.builder().street("123 Mockingbird Ln").city("Mockingbird Heights").state(State.ALABAMA)
                     .zip(new ZipCode("12345")).build())
                 .password(new BCryptSecurePassword().secureHash("munsters")).build();
@@ -58,7 +61,7 @@ public class PlaylistServiceTest {
         this.episode2 = new Episode.EpisodeBuilder(episode1).id(2).build();
         
         list1 = Playlist.builder().id(null).name("list1").addEpisode(episode1).build();
-        list2 = Playlist.builder(list1).id(1).addEpisode(episode1).addEpisode(episode2).build();
+        list2 = Playlist.builder(list1).user(user1).id(1).addEpisode(episode1).addEpisode(episode2).build();
         
         
     }
@@ -91,30 +94,40 @@ public class PlaylistServiceTest {
 
         EasyMock.verify(this.playlistDao);
     }
-    @Ignore
+    
+    
     @Test
     public void deletePlaylistTest() 
     {
-       testService.savePlaylist(list1);
-       testService.deletePlaylist(list1.getId());
-       
-     //  assertNull(playlistDao.read(list1.getId()));
+        EasyMock.expect(this.playlistDao.delete(list2.getId())).andReturn(true);
+        EasyMock.replay(this.playlistDao);
+        assertTrue(testService.deletePlaylist(list2.getId()));
+        
+        EasyMock.verify(this.playlistDao);
     }
     
-    @Ignore
+    
     @Test
     public void getPlaylistByIdTest()
     {
-        testService.savePlaylist(list1);
-       // assertTrue(list1.deeplyEquals(testService.getPlaylistById(list1.getId())));
+        EasyMock.expect(this.playlistDao.read(list2.getId())).andReturn(list2);
+        EasyMock.replay(this.playlistDao);
+        assertTrue(testService.getPlaylistById(list2.getId()).deeplyEquals(list2));
+        
+        EasyMock.verify(this.playlistDao);
     }
     
-    @Ignore
     @Test
     public void getAllPlaylistsTest()
     {
-        testService.savePlaylist(list1);
-        testService.savePlaylist(list2);
+        EasyMock.expect(this.playlistDao.readByUser(list2.getUser().getId()))
+        .andReturn(new ArrayList<Playlist>(Arrays.asList(list2)));
+        EasyMock.replay(this.playlistDao);
+        
+        assertTrue(testService.getPlaylistsByUser(user1.getId())
+                .equals(new ArrayList<Playlist>(Arrays.asList(list2))));
+        
+        EasyMock.verify(this.playlistDao);
     }
     
 
