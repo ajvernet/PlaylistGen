@@ -2,12 +2,12 @@ package org.ssa.ironyard.service;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.ssa.ironyard.dao.EpisodeDAO;
-import org.ssa.ironyard.dao.EpisodeDAOImpl;
 import org.ssa.ironyard.dao.PlaylistDAO;
-import org.ssa.ironyard.dao.PlaylistDAOImpl;
 import org.ssa.ironyard.model.Playlist;
 
 
@@ -16,6 +16,8 @@ public class PlaylistService {
 
     private final PlaylistDAO playlistDao;
     private final EpisodeDAO episodeDao;
+    
+    Logger LOGGER = LogManager.getLogger(PlaylistService.class);
 
     @Autowired
     public PlaylistService(PlaylistDAO playlistDao, EpisodeDAO episodeDao) {
@@ -36,9 +38,12 @@ public class PlaylistService {
     }
 
     public Playlist savePlaylist(Playlist playlist) {
-	Integer playlistId = playlist.getId() == null ? playlistDao.insert(playlist).getId()
-		: playlistDao.update(playlist).getId();
+	LOGGER.debug("Saving playlist");
+	
+	Integer playlistId = playlist.getId() == null ? playlistDao.insert(playlist).getId():  playlistDao.update(playlist).getId();
+	LOGGER.debug("Playlist saved; saving episodes to playlist");
 	playlistDao.replaceEpisodes(playlistId, playlist.getEpisodes());
+	LOGGER.debug("Playlist successfully saved");
 	return playlist.of().id(playlistId).build();	
     }
 

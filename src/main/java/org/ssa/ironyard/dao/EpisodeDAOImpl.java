@@ -20,7 +20,7 @@ import org.ssa.ironyard.model.Episode;
 public class EpisodeDAOImpl extends AbstractSpringDAO<Episode> implements EpisodeDAO {
 
     Logger LOGGER = LogManager.getLogger(EpisodeDAOImpl.class);
-    
+
     @Autowired
     public EpisodeDAOImpl(DataSource dataSource) {
 	this(new EpisodeORM() {
@@ -62,7 +62,10 @@ public class EpisodeDAOImpl extends AbstractSpringDAO<Episode> implements Episod
 	    public void setValues(PreparedStatement ps) throws SQLException {
 		ps.setInt(1, domainToUpdate.getEpisodeId());
 		ps.setString(2, domainToUpdate.getName());
-		ps.setInt(3, domainToUpdate.getGenreId());
+		if(domainToUpdate.getGenreId()==null)
+		    ps.setNull(3, java.sql.Types.INTEGER);
+		else
+		    ps.setInt(3, domainToUpdate.getGenreId());
 		ps.setString(4, domainToUpdate.getDescription());
 		ps.setInt(5, domainToUpdate.getDuration());
 		ps.setString(6, domainToUpdate.getFileUrl());
@@ -73,32 +76,39 @@ public class EpisodeDAOImpl extends AbstractSpringDAO<Episode> implements Episod
 	    }
 	};
     }
-    
-    /* (non-Javadoc)
-     * @see org.ssa.ironyard.dao.EpisodeDAO#insertIfNotExist(org.ssa.ironyard.model.Episode)
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.ssa.ironyard.dao.EpisodeDAO#insertIfNotExist(org.ssa.ironyard.model.
+     * Episode)
      */
-    
-    public Episode readByEpisodeId(Integer episodeId){
-	return this.springTemplate.query(("SELECT " + this.orm.projection() + " FROM " + this.orm.table() + " WHERE episodeId=?"),
+
+    public Episode readByEpisodeId(Integer episodeId) {
+	return this.springTemplate.query(
+		("SELECT " + this.orm.projection() + " FROM " + this.orm.table() + " WHERE episodeId=?"),
 		(PreparedStatement ps) -> ps.setInt(1, episodeId), (ResultSet cursor) -> {
-		    if(cursor.next())
+		    if (cursor.next())
 			return this.orm.map(cursor);
 		    return null;
 		});
     }
-    
+
     @Override
-    public Episode insertIfAbsent(Episode episode){
+    public Episode insertIfAbsent(Episode episode) {
 	Episode existingEpisode = readByEpisodeId(episode.getEpisodeId());
-	LOGGER.debug(existingEpisode);
+	// LOGGER.debug(existingEpisode);
 	if (existingEpisode == null)
 	    return insert(episode);
-        /*
-         *  Update the persistent episode with the formal argument
-            need the persistent episode's id
-        */
-        episode = episode.of().id(existingEpisode.getId()).build();
-        Episode refreshed = update(episode);
+	/*
+	 * Update the persistent episode with the formal argument need the
+	 * persistent episode's id
+	 */
+	LOGGER.debug("Episode {} already existed", existingEpisode.getId());
+	episode = episode.of().id(existingEpisode.getId()).build();
+	LOGGER.debug("Refreshing episode");
+	Episode refreshed = update(episode);
 	LOGGER.debug("Update returned: {}", refreshed);
 	return refreshed;
     }
