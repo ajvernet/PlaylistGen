@@ -9,14 +9,14 @@ import org.springframework.stereotype.Service;
 import org.ssa.ironyard.dao.EpisodeDAO;
 import org.ssa.ironyard.dao.PlaylistDAO;
 import org.ssa.ironyard.model.Playlist;
-
+import org.ssa.ironyard.service.util.Ping;
 
 @Service
 public class PlaylistService {
 
     private final PlaylistDAO playlistDao;
     private final EpisodeDAO episodeDao;
-    
+
     Logger LOGGER = LogManager.getLogger(PlaylistService.class);
 
     @Autowired
@@ -25,7 +25,7 @@ public class PlaylistService {
 	this.episodeDao = episodeDao;
     }
 
-    public Playlist getPlaylistById(int id) {	
+    public Playlist getPlaylistById(int id) {
 	return playlistDao.readByPlaylistId(id);
     }
 
@@ -39,12 +39,21 @@ public class PlaylistService {
 
     public Playlist savePlaylist(Playlist playlist) {
 	LOGGER.debug("Saving playlist");
-	
-	Integer playlistId = playlist.getId() == null ? playlistDao.insert(playlist).getId():  playlistDao.update(playlist).getId();
+
+	Integer playlistId = playlist.getId() == null ? playlistDao.insert(playlist).getId()
+		: playlistDao.update(playlist).getId();
 	LOGGER.debug("Playlist saved; saving episodes to playlist");
 	playlistDao.replaceEpisodes(playlistId, playlist.getEpisodes());
 	LOGGER.debug("Playlist successfully saved");
-	return playlist.of().id(playlistId).build();	
+	return playlist.of().id(playlistId).build();
+    }
+
+    public boolean testPodcastAvailable(Integer episodeId) {
+	return testPodcastAvailable(episodeDao.read(episodeId).getFileUrl());
+    }
+
+    public boolean testPodcastAvailable(String episodeUrl) {
+	return Ping.pingURL(episodeUrl, 1000);
     }
 
 }

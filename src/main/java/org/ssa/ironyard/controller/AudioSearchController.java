@@ -28,8 +28,10 @@ public class AudioSearchController {
 
     @RequestMapping(value = "search", method = RequestMethod.POST)
     ResponseEntity<ResponseObject> searchEpisodes(@RequestBody Map<String, Object> map) {
-	String query = map.get("query") == null ? "*" : (String) map.get("query");
-	Integer limit = map.get("size") == null ? 50 : (Integer) map.get("size");
+	String query = map.get("query") == null ? "*"
+		: ((String) map.get("query")).isEmpty() ? "*" : (String) map.get("query");
+	Integer limit = map.get("size") == null ? 50
+		: ((Integer) map.get("size") > 0 && (Integer) map.get("size") <= 100) ? (Integer) map.get("size") : 50;
 	LOGGER.debug("Search AudioSearch by keyword");
 	return ResponseEntity.ok().body(ResponseObject.instanceOf(STATUS.SUCCESS, "You got search results",
 		ass.searchEpisodes((String) map.get("genre"), query, limit)));
