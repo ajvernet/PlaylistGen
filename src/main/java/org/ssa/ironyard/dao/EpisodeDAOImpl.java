@@ -35,6 +35,9 @@ public class EpisodeDAOImpl extends AbstractSpringDAO<Episode> implements Episod
     protected void insertPreparer(PreparedStatement insertStatement, Episode domainToInsert) throws SQLException {
 	insertStatement.setInt(1, domainToInsert.getEpisodeId());
 	insertStatement.setString(2, domainToInsert.getName());
+	if(domainToInsert.getGenreId()==null)
+	    insertStatement.setNull(3, java.sql.Types.INTEGER);
+	else
 	insertStatement.setInt(3, domainToInsert.getGenreId());
 	insertStatement.setString(4, domainToInsert.getDescription());
 	insertStatement.setInt(5, domainToInsert.getDuration());
