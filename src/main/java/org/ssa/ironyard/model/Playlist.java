@@ -105,6 +105,10 @@ public class Playlist extends DomainObject {
 	return "Playlist [name=" + name + ", user=" + user + ", targetDuration=" + targetDuration + ", currentDuration="
 		+ currentDuration + ", episodes=" + episodes + "]";
     }
+    
+    public PlaylistBuilder of(){
+	return new PlaylistBuilder(this);
+    }
 
     public static PlaylistBuilder builder() {
 	return new PlaylistBuilder();

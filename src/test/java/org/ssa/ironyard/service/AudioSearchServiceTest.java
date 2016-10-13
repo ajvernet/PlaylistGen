@@ -45,7 +45,7 @@ public class AudioSearchServiceTest {
 	String query = "Hardcore History";
 	Integer size = 100;
 	
-	System.err.println(ass.searchEpisodes(genre, query, size));
+	System.err.println(ass.searchEpisodes(genre, null, 50));
 	
     }
 

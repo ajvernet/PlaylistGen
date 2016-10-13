@@ -44,7 +44,7 @@ public class AudiosearchService {
 	    uri += "&filters[categories.id]=" + Genre.getInstance(genre).getId();
 	if (size != null)
 	    uri += "&size=" + size + "&from=0";
-	uri += "&sort_by=date_added&sort_order=desc";
+//	uri += "&sort_by=date_added&sort_order=desc";
 	LOGGER.debug("searchUrl: {}", uri);
 	RestTemplate restTemplate = new RestTemplate();
 	ParameterizedTypeReference<Map<String, Object>> typeRef = new ParameterizedTypeReference<Map<String, Object>>() {
@@ -56,8 +56,6 @@ public class AudiosearchService {
 
 	    if ((List<Map<String, String>>) result.getOrDefault("audio_files", null) == null)
 		return null;
-	    LOGGER.debug("PodcastID: {}", result.get("id"));
-	    LOGGER.debug("Audio: {}", result.get("audio_files"));
 	    String fileUrl = ((List<Map<String, String>>) result.get("audio_files")).get(0).getOrDefault("mp3", "");
 	    if (fileUrl == "")
 		fileUrl = ((List<Map<String, List<String>>>) result.get("audio_files")).get(0).get("url").get(0);
