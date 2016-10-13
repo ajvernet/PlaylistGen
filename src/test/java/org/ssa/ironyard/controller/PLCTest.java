@@ -11,6 +11,7 @@ import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.springframework.http.ResponseEntity;
 import org.ssa.ironyard.controller.mapper.EpisodeMapper;
 import org.ssa.ironyard.controller.mapper.PlaylistMapper;
 import org.ssa.ironyard.controller.mapper.ShowMapper;
@@ -18,6 +19,7 @@ import org.ssa.ironyard.crypto.BCryptSecurePassword;
 import org.ssa.ironyard.model.Address;
 import org.ssa.ironyard.model.Episode;
 import org.ssa.ironyard.model.Playlist;
+import org.ssa.ironyard.model.ResponseObject;
 import org.ssa.ironyard.model.Show;
 import org.ssa.ironyard.model.User;
 import org.ssa.ironyard.model.Address.State;
@@ -125,17 +127,35 @@ PlaylistController controller;
         EasyMock.expect(service.savePlaylist(EasyMock.capture(capturedArg))).andReturn(playlist);
         EasyMock.replay(service);
 
-        playlistController.savePlaylist(playlistMapper, playlistMapper.getId());
+        ResponseEntity<ResponseObject> response = playlistController.savePlaylist(playlistMapper, playlistMapper.getId());
+       
+        assertEquals(response.getBody().getStatus(), STATUS.SUCCESS);
+        assertEquals(response.getBody().getMsg(), "Your playlist was saved");
+        assertEquals(response.getBody().getObj(), playlist);
    
         EasyMock.verify(service);
         
-        assertEquals(capturedArg.getValue(), playlist);
+        assertTrue(capturedArg.getValue().deeplyEquals(playlist));
     }
     
-    @Ignore
     @Test
     public void deletePlaylistTest()
     {
+        Capture<Integer> capturedArg = EasyMock.newCapture();
+        
+        EasyMock.expect(service.deletePlaylist(EasyMock.capture(capturedArg))).andReturn(true);
+        EasyMock.replay(service);
+
+        ResponseEntity<ResponseObject> response = playlistController.deletePlaylist(playlistMapper.getId());
+       
+        assertEquals(response.getBody().getStatus(), STATUS.SUCCESS);
+        assertEquals(response.getBody().getMsg(), "Your playlist was deleted");
+        assertEquals(response.getBody().getObj(), true);
+   
+        EasyMock.verify(service);
+        
+        assertEquals(capturedArg.getValue(), playlistMapper.getId());
+ 
         
     }
     
@@ -143,14 +163,42 @@ PlaylistController controller;
     @Test
     public void getPlaylistsByUser()
     {
+        Capture<Playlist> capturedArg = EasyMock.newCapture();
         
+        EasyMock.expect(service.savePlaylist(EasyMock.capture(capturedArg))).andReturn(playlist);
+        EasyMock.replay(service);
+
+        ResponseEntity<ResponseObject> response = playlistController.savePlaylist(playlistMapper, playlistMapper.getId());
+       
+        assertEquals(response.getBody().getStatus(), STATUS.SUCCESS);
+        assertEquals(response.getBody().getMsg(), "Your playlist was saved");
+        assertEquals(response.getBody().getObj(), playlist);
+   
+        EasyMock.verify(service);
+        
+        assertTrue(capturedArg.getValue().deeplyEquals(playlist));
+ 
     }
     
     @Ignore
     @Test
     public void getPlaylistsById()
     {
+        Capture<Playlist> capturedArg = EasyMock.newCapture();
         
+        EasyMock.expect(service.savePlaylist(EasyMock.capture(capturedArg))).andReturn(playlist);
+        EasyMock.replay(service);
+
+        ResponseEntity<ResponseObject> response = playlistController.savePlaylist(playlistMapper, playlistMapper.getId());
+       
+        assertEquals(response.getBody().getStatus(), STATUS.SUCCESS);
+        assertEquals(response.getBody().getMsg(), "Your playlist was saved");
+        assertEquals(response.getBody().getObj(), playlist);
+   
+        EasyMock.verify(service);
+        
+        assertTrue(capturedArg.getValue().deeplyEquals(playlist));
+ 
     }
 
 }
