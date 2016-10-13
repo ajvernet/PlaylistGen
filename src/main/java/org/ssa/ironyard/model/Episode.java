@@ -15,8 +15,9 @@ public class Episode extends DomainObject {
 	super(id, loaded);
 	this.episodeId = episodeId;
 	this.name = name;
-	this.genreId = genreId;
-	this.description = description.length() > 20000 ? description.substring(0, 20000) : description;
+	this.genreId = genreId;//==null?0:genreId;
+	this.description = description == null || description.length() <= 20000 ? description
+		: description.substring(0, 20000);
 	this.duration = duration;
 	this.fileUrl = fileUrl;
 	this.show = show;
@@ -48,11 +49,11 @@ public class Episode extends DomainObject {
     }
 
     public Integer getGenreId() {
-        return genreId;
+	return genreId;
     }
 
     public String getDescription() {
-        return description;
+	return description;
     }
 
     @Override
@@ -191,8 +192,8 @@ public class Episode extends DomainObject {
 	    this.name = name;
 	    return this;
 	}
-	
-	public EpisodeBuilder genreId(Integer genreId){
+
+	public EpisodeBuilder genreId(Integer genreId) {
 	    this.genreId = genreId;
 	    return this;
 	}
