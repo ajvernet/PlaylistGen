@@ -46,9 +46,9 @@
 
 	<div class="playlistDiv" ng-show="MC.createdPlaylist.length">
 
-Trip Duration: {{ MC.userDuration }}
+<span ng-show="MC.userDuration">Trip Duration: {{ MC.userDuration }}</span>
 <br>
-Playlist Duration: <span ng-style="MC.playlistDurationBuilder > MC.userDuration && {'color': '#ff3333'}">{{ MC.playlistDurationBuilder }}</span>
+Playlist Duration: <span ng-style="(MC.playlistDurationBuilder > MC.userDuration && MC.userDuration > 0) && {'color': '#ff3333'}">{{ MC.playlistDurationBuilder }}</span>
 		<h5>Playlist</h5>
 <table class="table table-hover table-striped table-bordered">
 			<tr ng-repeat="podcast in MC.createdPlaylist"  ng-style="podcast.loaded == true && {} || !podcasthasOwnProperty('loaded') && {'background-color': 'silver', 'opacity': '.6'}"><td>{{ podcast.title }} --- {{ podcast.duration }}

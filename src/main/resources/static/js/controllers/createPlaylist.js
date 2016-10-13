@@ -225,7 +225,7 @@ controller.lowerSong = function(index) {
 	  controller.userDuration = hourToSec + minuteToSec;
 	  
 	  if(controller.userDuration == 0){
-		  controller.userDuration = "None"
+		  controller.userDuration = null;
 	  }
  }
  
