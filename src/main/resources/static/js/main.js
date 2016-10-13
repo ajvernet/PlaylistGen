@@ -17,11 +17,11 @@ function configure($stateProvider, $urlRouterProvider) {
         , controller: 'PlaylistController'
         , controllerAs: 'PC'
         , templateUrl: '/templates/savedPlaylists.html'
-    }).state('playlists.detail', {
-        url: '/:id'
-        , controller: 'PlaylistQuickDetailController'
-        , controllerAs: 'PC'
-        , templateUrl: '/templates/playlistQuickDetail.html'
+//    }).state('playlists.detail', {
+//        url: '/:id'
+//        , controller: 'PlaylistQuickDetailController'
+//        , controllerAs: 'PC'
+//        , templateUrl: '/templates/playlistQuickDetail.html'
     }).state('player', {
         url: '/player'
             , controller: 'PlayerController'
@@ -32,6 +32,7 @@ function configure($stateProvider, $urlRouterProvider) {
             , controller: 'PlaylistDetailController'
             , controllerAs: 'PC'
             , templateUrl: '/templates/playlistDetail.html'
+            , params: {toDetailId : null}
             })
     $urlRouterProvider.otherwise('/')
     console.log("setting up", $stateProvider)

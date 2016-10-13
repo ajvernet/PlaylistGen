@@ -1,18 +1,29 @@
 angular.module('podcaster').controller("PlaylistController", PlaylistCtrl)
-PlaylistCtrl.$inject = ['Benchmarks']
+PlaylistCtrl.$inject = ['$http', '$state']
 
-function PlaylistCtrl(Benchmarks) {
+function PlaylistCtrl($http, $state) {
     var ctrl = this;
-    Benchmarks.all().then(function (benchmarks) {
-        ctrl.benchmarks = benchmarks;
+    
+    ctrl.user = window.location.pathname.replace("/podcasts/user/","").replace("/","");
+    
+    ctrl.playlists = [];
+    
+    $http.get("/podcasts/user/" + ctrl.user + "/playlists")
+    .then(function(response) {
+    	console.log(response.data.obj);
+    	for(i=0; i < response.data.obj.length; i++){
+    		var tempObj = {
+    				'id': response.data.obj[i].id,
+    				'name': response.data.obj[i].name,
+    				'currentDuration': response.data.obj[i].currentDuration
+    		}
+    		ctrl.playlists.push(tempObj);
+    		console.log(tempObj);
+    	}	
     })
-    ctrl.propertyName = 'id';
-    ctrl.reverse = false;
-    ctrl.sortBy = function (propertyName) {
-        console.log("Requested sort by " + propertyName);
-        console.log("Current propertyName = " + ctrl.propertyName);
-        console.log("Reverse = " + ctrl.reverse);
-        ctrl.reverse = (ctrl.propertyName === propertyName) ? !ctrl.reverse : false;
-        ctrl.propertyName = propertyName;
-    };
+    
+    ctrl.toDetail = function(playlist){
+    	$state.go("playlistDetail", {toDetailId: playlist.id});
+    }
+    
 }

@@ -1,9 +1,11 @@
 angular.module('podcaster').controller("CreatePlaylistController", CreatePlaylistCtrl)
-CreatePlaylistCtrl.$inject = ['$scope', '$timeout', '$http', 'PlaylistService']
+CreatePlaylistCtrl.$inject = ['$scope', '$timeout', '$http', '$state', 'PlaylistService']
 
-function CreatePlaylistCtrl($scope, $timeout, $http, PlaylistService) {
+function CreatePlaylistCtrl($scope, $timeout, $http, $state, PlaylistService) {
 
 var controller = this;
+
+controller.user = window.location.pathname.replace("/podcasts/user/","").replace("/","");
 
 controller.searchResultsFromService = PlaylistService.getSearchResults;
 controller.keywordSearch = PlaylistService.getKeyword;
@@ -191,31 +193,31 @@ controller.countdown = function() {
  }
  
  controller.savePlaylist = function(){
-	 //console.log(controller.createdPlaylist.length);
+	 
 	 var tempObjArray = [];
 	 for(i=0; i<controller.createdPlaylist.length; i++){
-		 controller.createdPlaylist[i].json.playOrder = i+1;
+//		 //set play order in front end before POST
+//		 controller.createdPlaylist[i].json.playOrder = i+1;
 		 tempObjArray.push(controller.createdPlaylist[i].json);
 	 }
-	 //console.log(tempObjArray);
-	 
 	 
 	 $http({
 		    method: "POST",
-		    url : "/podcasts/saveplaylist",
+		    url : "/podcasts/user/" + controller.user + "/playlists",
 		    dataType : "json",
 		    data: {
 	            'id': null,
-	            'userId': 1,
 		    	'name': controller.playlistName,
 		    	'targetDuration': controller.userDuration,
-		    	'currentDuration': todo,
+		    	'currentDuration': controller.playlistDurationBuilder,
 		    	'episodes': tempObjArray
 	        }
 		}).success(function(response) {
 			console.log(response.status + " - " + response.msg);
 			if(response.status === "SUCCESS"){
-			//$window.location.href = '/podcaster/';
+				//$window.location.href = '/podcaster/';
+				console.log(response);
+				$state.go("playlistDetail", {toDetailId: response.obj.id});
 			}
 			if(response.status === "ERROR"){
 				console.log("POST error");

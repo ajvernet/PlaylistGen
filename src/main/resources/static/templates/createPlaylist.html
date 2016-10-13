@@ -26,7 +26,6 @@
 		<input type="text" size="30" ng-model="MC.keywordSearch">
 		
 		<select class="form-control" id="genre" ng-model="MC.genre">
-		<option></option>
         <option>Comedy</option>
         <option>Sports & Recreation</option>
         <option>Business</option>
@@ -54,8 +53,8 @@
 -->
 <div class="hoverPointer">
 <table class="table table-hover table-striped table-bordered">
-	<tr ng-repeat="podcast in MC.searchResultsFromService" ng-mouseover="MC.hoverDetail(podcast, $event)" ng-mouseleave="MC.hoverLeave()" ng-style="(podcast.duration > (MC.userDuration - MC.playlistDurationBuilder) && MC.userDuration > 0) && {'background-color': '#ff3333'}">
-		<td ng-click="MC.addToPL(podcast)">{{ podcast.title }} --- {{ podcast.duration }}</td>
+	<tr ng-repeat="podcast in MC.searchResultsFromService" ng-mouseover="MC.hoverDetail(podcast, $event)" ng-mouseleave="MC.hoverLeave()">
+		<td ng-click="MC.addToPL(podcast)">{{ podcast.title }} --- <span ng-style="(podcast.duration > (MC.userDuration - MC.playlistDurationBuilder) && MC.userDuration > 0) && {'color': '#ff3333'}">{{ podcast.duration }}</span></td>
 	</tr>
 </table>
 </div>
@@ -72,7 +71,7 @@
 
 Trip Duration: {{ MC.userDuration }}
 <br>
-Playlist Duration: {{ MC.playlistDurationBuilder }}
+Playlist Duration: <span ng-style="MC.playlistDurationBuilder > MC.userDuration && {'color': '#ff3333'}">{{ MC.playlistDurationBuilder }}</span>
 		<h5>Playlist</h5>
 <table class="table table-hover table-striped table-bordered">
 			<tr ng-repeat="podcast in MC.createdPlaylist"  ng-style="podcast.loaded == true && {} || !podcasthasOwnProperty('loaded') && {'background-color': 'silver', 'opacity': '.6'}"><td>{{ podcast.title }} --- {{ podcast.duration }}
