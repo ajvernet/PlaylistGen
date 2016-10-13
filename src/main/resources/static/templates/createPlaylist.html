@@ -1,18 +1,3 @@
-<!--
-<div id="mapsDiv">
-<form ng-submit="MC.driveTime()" name="MyForm">
-	<label for="startAddress">Start: </label>
-	<input id="startAddress" type="text" ng-model="MC.startAddress" required>
-	<br>
-	<label for="endAddress">Destination: </label>
-	<input id="endAddress" type="text" ng-model="MC.endAddress" required>
-	<br>
-	<input type="submit" value="Get Trip Time" ng-disabled="MyForm.$invalid">
-</form>
-</div>
-<br><br>
--->
-
 <div id="newPL" class="playlistTitle">
 {{ MC.playlistName }} 
 </div>
@@ -42,15 +27,7 @@
 		</span>
       
 		<button id="submitSearchBtn" ng-click="MC.submitSearch(MC.keywordSearch, MC.genre)">Search</button>
-		
-		
-<!--
-		<ul>		
-			<li ng-repeat="song in MC.songs">
-				<button ng-click="MC.addToPL(song)">{{ song.title }}</button>
-			</li>
-		</ul>
--->
+
 <div class="hoverPointer">
 <table class="table table-hover table-striped table-bordered">
 	<tr ng-repeat="podcast in MC.searchResultsFromService" ng-mouseover="MC.hoverDetail(podcast, $event)" ng-mouseleave="MC.hoverLeave()">
@@ -102,61 +79,3 @@ Playlist Duration: <span ng-style="MC.playlistDurationBuilder > MC.userDuration 
 </div>
 
 <div class="namePopupBG" ng-show="MC.showNameDiv"></div>
-
-
-
-
-
-
-
-
-
-<!-- remove player from view --- add to detail view
-	<button play-all="MC.createdPlaylist" data-play="false">Launch
-		Playlist</button>
-
-	<br> <br> <br>
-	<button play-music ng-click="MC.playPL()">Play</button>
-	<button pause-music ng-click="MC.pausePL()">Pause</button>
-	<br> <br> Volume: {{ volume }} -
-	<button music-volume data-type="increase">+</button>
-	-
-	<button music-volume data-type="decrease">-</button>
-	<br> <br> <br>
-
-	<div class="playerDiv">
-		<sound-manager></sound-manager>
-
-		<h5>Player</h5>
-
-		<p>Currently Playing: {{ currentPlaying.title }} by {{
-			currentPlaying.artist }} ({{ currentPostion }} / {{ currentDuration
-			}})</p>
-		<div class="seekBase" seek-track>
-			<div class="seekLoad" ng-style="{width : ( progress + '%' ) }"></div>
-		</div>
-	</div>
-
-</div>
--->
-
-<!--
-<div>
-<form ng-submit="MC.initializePL()" name="nameForm">
-	<label for="userEmail">Playlist Name: </label>
-	<input id="playlistName" type="text" ng-model="MC.playlistName" required>
-	<br>
-	<label for="userDurHours">Duration: </label>
-	<input id="userDurHours" type="number" min="0" value="0" ng-model="MC.userDurHours"> -
-	<input id="userDurMinutes" type="number" min="0" value="0" ng-model="MC.userDurMinutes">
-	<br>
-	<input type="submit" value="Login" ng-disabled="nameForm.$invalid">
-</form>
-</div>
--->
-
-<!--  counter for player
-<p ng-bind="MC.counter"></p>
-<button ng-click="MC.stop()">Stop</button>
-<button ng-click="MC.countdown()">Start</button>
--->
