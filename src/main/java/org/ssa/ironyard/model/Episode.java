@@ -4,26 +4,28 @@ public class Episode extends DomainObject {
 
     private final Integer episodeId;
     private final String name;
+    private final Integer genreId;
+    private final String description;
     private final Integer duration;
     private final String fileUrl;
     private final Show show;
 
-    public Episode(Integer id, boolean loaded, Integer episodeId, String name, Integer duration, String fileUrl,
-	    Show show) {
+    public Episode(Integer id, boolean loaded, Integer episodeId, String name, Integer genreId, String description,
+	    Integer duration, String fileUrl, Show show) {
 	super(id, loaded);
 	this.episodeId = episodeId;
 	this.name = name;
+	this.genreId = genreId;
+	this.description = description;
 	this.duration = duration;
 	this.fileUrl = fileUrl;
 	this.show = show;
     }
 
     @Override
-    public Episode clone()
-    {
-        return this;
+    public Episode clone() {
+	return this;
     }
-    
 
     public Integer getEpisodeId() {
 	return episodeId;
@@ -45,19 +47,26 @@ public class Episode extends DomainObject {
 	return show;
     }
 
+    public Integer getGenreId() {
+        return genreId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public String toString() {
+	return "Episode [episodeId=" + episodeId + ", name=" + name + ", genreId=" + genreId + ", description="
+		+ description + ", duration=" + duration + ", fileUrl=" + fileUrl + ", show=" + show + "]";
+    }
+
     @Override
     public int hashCode() {
 	final int prime = 31;
 	int result = 1;
 	result = prime * result + ((id == null) ? 0 : id.hashCode());
 	return result;
-    }
-
-
-    @Override
-    public String toString() {
-	return "Episode [episodeId=" + episodeId + ", name=" + name + ", duration=" + duration + ", fileUrl=" + fileUrl
-		+ ", show=" + show + ", id=" + id + ", loaded=" + loaded + "]";
     }
 
     @Override
@@ -85,6 +94,11 @@ public class Episode extends DomainObject {
 	if (getClass() != obj.getClass())
 	    return false;
 	Episode other = (Episode) obj;
+	if (description == null) {
+	    if (other.description != null)
+		return false;
+	} else if (!description.equals(other.description))
+	    return false;
 	if (duration == null) {
 	    if (other.duration != null)
 		return false;
@@ -99,6 +113,11 @@ public class Episode extends DomainObject {
 	    if (other.fileUrl != null)
 		return false;
 	} else if (!fileUrl.equals(other.fileUrl))
+	    return false;
+	if (genreId == null) {
+	    if (other.genreId != null)
+		return false;
+	} else if (!genreId.equals(other.genreId))
 	    return false;
 	if (name == null) {
 	    if (other.name != null)
@@ -117,11 +136,10 @@ public class Episode extends DomainObject {
      *
      * @return {@link EpisodeBuilder builder} initialized from this
      */
-    public EpisodeBuilder of()
-    {
-        return Episode.builder(this);
+    public EpisodeBuilder of() {
+	return Episode.builder(this);
     }
-    
+
     public static EpisodeBuilder builder() {
 	return new EpisodeBuilder();
     }
@@ -135,6 +153,8 @@ public class Episode extends DomainObject {
 	private boolean loaded = false;
 	private Integer episodeId;
 	private String name;
+	private Integer genreId;
+	private String description;
 	private Integer duration;
 	private String fileUrl;
 	private Show show;
@@ -171,6 +191,16 @@ public class Episode extends DomainObject {
 	    this.name = name;
 	    return this;
 	}
+	
+	public EpisodeBuilder genreId(Integer genreId){
+	    this.genreId = genreId;
+	    return this;
+	}
+
+	public EpisodeBuilder description(String description) {
+	    this.description = description;
+	    return this;
+	}
 
 	public EpisodeBuilder duration(Integer duration) {
 	    this.duration = duration;
@@ -188,7 +218,7 @@ public class Episode extends DomainObject {
 	}
 
 	public Episode build() {
-	    return new Episode(id, loaded, episodeId, name, duration, fileUrl, show);
+	    return new Episode(id, loaded, episodeId, name, genreId, description, duration, fileUrl, show);
 	}
     }
 }

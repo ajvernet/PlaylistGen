@@ -16,6 +16,7 @@ public interface EpisodeORM extends ORM<Episode> {
 	.add("id")
 	.add("episodeId")
 	.add("name")
+	.add("genreId")
 	.add("duration")
 	.add("fileUrl")
 	.add("showId")
@@ -51,7 +52,7 @@ public interface EpisodeORM extends ORM<Episode> {
     @Override
     default String prepareInsert() {
 	return "INSERT INTO " + table()
-		+ "(episodeId, name, duration, fileUrl, showId, showName, thumbUrl) VALUES (?,?,?,?,?,?)";
+		+ "(episodeId, name, duration, fileUrl, showId, showName, thumbUrl) VALUES (?,?,?,?,?,?,?)";
     }
 
     @Override

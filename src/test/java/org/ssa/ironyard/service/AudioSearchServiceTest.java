@@ -35,64 +35,37 @@ public class AudioSearchServiceTest {
 
     @Ignore
     @Test
-    public void testTrending() {
-	ass.getTrending();
-    }
-
-    @Ignore
-    @Test
-    public void testRandomEpisode() {
-	ass.getRandomEpisode();
-    }
-
-    @Ignore
-    @Test
-    public void testChartDaily() {
-	ass.getChartDaily();
-    }
-
-    @Test
-    public void parseRandomEpisode() throws JsonProcessingException, IOException {
-	String randomEpisode;
-	randomEpisode = ass.getRandomEpisode();
-	// findmp3(randomEpisode);
-    }
-
-    @Ignore
-    @Test
-    public void testSearchResultsByGenre() throws JsonProcessingException, IOException {
-//	List<Episode> searchResults = ass.searchEpisodesByGenre("Comedy");
-//	System.err.println(searchResults);
-    }
-    
-    @Test
-    public void testSearchResultsByKeyword() throws JsonProcessingException, IOException {
-	List<Episode> searchResults = ass.searchEpisodesByKeywords("Comedy");
-	System.err.println(searchResults);
-    }
-
-    @Test
-    public void testTasties(){
+    public void testTasties() {
 	ass.getTasties();
     }
     
     @Test
-    public void getGenreList(){
+    public void testSearch(){
+	String genre="Comedy";
+	String query = "Hardcore History";
+	Integer size = 100;
+	
+	System.err.println(ass.searchEpisodes(genre, null, 50));
+	
+    }
+
+    @Test
+    public void getGenreList() {
 	assertTrue(ass.getGenres().size() > 0);
 	assertTrue(ass.getGenres().size() == 9);
 	System.err.println(ass.getGenres());
     }
-    
-    private String findmp3(String genreJson) throws JsonProcessingException, IOException {
-	JsonNode node = mapper.readTree(genreJson);
-	System.err.println(node.path("id"));
-	node = mapper.readTree(ass.getEpisodeById(Integer.parseInt(node.path("id").asText())));
-	System.err.println("Audio file: " + node.path("audio_files").get(0).path("url").get(0).asText());
-	if (node.has("audio_files"))
-	    if (node.path("audio_files").get(0).has("url"))
-		if (node.path("audio_files").get(0).path("url").get(0).asText().endsWith("mp3"))
-		    return node.path("audio_files").get(0).path("url").get(0).asText();
-	return "";
-    }
+
+//    private String findmp3(String genreJson) throws JsonProcessingException, IOException {
+//	JsonNode node = mapper.readTree(genreJson);
+//	System.err.println(node.path("id"));
+//	node = mapper.readTree(ass.getEpisodeById(Integer.parseInt(node.path("id").asText())));
+//	System.err.println("Audio file: " + node.path("audio_files").get(0).path("url").get(0).asText());
+//	if (node.has("audio_files"))
+//	    if (node.path("audio_files").get(0).has("url"))
+//		if (node.path("audio_files").get(0).path("url").get(0).asText().endsWith("mp3"))
+//		    return node.path("audio_files").get(0).path("url").get(0).asText();
+//	return "";
+//    }
 
 }

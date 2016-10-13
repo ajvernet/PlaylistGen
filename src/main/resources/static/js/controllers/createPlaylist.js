@@ -38,9 +38,9 @@ controller.addToPL = function(podcast) {
 	if(controller.playlistName == "New Playlist"){
 		controller.playlistName = "";
 		controller.showNameDiv = true;
+		
 	}
 	
-	else{
 		if(controller.createdPlaylist.indexOf(podcast) == -1) {
 			
 			controller.createdPlaylist.push(podcast);
@@ -52,7 +52,7 @@ controller.addToPL = function(podcast) {
 				  url: podcast.url,
 				  onload: function() {
 					  //console.log(tempPodcast.id + "---" + tempPodcast.readyState);
-					  //ungray
+					  //un-gray
 					  for(i=0; i<controller.createdPlaylist.length; i++){
 						  if(controller.createdPlaylist[i].title == podcast.title && tempPodcast.readyState == 3){
 							  controller.createdPlaylist[i].loaded = true;
@@ -69,15 +69,23 @@ controller.addToPL = function(podcast) {
 				for(i=0; i<controller.createdPlaylist.length; i++){
 					//todo --- check for readystate instead of loaded
 					if(controller.createdPlaylist[i].title == podcast.title && controller.createdPlaylist[i].loaded != true){
+						controller.playlistDurationBuilder -= podcast.duration;
 						controller.createdPlaylist.splice(i,1);
-						//placeholder alert
+						for(j=0; j<controller.searchResultsFromService.length; j++){
+							console.log(controller.searchResultsFromService[j].title);
+							if(controller.searchResultsFromService[j].title == podcast.title){
+								console.log(controller.searchResultsFromService[j].title + " - " + podcast.title)
+								controller.searchResultsFromService.splice(j,1);
+							}
+						}
+						//placeholder alert --- replace with popup
 						alert(podcast.title + " has failed to load");
 						//todo --- remove from search results as well
 					}
 				}
 			}, 10000);
 
-	}}
+	}
 }
 
 controller.dropSong = function(index, song) {
