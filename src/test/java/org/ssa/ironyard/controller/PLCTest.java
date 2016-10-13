@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import org.easymock.Capture;
 import org.easymock.EasyMock;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.http.ResponseEntity;
 import org.ssa.ironyard.controller.mapper.EpisodeMapper;
