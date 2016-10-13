@@ -1,10 +1,8 @@
 angular.module("podcaster").controller("DashboardController", DashboardCtrl)
-DashboardCtrl.$inject = ['Benchmarks']
+//DashboardCtrl.$inject = []
 
-function DashboardCtrl(Benchmarks) {
-    console.log("dashboard", Benchmarks)
+function DashboardCtrl() {
+
     var ctrl = this
-    Benchmarks.all().then(function (benchmarks) {
-        ctrl.count = benchmarks.length
-    })
+
 }

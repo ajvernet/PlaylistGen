@@ -1,38 +1,39 @@
 <div id="playlistDiv" class="row"  ng-show="PC.shown">
 
-todo - single playlist detail play/edit/delete
+<h2>{{ PC.playlistName }}</h2>
 
-    <div>
+    <div id="listDiv" ng-show="PC.shown">
+    
         <table class="table table-hover table-striped table-bordered">
             
             <tbody>
-                <tr ng-repeat="x in PC.benchmarks | orderBy:bc.propertyName:bc.reverse">
-                    <td> <a ng-click="PC.playPL()">{{x.id}} </a> </td>
-                    <td>{{x.episode.title}}</td>
-                    <td>{{x.episode.show_title}}</td>
-                    <td>{{x.episode.audio_files[0].duration}}</td>
+                <tr ng-repeat="podcast in PC.playlist">
+                    <td>{{podcast.episode.name}}</td>
+                    <td>{{podcast.episode.show.name}}</td>
+                    <td>{{podcast.episode.duration}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
     
+    <button play-all="PC.playlist" data-play="true" ng-click="PC.playPL()">Play</button> <button ng-click="PC.deletePL()">Delete</button>
+    
 </div>
 
-<div>
 <div id="playerDiv" ng-hide="PC.shown">
 		<sound-manager></sound-manager>
 		
-		<ul>
-                    <li ng-repeat="song in playlist">
-                        <a play-from-playlist="song">{{ song.title }}</a>
-                        -
-                        <a remove-from-playlist="song" data-index="{{$index}}">
-                            <small>(remove)</small>
-                        </a>
-                        <span ng-if="currentPlaying.id == song.id"> - (current)</span>
-                    </li>
-                </ul>
-
+<table class="table table-hover table-striped table-bordered">
+	<tbody>
+		<tr ng-repeat="song in playlist">
+			<td><a play-from-playlist="song">{{song.title}} <span ng-if="currentPlaying.id == song.id"> - (current)</a></td>
+            <td>{{song.artist}}</td>
+            <td>{{song.duration}}</td>
+		</tr>
+	</tbody>
+</table>
+		
+		
 		<h5>Player</h5>
 
 		<p>Currently Playing: {{ currentPlaying.title }} by {{
@@ -41,5 +42,4 @@ todo - single playlist detail play/edit/delete
 		<div class="seekBase" seek-track>
 			<div class="seekLoad" ng-style="{width : ( progress + '%' ) }"></div>
 		</div>
-	</div>
 </div>
