@@ -2,6 +2,8 @@ package org.ssa.ironyard.controller;
 
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +26,8 @@ public class PlaylistController {
 
     private final PlaylistService playlistService;
 
+    Logger LOGGER = LogManager.getLogger(PlaylistController.class);
+    
     @Autowired
     public PlaylistController(PlaylistService playlistService) {
 	this.playlistService = playlistService;
@@ -31,8 +35,11 @@ public class PlaylistController {
 
     @RequestMapping(value = "user/{userId}/playlists", method = RequestMethod.POST)
     public ResponseEntity<ResponseObject> savePlaylist(@RequestBody PlaylistMapper playlist, @PathVariable Integer userId) {
-	return 
-		ResponseEntity.ok().body(ResponseObject.instanceOf(STATUS.SUCCESS, "Your playlist was saved", 
+	
+	LOGGER.debug("Saving playlist");
+	LOGGER.debug(playlist);
+	
+	return ResponseEntity.ok().body(ResponseObject.instanceOf(STATUS.SUCCESS, "Your playlist was saved", 
 		playlistService.savePlaylist(
 		Playlist.builder()
 		.id(playlist.getId())
@@ -43,6 +50,7 @@ public class PlaylistController {
 		.episodes(playlist.getEpisodes()
 			.stream()
 			.map(e -> {
+			    		LOGGER.debug(e.getGenreId());
         			    return Episode.builder()
         			    .id(e.getId())
         			    .duration(e.getDuration())

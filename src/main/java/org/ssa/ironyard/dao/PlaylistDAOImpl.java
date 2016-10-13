@@ -97,6 +97,7 @@ public class PlaylistDAOImpl extends AbstractSpringDAO<Playlist> implements Play
 	StringBuilder updateString = new StringBuilder(
 		"INSERT INTO PlaylistEpisodes(playlistId, episodeId, sortOrder) VALUES");
 	for (int i = 0; i < episodes.size(); i++) {
+	    LOGGER.debug("Loading episodes");
 	    Episode loadedEpisode = episodeDao.insertIfAbsent(episodes.get(i));
 	    LOGGER.debug("Insert If Not Exist returned episode w/ id: {}", loadedEpisode.getId());
 	    updateString.append("(" + playlistId + ", " + loadedEpisode.getId() + ", " + i + "),");

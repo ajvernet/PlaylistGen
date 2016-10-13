@@ -62,7 +62,10 @@ public class EpisodeDAOImpl extends AbstractSpringDAO<Episode> implements Episod
 	    public void setValues(PreparedStatement ps) throws SQLException {
 		ps.setInt(1, domainToUpdate.getEpisodeId());
 		ps.setString(2, domainToUpdate.getName());
-		ps.setInt(3, domainToUpdate.getGenreId());
+		if(domainToUpdate.getGenreId()==null)
+		    ps.setNull(3, java.sql.Types.INTEGER);
+		else
+		    ps.setInt(3, domainToUpdate.getGenreId());
 		ps.setString(4, domainToUpdate.getDescription());
 		ps.setInt(5, domainToUpdate.getDuration());
 		ps.setString(6, domainToUpdate.getFileUrl());
@@ -102,7 +105,9 @@ public class EpisodeDAOImpl extends AbstractSpringDAO<Episode> implements Episod
 	 * Update the persistent episode with the formal argument need the
 	 * persistent episode's id
 	 */
+	LOGGER.debug("Episode {} already existed", existingEpisode.getId());
 	episode = episode.of().id(existingEpisode.getId()).build();
+	LOGGER.debug("Refreshing episode");
 	Episode refreshed = update(episode);
 	LOGGER.debug("Update returned: {}", refreshed);
 	return refreshed;
