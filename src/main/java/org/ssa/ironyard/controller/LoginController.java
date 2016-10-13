@@ -53,7 +53,7 @@ public class LoginController {
 	return new InternalResourceView("/login.html");
     }
     
-    @RequestMapping(value = "/user/{userId}")
+    @RequestMapping(value = "/user/{userId}/")
     public View home(@PathVariable Integer userId)
     {
         return new InternalResourceView("/index.html");
