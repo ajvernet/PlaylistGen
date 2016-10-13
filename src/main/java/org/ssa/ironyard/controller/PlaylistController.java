@@ -1,18 +1,19 @@
 package org.ssa.ironyard.controller;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.ssa.ironyard.controller.mapper.EpisodeMapper;
 import org.ssa.ironyard.controller.mapper.PlaylistMapper;
 import org.ssa.ironyard.model.Episode;
 import org.ssa.ironyard.model.Playlist;
+import org.ssa.ironyard.model.ResponseObject;
+import org.ssa.ironyard.model.ResponseObject.STATUS;
 import org.ssa.ironyard.model.Show;
 import org.ssa.ironyard.model.User;
 import org.ssa.ironyard.service.PlaylistService;
@@ -29,8 +30,10 @@ public class PlaylistController {
     }
 
     @RequestMapping(value = "user/{userId}/playlists", method = RequestMethod.POST)
-    public Playlist savePlaylist(@RequestBody PlaylistMapper playlist, @PathVariable Integer userId) {
-	return playlistService.savePlaylist(
+    public ResponseEntity<ResponseObject> savePlaylist(@RequestBody PlaylistMapper playlist, @PathVariable Integer userId) {
+	return 
+		ResponseEntity.ok().body(ResponseObject.instanceOf(STATUS.SUCCESS, "Your playlist was saved", 
+		playlistService.savePlaylist(
 		Playlist.builder()
 		.id(playlist.getId())
 		.name(playlist.getName())
@@ -51,22 +54,22 @@ public class PlaylistController {
         			    .build();
 				}
 			).collect(Collectors.toList()))
-		.build());
+		.build())));
 
     }
 
     @RequestMapping(value = "user/{userId}/playlists/{playlistId}", method = RequestMethod.DELETE)
-    public boolean deletePlaylist(@PathVariable Integer playlistId) {
-	return playlistService.deletePlaylist(playlistId);
+    public ResponseEntity<ResponseObject> deletePlaylist(@PathVariable Integer playlistId) {
+	return ResponseEntity.ok().body(ResponseObject.instanceOf(STATUS.SUCCESS, "Your playlist was deleted", playlistService.deletePlaylist(playlistId)));
     }
 
     @RequestMapping(value = "user/{userId}/playlists", method = RequestMethod.GET)
-    public List<Playlist> getPlaylistsByUserId(@PathVariable Integer userId) {
-	return playlistService.getPlaylistsByUser(userId);
+    public ResponseEntity<ResponseObject> getPlaylistsByUserId(@PathVariable Integer userId) {
+	return ResponseEntity.ok().body(ResponseObject.instanceOf(STATUS.SUCCESS, "Come get your playlists", playlistService.getPlaylistsByUser(userId)));
     }
 
     @RequestMapping(value = "user/{userId}/playlists/{playlistId}", method = RequestMethod.GET)
-    public Playlist getPlaylistById(@PathVariable Integer playlistId) {
-	return playlistService.getPlaylistById(playlistId);
+    public ResponseEntity<ResponseObject> getPlaylistById(@PathVariable Integer playlistId) {
+	return ResponseEntity.ok().body(ResponseObject.instanceOf(STATUS.SUCCESS, "Here's your selected playlist", playlistService.getPlaylistById(playlistId)));
     }
 }

@@ -1,7 +1,5 @@
 package org.ssa.ironyard.controller.mapper;
 
-import org.ssa.ironyard.model.Show;
-
 public class EpisodeMapper {
 
     private Integer id;
