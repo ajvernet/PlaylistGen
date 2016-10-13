@@ -26,7 +26,7 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 public class PlaylistControllerTest {
 
     PlaylistController playlistController;
-    PlaylistMapper playlist;
+    PlaylistMapper playlistMapper;
     EpisodeMapper episode;
     ShowMapper show;
     UserDAO userDao;
@@ -35,7 +35,7 @@ public class PlaylistControllerTest {
 
     @Before
     public void setup() {
-	playlist = new PlaylistMapper();
+	playlistMapper = new PlaylistMapper();
 	episode = new EpisodeMapper();
 	show = new ShowMapper();
 	MysqlDataSource mysqlDataSource = new MysqlDataSource();
@@ -51,10 +51,10 @@ public class PlaylistControllerTest {
 	testUser = userDao.insert(testUser);
 	show.setId(2362);
 	show.setName("Science Magazine Podcast");
-	playlist.setId(null);
-	playlist.setCurrentDuration(0);
-	playlist.setTargetDuration(7200);
-	playlist.setName("Test Playlist - Andy");
+	playlistMapper.setId(null);
+	playlistMapper.setCurrentDuration(0);
+	playlistMapper.setTargetDuration(7200);
+	playlistMapper.setName("Test Playlist - Andy");
 	episode.setDescription(
 		"News stories on our earliest hunting companions, should we seed exoplanets with life, and finding space storm hot spots with David Grimm.  \n\nFrom the magazine\n\nTwo years ago, 43 students disappeared from a teacher’s college in Guerrero, Mexico. Months of protests and investigation have not yielded a believable account of what happened to them. The government of Mexico claims that the students were killed by cartel members and burned on an outdoor pyre in a dump outside Cucola. Lizzie Wade has been following this story with a focus on the science of fire investigation. She talks about an investigator in Australia that has burned pig carcasses in an effort to understand these events in Mexico.  \n\n[Image: Edgard Garrido/Reuters; Music: Jeffrey Cook]\n");
 	episode.setDuration(1542);
@@ -66,13 +66,12 @@ public class PlaylistControllerTest {
 	episode.setShow(show);
 	List<EpisodeMapper> episodes = new ArrayList<>();
 	episodes.add(episode);
-	playlist.setEpisodes(episodes);
+	playlistMapper.setEpisodes(episodes);
 	playlistController = new PlaylistController(new PlaylistService(playlistDao, episodeDao));
-    }
-    
+    }    
     
     @Test
     public void testSave(){
-	playlistController.savePlaylist(playlist, testUser.getId());
+	playlistController.savePlaylist(playlistMapper, testUser.getId());
     }
 }
