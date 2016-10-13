@@ -15,9 +15,9 @@ controller.playlistName = "New Playlist";
 controller.showNameDiv = false;
 
 controller.playlistDurationBuilder = 0;
-controller.playlistDuration = 0;
-controller.startAddress = "";
-controller.endAddress = "";
+
+//controller.startAddress = "";
+//controller.endAddress = "";
 
 controller.tripDuration = "";
 controller.userDuration = "";
@@ -30,8 +30,6 @@ controller.detailArtist = "";
 controller.detailDuration = "";
 controller.offsetLeft = "0px";
 controller.offsetTop = "0px";
-
-controller.counter = controller.playlistDurationBuilder;
 
 controller.searchResults = [];
 controller.createdPlaylist = [];
@@ -110,54 +108,42 @@ controller.lowerSong = function(index) {
 	controller.moveItem(index, index + 1);
 };
 
-controller.launchPL = function() {
-	console.log("runs");
-	controller.playlistDuration = controller.playlistDurationBuilder;
-
-	angular.forEach(controller.createdPlaylist,
-			function(song) {
-				console.log(song.title);
-				soundManager.createSound(song);
-			});
-
-};
-
-controller.playPL = function() {
-	console.log("play");
-	//resume timer
-	controller.countdown();
-};
-
-controller.pausePL = function() {
-	console.log("pause");
-	//pause timer
-	controller.stop();
-};
+//controller.playPL = function() {
+//	console.log("play");
+//	//resume timer
+//	controller.countdown();
+//};
+//
+//controller.pausePL = function() {
+//	console.log("pause");
+//	//pause timer
+//	controller.stop();
+//};
 
 
-var stopped;
-
-controller.countdown = function() {
-    stopped = $timeout(function() {
-       controller.counter--;   
-       controller.countdown();   
-    }, 1000);
-  };
-   
-    
-  controller.stop = function(){
-   $timeout.cancel(stopped);
-    
-    }
+//var stopped;
+//
+//controller.countdown = function() {
+//    stopped = $timeout(function() {
+//       controller.counter--;   
+//       controller.countdown();   
+//    }, 1000);
+//  };
+//   
+//    
+//  controller.stop = function(){
+//   $timeout.cancel(stopped);
+//    
+//    }
   
-  controller.driveTime = function(){
-	   $http.get("/podcasts/trip")
-	    .then(function(response) {
-	    	console.log(response);
-	    	controller.tripDuration = response.duration;
-	    })
-	  
-	    }
+//  controller.driveTime = function(){
+//	   $http.get("/podcasts/trip")
+//	    .then(function(response) {
+//	    	console.log(response);
+//	    	controller.tripDuration = response.duration;
+//	    })
+//	  
+//	    }
   
   controller.manualTime = function(){
 	  controller.userDurHours = controller.userDurHours || 0;
@@ -215,8 +201,7 @@ controller.countdown = function() {
 		}).success(function(response) {
 			console.log(response.status + " - " + response.msg);
 			if(response.status === "SUCCESS"){
-				//$window.location.href = '/podcaster/';
-				console.log(response);
+				//console.log(response);
 				$state.go("playlistDetail", {toDetailId: response.obj.id});
 			}
 			if(response.status === "ERROR"){
@@ -237,7 +222,6 @@ controller.countdown = function() {
 	  
 	  var hourToSec = Number(controller.userDurHours) * 3600;
 	  var minuteToSec = Number(controller.userDurMinutes) * 60;
-	  //console.log(hourToSec + minuteToSec);
 	  controller.userDuration = hourToSec + minuteToSec;
 	  
 	  if(controller.userDuration == 0){

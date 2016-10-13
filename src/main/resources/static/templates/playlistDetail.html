@@ -32,8 +32,7 @@
 		</tr>
 	</tbody>
 </table>
-		
-		
+
 		<h5>Player</h5>
 
 		<p>Currently Playing: {{ currentPlaying.title }} by {{
@@ -42,4 +41,22 @@
 		<div class="seekBase" seek-track>
 			<div class="seekLoad" ng-style="{width : ( progress + '%' ) }"></div>
 		</div>
+		<button play-pause-toggle data-play="Play!" data-pause="Pause!">Play Toggle</button>
+		<br>
+		Volume: {{ volume }} -
+                <button music-volume data-type="increase">+</button>
+                <button music-volume data-type="decrease">-</button>
+		<br>
+		<button mute-music>Mute ({{ mute }})</button>
+		<br>
+		<button prev-track>Prev Track</button>
+        <button next-track>Next Track</button>
+        
+<!--  counter for player
+<p ng-bind="MC.counter"></p>
+<button ng-click="MC.stop()">Stop</button>
+<button ng-click="MC.countdown()">Start</button>
+-->
+        
+        
 </div>
