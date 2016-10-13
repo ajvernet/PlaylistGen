@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<link rel="stylesheet" href="vendor/bootstrap.min.css">
+<link rel="stylesheet" href="/vendor/bootstrap.min.css">
 <style>
     html {
-        background: url(images/podcasts_background.jpg) no-repeat center center fixed;
+        background: url(/images/podcasts_background.jpg) no-repeat center center fixed;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
@@ -59,8 +59,9 @@
                     }
                 }).success(function (response) {
                     console.log(response.status + " - " + response.msg);
+                    console.log(response);
                     if (response.status === "SUCCESS") {
-                        $window.location.href = '/podcaster/';
+                        $window.location.href = '/podcasts/user/' + response.obj + "/";
                     }
                     if (response.status === "ERROR") {
                         controller.userPW = "";

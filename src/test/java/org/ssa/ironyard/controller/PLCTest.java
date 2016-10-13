@@ -39,6 +39,9 @@ PlaylistController controller;
     EpisodeMapper episode;
     
     Playlist playlist;
+    Playlist playlist2;
+    
+    List<Playlist> playlists = new ArrayList<>();
     
     ShowMapper show;
     User testUser;
@@ -54,7 +57,7 @@ PlaylistController controller;
 
         
         
-        testUser = User.builder().email("test@test.com").firstName("Bob").lastName("Loblaw")
+        testUser = User.builder().id(1).email("test@test.com").firstName("Bob").lastName("Loblaw")
             .address(Address.builder().street("123 Mockingbird Ln").city("Mockingbird Heights").state(State.ALABAMA)
                 .zip(new ZipCode("12345")).build())
             .password(new BCryptSecurePassword().secureHash("munsters")).build();
@@ -80,6 +83,7 @@ PlaylistController controller;
         playlistMapper.setTargetDuration(7200);
         playlistMapper.setName("Test Playlist - Andy");
         playlistMapper.setEpisodes(episodes);
+     
         
         playlist = Playlist.builder()
                 .id(playlistMapper.getId())
@@ -104,6 +108,10 @@ PlaylistController controller;
                     ).collect(Collectors.toList()))
                 .build();        
         
+        playlist2 = Playlist.builder(playlist).id(2).build();
+        
+        playlists.add(playlist);
+        playlists.add(playlist2);
        
 
     }
@@ -122,6 +130,8 @@ PlaylistController controller;
     @Test
     public void savePlaylistTest()
     {
+
+        
         Capture<Playlist> capturedArg = EasyMock.newCapture();
         
         EasyMock.expect(service.savePlaylist(EasyMock.capture(capturedArg))).andReturn(playlist);
@@ -137,14 +147,13 @@ PlaylistController controller;
         
         assertTrue(capturedArg.getValue().deeplyEquals(playlist));
     }
-    
-    @Ignore
+
     @Test
     public void deletePlaylistTest()
     {
         Capture<Integer> capturedArg = EasyMock.newCapture();
         
-        EasyMock.expect(service.deletePlaylist(EasyMock.capture(capturedArg))).andReturn(true);
+        EasyMock.expect(service.deletePlaylist(EasyMock.captureInt(capturedArg))).andReturn(true);
         EasyMock.replay(service);
 
         ResponseEntity<ResponseObject> response = playlistController.deletePlaylist(playlistMapper.getId());
@@ -160,45 +169,45 @@ PlaylistController controller;
         
     }
     
-    @Ignore
+ 
     @Test
     public void getPlaylistsByUser()
     {
-        Capture<Playlist> capturedArg = EasyMock.newCapture();
+        Capture<Integer> capturedArg = EasyMock.newCapture();
         
-        EasyMock.expect(service.savePlaylist(EasyMock.capture(capturedArg))).andReturn(playlist);
+        EasyMock.expect(service.getPlaylistsByUser(EasyMock.captureInt(capturedArg))).andReturn(playlists);
         EasyMock.replay(service);
 
-        ResponseEntity<ResponseObject> response = playlistController.savePlaylist(playlistMapper, playlistMapper.getId());
+        ResponseEntity<ResponseObject> response = playlistController.getPlaylistsByUserId(testUser.getId());
        
         assertEquals(response.getBody().getStatus(), STATUS.SUCCESS);
-        assertEquals(response.getBody().getMsg(), "Your playlist was saved");
-        assertEquals(response.getBody().getObj(), playlist);
+        assertEquals(response.getBody().getMsg(), "Come get your playlists");
+        assertEquals(response.getBody().getObj(), playlists);
    
         EasyMock.verify(service);
         
-        assertTrue(capturedArg.getValue().deeplyEquals(playlist));
+        assertTrue(capturedArg.getValue().equals(testUser.getId()));
  
     }
     
-    @Ignore
+
     @Test
     public void getPlaylistsById()
     {
-        Capture<Playlist> capturedArg = EasyMock.newCapture();
+        Capture<Integer> capturedArg = EasyMock.newCapture();
         
-        EasyMock.expect(service.savePlaylist(EasyMock.capture(capturedArg))).andReturn(playlist);
+        EasyMock.expect(service.getPlaylistById(EasyMock.captureInt(capturedArg))).andReturn(playlist);
         EasyMock.replay(service);
 
-        ResponseEntity<ResponseObject> response = playlistController.savePlaylist(playlistMapper, playlistMapper.getId());
+        ResponseEntity<ResponseObject> response = playlistController.getPlaylistById(playlistMapper.getId());
        
         assertEquals(response.getBody().getStatus(), STATUS.SUCCESS);
-        assertEquals(response.getBody().getMsg(), "Your playlist was saved");
+        assertEquals(response.getBody().getMsg(), "Here's your selected playlist");
         assertEquals(response.getBody().getObj(), playlist);
    
         EasyMock.verify(service);
         
-        assertTrue(capturedArg.getValue().deeplyEquals(playlist));
+        assertTrue(capturedArg.getValue().equals(playlistMapper.getId()));
  
     }
 
