@@ -35,11 +35,13 @@ public class EpisodeDAOImpl extends AbstractSpringDAO<Episode> implements Episod
     protected void insertPreparer(PreparedStatement insertStatement, Episode domainToInsert) throws SQLException {
 	insertStatement.setInt(1, domainToInsert.getEpisodeId());
 	insertStatement.setString(2, domainToInsert.getName());
-	insertStatement.setInt(3, domainToInsert.getDuration());
-	insertStatement.setString(4, domainToInsert.getFileUrl());
-	insertStatement.setInt(5, domainToInsert.getShow().getId());
-	insertStatement.setString(6, domainToInsert.getShow().getName());
-	insertStatement.setString(7, domainToInsert.getShow().getThumbUrl());
+	insertStatement.setInt(3, domainToInsert.getGenreId());
+	insertStatement.setString(4, domainToInsert.getDescription());
+	insertStatement.setInt(5, domainToInsert.getDuration());
+	insertStatement.setString(6, domainToInsert.getFileUrl());
+	insertStatement.setInt(7, domainToInsert.getShow().getId());
+	insertStatement.setString(8, domainToInsert.getShow().getName());
+	insertStatement.setString(9, domainToInsert.getShow().getThumbUrl());
     }
 
     @Override
@@ -60,12 +62,14 @@ public class EpisodeDAOImpl extends AbstractSpringDAO<Episode> implements Episod
 	    public void setValues(PreparedStatement ps) throws SQLException {
 		ps.setInt(1, domainToUpdate.getEpisodeId());
 		ps.setString(2, domainToUpdate.getName());
-		ps.setInt(3, domainToUpdate.getDuration());
-		ps.setString(4, domainToUpdate.getFileUrl());
-		ps.setInt(5, domainToUpdate.getShow().getId());
-		ps.setString(6, domainToUpdate.getShow().getName());
-		ps.setString(7, domainToUpdate.getShow().getThumbUrl());
-		ps.setInt(8, domainToUpdate.getId());
+		ps.setInt(3, domainToUpdate.getGenreId());
+		ps.setString(4, domainToUpdate.getDescription());
+		ps.setInt(5, domainToUpdate.getDuration());
+		ps.setString(6, domainToUpdate.getFileUrl());
+		ps.setInt(7, domainToUpdate.getShow().getId());
+		ps.setString(8, domainToUpdate.getShow().getName());
+		ps.setString(9, domainToUpdate.getShow().getThumbUrl());
+		ps.setInt(10, domainToUpdate.getId());
 	    }
 	};
     }

@@ -23,8 +23,8 @@ public class PlaylistService {
 	this.episodeDao = episodeDao;
     }
 
-    public Playlist getPlaylistById(int id) {
-	return playlistDao.read(id);
+    public Playlist getPlaylistById(int id) {	
+	return playlistDao.readByPlaylistId(id);
     }
 
     public List<Playlist> getPlaylistsByUser(int userId) {

@@ -26,50 +26,51 @@ public class PlaylistController {
 
     @Autowired
     public PlaylistController(PlaylistService playlistService) {
-    this.playlistService = playlistService;
+	this.playlistService = playlistService;
     }
 
     @RequestMapping(value = "user/{userId}/playlists", method = RequestMethod.POST)
     public ResponseEntity<ResponseObject> savePlaylist(@RequestBody PlaylistMapper playlist, @PathVariable Integer userId) {
-    return 
-        ResponseEntity.ok().body(ResponseObject.instanceOf(STATUS.SUCCESS, "Your playlist was saved", 
-        playlistService.savePlaylist(
-        Playlist.builder()
-        .id(playlist.getId())
-        .name(playlist.getName())
-        .user(User.builder().id(userId).build())
-        .targetDuration(playlist.getTargetDuration())
-        .currentDuration(playlist.getCurrentDuration())
-        .episodes(playlist.getEpisodes()
-            .stream()
-            .map(e -> {
-                        return Episode.builder()
-                        .id(e.getId())
-                        .duration(e.getDuration())
-                        .description(e.getDescription())
-                        .episodeId(e.getEpisodeId())
-                        .fileUrl(e.getFileUrl())
-                        .name(e.getName())
-                        .show(new Show(e.getShow().getId(), e.getShow().getName(), e.getShow().getThumbUrl()))
-                        .build();
-                }
-            ).collect(Collectors.toList()))
-        .build())));
+	return 
+		ResponseEntity.ok().body(ResponseObject.instanceOf(STATUS.SUCCESS, "Your playlist was saved", 
+		playlistService.savePlaylist(
+		Playlist.builder()
+		.id(playlist.getId())
+		.name(playlist.getName())
+		.user(User.builder().id(userId).build())
+		.targetDuration(playlist.getTargetDuration())
+		.currentDuration(playlist.getCurrentDuration())
+		.episodes(playlist.getEpisodes()
+			.stream()
+			.map(e -> {
+        			    return Episode.builder()
+        			    .id(e.getId())
+        			    .duration(e.getDuration())
+        			    .genreId(e.getGenreId())
+        			    .description(e.getDescription())
+        			    .episodeId(e.getEpisodeId())
+        			    .fileUrl(e.getFileUrl())
+        			    .name(e.getName())
+        			    .show(new Show(e.getShow().getId(), e.getShow().getName(), e.getShow().getThumbUrl()))
+        			    .build();
+				}
+			).collect(Collectors.toList()))
+		.build())));
 
     }
 
     @RequestMapping(value = "user/{userId}/playlists/{playlistId}", method = RequestMethod.DELETE)
     public ResponseEntity<ResponseObject> deletePlaylist(@PathVariable Integer playlistId) {
-    return ResponseEntity.ok().body(ResponseObject.instanceOf(STATUS.SUCCESS, "Your playlist was deleted", playlistService.deletePlaylist(playlistId)));
+	return ResponseEntity.ok().body(ResponseObject.instanceOf(STATUS.SUCCESS, "Your playlist was deleted", playlistService.deletePlaylist(playlistId)));
     }
 
     @RequestMapping(value = "user/{userId}/playlists", method = RequestMethod.GET)
     public ResponseEntity<ResponseObject> getPlaylistsByUserId(@PathVariable Integer userId) {
-    return ResponseEntity.ok().body(ResponseObject.instanceOf(STATUS.SUCCESS, "Come get your playlists", playlistService.getPlaylistsByUser(userId)));
+	return ResponseEntity.ok().body(ResponseObject.instanceOf(STATUS.SUCCESS, "Come get your playlists", playlistService.getPlaylistsByUser(userId)));
     }
 
     @RequestMapping(value = "user/{userId}/playlists/{playlistId}", method = RequestMethod.GET)
     public ResponseEntity<ResponseObject> getPlaylistById(@PathVariable Integer playlistId) {
-    return ResponseEntity.ok().body(ResponseObject.instanceOf(STATUS.SUCCESS, "Here's your selected playlist", playlistService.getPlaylistById(playlistId)));
+	return ResponseEntity.ok().body(ResponseObject.instanceOf(STATUS.SUCCESS, "Here's your selected playlist", playlistService.getPlaylistById(playlistId)));
     }
 }

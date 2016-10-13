@@ -68,8 +68,8 @@ public interface PlaylistORM extends ORM<Playlist> {
 
     @Override
     default String prepareEagerRead() {
-	return "SELECT " + projection() + " FROM " + table() + " INNER JOIN PlaylistEpisodes ON " + table()
-		+ ".id=PlaylistEpisodes.id INNER JOIN " + episodeOrm.table() + " ON PlaylistEpisodes.id="
+	return "SELECT " + projection() + ", " + episodeOrm.projection() + " FROM " + table() + " INNER JOIN PlaylistEpisodes ON " + table()
+		+ ".id=PlaylistEpisodes.playlistId INNER JOIN " + episodeOrm.table() + " ON PlaylistEpisodes.episodeId="
 		+ episodeOrm.table() + ".id WHERE " + table() + ".id=? ORDER BY PlaylistEpisodes.sortOrder ASC";
     }
 }

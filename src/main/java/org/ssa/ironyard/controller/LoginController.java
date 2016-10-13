@@ -53,9 +53,9 @@ public class LoginController {
 	return new InternalResourceView("/login.html");
     }
     
-    @RequestMapping(value = "/user/{userId}")
-    public String home(@PathVariable Integer userId)
+    @RequestMapping(value = "/user/{userId}/")
+    public View home(@PathVariable Integer userId)
     {
-        return "/index.html";
+        return new InternalResourceView("/index.html");
     }
 }
