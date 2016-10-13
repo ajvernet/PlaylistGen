@@ -46,6 +46,7 @@ public class PlaylistController {
         			    return Episode.builder()
         			    .id(e.getId())
         			    .duration(e.getDuration())
+        			    .genreId(e.getGenreId())
         			    .description(e.getDescription())
         			    .episodeId(e.getEpisodeId())
         			    .fileUrl(e.getFileUrl())
