@@ -40,8 +40,14 @@ public class PlaylistDAOImpl extends AbstractSpringDAO<Playlist> implements Play
     protected void insertPreparer(PreparedStatement insertStatement, Playlist domainToInsert) throws SQLException {
 	insertStatement.setString(1, domainToInsert.getName());
 	insertStatement.setInt(2, domainToInsert.getUser().getId());
-	insertStatement.setInt(3, domainToInsert.getTargetDuration());
-	insertStatement.setInt(4, domainToInsert.getCurrentDuration());
+	if (domainToInsert.getTargetDuration() == null)
+	    insertStatement.setNull(3, java.sql.Types.INTEGER);
+	else
+	    insertStatement.setInt(3, domainToInsert.getTargetDuration());
+	if (domainToInsert.getCurrentDuration() == null)
+	    insertStatement.setNull(4, java.sql.Types.INTEGER);
+	else
+	    insertStatement.setInt(4, domainToInsert.getCurrentDuration());
     }
 
     @Override
@@ -62,8 +68,14 @@ public class PlaylistDAOImpl extends AbstractSpringDAO<Playlist> implements Play
 	    public void setValues(PreparedStatement ps) throws SQLException {
 		ps.setString(1, domainToUpdate.getName());
 		ps.setInt(2, domainToUpdate.getUser().getId());
-		ps.setInt(3, domainToUpdate.getTargetDuration());
-		ps.setInt(4, domainToUpdate.getCurrentDuration());
+		if (domainToUpdate.getTargetDuration() == null)
+		    ps.setNull(3, java.sql.Types.INTEGER);
+		else
+		    ps.setInt(3, domainToUpdate.getTargetDuration());
+		if (domainToUpdate.getCurrentDuration() == null)
+		    ps.setNull(4, java.sql.Types.INTEGER);
+		else
+		    ps.setInt(4, domainToUpdate.getCurrentDuration());
 		ps.setInt(5, domainToUpdate.getId());
 	    }
 	};
