@@ -37,8 +37,8 @@ CREATE TABLE Playlists (
 	id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	name VARCHAR(500) NULL DEFAULT NULL,
 	userId int unsigned not null,
-	targetDuration int unsigned,
-	currentDuration int unsigned,
+	targetDuration int unsigned NULL DEFAULT NULL,
+	currentDuration int unsigned NULL DEFAULT NULL,
 	PRIMARY KEY (id),
 	foreign key (userID) references users(id) on delete cascade
 )
