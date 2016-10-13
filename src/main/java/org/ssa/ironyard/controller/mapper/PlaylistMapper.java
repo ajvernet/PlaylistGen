@@ -5,7 +5,6 @@ import java.util.List;
 public class PlaylistMapper {
     private Integer id;
     private String name;
-    private Integer userId;
     private Integer targetDuration;
     private Integer currentDuration;
     private List<EpisodeMapper> episodes;
@@ -27,14 +26,6 @@ public class PlaylistMapper {
 
     public void setName(String name) {
 	this.name = name;
-    }
-
-    public Integer getUserId() {
-	return userId;
-    }
-
-    public void setUserId(Integer userId) {
-	this.userId = userId;
     }
 
     public Integer getTargetDuration() {
@@ -70,7 +61,6 @@ public class PlaylistMapper {
 	result = prime * result + ((id == null) ? 0 : id.hashCode());
 	result = prime * result + ((name == null) ? 0 : name.hashCode());
 	result = prime * result + ((targetDuration == null) ? 0 : targetDuration.hashCode());
-	result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 	return result;
     }
 
@@ -108,18 +98,13 @@ public class PlaylistMapper {
 		return false;
 	} else if (!targetDuration.equals(other.targetDuration))
 	    return false;
-	if (userId == null) {
-	    if (other.userId != null)
-		return false;
-	} else if (!userId.equals(other.userId))
-	    return false;
 	return true;
     }
 
     @Override
     public String toString() {
-	return "PlaylistMapper [id=" + id + ", name=" + name + ", userId=" + userId + ", targetDuration="
-		+ targetDuration + ", currentDuration=" + currentDuration + ", episodes=" + episodes + "]";
+	return "PlaylistMapper [id=" + id + ", name=" + name + ", targetDuration=" + targetDuration
+		+ ", currentDuration=" + currentDuration + ", episodes=" + episodes + "]";
     }
 
 }
