@@ -138,6 +138,7 @@ PlaylistController controller;
         assertTrue(capturedArg.getValue().deeplyEquals(playlist));
     }
     
+    @Ignore
     @Test
     public void deletePlaylistTest()
     {

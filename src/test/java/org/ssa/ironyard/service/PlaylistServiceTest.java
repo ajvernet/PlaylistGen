@@ -107,7 +107,7 @@ public class PlaylistServiceTest {
         EasyMock.verify(this.playlistDao);
     }
     
-    
+    @Ignore
     @Test
     public void getPlaylistByIdTest()
     {
