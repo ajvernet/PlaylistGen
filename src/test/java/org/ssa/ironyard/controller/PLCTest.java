@@ -1,8 +1,12 @@
 package org.ssa.ironyard.controller;
 
+import static org.junit.Assert.*;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.easymock.Capture;
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -12,9 +16,13 @@ import org.ssa.ironyard.controller.mapper.PlaylistMapper;
 import org.ssa.ironyard.controller.mapper.ShowMapper;
 import org.ssa.ironyard.crypto.BCryptSecurePassword;
 import org.ssa.ironyard.model.Address;
+import org.ssa.ironyard.model.Episode;
+import org.ssa.ironyard.model.Playlist;
+import org.ssa.ironyard.model.Show;
 import org.ssa.ironyard.model.User;
 import org.ssa.ironyard.model.Address.State;
 import org.ssa.ironyard.model.Address.ZipCode;
+import org.ssa.ironyard.model.ResponseObject.STATUS;
 import org.ssa.ironyard.service.PlaylistService;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
@@ -27,6 +35,9 @@ PlaylistController controller;
     PlaylistController playlistController;
     PlaylistMapper playlistMapper;
     EpisodeMapper episode;
+    
+    Playlist playlist;
+    
     ShowMapper show;
     User testUser;
     
@@ -62,11 +73,35 @@ PlaylistController controller;
         List<EpisodeMapper> episodes = new ArrayList<>();
         episodes.add(episode);
         
-        playlistMapper.setId(null);
+        playlistMapper.setId(1);
         playlistMapper.setCurrentDuration(0);
         playlistMapper.setTargetDuration(7200);
         playlistMapper.setName("Test Playlist - Andy");
         playlistMapper.setEpisodes(episodes);
+        
+        playlist = Playlist.builder()
+                .id(playlistMapper.getId())
+                .name(playlistMapper.getName())
+                .user(User.builder().id(playlistMapper.getId()).build())
+                .targetDuration(playlistMapper.getTargetDuration())
+                .currentDuration(playlistMapper.getCurrentDuration())
+                .episodes(playlistMapper.getEpisodes()
+                    .stream()
+                    .map(e -> {
+                                return Episode.builder()
+                                .id(e.getId())
+                                .duration(e.getDuration())
+                                .genreId(e.getGenreId())
+                                .description(e.getDescription())
+                                .episodeId(e.getEpisodeId())
+                                .fileUrl(e.getFileUrl())
+                                .name(e.getName())
+                                .show(new Show(e.getShow().getId(), e.getShow().getName(), e.getShow().getThumbUrl()))
+                                .build();
+                        }
+                    ).collect(Collectors.toList()))
+                .build();        
+        
        
 
     }
@@ -74,16 +109,27 @@ PlaylistController controller;
     @Before
     public void mock()
     {
+
+
         service = EasyMock.createNiceMock(PlaylistService.class);
         playlistController = new PlaylistController(service);
         
     }
 
-    @Ignore
+
     @Test
     public void savePlaylistTest()
     {
+        Capture<Playlist> capturedArg = EasyMock.newCapture();
         
+        EasyMock.expect(service.savePlaylist(EasyMock.capture(capturedArg))).andReturn(playlist);
+        EasyMock.replay(service);
+
+        playlistController.savePlaylist(playlistMapper, playlistMapper.getId());
+   
+        EasyMock.verify(service);
+        
+        assertEquals(capturedArg.getValue(), playlist);
     }
     
     @Ignore
