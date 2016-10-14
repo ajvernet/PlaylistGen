@@ -1,7 +1,9 @@
 package org.ssa.ironyard.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,7 +23,10 @@ import org.springframework.web.client.RestTemplate;
 import org.ssa.ironyard.model.Episode;
 import org.ssa.ironyard.model.Genre;
 import org.ssa.ironyard.model.Show;
+import org.ssa.ironyard.service.mapper.AudioFile;
+import org.ssa.ironyard.service.mapper.Category;
 import org.ssa.ironyard.service.mapper.EpisodeQueryResult;
+import org.ssa.ironyard.service.mapper.EpisodeResult;
 
 @Service
 public class AudiosearchService {
@@ -84,10 +89,64 @@ public class AudiosearchService {
 	RestTemplate restTemplate = new RestTemplate();
 	ResponseEntity<EpisodeQueryResult> response;
 	response = restTemplate.exchange(uri, HttpMethod.GET, oauth, EpisodeQueryResult.class);
-	response.getBody().getResults().stream()
-	.forEachOrdered(e->System.out.println(e.getAudioFiles()));
-	
-	return Collections.emptyList();
+	List<Episode> episodes = new ArrayList<>();
+	for (EpisodeResult episodeResult : response.getBody().getResults()) {
+	    Episode episode = Episode.builder()
+	    .episodeId(episodeResult.getId())
+	    .name(episodeResult.getTitle())
+	    .genreId(getGenreId(episodeResult))
+	    .description(episodeResult.getDescription())
+	    .duration(getDuration(episodeResult))
+	    .fileUrl(getAudioFileUrl(episodeResult))
+	    .show(new Show(episodeResult.getShowId(), episodeResult.getShowTitle(), getThumbnail(episodeResult)))
+		    .build();
+	    if(episode.getFileUrl()!=null)
+		episodes.add(episode);
+	}
+
+	return episodes;
+    }
+
+    private String getThumbnail(EpisodeResult episodeResult) {
+	if(episodeResult.getImageUrls()!=null && episodeResult.getImageUrls() instanceof Map)
+	    return ((Map<String,String>) episodeResult.getImageUrls()).get("thumb");
+	return null;
+    }
+
+    private String getAudioFileUrl(EpisodeResult episodeResult) {
+	List<String> audioFiles = new ArrayList<>();
+	for (AudioFile audioFile : episodeResult.getAudioFiles()) {
+	    if (audioFile.getMp3() != null && !audioFile.getMp3().isEmpty())
+		audioFiles.add(audioFile.getMp3());
+	    if (audioFile.getUrl() != null && audioFile.getUrl().size() > 0 && !audioFile.getUrl().get(0).isEmpty())
+		audioFiles.add(audioFile.getUrl().get(0));
+	    if (audioFile.getFilename() != null && !audioFile.getFilename().isEmpty())
+		audioFiles.add(audioFile.getFilename());
+	    if (audioFile.getUrlTitle() != null && !audioFile.getUrlTitle().isEmpty())
+		audioFiles.add(audioFile.getUrlTitle());
+	}
+
+	for (String audioFile : audioFiles) {
+	    if (audioFile.endsWith("mp3"))
+		return audioFile;
+	}
+	return null;
+    }
+
+    private Integer getDuration(EpisodeResult episodeResult) {
+	if (episodeResult.getDuration()!= null && episodeResult.getDuration() != 0)
+	    return episodeResult.getDuration();
+	return null;
+    }
+
+    private Integer getGenreId(EpisodeResult episodeResult) {
+	List<Integer> categoryIds = new ArrayList<>();
+	for (Category category : episodeResult.getCategories()) {
+	    if (category.getId() != null)
+		categoryIds.add(category.getId());
+	}
+	categoryIds.sort(Comparator.naturalOrder());
+	return categoryIds.size() > 0 ? categoryIds.get(0) : null;
     }
 
     public void getTasties() {
