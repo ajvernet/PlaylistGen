@@ -102,18 +102,5 @@ public class LoginControllerTest {
         assertEquals(response.getBody().getMsg(), "Username or password invalid");
         assertNull(response.getBody().getObj());   
         }
-
-    @Ignore
-    @Test
-    public void testShowLoginPage() {
-        fail("Not yet implemented");
-    }
-
-    @Ignore
-    @Test
-    public void testHome() {
-        fail("Not yet implemented");
-    }
-
  
 }
