@@ -1,6 +1,7 @@
 package org.ssa.ironyard.service;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -20,6 +21,7 @@ import org.springframework.web.client.RestTemplate;
 import org.ssa.ironyard.model.Episode;
 import org.ssa.ironyard.model.Genre;
 import org.ssa.ironyard.model.Show;
+import org.ssa.ironyard.service.mapper.EpisodeQueryResult;
 
 @Service
 public class AudiosearchService {
@@ -44,7 +46,7 @@ public class AudiosearchService {
 	    uri += "&filters[categories.id]=" + Genre.getInstance(genre).getId();
 	if (size != null)
 	    uri += "&size=" + size + "&from=0";
-//	uri += "&sort_by=date_added&sort_order=desc";
+	// uri += "&sort_by=date_added&sort_order=desc";
 	LOGGER.debug("searchUrl: {}", uri);
 	RestTemplate restTemplate = new RestTemplate();
 	ParameterizedTypeReference<Map<String, Object>> typeRef = new ParameterizedTypeReference<Map<String, Object>>() {
@@ -68,6 +70,24 @@ public class AudiosearchService {
 			    ((Map<String, String>) result.get("image_urls")).get("thumb")))
 		    .build();
 	}).filter(episode -> episode != null).collect(Collectors.toList());
+    }
+
+    public List<Episode> searchEpisodesAlt(String genre, String searchText, Integer size) {
+
+	String uri = apiBaseUri + "/search/episodes/" + searchText + "?";
+	if (genre != null && !genre.isEmpty())
+	    uri += "&filters[categories.id]=" + Genre.getInstance(genre).getId();
+	if (size != null)
+	    uri += "&size=" + size + "&from=0";
+	// uri += "&sort_by=date_added&sort_order=desc";
+	LOGGER.debug("searchUrl: {}", uri);
+	RestTemplate restTemplate = new RestTemplate();
+	ResponseEntity<EpisodeQueryResult> response;
+	response = restTemplate.exchange(uri, HttpMethod.GET, oauth, EpisodeQueryResult.class);
+	response.getBody().getResults().stream()
+	.forEachOrdered(e->System.out.println(e.getAudioFiles()));
+	
+	return Collections.emptyList();
     }
 
     public void getTasties() {
