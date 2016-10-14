@@ -30,7 +30,7 @@
 
 <div class="hoverPointer">
 <table class="table table-hover table-striped table-bordered">
-	<tr ng-repeat="podcast in MC.searchResultsFromService" ng-mouseover="MC.hoverDetail(podcast, $event)" ng-mouseleave="MC.hoverLeave()">
+	<tr ng-repeat="podcast in MC.searchResultsFromService" ng-mouseover="MC.hoverDetail(podcast, $event)" ng-mouseleave="MC.hoverLeave()" ng-if="MC.createdPlaylist.indexOf(podcast) == -1">
 		<td ng-click="MC.addToPL(podcast)">{{ podcast.title }} --- <span ng-style="(podcast.duration > (MC.userDuration - MC.playlistDurationBuilder) && MC.userDuration > 0) && {'color': '#ff3333'}">{{ podcast.duration }}</span></td>
 	</tr>
 </table>
@@ -51,7 +51,7 @@
 Playlist Duration: <span ng-style="(MC.playlistDurationBuilder > MC.userDuration && MC.userDuration > 0) && {'color': '#ff3333'}">{{ MC.playlistDurationBuilder }}</span>
 		<h5>Playlist</h5>
 <table class="table table-hover table-striped table-bordered">
-			<tr ng-repeat="podcast in MC.createdPlaylist"  ng-style="podcast.loaded == true && {} || !podcasthasOwnProperty('loaded') && {'background-color': 'silver', 'opacity': '.6'}"><td>{{ podcast.title }} --- {{ podcast.duration }}
+			<tr ng-repeat="podcast in MC.createdPlaylist"  ng-style="podcast.loaded == true && {} || !podcasthasOwnProperty('loaded') && {'background-color': 'silver', 'opacity': '.6'}"><td><span ng-show="podcast.loaded != true" ng-style="{'color':'blue'}">Loading: </span>{{ podcast.title }} --- {{ podcast.duration }}
 				<button ng-click="MC.dropSong($index, podcast)">remove</button>
 				<button ng-click="MC.raiseSong($index)" ng-hide="$first">up</button>
 				<button ng-click="MC.lowerSong($index)" ng-hide="$last">down</button>

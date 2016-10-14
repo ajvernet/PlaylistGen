@@ -51,12 +51,14 @@ controller.addToPL = function(podcast) {
 				  id: podcast.title,
 				  url: podcast.url,
 				  onload: function() {
-					  //console.log(tempPodcast.id + "---" + tempPodcast.readyState);
+					  //console.log(Math.round(tempPodcast.durationEstimate / 1000));
+					  console.log(Math.round(tempPodcast.duration / 1000));
 					  //un-gray
 					  for(i=0; i<controller.createdPlaylist.length; i++){
 						  if(controller.createdPlaylist[i].title == podcast.title && tempPodcast.readyState == 3){
 							  controller.createdPlaylist[i].loaded = true;
-							  //console.log(controller.createdPlaylist[i]);
+							  //todo --- update durationbuilder and json object based on below
+							  controller.createdPlaylist[i].duration = Math.round(tempPodcast.duration / 1000);
 						  }
 						  }
 					  }
