@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Properties;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.common.io.ByteSource;
@@ -17,6 +18,7 @@ import com.google.maps.model.DirectionsResult;
 
 public class DirectionsServiceTest {
 
+    @Ignore
     @Test
     public void directions() {
 	GeoApiContext context = new GeoApiContext();
