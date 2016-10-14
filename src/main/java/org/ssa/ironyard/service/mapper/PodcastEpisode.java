@@ -10,14 +10,14 @@ public class PodcastEpisode {
     private Integer show_id;
     private String show_title;
     private Integer duration;
-    private List<AudioFile> audio_files = new ArrayList<>();
+    private List<AudioFiles> audio_files = new ArrayList<>();
     private List<ImageUrl> img_urls = new ArrayList<>();
 
     public PodcastEpisode() {
     }
 
     public PodcastEpisode(Integer id, String title, Integer show_id, String show_title, Integer duration,
-	    List<AudioFile> audio_files) {
+	    List<AudioFiles> audio_files) {
 	super();
 	this.id = id;
 	this.title = title;
@@ -75,11 +75,11 @@ public class PodcastEpisode {
         this.duration = duration;
     }
 
-    public List<AudioFile> getAudio_files() {
+    public List<AudioFiles> getAudio_files() {
         return audio_files;
     }
 
-    public void setAudio_files(List<AudioFile> audio_files) {
+    public void setAudio_files(List<AudioFiles> audio_files) {
         this.audio_files = audio_files;
     }
 

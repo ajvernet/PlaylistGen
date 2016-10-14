@@ -1,37 +1,150 @@
+
 package org.ssa.ironyard.service.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+    "id",
+    "filename",
+    "duration",
+    "current_status",
+    "url",
+    "mp3",
+    "ogg",
+    "listenlen",
+    "url_title"
+})
 public class AudioFile {
 
+    @JsonProperty("id")
+    private Integer id;
+    @JsonProperty("filename")
+    private String filename;
+    @JsonProperty("duration")
+    private String duration;
+    @JsonProperty("current_status")
+    private String currentStatus;
+    @JsonProperty("url")
+    private List<String> url = new ArrayList<String>();
+    @JsonProperty("mp3")
     private String mp3;
-    private String url;
+    @JsonProperty("ogg")
+    private String ogg;
+    @JsonProperty("listenlen")
+    private String listenlen;
+    @JsonProperty("url_title")
+    private String urlTitle;
 
-    public AudioFile(){}
-    
-    public AudioFile(String mp3) {
-	super();
-	this.mp3 = mp3;
+    /**
+     * 
+     * @return
+     *     The id
+     */
+    @JsonProperty("id")
+    public Integer getId() {
+        return id;
     }
 
-    public String getMp3() {
-        return mp3;
+    /**
+     * 
+     * @param id
+     *     The id
+     */
+    @JsonProperty("id")
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getUrl() {
+    /**
+     * 
+     * @return
+     *     The filename
+     */
+    @JsonProperty("filename")
+    public String getFilename() {
+        return filename;
+    }
+
+    /**
+     * 
+     * @param filename
+     *     The filename
+     */
+    @JsonProperty("filename")
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    /**
+     * 
+     * @return
+     *     The duration
+     */
+    @JsonProperty("duration")
+    public String getDuration() {
+        return duration;
+    }
+
+    /**
+     * 
+     * @param duration
+     *     The duration
+     */
+    @JsonProperty("duration")
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    /**
+     * 
+     * @return
+     *     The currentStatus
+     */
+    @JsonProperty("current_status")
+    public String getCurrentStatus() {
+        return currentStatus;
+    }
+
+    /**
+     * 
+     * @param currentStatus
+     *     The current_status
+     */
+    @JsonProperty("current_status")
+    public void setCurrentStatus(String currentStatus) {
+        this.currentStatus = currentStatus;
+    }
+
+    /**
+     * 
+     * @return
+     *     The url
+     */
+    @JsonProperty("url")
+    public List<String> getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
+    /**
+     * 
+     * @param url
+     *     The url
+     */
+    @JsonProperty("url")
+    public void setUrl(List<String> url) {
         this.url = url;
-    }
-
-    public void setMp3(String mp3) {
-        this.mp3 = mp3;
     }
 
     @Override
     public String toString() {
-	return "AudioFile [mp3=" + mp3 + "]";
+	return "AudioFile [id=" + id + ", filename=" + filename + ", duration=" + duration + ", currentStatus="
+		+ currentStatus + ", url=" + url + ", mp3=" + mp3 + ", ogg=" + ogg + ", listenlen=" + listenlen
+		+ ", urlTitle=" + urlTitle + "]";
     }
-    
-    
+
 }
