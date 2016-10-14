@@ -28,7 +28,6 @@ public class UserDAOTest {
 		.address(Address.builder().street("123 Mockingbird Ln").city("Mockingbird Heights").state(State.ALABAMA)
 			.zip(new ZipCode("12345")).build())
 		.password(new BCryptSecurePassword().secureHash("test")).build();
-	System.out.println(testUser.getPassword().getHash() + "\n" + testUser.getPassword().getSalt());
     }
 
     @Test

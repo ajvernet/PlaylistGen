@@ -139,6 +139,38 @@ public class AudioFile {
     public void setUrl(List<String> url) {
         this.url = url;
     }
+    @JsonProperty("mp3")
+    public String getMp3() {
+        return mp3;
+    }
+    @JsonProperty("mp3")
+    public void setMp3(String mp3) {
+        this.mp3 = mp3;
+    }
+    @JsonProperty("ogg")
+    public String getOgg() {
+        return ogg;
+    }
+    @JsonProperty("ogg")
+    public void setOgg(String ogg) {
+        this.ogg = ogg;
+    }
+    @JsonProperty("listenlen")
+    public String getListenlen() {
+        return listenlen;
+    }
+    @JsonProperty("listenlen")
+    public void setListenlen(String listenlen) {
+        this.listenlen = listenlen;
+    }
+    @JsonProperty("urlTitle")
+    public String getUrlTitle() {
+        return urlTitle;
+    }
+    @JsonProperty("urlTitle")
+    public void setUrlTitle(String urlTitle) {
+        this.urlTitle = urlTitle;
+    }
 
     @Override
     public String toString() {

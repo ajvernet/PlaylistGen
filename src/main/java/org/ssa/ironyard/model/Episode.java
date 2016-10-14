@@ -18,7 +18,7 @@ public class Episode extends DomainObject {
 	this.genreId = genreId;
 	this.description = description == null || description.length() <= 20000 ? description
 		: description.substring(0, 20000);
-	this.duration = duration;
+	this.duration = duration == null || duration <= 0 ? null: duration;
 	this.fileUrl = fileUrl;
 	this.show = show;
     }
@@ -206,7 +206,7 @@ public class Episode extends DomainObject {
 	}
 
 	public EpisodeBuilder duration(Integer duration) {
-	    this.duration = duration;
+		this.duration = duration;
 	    return this;
 	}
 

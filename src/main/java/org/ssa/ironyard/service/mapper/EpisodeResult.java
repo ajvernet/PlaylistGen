@@ -10,35 +10,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "id",
-    "title",
-    "description",
-    "date_created",
-    "identifier",
-    "digital_location",
-    "physical_location",
-    "duration",
-    "tags",
-    "updated_at",
-    "itunes_episode",
-    "date_added",
-    "show_id",
-    "show_title",
-    "audio_files",
-    "image_files",
-    "entities",
-    "extra",
-    "urls",
-    "categories",
-    "highlights",
-    "network",
-    "locations",
-    "image_urls",
-    "contributors",
-    "excerpts",
-    "topics"
-})
+@JsonPropertyOrder({ "id", "title", "description", "date_created", "identifier", "digital_location",
+	"physical_location", "duration", "tags", "updated_at", "itunes_episode", "date_added", "show_id", "show_title",
+	"audio_files", "image_files", "entities", "extra", "urls", "categories", "highlights", "network", "locations",
+	"image_urls", "contributors", "excerpts", "topics" })
 public class EpisodeResult {
 
     @JsonProperty("id")
@@ -70,7 +45,7 @@ public class EpisodeResult {
     @JsonProperty("show_title")
     private String showTitle;
     @JsonProperty("audio_files")
-    private List<AudioFiles> audioFiles = new ArrayList<AudioFiles>();
+    private List<AudioFile> audioFiles = new ArrayList<AudioFile>();
     @JsonProperty("image_files")
     private List<ImageFile> imageFiles = new ArrayList<ImageFile>();
     @JsonProperty("entities")
@@ -96,395 +71,385 @@ public class EpisodeResult {
     @JsonProperty("topics")
     private Object topics;
 
-
     /**
      * 
-     * @return
-     *     The id
+     * @return The id
      */
     @JsonProperty("id")
     public Integer getId() {
-        return id;
+	return id;
     }
 
     /**
      * 
      * @param id
-     *     The id
+     *            The id
      */
     @JsonProperty("id")
     public void setId(Integer id) {
-        this.id = id;
+	this.id = id;
+    }
+
+    @JsonProperty("image_urls")
+    public Object getImageUrls() {
+	return imageUrls;
+    }
+
+    @JsonProperty("image_urls")
+    public void setImageUrls(Object imageUrls) {
+	this.imageUrls = imageUrls;
     }
 
     /**
      * 
-     * @return
-     *     The title
+     * @return The title
      */
     @JsonProperty("title")
     public String getTitle() {
-        return title;
+	return title;
     }
 
     /**
      * 
      * @param title
-     *     The title
+     *            The title
      */
     @JsonProperty("title")
     public void setTitle(String title) {
-        this.title = title;
+	this.title = title;
     }
 
     /**
      * 
-     * @return
-     *     The description
+     * @return The description
      */
     @JsonProperty("description")
     public String getDescription() {
-        return description;
+	return description;
     }
 
     /**
      * 
      * @param description
-     *     The description
+     *            The description
      */
     @JsonProperty("description")
     public void setDescription(String description) {
-        this.description = description;
+	this.description = description;
     }
 
     /**
      * 
-     * @return
-     *     The dateCreated
+     * @return The dateCreated
      */
     @JsonProperty("date_created")
     public String getDateCreated() {
-        return dateCreated;
+	return dateCreated;
     }
 
     /**
      * 
      * @param dateCreated
-     *     The date_created
+     *            The date_created
      */
     @JsonProperty("date_created")
     public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
+	this.dateCreated = dateCreated;
     }
 
     /**
      * 
-     * @return
-     *     The identifier
+     * @return The identifier
      */
     @JsonProperty("identifier")
     public String getIdentifier() {
-        return identifier;
+	return identifier;
     }
 
     /**
      * 
      * @param identifier
-     *     The identifier
+     *            The identifier
      */
     @JsonProperty("identifier")
     public void setIdentifier(String identifier) {
-        this.identifier = identifier;
+	this.identifier = identifier;
     }
 
     /**
      * 
-     * @return
-     *     The digitalLocation
+     * @return The digitalLocation
      */
     @JsonProperty("digital_location")
     public String getDigitalLocation() {
-        return digitalLocation;
+	return digitalLocation;
     }
 
     /**
      * 
      * @param digitalLocation
-     *     The digital_location
+     *            The digital_location
      */
     @JsonProperty("digital_location")
     public void setDigitalLocation(String digitalLocation) {
-        this.digitalLocation = digitalLocation;
+	this.digitalLocation = digitalLocation;
     }
 
     /**
      * 
-     * @return
-     *     The physicalLocation
+     * @return The physicalLocation
      */
     @JsonProperty("physical_location")
     public String getPhysicalLocation() {
-        return physicalLocation;
+	return physicalLocation;
     }
 
     /**
      * 
      * @param physicalLocation
-     *     The physical_location
+     *            The physical_location
      */
     @JsonProperty("physical_location")
     public void setPhysicalLocation(String physicalLocation) {
-        this.physicalLocation = physicalLocation;
+	this.physicalLocation = physicalLocation;
     }
 
     /**
      * 
-     * @return
-     *     The duration
+     * @return The duration
      */
     @JsonProperty("duration")
     public Integer getDuration() {
-        return duration;
+	return duration;
     }
 
     /**
      * 
      * @param duration
-     *     The duration
+     *            The duration
      */
     @JsonProperty("duration")
     public void setDuration(Integer duration) {
-        this.duration = duration;
+	this.duration = duration;
     }
 
     /**
      * 
-     * @return
-     *     The tags
+     * @return The tags
      */
     @JsonProperty("tags")
     public List<String> getTags() {
-        return tags;
+	return tags;
     }
 
     /**
      * 
      * @param tags
-     *     The tags
+     *            The tags
      */
     @JsonProperty("tags")
     public void setTags(List<String> tags) {
-        this.tags = tags;
+	this.tags = tags;
     }
 
     /**
      * 
-     * @return
-     *     The updatedAt
+     * @return The updatedAt
      */
     @JsonProperty("updated_at")
     public String getUpdatedAt() {
-        return updatedAt;
+	return updatedAt;
     }
 
     /**
      * 
      * @param updatedAt
-     *     The updated_at
+     *            The updated_at
      */
     @JsonProperty("updated_at")
     public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
+	this.updatedAt = updatedAt;
     }
 
     /**
      * 
-     * @return
-     *     The itunesEpisode
+     * @return The itunesEpisode
      */
     @JsonProperty("itunes_episode")
     public Object getItunesEpisode() {
-        return itunesEpisode;
+	return itunesEpisode;
     }
 
     /**
      * 
      * @param itunesEpisode
-     *     The itunes_episode
+     *            The itunes_episode
      */
     @JsonProperty("itunes_episode")
     public void setItunesEpisode(String itunesEpisode) {
-        this.itunesEpisode = itunesEpisode;
+	this.itunesEpisode = itunesEpisode;
     }
 
     /**
      * 
-     * @return
-     *     The dateAdded
+     * @return The dateAdded
      */
     @JsonProperty("date_added")
     public String getDateAdded() {
-        return dateAdded;
+	return dateAdded;
     }
 
     /**
      * 
      * @param dateAdded
-     *     The date_added
+     *            The date_added
      */
     @JsonProperty("date_added")
     public void setDateAdded(String dateAdded) {
-        this.dateAdded = dateAdded;
+	this.dateAdded = dateAdded;
     }
 
     /**
      * 
-     * @return
-     *     The showId
+     * @return The showId
      */
     @JsonProperty("show_id")
     public Integer getShowId() {
-        return showId;
+	return showId;
     }
 
     /**
      * 
      * @param showId
-     *     The show_id
+     *            The show_id
      */
     @JsonProperty("show_id")
     public void setShowId(Integer showId) {
-        this.showId = showId;
+	this.showId = showId;
     }
 
     /**
      * 
-     * @return
-     *     The showTitle
+     * @return The showTitle
      */
     @JsonProperty("show_title")
     public String getShowTitle() {
-        return showTitle;
+	return showTitle;
     }
 
     /**
      * 
      * @param showTitle
-     *     The show_title
+     *            The show_title
      */
     @JsonProperty("show_title")
     public void setShowTitle(String showTitle) {
-        this.showTitle = showTitle;
+	this.showTitle = showTitle;
     }
 
     /**
      * 
-     * @return
-     *     The audioFiles
+     * @return The audioFiles
      */
     @JsonProperty("audio_files")
-    public List<AudioFiles> getAudioFiles() {
-        return audioFiles;
+    public List<AudioFile> getAudioFiles() {
+	return audioFiles;
     }
 
     /**
      * 
      * @param audioFiles
-     *     The audio_files
+     *            The audio_files
      */
     @JsonProperty("audio_files")
-    public void setAudioFiles(List<AudioFiles> audioFiles) {
-        this.audioFiles = audioFiles;
+    public void setAudioFiles(List<AudioFile> audioFiles) {
+	this.audioFiles = audioFiles;
     }
 
     /**
      * 
-     * @return
-     *     The imageFiles
+     * @return The imageFiles
      */
     @JsonProperty("image_files")
     public List<ImageFile> getImageFiles() {
-        return imageFiles;
+	return imageFiles;
     }
 
     /**
      * 
      * @param imageFiles
-     *     The image_files
+     *            The image_files
      */
     @JsonProperty("image_files")
     public void setImageFiles(List<ImageFile> imageFiles) {
-        this.imageFiles = imageFiles;
+	this.imageFiles = imageFiles;
     }
 
     /**
      * 
-     * @return
-     *     The entities
+     * @return The entities
      */
     @JsonProperty("entities")
     public List<Entity> getEntities() {
-        return entities;
+	return entities;
     }
 
     /**
      * 
      * @param entities
-     *     The entities
+     *            The entities
      */
     @JsonProperty("entities")
     public void setEntities(List<Entity> entities) {
-        this.entities = entities;
+	this.entities = entities;
     }
 
     /**
      * 
-     * @return
-     *     The urls
+     * @return The urls
      */
     @JsonProperty("urls")
     public Urls getUrls() {
-        return urls;
+	return urls;
     }
 
     /**
      * 
      * @param urls
-     *     The urls
+     *            The urls
      */
     @JsonProperty("urls")
     public void setUrls(Urls urls) {
-        this.urls = urls;
+	this.urls = urls;
     }
 
     /**
      * 
-     * @return
-     *     The categories
+     * @return The categories
      */
     @JsonProperty("categories")
     public List<Category> getCategories() {
-        return categories;
+	return categories;
     }
 
     /**
      * 
      * @param categories
-     *     The categories
+     *            The categories
      */
     @JsonProperty("categories")
     public void setCategories(List<Category> categories) {
-        this.categories = categories;
+	this.categories = categories;
     }
 
     /**
      * 
      * @param highlights
-     *     The highlights
+     *            The highlights
      */
     @JsonProperty("highlights")
     public void setHighlights(Object highlights) {
-        this.highlights = highlights;
+	this.highlights = highlights;
     }
 
     @Override

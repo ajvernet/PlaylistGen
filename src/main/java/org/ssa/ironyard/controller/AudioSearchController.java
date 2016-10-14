@@ -34,7 +34,7 @@ public class AudioSearchController {
 		: ((Integer) map.get("size") > 0 && (Integer) map.get("size") <= 100) ? (Integer) map.get("size") : 50;
 	LOGGER.debug("Search AudioSearch by keyword");
 	return ResponseEntity.ok().body(ResponseObject.instanceOf(STATUS.SUCCESS, "You got search results",
-		ass.searchEpisodes((String) map.get("genre"), query, limit)));
+		ass.searchEpisodesAlt((String) map.get("genre"), query, limit)));
     }
 
     @RequestMapping(value = "genres", method = RequestMethod.GET)
