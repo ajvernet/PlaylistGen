@@ -10,6 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.ssa.ironyard.model.Episode;
+import org.ssa.ironyard.model.Genre;
 import org.ssa.ironyard.service.mapper.SearchResults;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -21,7 +22,10 @@ public class AudioSearchServiceTest {
 
     private static AudiosearchService ass;
     private static ObjectMapper mapper;
+    
+    String keyword;
 
+    
     @BeforeClass
     public static void initServices() {
 	ass = new AudiosearchService(new AudiosearchAuthorizationService());
@@ -29,43 +33,35 @@ public class AudioSearchServiceTest {
 	mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
+   
     @Before
     public void setup() {
+        keyword = "a";
     }
 
-    @Ignore
     @Test
-    public void testTasties() {
-	ass.getTasties();
+    public void searchEpisodesAltTest()
+    {
+        assertTrue(ass.searchEpisodesAlt(null,keyword, 50).size() >= 0);
+        assertTrue(ass.searchEpisodesAlt(null, keyword, 50).size() < 51);
+       
     }
     
     @Test
-    public void testSearch(){
-	String genre="Comedy";
-	String query = "Hardcore History";
-	Integer size = 100;
-	
-	System.err.println(ass.searchEpisodes(genre, null, 50));
-	
+    public void searchEpisodesWithGenre()
+    {
+        assertTrue(ass.searchEpisodesAlt(Genre.ARTS.getName(), keyword, 50).size() >= 0);
+        assertTrue(ass.searchEpisodesAlt(Genre.ARTS.getName(), keyword, 50).size() < 51);
+        assertTrue(ass.searchEpisodesAlt(Genre.ARTS.getName(), keyword, 50).size() <
+                ass.searchEpisodesAlt(null, keyword, 50).size());
+
     }
 
     @Test
-    public void getGenreList() {
-	assertTrue(ass.getGenres().size() > 0);
-	assertTrue(ass.getGenres().size() == 9);
-	System.err.println(ass.getGenres());
+    public void getGenresTest() 
+    {   
+        for(String s : ass.getGenres())
+            assertTrue(Genre.getInstance(s).getClass().equals(Genre.class));
     }
-
-//    private String findmp3(String genreJson) throws JsonProcessingException, IOException {
-//	JsonNode node = mapper.readTree(genreJson);
-//	System.err.println(node.path("id"));
-//	node = mapper.readTree(ass.getEpisodeById(Integer.parseInt(node.path("id").asText())));
-//	System.err.println("Audio file: " + node.path("audio_files").get(0).path("url").get(0).asText());
-//	if (node.has("audio_files"))
-//	    if (node.path("audio_files").get(0).has("url"))
-//		if (node.path("audio_files").get(0).path("url").get(0).asText().endsWith("mp3"))
-//		    return node.path("audio_files").get(0).path("url").get(0).asText();
-//	return "";
-//    }
 
 }
