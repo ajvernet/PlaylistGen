@@ -2,7 +2,6 @@ package org.ssa.ironyard.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -27,11 +26,13 @@ import org.ssa.ironyard.service.mapper.AudioFile;
 import org.ssa.ironyard.service.mapper.Category;
 import org.ssa.ironyard.service.mapper.EpisodeQueryResult;
 import org.ssa.ironyard.service.mapper.EpisodeResult;
+import org.ssa.ironyard.service.mapper.TastiesResult;
+
+import com.google.gson.Gson;
 
 @Service
 public class AudiosearchService {
     static String apiBaseUri = "https://www.audiosear.ch/api";
-    static String trendingUriFragment = "/trending";
 
     private final AudiosearchAuthorizationService authorizationService;
     private Logger LOGGER = LogManager.getLogger(AudiosearchService.class);
@@ -91,16 +92,13 @@ public class AudiosearchService {
 	response = restTemplate.exchange(uri, HttpMethod.GET, oauth, EpisodeQueryResult.class);
 	List<Episode> episodes = new ArrayList<>();
 	for (EpisodeResult episodeResult : response.getBody().getResults()) {
-	    Episode episode = Episode.builder()
-	    .episodeId(episodeResult.getId())
-	    .name(episodeResult.getTitle())
-	    .genreId(getGenreId(episodeResult))
-	    .description(episodeResult.getDescription())
-	    .duration(getDuration(episodeResult))
-	    .fileUrl(getAudioFileUrl(episodeResult))
-	    .show(new Show(episodeResult.getShowId(), episodeResult.getShowTitle(), getThumbnail(episodeResult)))
+	    Episode episode = Episode.builder().episodeId(episodeResult.getId()).name(episodeResult.getTitle())
+		    .genreId(getGenreId(episodeResult)).description(episodeResult.getDescription())
+		    .duration(getDuration(episodeResult)).fileUrl(getAudioFileUrl(episodeResult))
+		    .show(new Show(episodeResult.getShowId(), episodeResult.getShowTitle(),
+			    getThumbnail(episodeResult)))
 		    .build();
-	    if(episode.getFileUrl()!=null)
+	    if (episode.getFileUrl() != null)
 		episodes.add(episode);
 	}
 
@@ -108,8 +106,8 @@ public class AudiosearchService {
     }
 
     private String getThumbnail(EpisodeResult episodeResult) {
-	if(episodeResult.getImageUrls()!=null && episodeResult.getImageUrls() instanceof Map)
-	    return ((Map<String,String>) episodeResult.getImageUrls()).get("thumb");
+	if (episodeResult.getImageUrls() != null && episodeResult.getImageUrls() instanceof Map)
+	    return ((Map<String, String>) episodeResult.getImageUrls()).get("thumb");
 	return null;
     }
 
@@ -134,7 +132,7 @@ public class AudiosearchService {
     }
 
     private Integer getDuration(EpisodeResult episodeResult) {
-	if (episodeResult.getDuration()!= null && episodeResult.getDuration() != 0)
+	if (episodeResult.getDuration() != null && episodeResult.getDuration() != 0)
 	    return episodeResult.getDuration();
 	return null;
     }
@@ -149,14 +147,19 @@ public class AudiosearchService {
 	return categoryIds.size() > 0 ? categoryIds.get(0) : null;
     }
 
-    public void getTasties() {
-	final String uri = apiBaseUri + "/tasties/1";
+    public List<Episode> getTasties() {
+	final String uri = apiBaseUri + "/tasties";
+	LOGGER.debug("searchUrl: {}", uri);
 	RestTemplate restTemplate = new RestTemplate();
-	ParameterizedTypeReference<List<Map<String, Object>>> typeRef = new ParameterizedTypeReference<List<Map<String, Object>>>() {
-	};
-	ResponseEntity<List<Map<String, Object>>> result;
-	result = restTemplate.exchange(uri, HttpMethod.GET, oauth, typeRef);
-	// System.out.println(result.getBody().get(0).get("episode").getClass());
+	TastiesResult[] tasties = restTemplate.getForObject(uri, TastiesResult[].class, oauth);
+	LOGGER.debug("Response received and loaded");
+	
+	Gson gson = new Gson();
+	System.out.println(tasties);
+	
+	List<Episode> episodes = new ArrayList<>();
+	
+	return episodes;
     }
 
     public List<String> getGenres() {

@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "results_per_page",
     "results"
 })
+
 public class EpisodeQueryResult {
 
     @JsonProperty("query")

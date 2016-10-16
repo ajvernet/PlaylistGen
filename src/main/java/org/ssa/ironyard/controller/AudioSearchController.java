@@ -42,5 +42,11 @@ public class AudioSearchController {
 	return ResponseEntity.ok()
 		.body(ResponseObject.instanceOf(STATUS.SUCCESS, "Current genres retrieved", ass.getGenres()));
     }
+    
+    @RequestMapping(value="tasties", method=RequestMethod.GET)
+    ResponseEntity<ResponseObject> getTasties(){
+	return ResponseEntity.ok()
+		.body(ResponseObject.instanceOf(STATUS.SUCCESS, "Here's some tasties", ass.getTasties()));
+    }
 
 }
