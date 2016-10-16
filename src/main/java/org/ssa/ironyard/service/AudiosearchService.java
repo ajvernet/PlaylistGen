@@ -44,39 +44,6 @@ public class AudiosearchService {
 	this.oauth = getHeaders();
     }
 
-    public List<Episode> searchEpisodes(String genre, String searchText, Integer size) {
-
-	String uri = apiBaseUri + "/search/episodes/" + searchText + "?";
-	if (genre != null && !genre.isEmpty())
-	    uri += "&filters[categories.id]=" + Genre.getInstance(genre).getId();
-	if (size != null)
-	    uri += "&size=" + size + "&from=0";
-	// uri += "&sort_by=date_added&sort_order=desc";
-	LOGGER.debug("searchUrl: {}", uri);
-	RestTemplate restTemplate = new RestTemplate();
-	ParameterizedTypeReference<Map<String, Object>> typeRef = new ParameterizedTypeReference<Map<String, Object>>() {
-	};
-	ResponseEntity<Map<String, Object>> response;
-	response = restTemplate.exchange(uri, HttpMethod.GET, oauth, typeRef);
-	List<Map<String, Object>> results = (List<Map<String, Object>>) response.getBody().get("results");
-	return results.stream().map(result -> {
-
-	    if ((List<Map<String, String>>) result.getOrDefault("audio_files", null) == null)
-		return null;
-	    String fileUrl = ((List<Map<String, String>>) result.get("audio_files")).get(0).getOrDefault("mp3", "");
-	    if (fileUrl == "")
-		fileUrl = ((List<Map<String, List<String>>>) result.get("audio_files")).get(0).get("url").get(0);
-	    if (fileUrl == null || !fileUrl.endsWith("mp3"))
-		return null;
-
-	    return Episode.builder().episodeId((Integer) result.get("id")).name((String) result.get("title"))
-		    .description((String) result.get("description")).duration((Integer) result.get("duration"))
-		    .fileUrl(fileUrl).show(new Show((Integer) result.get("show_id"), (String) result.get("show_title"),
-			    ((Map<String, String>) result.get("image_urls")).get("thumb")))
-		    .build();
-	}).filter(episode -> episode != null).collect(Collectors.toList());
-    }
-
     public List<Episode> searchEpisodesAlt(String genre, String searchText, Integer size) {
 
 	String uri = apiBaseUri + "/search/episodes/" + searchText + "?";
@@ -84,7 +51,6 @@ public class AudiosearchService {
 	    uri += "&filters[categories.id]=" + Genre.getInstance(genre).getId();
 	if (size != null)
 	    uri += "&size=" + size + "&from=0";
-	// uri += "&sort_by=date_added&sort_order=desc";
 	LOGGER.debug("searchUrl: {}", uri);
 	RestTemplate restTemplate = new RestTemplate();
 	ResponseEntity<EpisodeQueryResult> response;
@@ -119,7 +85,8 @@ public class AudiosearchService {
 	    if (audioFile.getMp3() != null && !audioFile.getMp3().isEmpty())
 		audioFiles.add(audioFile.getMp3());
 	    if (audioFile.getUrl() != null && audioFile.getUrl().size() > 0 && !audioFile.getUrl().get(0).isEmpty())
-		audioFiles.add(audioFile.getUrl().get(0));
+		for(int i =0; i < audioFile.getUrl().size(); i++)
+		    audioFiles.add(audioFile.getUrl().get(i));
 	    if (audioFile.getFilename() != null && !audioFile.getFilename().isEmpty())
 		audioFiles.add(audioFile.getFilename());
 	    if (audioFile.getUrlTitle() != null && !audioFile.getUrlTitle().isEmpty())
