@@ -35,14 +35,20 @@ public class EpisodeDAOImpl extends AbstractSpringDAO<Episode> implements Episod
     protected void insertPreparer(PreparedStatement insertStatement, Episode domainToInsert) throws SQLException {
 	insertStatement.setInt(1, domainToInsert.getEpisodeId());
 	insertStatement.setString(2, domainToInsert.getName());
-	if(domainToInsert.getGenreId()==null)
+	if (domainToInsert.getGenreId() == null)
 	    insertStatement.setNull(3, java.sql.Types.INTEGER);
 	else
-	insertStatement.setInt(3, domainToInsert.getGenreId());
+	    insertStatement.setInt(3, domainToInsert.getGenreId());
 	insertStatement.setString(4, domainToInsert.getDescription());
-	insertStatement.setInt(5, domainToInsert.getDuration());
+	if (domainToInsert.getDuration() == null)
+	    insertStatement.setNull(5, java.sql.Types.INTEGER);
+	else
+	    insertStatement.setInt(5, domainToInsert.getDuration());
 	insertStatement.setString(6, domainToInsert.getFileUrl());
-	insertStatement.setInt(7, domainToInsert.getShow().getId());
+	if (domainToInsert.getShow() == null)
+	    insertStatement.setNull(7, java.sql.Types.INTEGER);
+	else
+	    insertStatement.setInt(7, domainToInsert.getShow().getId());
 	insertStatement.setString(8, domainToInsert.getShow().getName());
 	insertStatement.setString(9, domainToInsert.getShow().getThumbUrl());
     }
@@ -65,14 +71,20 @@ public class EpisodeDAOImpl extends AbstractSpringDAO<Episode> implements Episod
 	    public void setValues(PreparedStatement ps) throws SQLException {
 		ps.setInt(1, domainToUpdate.getEpisodeId());
 		ps.setString(2, domainToUpdate.getName());
-		if(domainToUpdate.getGenreId()==null)
+		if (domainToUpdate.getGenreId() == null)
 		    ps.setNull(3, java.sql.Types.INTEGER);
 		else
 		    ps.setInt(3, domainToUpdate.getGenreId());
 		ps.setString(4, domainToUpdate.getDescription());
-		ps.setInt(5, domainToUpdate.getDuration());
+		if (domainToUpdate.getDuration() == null)
+		    ps.setNull(5, java.sql.Types.INTEGER);
+		else
+		    ps.setInt(5, domainToUpdate.getDuration());
 		ps.setString(6, domainToUpdate.getFileUrl());
-		ps.setInt(7, domainToUpdate.getShow().getId());
+		if (domainToUpdate.getShow() == null)
+		    ps.setNull(7, java.sql.Types.INTEGER);
+		else
+		    ps.setInt(7, domainToUpdate.getShow().getId());
 		ps.setString(8, domainToUpdate.getShow().getName());
 		ps.setString(9, domainToUpdate.getShow().getThumbUrl());
 		ps.setInt(10, domainToUpdate.getId());
