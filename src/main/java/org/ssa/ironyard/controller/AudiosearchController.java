@@ -16,13 +16,13 @@ import org.ssa.ironyard.service.AudiosearchService;
 
 @RestController
 @RequestMapping("/podcasts")
-public class AudioSearchController {
-    static final Logger LOGGER = LogManager.getLogger(AudioSearchController.class);
+public class AudiosearchController {
+    static final Logger LOGGER = LogManager.getLogger(AudiosearchController.class);
 
     private final AudiosearchService ass;
 
     @Autowired
-    public AudioSearchController(AudiosearchService ass) {
+    public AudiosearchController(AudiosearchService ass) {
 	this.ass = ass;
     }
 

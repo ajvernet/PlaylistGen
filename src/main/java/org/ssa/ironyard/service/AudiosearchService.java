@@ -11,7 +11,6 @@ import java.util.stream.Stream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -26,7 +25,8 @@ import org.ssa.ironyard.service.mapper.AudioFile;
 import org.ssa.ironyard.service.mapper.Category;
 import org.ssa.ironyard.service.mapper.EpisodeQueryResult;
 import org.ssa.ironyard.service.mapper.EpisodeResult;
-import org.ssa.ironyard.service.mapper.TastiesQueryResult;
+import org.ssa.ironyard.service.mapper.TastiesAudioFile;
+import org.ssa.ironyard.service.mapper.TastiesEpisodeResult;
 import org.ssa.ironyard.service.mapper.TastiesResult;
 
 import com.google.gson.Gson;
@@ -81,21 +81,42 @@ public class AudiosearchService {
     private String getAudioFileUrl(EpisodeResult episodeResult) {
 	List<String> audioFiles = new ArrayList<>();
 	for (AudioFile audioFile : episodeResult.getAudioFiles()) {
+	    LOGGER.debug("Urls list size: {}", audioFile.getUrls().size());
 	    if (audioFile.getMp3() != null && !audioFile.getMp3().isEmpty())
 		audioFiles.add(audioFile.getMp3());
 	    if (audioFile.getUrl() != null && audioFile.getUrl().size() > 0 && !audioFile.getUrl().get(0).isEmpty())
-		for(int i =0; i < audioFile.getUrl().size(); i++)
+		for (int i = 0; i < audioFile.getUrl().size(); i++)
 		    audioFiles.add(audioFile.getUrl().get(i));
+	    if (audioFile.getUrls() != null && audioFile.getUrls().size() > 0 && !audioFile.getUrls().get(0).isEmpty())
+		for (int i = 0; i < audioFile.getUrls().size(); i++)
+		    audioFiles.add(audioFile.getUrls().get(i));
 	    if (audioFile.getFilename() != null && !audioFile.getFilename().isEmpty())
 		audioFiles.add(audioFile.getFilename());
 	    if (audioFile.getUrlTitle() != null && !audioFile.getUrlTitle().isEmpty())
 		audioFiles.add(audioFile.getUrlTitle());
 	}
 
+	LOGGER.debug("There are {} candidate audio files", audioFiles.size());
 	for (String audioFile : audioFiles) {
 	    if (audioFile.endsWith("mp3"))
 		return audioFile;
 	}
+	LOGGER.debug("No acceptable audio files found {}: {}", episodeResult.getId(), episodeResult.getTitle());
+	return null;
+    }
+
+    private String getTastiesAudioFile(TastiesEpisodeResult t) {
+	List<String> audioFiles = new ArrayList<String>();
+	TastiesAudioFile audioFile = t.getAudio_files();
+	if (audioFile.getUrls() != null && audioFile.getUrls().size() > 0 && !audioFile.getUrls().get(0).isEmpty())
+	    for (int i = 0; i < audioFile.getUrls().size(); i++)
+		audioFiles.add(audioFile.getUrls().get(i));
+	LOGGER.debug("There are {} candidate audio files", audioFiles.size());
+	for (String audioFileCandidate : audioFiles) {
+	    if (audioFileCandidate.endsWith("mp3"))
+		return audioFileCandidate;
+	}
+	LOGGER.debug("No acceptable audio files found {}: {}", t.getId(), t.getTitle());
 	return null;
     }
 
@@ -121,29 +142,31 @@ public class AudiosearchService {
 	RestTemplate restTemplate = new RestTemplate();
 	String tastiesList = restTemplate.getForObject(uri, String.class, oauth);
 	LOGGER.debug("Response received and loaded");
-	
+
 	Gson gson = new Gson();
 	System.out.println(tastiesList);
-	TastiesResult[] tasties= new Gson().fromJson(tastiesList, TastiesResult[].class);
-	
+	TastiesResult[] tasties = gson.fromJson(tastiesList, TastiesResult[].class);
+
 	LOGGER.debug("Received {} tasties", tasties.length);
-	
-	List<EpisodeResult> episodeResults = new ArrayList<>();
-	for(TastiesResult t: tasties){
-	    episodeResults.add(t.getEpisode());
+
+	List<TastiesEpisodeResult> episodeResults = new ArrayList<>();
+	for (TastiesResult t : tasties) {
+	    if (t.getEpisode() == null)
+		System.err.println("Null episodeResults");
+	    else
+		episodeResults.add(t.getEpisode());
+	    LOGGER.debug(t.getEpisode());
 	}
 	List<Episode> episodes = new ArrayList<>();
-	for (EpisodeResult episodeResult : episodeResults) {
+	for (TastiesEpisodeResult episodeResult : episodeResults) {
 	    Episode episode = Episode.builder().episodeId(episodeResult.getId()).name(episodeResult.getTitle())
-		    .genreId(getGenreId(episodeResult)).description(episodeResult.getDescription())
-		    .duration(getDuration(episodeResult)).fileUrl(getAudioFileUrl(episodeResult))
-		    .show(new Show(episodeResult.getShowId(), episodeResult.getShowTitle(),
-			    getThumbnail(episodeResult)))
-		    .build();
+		    .description(episodeResult.getDescription()).duration(episodeResult.getAudio_files().getDuration())
+		    .fileUrl(getTastiesAudioFile(episodeResult))
+		    .show(new Show(episodeResult.getShow_id(), episodeResult.getShow_title(), null)).build();
 	    if (episode.getFileUrl() != null)
 		episodes.add(episode);
 	}
-	
+
 	return episodes;
     }
 

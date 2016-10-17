@@ -7,11 +7,11 @@ import org.junit.Test;
 import org.ssa.ironyard.service.AudiosearchAuthorizationService;
 import org.ssa.ironyard.service.AudiosearchService;
 
-public class AudioSearchControllerTest {
+public class AudiosearchControllerTest {
 
     @Test
     public void test() {
-	AudioSearchController asc = new AudioSearchController(new AudiosearchService(new AudiosearchAuthorizationService()));
+	AudiosearchController asc = new AudiosearchController(new AudiosearchService(new AudiosearchAuthorizationService()));
 	Map<String, Object> map = new HashMap<>();
 	map.put("size", 42);
 	asc.searchEpisodes(map);

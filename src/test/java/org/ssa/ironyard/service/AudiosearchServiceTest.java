@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class AudioSearchServiceTest {
+public class AudiosearchServiceTest {
 
     private static AudiosearchService ass;
     private static ObjectMapper mapper;
@@ -66,7 +66,7 @@ public class AudioSearchServiceTest {
     
     @Test
     public void testTasties(){
-	ass.getTasties();
+	System.out.println(ass.getTasties());
     }
 
 }

@@ -17,7 +17,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "mp3",
     "ogg",
     "listenlen",
-    "url_title"
+    "url_title",
+    "urls"
 })
 public class AudioFile {
 
@@ -39,6 +40,8 @@ public class AudioFile {
     private String listenlen;
     @JsonProperty("url_title")
     private String urlTitle;
+    @JsonProperty("urls")
+    private List<String> urls = new ArrayList<String>();
 
     /**
      * 
@@ -172,11 +175,22 @@ public class AudioFile {
         this.urlTitle = urlTitle;
     }
 
+    public List<String> getUrls() {
+        return urls;
+    }
+
+    public void setUrls(List<String> urls) {
+        this.urls = urls;
+    }
+
     @Override
     public String toString() {
 	return "AudioFile [id=" + id + ", filename=" + filename + ", duration=" + duration + ", currentStatus="
 		+ currentStatus + ", url=" + url + ", mp3=" + mp3 + ", ogg=" + ogg + ", listenlen=" + listenlen
-		+ ", urlTitle=" + urlTitle + "]";
+		+ ", urlTitle=" + urlTitle + ", urls=" + urls + "]";
     }
+
+
+
 
 }

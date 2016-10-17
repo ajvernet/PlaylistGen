@@ -15,17 +15,17 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class TastiesResult {
 
     @JsonProperty("episode")
-    EpisodeResult episode;
+    TastiesEpisodeResult episode;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("episode")
-    public EpisodeResult getEpisode() {
+    public TastiesEpisodeResult getEpisode() {
 	return episode;
     }
 
     @JsonProperty("episode")
-    public void setEpisode(EpisodeResult episode) {
+    public void setEpisode(TastiesEpisodeResult episode) {
 	this.episode = episode;
     }
 
