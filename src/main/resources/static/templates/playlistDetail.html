@@ -8,15 +8,17 @@
             
             <tbody>
                 <tr ng-repeat="podcast in PC.playlist">
-                    <td>{{podcast.episode.name}}</td>
-                    <td>{{podcast.episode.show.name}}</td>
-                    <td>{{podcast.episode.duration}}</td>
+                    <td>{{podcast.json.name}}</td>
+                    <td>{{podcast.json.show.name}}</td>
+                    <td>{{podcast.json.duration}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
     
-    <button play-all="PC.playlist" data-play="true" ng-click="PC.playPL()">Play</button> <button ng-click="PC.deletePL()">Delete</button>
+    <button play-all="PC.playlist" data-play="true" ng-click="PC.playPL()">Play</button>
+    <button ng-click="PC.editPL()">Edit</button>
+    <button ng-click="PC.deletePL()">Delete</button>
     
 </div>
 

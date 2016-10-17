@@ -22,11 +22,11 @@ function configure($stateProvider, $urlRouterProvider) {
 //        , controller: 'PlaylistQuickDetailController'
 //        , controllerAs: 'PC'
 //        , templateUrl: '/templates/playlistQuickDetail.html'
-    }).state('player', {
-        url: '/player'
-            , controller: 'PlayerController'
-            , controllerAs: 'PC'
-            , templateUrl: '/templates/player.html'
+//    }).state('player', {
+//        url: '/player'
+//            , controller: 'PlayerController'
+//            , controllerAs: 'PC'
+//            , templateUrl: '/templates/player.html'
     }).state('playlistDetail', {
         url: '/playlistDetail'
             , controller: 'PlaylistDetailController'

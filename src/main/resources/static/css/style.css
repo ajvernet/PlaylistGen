@@ -56,7 +56,7 @@ li {
 
 .namePopup{
 	display: block;
-	position: absolute;
+	position: fixed;
 	top: 30%;
 	left: 25%;
 	width: 50%;
@@ -70,7 +70,7 @@ li {
 
 .namePopupBG{
 	display: block;
-	position: absolute;
+	position: fixed;
 	top: 0%;
 	left: 0%;
 	width: 100%;

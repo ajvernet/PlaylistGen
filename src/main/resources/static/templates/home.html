@@ -1,7 +1,9 @@
-<h2>Dashboard</h2>
+<h2>From the Tastemakers...</h2>
 
+<table class="table table-hover table-striped table-bordered">
+	<tr ng-repeat="podcast in dash.podcasts">
+		<td>{{ podcast.title }} --- {{ podcast.duration }} --- <input type="checkbox" ng-model="podcast.selected"></td>
+	</tr>
+</table>
 
-
-
-
-Get trending
+<button ng-click="dash.initPL()">Start a Playlist</button>

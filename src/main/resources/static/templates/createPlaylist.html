@@ -30,8 +30,9 @@
 
 <div class="hoverPointer">
 <table class="table table-hover table-striped table-bordered">
-	<tr ng-repeat="podcast in MC.searchResultsFromService" ng-mouseover="MC.hoverDetail(podcast, $event)" ng-mouseleave="MC.hoverLeave()" ng-if="MC.createdPlaylist.indexOf(podcast) == -1">
-		<td ng-click="MC.addToPL(podcast)">{{ podcast.title }} --- <span ng-style="(podcast.duration > (MC.userDuration - MC.playlistDurationBuilder) && MC.userDuration > 0) && {'color': '#ff3333'}">{{ podcast.duration }}</span></td>
+	<tr ng-repeat="podcast in MC.searchResults" ng-if="MC.inPlaylist.indexOf(podcast.title) == -1" ng-mouseover="MC.hoverDetail(podcast, $event)" ng-mouseleave="MC.hoverLeave()">
+		<td ng-click="MC.addToPL(podcast)">{{ podcast.title }} --- 
+		<span ng-style="podcast.duration > (MC.userDuration - MC.playlistDurationBuilder()) && MC.userDuration > 0 && {'color': '#ff3333'}">{{ podcast.duration }}</span></td>
 	</tr>
 </table>
 </div>
@@ -48,11 +49,11 @@
 
 <span ng-show="MC.userDuration">Trip Duration: {{ MC.userDuration }}</span>
 <br>
-Playlist Duration: <span ng-style="(MC.playlistDurationBuilder > MC.userDuration && MC.userDuration > 0) && {'color': '#ff3333'}">{{ MC.playlistDurationBuilder }}</span>
+Playlist Duration: <span ng-style="(MC.playlistDurationBuilder() > MC.userDuration && MC.userDuration > 0) && {'color': '#ff3333'}">{{ MC.playlistDurationBuilder() }}</span>
 		<h5>Playlist</h5>
 <table class="table table-hover table-striped table-bordered">
 			<tr ng-repeat="podcast in MC.createdPlaylist"  ng-style="podcast.loaded == true && {} || !podcasthasOwnProperty('loaded') && {'background-color': 'silver', 'opacity': '.6'}"><td><span ng-show="podcast.loaded != true" ng-style="{'color':'blue'}">Loading: </span>{{ podcast.title }} --- {{ podcast.duration }}
-				<button ng-click="MC.dropSong($index, podcast)">remove</button>
+				<button ng-click="MC.dropPodcast($index)">remove</button>
 				<button ng-click="MC.raiseSong($index)" ng-hide="$first">up</button>
 				<button ng-click="MC.lowerSong($index)" ng-hide="$last">down</button>
 			</td></tr>
@@ -67,7 +68,7 @@ Playlist Duration: <span ng-style="(MC.playlistDurationBuilder > MC.userDuration
 <div class="namePopup" ng-show="MC.showNameDiv">
 <h3>Name your new playlist:</h3>
 <form ng-submit="MC.initializePL()" name="nameForm">
-	<label for="userEmail">Playlist Name: </label>
+	<label for="playlistName">Playlist Name: </label>
 	<input id="playlistName" type="text" ng-model="MC.playlistName" required>
 	<br><br>
 	<label for="userDurHours">Duration: </label>
