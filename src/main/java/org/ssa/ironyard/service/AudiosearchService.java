@@ -81,7 +81,6 @@ public class AudiosearchService {
     private String getAudioFileUrl(EpisodeResult episodeResult) {
 	List<String> audioFiles = new ArrayList<>();
 	for (AudioFile audioFile : episodeResult.getAudioFiles()) {
-	    LOGGER.debug("Urls list size: {}", audioFile.getUrls().size());
 	    if (audioFile.getMp3() != null && !audioFile.getMp3().isEmpty())
 		audioFiles.add(audioFile.getMp3());
 	    if (audioFile.getUrl() != null && audioFile.getUrl().size() > 0 && !audioFile.getUrl().get(0).isEmpty())
@@ -95,8 +94,6 @@ public class AudiosearchService {
 	    if (audioFile.getUrlTitle() != null && !audioFile.getUrlTitle().isEmpty())
 		audioFiles.add(audioFile.getUrlTitle());
 	}
-
-	LOGGER.debug("There are {} candidate audio files", audioFiles.size());
 	for (String audioFile : audioFiles) {
 	    if (audioFile.endsWith("mp3"))
 		return audioFile;
@@ -152,7 +149,7 @@ public class AudiosearchService {
 	List<TastiesEpisodeResult> episodeResults = new ArrayList<>();
 	for (TastiesResult t : tasties) {
 	    if (t.getEpisode() == null)
-		System.err.println("Null episodeResults");
+		System.err.println("Null episode results");
 	    else
 		episodeResults.add(t.getEpisode());
 	    LOGGER.debug(t.getEpisode());
@@ -172,6 +169,31 @@ public class AudiosearchService {
 
     public List<String> getGenres() {
 	return Stream.of(Genre.values()).map(g -> g.getName()).collect(Collectors.toList());
+    }
+
+    protected List<Episode> searchEpisodesByHundreds(Integer page) {
+
+	String uri = apiBaseUri + "/search/episodes/*" + "?";
+	uri += "sort_by=date_added&sort_order=desc&size=100&from=" + page * 100 + "";
+	LOGGER.debug("searchUrl: {}", uri);
+	RestTemplate restTemplate = new RestTemplate();
+	ResponseEntity<EpisodeQueryResult> response;
+	response = restTemplate.exchange(uri, HttpMethod.GET, oauth, EpisodeQueryResult.class);
+	if (!response.getStatusCode().is2xxSuccessful())
+	    return null;
+	List<Episode> episodes = new ArrayList<>();
+	for (EpisodeResult episodeResult : response.getBody().getResults()) {
+	    Episode episode = Episode.builder().episodeId(episodeResult.getId()).name(episodeResult.getTitle())
+		    .genreId(getGenreId(episodeResult)).description(episodeResult.getDescription())
+		    .duration(getDuration(episodeResult)).fileUrl(getAudioFileUrl(episodeResult))
+		    .show(new Show(episodeResult.getShowId(), episodeResult.getShowTitle(),
+			    getThumbnail(episodeResult)))
+		    .build();
+	    if (episode.getFileUrl() != null)
+		episodes.add(episode);
+	}
+
+	return episodes;
     }
 
     private HttpEntity<String> getHeaders() {

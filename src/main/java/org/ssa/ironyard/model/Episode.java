@@ -16,8 +16,8 @@ public class Episode extends DomainObject {
 	this.episodeId = episodeId;
 	this.name = name;
 	this.genreId = genreId;
-	this.description = description == null || description.length() <= 20000 ? description
-		: description.substring(0, 20000);
+	this.description = description == null || description.length() <= 5000 ? description
+		: description.substring(0, 5000);
 	this.duration = duration == null || duration <= 0 ? null: duration;
 	this.fileUrl = fileUrl;
 	this.show = show;
