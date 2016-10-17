@@ -26,6 +26,7 @@ import org.ssa.ironyard.service.mapper.AudioFile;
 import org.ssa.ironyard.service.mapper.Category;
 import org.ssa.ironyard.service.mapper.EpisodeQueryResult;
 import org.ssa.ironyard.service.mapper.EpisodeResult;
+import org.ssa.ironyard.service.mapper.TastiesQueryResult;
 import org.ssa.ironyard.service.mapper.TastiesResult;
 
 import com.google.gson.Gson;
@@ -118,13 +119,30 @@ public class AudiosearchService {
 	final String uri = apiBaseUri + "/tasties";
 	LOGGER.debug("searchUrl: {}", uri);
 	RestTemplate restTemplate = new RestTemplate();
-	TastiesResult[] tasties = restTemplate.getForObject(uri, TastiesResult[].class, oauth);
+	String tastiesList = restTemplate.getForObject(uri, String.class, oauth);
 	LOGGER.debug("Response received and loaded");
 	
 	Gson gson = new Gson();
-	System.out.println(tasties);
+	System.out.println(tastiesList);
+	TastiesResult[] tasties= new Gson().fromJson(tastiesList, TastiesResult[].class);
 	
+	LOGGER.debug("Received {} tasties", tasties.length);
+	
+	List<EpisodeResult> episodeResults = new ArrayList<>();
+	for(TastiesResult t: tasties){
+	    episodeResults.add(t.getEpisode());
+	}
 	List<Episode> episodes = new ArrayList<>();
+	for (EpisodeResult episodeResult : episodeResults) {
+	    Episode episode = Episode.builder().episodeId(episodeResult.getId()).name(episodeResult.getTitle())
+		    .genreId(getGenreId(episodeResult)).description(episodeResult.getDescription())
+		    .duration(getDuration(episodeResult)).fileUrl(getAudioFileUrl(episodeResult))
+		    .show(new Show(episodeResult.getShowId(), episodeResult.getShowTitle(),
+			    getThumbnail(episodeResult)))
+		    .build();
+	    if (episode.getFileUrl() != null)
+		episodes.add(episode);
+	}
 	
 	return episodes;
     }

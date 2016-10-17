@@ -63,5 +63,10 @@ public class AudioSearchServiceTest {
         for(String s : ass.getGenres())
             assertTrue(Genre.getInstance(s).getClass().equals(Genre.class));
     }
+    
+    @Test
+    public void testTasties(){
+	ass.getTasties();
+    }
 
 }
