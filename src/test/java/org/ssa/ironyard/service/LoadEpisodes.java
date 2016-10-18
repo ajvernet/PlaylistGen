@@ -9,6 +9,9 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.ssa.ironyard.dao.EpisodeDAO;
 import org.ssa.ironyard.dao.EpisodeDAOImpl;
+import org.ssa.ironyard.dao.PlaylistDAO;
+import org.ssa.ironyard.dao.PlaylistDAOImpl;
+import org.ssa.ironyard.dao.UserDAOImpl;
 import org.ssa.ironyard.model.Episode;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
@@ -22,7 +25,12 @@ public class LoadEpisodes {
 
     @BeforeClass
     public static void initServices() {
-	ass = new AudiosearchService(new AudiosearchAuthorizationService());
+	MysqlDataSource datasource = new MysqlDataSource();
+	datasource.setUrl(URL);
+	EpisodeDAO episodes = new EpisodeDAOImpl(datasource);
+	PlaylistDAO playlists = new PlaylistDAOImpl(datasource, episodes);
+	PlaylistService playlistService = new PlaylistService(playlists,episodes);
+	ass = new AudiosearchService(new AudiosearchAuthorizationService(), playlistService);
     }
 
     @Before

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.ssa.ironyard.dao.EpisodeDAO;
 import org.ssa.ironyard.dao.PlaylistDAO;
+import org.ssa.ironyard.model.Episode;
 import org.ssa.ironyard.model.Playlist;
 import org.ssa.ironyard.service.util.Ping;
 
@@ -54,6 +55,10 @@ public class PlaylistService {
 
     public boolean testPodcastAvailable(String episodeUrl) {
 	return Ping.pingURL(episodeUrl, 1000);
+    }
+    
+    public List<Episode> getTopTenShowsByUserId(Integer userId){
+	return episodeDao.getTopTenShows(userId);
     }
 
 }

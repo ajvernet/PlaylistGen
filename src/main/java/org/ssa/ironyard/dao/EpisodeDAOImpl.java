@@ -4,6 +4,8 @@ package org.ssa.ironyard.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.ssa.ironyard.dao.orm.EpisodeORM;
 import org.ssa.ironyard.dao.orm.ORM;
 import org.ssa.ironyard.model.Episode;
+import org.ssa.ironyard.model.Show;
 
 @Component
 public class EpisodeDAOImpl extends AbstractSpringDAO<Episode> implements EpisodeDAO {
@@ -126,6 +129,24 @@ public class EpisodeDAOImpl extends AbstractSpringDAO<Episode> implements Episod
 	Episode refreshed = update(episode);
 	LOGGER.debug("Update returned: {}", refreshed);
 	return refreshed;
+    }
+
+    @Override
+    public List<Episode> getTopTenShows(Integer userId) {
+	return this.springTemplate.query(
+		"select episodes.showId, max(episodes.episodeId), count(episodes.showId) as episodeCount from episodes inner join playlistepisodes on episodes.id = playlistepisodes.episodeId inner join playlists on playlists.id = playlistepisodes.playlistId where playlists.userId = ? group by showId order by episodeCount desc limit 10",
+		(PreparedStatement ps) -> ps.setInt(1, userId), (ResultSet cursor) -> {
+		    List<Episode> episodes = new ArrayList<>();
+		    while (cursor.next())
+			episodes.add(
+				Episode.builder()
+				.show(new Show(cursor.getInt(1), null, null))
+				.episodeId(cursor.getInt(2))
+				.build()
+				
+				);
+		    return episodes;
+		});
     }
 
 }

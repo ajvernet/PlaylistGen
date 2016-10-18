@@ -3,6 +3,10 @@ package org.ssa.ironyard.dao;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -42,8 +46,6 @@ public class EpisodeDAOTest {
 			.zip(new ZipCode("12345")).build())
 		.password(new BCryptSecurePassword().secureHash("munsters")).build();
 	user = users.insert(testUser);
-	
-	//show = shows.insert(Show.builder().name("Test show").showId(1).imgUrl("http://nowhere").thumbUrl("http://nowhere").build());
 
 	episode = Episode.builder().episodeId(1).duration(1000).fileUrl("http://test.com/test").name("TestCast Audio").show(new Show(1, "Test Show", "Test Show URL")).build();
 	episode2 = Episode.builder(episode).episodeId(2).build();
@@ -66,5 +68,11 @@ public class EpisodeDAOTest {
 	assertTrue(episodes.delete(loadedEpisode.getId()));
 	assertNull(episodes.read(loadedEpisode.getId()));
     }
-
+    
+    @Ignore //need to make playlists for user before running this test
+    @Test
+    public void testGetTopTenShows(){
+	List<Episode> topShows = episodes.getTopTenShows(user.getId());
+	topShows.stream().forEach(s->System.err.println(s.getShow().getId()));
+    }
 }
