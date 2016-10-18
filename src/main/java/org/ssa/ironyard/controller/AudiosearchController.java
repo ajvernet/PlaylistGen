@@ -1,5 +1,7 @@
 package org.ssa.ironyard.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestClientException;
+import org.ssa.ironyard.model.Episode;
 import org.ssa.ironyard.model.ResponseObject;
 import org.ssa.ironyard.model.ResponseObject.STATUS;
 import org.ssa.ironyard.service.AudiosearchService;
@@ -34,8 +38,16 @@ public class AudiosearchController {
 	Integer limit = map.get("size") == null ? 50
 		: ((Integer) map.get("size") > 0 && (Integer) map.get("size") <= 100) ? (Integer) map.get("size") : 50;
 	LOGGER.debug("Search AudioSearch by keyword");
-	return ResponseEntity.ok().body(ResponseObject.instanceOf(STATUS.SUCCESS, "You got search results",
-		ass.searchEpisodesAlt((String) map.get("genre"), query, limit)));
+	List<Episode> episodes = new ArrayList<>(); 
+	String msg = "You got search results";
+	STATUS status = STATUS.SUCCESS;
+	try{
+	    episodes = ass.searchEpisodesAlt((String) map.get("genre"), query, limit);
+	}catch(RestClientException r){
+	    msg = r.getMessage();
+	    status = STATUS.ERROR;
+	}
+	return ResponseEntity.ok().body(ResponseObject.instanceOf(status, msg, episodes));
     }
 
     @RequestMapping(value = "genres", method = RequestMethod.GET)

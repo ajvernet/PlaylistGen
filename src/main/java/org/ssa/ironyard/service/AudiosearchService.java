@@ -20,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.ssa.ironyard.interceptor.LoggingRequestInterceptor;
 import org.ssa.ironyard.model.Episode;
@@ -72,7 +73,11 @@ public class AudiosearchService {
 	ris.add(ri);
 	restTemplate.setInterceptors(ris);
 	ResponseEntity<EpisodeQueryResult> response;
-	response = restTemplate.exchange(uri, HttpMethod.GET, oauth, EpisodeQueryResult.class);
+	try {
+	    response = restTemplate.exchange(uri, HttpMethod.GET, oauth, EpisodeQueryResult.class);
+	} catch (RestClientException r) {
+	    throw new RestClientException("Unable to retrieve results from Audiosear.ch");
+	}
 	List<Episode> episodes = new ArrayList<>();
 	for (EpisodeResult episodeResult : response.getBody().getResults()) {
 	    Episode episode = Episode.builder().episodeId(episodeResult.getId()).name(episodeResult.getTitle())
@@ -207,11 +212,17 @@ public class AudiosearchService {
 	    LOGGER.trace("Checking for new episodes for show: {}", episode.getShow().getId());
 	    String showUri = uri + episode.getShow().getId().toString();
 	    LOGGER.trace("Going to " + showUri);
-	    ShowResult showResults = restTemplate.exchange(showUri, HttpMethod.GET, oauth, ShowResult.class).getBody();
+	    ShowResult showResults;
+	    try {
+		showResults = restTemplate.exchange(showUri, HttpMethod.GET, oauth, ShowResult.class).getBody();
+	    } catch (RestClientException r) {
+		continue;
+	    }
 	    LOGGER.trace("{}", showResults.getEpisode_ids());
 	    episodes.addAll(showResults.getEpisode_ids().stream().filter(e -> e > episode.getEpisodeId())
 		    .map(e -> Episode.builder().episodeId(e).build()).collect(Collectors.toList()));
-	    if(episodes.size() >= maxEpisodes) break;
+	    if (episodes.size() >= maxEpisodes)
+		break;
 	}
 
 	episodes = episodes.subList(0, episodes.size() < maxEpisodes ? episodes.size() : maxEpisodes);
