@@ -26,13 +26,7 @@ controller.showNameDiv = false;
 //controller.endAddress = "";
 //controller.tripDuration = "";
 
-// detail hover/popup to be replaced soon
-controller.detailShow = false;
-controller.detailTitle = "";
-controller.detailArtist = "";
-controller.detailDuration = "";
-controller.offsetLeft = "0px";
-controller.offsetTop = "0px";
+controller.playlistStatus = "";
 
 controller.playlistDurationBuilder = function(){
 	var durationBuilder = 0;
@@ -84,33 +78,6 @@ controller.lowerSong = function(index) {
 //   $timeout.cancel(stopped);
 //    
 //    }
-  
-//  controller.driveTime = function(){
-//	   $http.get("/podcasts/trip")
-//	    .then(function(response) {
-//	    	console.log(response);
-//	    	controller.tripDuration = response.duration;
-//	    })
-//	  
-//	    }
-  
-  //to be removed -- hover detail not to be used
-  controller.hoverDetail = function(song, $event){
-	  //console.log($event.screenX + " , " + $event.screenY);
-	  var posLeft = $event.screenX;
-	  var posTop = $event.screenY - 30;
-	  controller.offsetLeft = posLeft + "px";
-	  controller.offsetTop = posTop + "px";
-	  //console.log(posLeft + " , " + posTop);
-	  controller.detailTitle = song.title;
-	  controller.detailArtist = song.artist;
-	  controller.detailDuration = song.duration;
-	  controller.detailShow = true;
-  }
-  
-  controller.hoverLeave = function(){
-	  controller.detailShow = false;
-  }
  
  controller.savePlaylist = function(){
 	 
@@ -172,6 +139,37 @@ controller.lowerSong = function(index) {
 		 controller.userDuration = null;
 	  }
 	 PlaylistService.setUserDuration(controller.userDuration);
+ }
+ 
+ controller.isLoading = function(){
+	 //angular.forEach(controller.createdPlaylist, function(podcast){
+	 for(i=0; i<controller.createdPlaylist.length; i++){
+		 if(controller.createdPlaylist[i].loaded != true){
+			 controller.playlistStatus = "Verifying podcast audio...";
+			 return true;
+			 }
+		 }
+	 	 controller.playlistStatus = "Ready to save.";
+		 return false;
+ }
+ 
+ controller.formatTime = function(sec){
+	    var hours   = Math.floor(sec / 3600);
+	    var minutes = Math.floor((sec - (hours * 3600)) / 60);
+	    var seconds = sec - (hours * 3600) - (minutes * 60);
+
+	    if (hours   < 10) {hours   = "0"+hours;}
+	    if (minutes < 10) {minutes = "0"+minutes;}
+	    if (seconds < 10) {seconds = "0"+seconds;}
+	    return hours+':'+minutes+':'+seconds;
+ }
+ 
+ controller.rename = function(){
+	 controller.showNameDiv = true;
+ }
+ 
+ controller.clear = function(){
+	 location.reload(true);
  }
  
 }

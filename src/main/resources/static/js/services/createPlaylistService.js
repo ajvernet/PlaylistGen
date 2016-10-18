@@ -38,9 +38,8 @@ function PlaylistService($http, $timeout) {
         	
         	console.log(response.obj);
         	
-        	//var tempArray = [];
 	    	for(i=0; i<response.obj.length; i++){
-	    	var temp = {'id': i, 'title': response.obj[i].name, 'duration': response.obj[i].duration, 'url': response.obj[i].fileUrl, 'json': response.obj[i]}
+	    	var temp = {'id': i, 'title': response.obj[i].name, 'duration': response.obj[i].duration, 'url': response.obj[i].fileUrl, 'show': response.obj[i].show.name, 'thumb': response.obj[i].show.thumbUrl, 'description': response.obj[i].description, 'json': response.obj[i]}
 	    	service.tempResults.push(temp);
 	    	}
 	    	angular.copy(service.tempResults, service.searchResults);
@@ -155,9 +154,10 @@ function PlaylistService($http, $timeout) {
 		service.id.id = null;
 	},
 	
-	edit : function(id, name, podcasts) {
+	edit : function(id, name, dur, podcasts) {
 		service.id.id = id;
 		service.playlistName.name = name;
+		service.userDuration.duration = dur;
 		
 		for(i=0; i < podcasts.length; i++){
 			this.addPodcast(podcasts[i]);

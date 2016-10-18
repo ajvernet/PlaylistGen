@@ -8,6 +8,7 @@ function PlaylistDetailCtrl($scope, $http, $state, $stateParams, PlaylistService
     ctrl.user = window.location.pathname.replace("/podcasts/user/","").replace("/","");
     ctrl.playlistId = $stateParams.toDetailId;
     ctrl.playlistName = "";
+    ctrl.targetDuration = "";
     ctrl.playlist = [];
     
     ctrl.shown = true;
@@ -22,6 +23,7 @@ function PlaylistDetailCtrl($scope, $http, $state, $stateParams, PlaylistService
 		    $http.get("/podcasts/user/" + ctrl.user + "/playlists/" + ctrl.playlistId)
 		    .then(function(response) {
 		    	ctrl.playlistName = response.data.obj.name;
+		    	ctrl.targetDuration = response.data.obj.targetDuration;
 		    	//console.log(response.data.obj);
 		    	for(i=0; i < response.data.obj.episodes.length; i++){
 		    		var tempObj = {
@@ -47,7 +49,7 @@ function PlaylistDetailCtrl($scope, $http, $state, $stateParams, PlaylistService
     
     ctrl.editPL = function(){
     	PlaylistService.clear();
-    	PlaylistService.edit(ctrl.playlistId, ctrl.playlistName, ctrl.playlist);
+    	PlaylistService.edit(ctrl.playlistId, ctrl.playlistName, ctrl.targetDuration, ctrl.playlist);
     	$state.go("createPlaylist");
     }
     

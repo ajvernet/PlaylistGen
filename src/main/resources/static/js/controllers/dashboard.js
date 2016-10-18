@@ -12,7 +12,7 @@ function DashboardCtrl($http, PlaylistService, $state) {
     .then(function(response) {
     	console.log(response);
     	for(i=0; i<response.data.obj.length; i++){
-	    	var temp = {'id': i, 'title': response.data.obj[i].name, 'duration': response.data.obj[i].duration, 'url': response.data.obj[i].fileUrl, 'json': response.data.obj[i]}
+	    	var temp = {'id': i, 'title': response.data.obj[i].name, 'duration': response.data.obj[i].duration, 'url': response.data.obj[i].fileUrl, 'show': response.data.obj[i].show.name, 'json': response.data.obj[i]}
 	    	ctrl.podcasts.push(temp);
 	    	}
     })
@@ -27,8 +27,19 @@ function DashboardCtrl($http, PlaylistService, $state) {
     	      }
     	 }
  
-    	PlaylistService.edit(null, 'New Playlist', ctrl.selectedPodcasts);
+    	PlaylistService.edit(null, 'New Playlist', null, ctrl.selectedPodcasts);
     	$state.go("createPlaylist");
     }
+    
+    ctrl.formatTime = function(sec){
+	    var hours   = Math.floor(sec / 3600);
+	    var minutes = Math.floor((sec - (hours * 3600)) / 60);
+	    var seconds = sec - (hours * 3600) - (minutes * 60);
+
+	    if (hours   < 10) {hours   = "0"+hours;}
+	    if (minutes < 10) {minutes = "0"+minutes;}
+	    if (seconds < 10) {seconds = "0"+seconds;}
+	    return hours+':'+minutes+':'+seconds;
+ }
 
 }
