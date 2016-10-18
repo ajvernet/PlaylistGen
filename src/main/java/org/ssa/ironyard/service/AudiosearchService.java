@@ -196,37 +196,36 @@ public class AudiosearchService {
 	final String uri = apiBaseUri + "/shows/";
 	List<Episode> episodes = new ArrayList<>();
 	List<Episode> topTenShows = playlistService.getTopTenShowsByUserId(userId);
-	LOGGER.debug("User had {} shows in his/her top ten", topTenShows.size());
-	LOGGER.debug(topTenShows);
+	LOGGER.info("User had {} shows in his/her top ten", topTenShows.size());
+	LOGGER.trace(topTenShows);
 	RestTemplate restTemplate = new RestTemplate();
 	ClientHttpRequestInterceptor ri = new LoggingRequestInterceptor();
 	List<ClientHttpRequestInterceptor> ris = new ArrayList<ClientHttpRequestInterceptor>();
 	ris.add(ri);
 	restTemplate.setInterceptors(ris);
 	for (Episode episode : topTenShows) {
-	    LOGGER.debug("Checking for new episodes for show: {}", episode.getShow().getId());
+	    LOGGER.trace("Checking for new episodes for show: {}", episode.getShow().getId());
 	    String showUri = uri + episode.getShow().getId().toString();
-	    LOGGER.debug("Going to " + showUri);
+	    LOGGER.trace("Going to " + showUri);
 	    ShowResult showResults = restTemplate.exchange(showUri, HttpMethod.GET, oauth, ShowResult.class).getBody();
-	    LOGGER.debug("{}", showResults.getEpisode_ids());
+	    LOGGER.trace("{}", showResults.getEpisode_ids());
 	    episodes.addAll(showResults.getEpisode_ids().stream().filter(e -> e > episode.getEpisodeId())
 		    .map(e -> Episode.builder().episodeId(e).build()).collect(Collectors.toList()));
 	    if(episodes.size() >= maxEpisodes) break;
 	}
 
 	episodes = episodes.subList(0, episodes.size() < maxEpisodes ? episodes.size() : maxEpisodes);
-	LOGGER.debug(episodes.stream().map(e->{return e.getEpisodeId();}).collect(Collectors.toList()));
 	StringJoiner joiner = new StringJoiner(" id: ", "id: ", "");
 	episodes.stream().forEach(e -> joiner.add(e.getEpisodeId().toString()));
 	String searchText = joiner.toString();
 	episodes.clear();
-	LOGGER.debug("Search text: " + searchText);
+	LOGGER.trace("Search text: " + searchText);
 	String searchUri = apiBaseUri + "/search/episodes/" + searchText;
 	searchUri += maxEpisodes > 10 ? "?size=" + maxEpisodes + "&from=0" : "";
 	LOGGER.debug("searchUrl: {}", searchUri);
 	ResponseEntity<EpisodeQueryResult> response;
 	response = restTemplate.exchange(searchUri, HttpMethod.GET, oauth, EpisodeQueryResult.class);
-	LOGGER.debug("Response contained {} results", response.getBody().getResults().size());
+	LOGGER.info("Response contained {} results", response.getBody().getResults().size());
 	for (EpisodeResult episodeResult : response.getBody().getResults()) {
 	    Episode episode = Episode.builder().episodeId(episodeResult.getId()).name(episodeResult.getTitle())
 		    .genreId(getGenreId(episodeResult)).description(episodeResult.getDescription())
@@ -237,7 +236,7 @@ public class AudiosearchService {
 	    if (episode.getFileUrl() != null)
 		episodes.add(episode);
 	}
-	LOGGER.debug(episodes);
+	LOGGER.trace(episodes);
 	LOGGER.debug("{} valid episodes found", episodes.size());
 	return episodes;
 

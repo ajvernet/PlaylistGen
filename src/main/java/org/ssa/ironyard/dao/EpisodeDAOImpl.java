@@ -123,11 +123,8 @@ public class EpisodeDAOImpl extends AbstractSpringDAO<Episode> implements Episod
 	 * Update the persistent episode with the formal argument need the
 	 * persistent episode's id
 	 */
-	LOGGER.debug("Episode {} already existed", existingEpisode.getId());
 	episode = episode.of().id(existingEpisode.getId()).build();
-	LOGGER.debug("Refreshing episode");
 	Episode refreshed = update(episode);
-	LOGGER.debug("Update returned: {}", refreshed);
 	return refreshed;
     }
 
