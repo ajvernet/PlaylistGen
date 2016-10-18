@@ -192,6 +192,7 @@ public class AudiosearchService {
     }
 
     public List<Episode> getNewShowsByUserId(Integer userId) {
+	final Integer maxEpisodes = 30;
 	final String uri = apiBaseUri + "/shows/";
 	List<Episode> episodes = new ArrayList<>();
 	List<Episode> topTenShows = playlistService.getTopTenShowsByUserId(userId);
@@ -210,20 +211,22 @@ public class AudiosearchService {
 	    LOGGER.debug("{}", showResults.getEpisode_ids());
 	    episodes.addAll(showResults.getEpisode_ids().stream().filter(e -> e > episode.getEpisodeId())
 		    .map(e -> Episode.builder().episodeId(e).build()).collect(Collectors.toList()));
-	    if(episodes.size() >= 10) break;
+	    if(episodes.size() >= maxEpisodes) break;
 	}
 
-	episodes = episodes.subList(0, episodes.size() < 10 ? episodes.size() : 10);
-	
+	episodes = episodes.subList(0, episodes.size() < maxEpisodes ? episodes.size() : maxEpisodes);
+	LOGGER.debug(episodes.stream().map(e->{return e.getEpisodeId();}).collect(Collectors.toList()));
 	StringJoiner joiner = new StringJoiner(" id: ", "id: ", "");
 	episodes.stream().forEach(e -> joiner.add(e.getEpisodeId().toString()));
 	String searchText = joiner.toString();
 	episodes.clear();
 	LOGGER.debug("Search text: " + searchText);
 	String searchUri = apiBaseUri + "/search/episodes/" + searchText;
+	searchUri += maxEpisodes > 10 ? "?size=" + maxEpisodes + "&from=0" : "";
 	LOGGER.debug("searchUrl: {}", searchUri);
 	ResponseEntity<EpisodeQueryResult> response;
 	response = restTemplate.exchange(searchUri, HttpMethod.GET, oauth, EpisodeQueryResult.class);
+	LOGGER.debug("Response contained {} results", response.getBody().getResults().size());
 	for (EpisodeResult episodeResult : response.getBody().getResults()) {
 	    Episode episode = Episode.builder().episodeId(episodeResult.getId()).name(episodeResult.getTitle())
 		    .genreId(getGenreId(episodeResult)).description(episodeResult.getDescription())
