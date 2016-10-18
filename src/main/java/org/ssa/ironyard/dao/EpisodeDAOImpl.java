@@ -131,7 +131,7 @@ public class EpisodeDAOImpl extends AbstractSpringDAO<Episode> implements Episod
     @Override
     public List<Episode> getTopTenShows(Integer userId) {
 	return this.springTemplate.query(
-		"select episodes.showId, max(episodes.episodeId), count(episodes.showId) as episodeCount from episodes inner join playlistepisodes on episodes.id = playlistepisodes.episodeId inner join playlists on playlists.id = playlistepisodes.playlistId where playlists.userId = ? group by showId order by episodeCount desc limit 10",
+		"select episodes.showId, max(episodes.episodeId), count(episodes.showId) as episodeCount from episodes inner join playlistepisodes on episodes.id = playlistepisodes.episodeId inner join playlists on playlists.id = playlistepisodes.playlistId where playlists.userId = ? group by episodes.showId order by episodeCount desc limit 10",
 		(PreparedStatement ps) -> ps.setInt(1, userId), (ResultSet cursor) -> {
 		    List<Episode> episodes = new ArrayList<>();
 		    while (cursor.next())
@@ -139,8 +139,7 @@ public class EpisodeDAOImpl extends AbstractSpringDAO<Episode> implements Episod
 				Episode.builder()
 				.show(new Show(cursor.getInt(1), null, null))
 				.episodeId(cursor.getInt(2))
-				.build()
-				
+				.build()				
 				);
 		    return episodes;
 		});
