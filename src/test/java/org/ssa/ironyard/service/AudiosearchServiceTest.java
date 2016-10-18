@@ -74,6 +74,7 @@ public class AudiosearchServiceTest {
 	System.out.println(ass.getTasties());
     }
 
+    @Ignore
     @Test
     public void testGetNewEpisodes() {
 	ass.getNewShowsByUserId(7);
