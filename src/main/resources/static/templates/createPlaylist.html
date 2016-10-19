@@ -29,7 +29,7 @@
         <br>
         <br>
         <ul>
-            <li ng-repeat="podcast in MC.searchResults" ng-if="MC.inPlaylist.indexOf(podcast.title) == -1">
+            <li ng-repeat="podcast in MC.searchResults" ng-if="MC.inPlaylist.indexOf(podcast.json.episodeId) == -1">
                 <div class="panel-group">
                     <div class="panel panel-default">
                         <div class="panel-heading">

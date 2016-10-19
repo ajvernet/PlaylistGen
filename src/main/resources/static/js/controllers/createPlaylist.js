@@ -10,7 +10,7 @@ function CreatePlaylistCtrl($scope, $timeout, $http, $state, PlaylistService) {
     controller.id = PlaylistService.getId.id;
     controller.searchResults = PlaylistService.getSearchResults;
     controller.createdPlaylist = PlaylistService.getPlaylist;
-    controller.inPlaylist = PlaylistService.getTitles;
+    controller.inPlaylist = PlaylistService.getEpisodeIds;
     controller.readyToSave = PlaylistService.getLoadedPlaylist;
     controller.notReadyToSave = PlaylistService.getLoadingPlaylist;
     controller.userDuration = PlaylistService.getUserDuration.duration;
@@ -52,20 +52,6 @@ function CreatePlaylistCtrl($scope, $timeout, $http, $state, PlaylistService) {
     controller.lowerSong = function (index) {
         controller.moveItem(index, index + 1);
     };
-    //var stopped;
-    //
-    //controller.countdown = function() {
-    //    stopped = $timeout(function() {
-    //       controller.counter--;   
-    //       controller.countdown();   
-    //    }, 1000);
-    //  };
-    //   
-    //    
-    //  controller.stop = function(){
-    //   $timeout.cancel(stopped);
-    //    
-    //    }
     controller.savePlaylist = function () {
         if (controller.playlistName == "New Playlist") {
             controller.playlistName = "";
