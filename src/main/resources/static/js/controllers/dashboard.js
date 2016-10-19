@@ -5,16 +5,29 @@ function DashboardCtrl($http, PlaylistService, $state) {
 
     var ctrl = this;
     
+    ctrl.user = window.location.pathname.replace("/podcasts/user/","").replace("/","");
+    
     ctrl.podcasts = [];
+    ctrl.recommended = [];
     ctrl.selectedPodcasts = [];
     
     $http.get("/podcasts/tasties/")
     .then(function(response) {
-    	console.log(response);
+    	//console.log(response);
     	for(i=0; i<response.data.obj.length; i++){
 	    	var temp = {'id': i, 'title': response.data.obj[i].name, 'duration': response.data.obj[i].duration, 'url': response.data.obj[i].fileUrl, 'show': response.data.obj[i].show.name, 'json': response.data.obj[i]}
 	    	ctrl.podcasts.push(temp);
 	    	}
+    })
+    
+    $http.get("/podcasts/user/" + ctrl.user + "/newshows/")
+    .then(function(response) {
+    	console.log(response);
+    	for(i=0; i<response.data.obj.length; i++){
+	    	var temp = {'id': i, 'title': response.data.obj[i].name, 'duration': response.data.obj[i].duration, 'url': response.data.obj[i].fileUrl, 'show': response.data.obj[i].show.name, 'json': response.data.obj[i]}
+	    	ctrl.recommended.push(temp);
+	    	}
+    	console.log(ctrl.recommended);
     })
     
     ctrl.initPL = function(){
@@ -24,6 +37,14 @@ function DashboardCtrl($http, PlaylistService, $state) {
     	     if(ctrl.podcasts[i].selected == true)
     	      {
     	    	 ctrl.selectedPodcasts.push(ctrl.podcasts[i]);
+    	      }
+    	 }
+    	
+    	for (i=0; i<ctrl.recommended.length; i++)
+    	{
+    	     if(ctrl.recommended[i].selected == true)
+    	      {
+    	    	 ctrl.selectedPodcasts.push(ctrl.recommended[i]);
     	      }
     	 }
  

@@ -24,6 +24,8 @@ function PlaylistService($http, $timeout) {
 	searchResults : function(key, gen){
 		service.keyword.key = key;
 		service.genre.gen = gen;
+		angular.copy(service.emptyArray, service.tempResults);
+		angular.copy(service.emptyArray, service.searchResults);
 		
 		$http({
             method: "POST"
@@ -36,7 +38,7 @@ function PlaylistService($http, $timeout) {
             }
         }).success(function (response) {
         	
-        	console.log(response.obj);
+        	console.log(response.status + ": " + response.msg)
         	
 	    	for(i=0; i<response.obj.length; i++){
 	    	var temp = {'id': i, 'title': response.obj[i].name, 'duration': response.obj[i].duration, 'url': response.obj[i].fileUrl, 'show': response.obj[i].show.name, 'thumb': response.obj[i].show.thumbUrl, 'description': response.obj[i].description, 'json': response.obj[i]}

@@ -1,22 +1,13 @@
-<!--
-<div id="newPL" class="playlistTitle">
-<ul class="nav nav-pills" role="tablist">
-    <li class="active" style="font-size:2em;"><a>{{ MC.playlistName }}</a></li>
-    <li class="hoverPointer"><a ng-click="MC.rename()">Edit</a></li>
-    <li class="hoverPointer"><a ng-click="MC.clear()">Clear</a></li>
-  </ul>
-</div>
-<br><br>
--->
-
+<body style="background-color:red">
 <div class="listsContainer">
 
 	<div class="resultsDiv">
-		<h3>Podcast Search</h3>
-
-		<input type="text" size="30" ng-model="MC.keywordSearch">
-		
-		<select class="form-control" id="genre" ng-model="MC.genre">
+	
+	<div style="display: inline-block; width:100%; border: solid 2px silver; background-color: white; padding: 10px;">
+	<div style="font-size: 3em; float:left; display:inline-block; width:40%;">Podcast Search</div>
+	<div style="text-align: right; float:left; display:inline-block; width:50%;"><input type="text" size="40" ng-model="MC.keywordSearch" style="width: 300px;" placeholder="    Search by keyword"><br>
+	<select class="form-control" id="genre" ng-model="MC.genre" style="width: 300px;">
+		<option value="" disabled selected style="display: none;">Optional: choose a genre</option>
         <option>Comedy</option>
         <option>Sports & Recreation</option>
         <option>Business</option>
@@ -27,12 +18,11 @@
         <option>Technology</option>
         <option>Education</option>
       </select>
-      
-      <span class="genreLabel">
-		Genre: 
-		</span>
-      
-		<button id="submitSearchBtn" ng-click="MC.submitSearch(MC.keywordSearch, MC.genre)">Search</button>
+	</div>
+	<div style="text-align: right; float:right; display:inline-block; width:10%;">
+		<button id="submitSearchBtn" ng-click="MC.submitSearch(MC.keywordSearch, MC.genre)" style="font-size: large;"">Search</button>
+	</div>
+	</div>
 
 
 <br><br>
@@ -77,7 +67,7 @@
 
 <div id="newPL" class="playlistTitle">
 <ul class="nav nav-pills" role="tablist">
-    <li class="active" style="font-size:2em;"><a>{{ MC.playlistName }}</a></li>
+    <li class="active" style="font-size:2em; word-wrap: break-word; max-width: 400px;"><a>{{ MC.playlistName }}</a></li>
     <li class="hoverPointer"><a ng-click="MC.rename()">Edit</a></li>
     <li class="hoverPointer"><a ng-click="MC.clear()">Clear</a></li>
   </ul>
@@ -96,10 +86,10 @@ Playlist Status: <span ng-style="MC.playlistStatus == 'Verifying podcast audio..
 <br>
 <button ng-click="MC.savePlaylist()" ng-hide="MC.isLoading()">Save Playlist</button>
 </div>
-<br><br>
+<br>
 
-<table class="table table-hover table-striped table-bordered">
-			<tr ng-repeat="podcast in MC.createdPlaylist"  ng-style="podcast.loaded == true && {} || !podcasthasOwnProperty('loaded') && {'background-color': 'silver', 'opacity': '.6'}">
+<table class="table table-hover table-striped table-bordered stripeColorOdd">
+			<tr ng-repeat="podcast in MC.createdPlaylist"  ng-style="podcast.loaded == true && {} || !podcasthasOwnProperty('loaded') && {'background-color': '#666666', 'opacity': '.6'}">
 
 		  <td>
 		  <div class="resultsWrapper">
@@ -148,3 +138,4 @@ Playlist Status: <span ng-style="MC.playlistStatus == 'Verifying podcast audio..
 </div>
 
 <div class="namePopupBG" ng-show="MC.showNameDiv"></div>
+</body>
