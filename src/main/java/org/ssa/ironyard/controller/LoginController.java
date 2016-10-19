@@ -2,7 +2,6 @@ package org.ssa.ironyard.controller;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
@@ -49,21 +48,19 @@ public class LoginController {
 	return ResponseEntity.ok()
 		.body(ResponseObject.instanceOf(STATUS.SUCCESS, "Congratulations, you are a valid user", user.getId()));
     }
-    
-    @RequestMapping(value="", method=RequestMethod.GET)
-    public View showLoginPage(){
+
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public View showLoginPage() {
 	return new InternalResourceView("/login.html");
     }
-    
+
     @RequestMapping(value = "/user/{userId}/")
-    public View home(@PathVariable Integer userId)
-    {
-        return new InternalResourceView("/index.html");
+    public View home(@PathVariable Integer userId) {
+	return new InternalResourceView("/index.html");
     }
-    
+
     @GetMapping("/logout")
-    public View logout(HttpSession session)
-    {
+    public View logout(HttpSession session) {
 	session.invalidate();
 	return new RedirectView("login", true);
     }
