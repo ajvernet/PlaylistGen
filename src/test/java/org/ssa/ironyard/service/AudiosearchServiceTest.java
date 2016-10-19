@@ -1,9 +1,6 @@
 package org.ssa.ironyard.service;
 
-import static org.junit.Assert.*;
-
-import java.io.IOException;
-import java.util.List;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -13,13 +10,9 @@ import org.ssa.ironyard.dao.EpisodeDAO;
 import org.ssa.ironyard.dao.EpisodeDAOImpl;
 import org.ssa.ironyard.dao.PlaylistDAO;
 import org.ssa.ironyard.dao.PlaylistDAOImpl;
-import org.ssa.ironyard.model.Episode;
 import org.ssa.ironyard.model.Genre;
-import org.ssa.ironyard.service.mapper.SearchResults;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mysql.cj.jdbc.MysqlDataSource;
 
@@ -71,7 +64,7 @@ public class AudiosearchServiceTest {
 
     @Test
     public void testTasties() {
-	System.out.println(ass.getTasties());
+	ass.getTasties();
     }
 
     @Ignore
