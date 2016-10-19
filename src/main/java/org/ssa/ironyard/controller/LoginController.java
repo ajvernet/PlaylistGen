@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.InternalResourceView;
+import org.springframework.web.servlet.view.RedirectView;
 import org.ssa.ironyard.model.ResponseObject;
 import org.ssa.ironyard.model.ResponseObject.STATUS;
 import org.ssa.ironyard.model.User;
@@ -57,5 +59,12 @@ public class LoginController {
     public View home(@PathVariable Integer userId)
     {
         return new InternalResourceView("/index.html");
+    }
+    
+    @GetMapping("/logout")
+    public View logout(HttpSession session)
+    {
+	session.invalidate();
+	return new RedirectView("login", true);
     }
 }
