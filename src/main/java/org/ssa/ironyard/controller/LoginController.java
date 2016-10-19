@@ -62,6 +62,6 @@ public class LoginController {
     @GetMapping("/logout")
     public View logout(HttpSession session) {
 	session.invalidate();
-	return new RedirectView("login", true);
+	return new RedirectView("", true);
     }
 }
