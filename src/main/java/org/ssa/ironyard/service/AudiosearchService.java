@@ -232,7 +232,7 @@ public class AudiosearchService {
 	episodes = episodes.subList(0, episodes.size() < maxEpisodes ? episodes.size() : maxEpisodes);
 	StringJoiner joiner = new StringJoiner(" id: ", "id: ", "");
 	episodes.stream().forEach(e -> joiner.add(e.getEpisodeId().toString()));
-	String searchText = joiner.toString();
+	String searchText = episodes.size() == 0 ? "*" : joiner.toString();
 	episodes.clear();
 	LOGGER.trace("Search text: " + searchText);
 	String searchUri = apiBaseUri + "/search/episodes/" + searchText;
