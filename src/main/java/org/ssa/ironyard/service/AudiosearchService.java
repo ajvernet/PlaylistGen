@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -76,8 +77,8 @@ public class AudiosearchService {
 	}
 	List<Episode> episodes = new ArrayList<>();
 	for (EpisodeResult episodeResult : response.getBody().getResults()) {
-	    Episode episode = Episode.builder().episodeId(episodeResult.getId()).name(episodeResult.getTitle())
-		    .genreId(getGenreId(episodeResult)).description(episodeResult.getDescription())
+	    Episode episode = Episode.builder().episodeId(episodeResult.getId()).name(Jsoup.parse(episodeResult.getTitle()).text())
+		    .genreId(getGenreId(episodeResult)).description(episodeResult.getDescription() == null ? null : Jsoup.parse(episodeResult.getDescription()).text())
 		    .duration(getDuration(episodeResult)).fileUrl(getAudioFileUrl(episodeResult))
 		    .show(new Show(episodeResult.getShowId(), episodeResult.getShowTitle(),
 			    getThumbnail(episodeResult)))
@@ -152,7 +153,6 @@ public class AudiosearchService {
 
     public List<Episode> getTasties() {
 	final String uri = apiBaseUri + "/tasties";
-	Integer maxEpisodes = 20;
 	LOGGER.debug("tastiesUrl: {}", uri);
 	RestTemplate restTemplate = new RestTemplate();
 	ClientHttpRequestInterceptor ri = new LoggingRequestInterceptor();
@@ -186,8 +186,9 @@ public class AudiosearchService {
 	}
 	List<Episode> episodes = new ArrayList<>();
 	for (TastiesEpisodeResult episodeResult : episodeResults) {
-	    Episode episode = Episode.builder().episodeId(episodeResult.getId()).name(episodeResult.getTitle())
-		    .description(episodeResult.getDescription()).duration(episodeResult.getAudio_files().getDuration())
+	    Episode episode = Episode.builder().episodeId(episodeResult.getId()).name(Jsoup.parse(episodeResult.getTitle()).text())
+		    .description(episodeResult.getDescription() == null ? null : Jsoup.parse(episodeResult.getDescription()).text())
+			    .duration(episodeResult.getAudio_files().getDuration())
 		    .fileUrl(getTastiesAudioFile(episodeResult))
 		    .show(new Show(episodeResult.getShow_id(), episodeResult.getShow_title(), null)).build();
 	    if (episode.getFileUrl() != null)
@@ -205,7 +206,6 @@ public class AudiosearchService {
 	episodes.clear();
 	LOGGER.trace("Search text: " + searchText);
 	String searchUri = apiBaseUri + "/search/episodes/" + searchText;
-	searchUri += maxEpisodes > 10 ? "?size=" + maxEpisodes + "&from=0" : "";
 	LOGGER.debug("searchUrl: {}", searchUri);
 	ResponseEntity<EpisodeQueryResult> response;
 	try {
@@ -258,7 +258,7 @@ public class AudiosearchService {
 	    }
 	    LOGGER.trace("{}", showResults.getEpisode_ids());
 	    episodes.addAll(showResults.getEpisode_ids().stream().filter(e -> e > episode.getEpisodeId())
-		    .map(e -> Episode.builder().episodeId(e).build()).collect(Collectors.toList()));
+		    .map(e -> Episode.builder().episodeId(e).build()).limit(3).collect(Collectors.toList()));
 	    if (episodes.size() >= maxEpisodes)
 		break;
 	}
@@ -282,7 +282,7 @@ public class AudiosearchService {
 	LOGGER.info("Response contained {} results", response.getBody().getResults().size());
 	for (EpisodeResult episodeResult : response.getBody().getResults()) {
 	    Episode episode = Episode.builder().episodeId(episodeResult.getId()).name(episodeResult.getTitle())
-		    .genreId(getGenreId(episodeResult)).description(episodeResult.getDescription())
+		    .genreId(getGenreId(episodeResult)).description(episodeResult.getDescription()==null ? null: Jsoup.parse(episodeResult.getDescription()).text())
 		    .duration(getDuration(episodeResult)).fileUrl(getAudioFileUrl(episodeResult))
 		    .show(new Show(episodeResult.getShowId(), episodeResult.getShowTitle(),
 			    getThumbnail(episodeResult)))
@@ -309,7 +309,7 @@ public class AudiosearchService {
 	List<Episode> episodes = new ArrayList<>();
 	for (EpisodeResult episodeResult : response.getBody().getResults()) {
 	    Episode episode = Episode.builder().episodeId(episodeResult.getId()).name(episodeResult.getTitle())
-		    .genreId(getGenreId(episodeResult)).description(episodeResult.getDescription())
+		    .genreId(getGenreId(episodeResult)).description(episodeResult.getDescription()==null ? null: Jsoup.parse(episodeResult.getDescription()).text())
 		    .duration(getDuration(episodeResult)).fileUrl(getAudioFileUrl(episodeResult))
 		    .show(new Show(episodeResult.getShowId(), episodeResult.getShowTitle(),
 			    getThumbnail(episodeResult)))

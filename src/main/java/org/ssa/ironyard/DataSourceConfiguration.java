@@ -1,4 +1,4 @@
-package org.ssa.ironyard.service;
+package org.ssa.ironyard;
 
 import javax.sql.DataSource;
 
@@ -12,7 +12,7 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 @Configuration
 public class DataSourceConfiguration {
 
-    static String URL = "jdbc:mysql://localhost/playlistdb?" + "user=root&password=root" + "&useServerPrepStmt=true";
+    static String URL = "jdbc:mysql://localhost/playlistdemo?" + "user=root&password=root" + "&useServerPrepStmt=true";
     static final Logger LOGGER = LogManager.getLogger(DataSourceConfiguration.class);
 
     @Bean(name = "datasource")
@@ -22,5 +22,4 @@ public class DataSourceConfiguration {
 	mysqlDataSource.setUrl(URL);
 	return mysqlDataSource;
     }
-
 }
