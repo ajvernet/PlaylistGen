@@ -152,6 +152,7 @@ public class AudiosearchService {
 
     public List<Episode> getTasties() {
 	final String uri = apiBaseUri + "/tasties";
+	Integer maxEpisodes = 20;
 	LOGGER.debug("tastiesUrl: {}", uri);
 	RestTemplate restTemplate = new RestTemplate();
 	ClientHttpRequestInterceptor ri = new LoggingRequestInterceptor();
@@ -161,8 +162,8 @@ public class AudiosearchService {
 	String tastiesList;
 	try {
 	    tastiesList = restTemplate.getForObject(uri, String.class);
-//	     tastiesList = restTemplate.exchange(uri, HttpMethod.GET, oauth,
-//	     String.class).getBody();
+	    // tastiesList = restTemplate.exchange(uri, HttpMethod.GET, oauth,
+	    // String.class).getBody();
 	} catch (Exception e) {
 	    LOGGER.debug("getTasties: {}", e.getMessage());
 	    throw new RuntimeException("No response received from audiosear.ch");
@@ -192,7 +193,40 @@ public class AudiosearchService {
 	    if (episode.getFileUrl() != null)
 		episodes.add(episode);
 	}
-
+	StringJoiner joiner = new StringJoiner(" id: ", "id: ", "");
+	if (episodes.size() == 0)
+	    try {
+		throw new RuntimeException("Tasties contained no valid audio files");
+	    } catch (Exception e1) {
+		throw new RuntimeException("Tasties contained no valid audio files");
+	    }
+	episodes.stream().forEach(e -> joiner.add(e.getEpisodeId().toString()));
+	String searchText = joiner.toString();
+	episodes.clear();
+	LOGGER.trace("Search text: " + searchText);
+	String searchUri = apiBaseUri + "/search/episodes/" + searchText;
+	searchUri += maxEpisodes > 10 ? "?size=" + maxEpisodes + "&from=0" : "";
+	LOGGER.debug("searchUrl: {}", searchUri);
+	ResponseEntity<EpisodeQueryResult> response;
+	try {
+	    response = restTemplate.exchange(searchUri, HttpMethod.GET, oauth, EpisodeQueryResult.class);
+	} catch (Exception e) {
+	    LOGGER.debug("getTasties: {}", e.getMessage());
+	    throw new RuntimeException("No response from audiosear.ch");
+	}
+	LOGGER.info("Response contained {} results", response.getBody().getResults().size());
+	for (EpisodeResult episodeResult : response.getBody().getResults()) {
+	    Episode episode = Episode.builder().episodeId(episodeResult.getId()).name(episodeResult.getTitle())
+		    .genreId(getGenreId(episodeResult)).description(episodeResult.getDescription())
+		    .duration(getDuration(episodeResult)).fileUrl(getAudioFileUrl(episodeResult))
+		    .show(new Show(episodeResult.getShowId(), episodeResult.getShowTitle(),
+			    getThumbnail(episodeResult)))
+		    .build();
+	    if (episode.getFileUrl() != null)
+		episodes.add(episode);
+	}
+	LOGGER.trace(episodes);
+	LOGGER.debug("{} valid episodes found", episodes.size());
 	return episodes;
     }
 
