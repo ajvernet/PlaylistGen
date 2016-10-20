@@ -7,6 +7,24 @@ body{
     background-size: cover;
 }
 
+.headDiv{
+	display: block;
+	position: absolute;
+	width: 100%;
+	height: 10%;
+	left:0;
+	top:-2%;
+	z-index: -1;
+	background-image: url("/images/podcast-01-background-noise.png");
+}
+
+.title{
+	font-size: 3em;
+	color: black;
+    text-shadow: -2px 0 silver, 0 2px silver, 2px 0 silver, 0 -2px silver;
+    text-align: center;
+}
+
 .listsContainer{
 	display: block;
 }
@@ -146,7 +164,7 @@ input[type=number]{
 }
 
 .tasties{
-	width: 45%;
+	width: 48%;
 	float: right;
 }
 
@@ -158,7 +176,7 @@ input[type=number]{
 }
 
 .recommended{
-	width: 45%;
+	width: 48%;
 	float: left;
 }
 

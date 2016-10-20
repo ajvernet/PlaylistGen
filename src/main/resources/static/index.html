@@ -22,16 +22,17 @@
 
 <body>
     <header>
-        <h1 style="color: lightgray;">Podcaster</h1>
-        <nav class="navbar navbar-default">
-            <ul class="nav navbar-nav">
-                <li><a ui-sref="dashboard" ui-sref-active="active">Tastemakers</a></li>
-                <li><a ui-sref="createPlaylist" ui-sref-active="active">Create Playlist</a></li>
-                <li><a ui-sref="playlists" ui-sref-active="active">Saved Playlists</a></li>
-                <li><a href="/podcasts/logout" >Logout</a></li>
+        <h1 class="title">Audio Search Service</h1>
+        <nav class="navbar navbar-default" style="font-size: large;">
+            <ul class="nav navbar-nav" style="float: none!Important;">
+                <li style="padding-left:5%;"><a ui-sref="dashboard" ui-sref-active="active">Home</a></li>
+                <li style="padding-left:5%;"><a ui-sref="createPlaylist" ui-sref-active="active">Create Playlist</a></li>
+                <li style="padding-left:5%;"><a ui-sref="playlists" ui-sref-active="active">Saved Playlists</a></li>
+                <li style="float:right;"><a href="/podcasts/logout" >Logout</a></li>
             </ul>
         </nav>
     </header>
+    <div class="headDiv"></div>
     <div class="container">
         <main ui-view> </main>
     </div>
