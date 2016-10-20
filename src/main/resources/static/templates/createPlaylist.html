@@ -1,19 +1,7 @@
-<!--
-<div id="newPL" class="playlistTitle">
-<ul class="nav nav-pills" role="tablist">
-    <li class="active" style="font-size:2em;"><a>{{ MC.playlistName }}</a></li>
-    <li class="hoverPointer"><a ng-click="MC.rename()">Edit</a></li>
-    <li class="hoverPointer"><a ng-click="MC.clear()">Clear</a></li>
-  </ul>
-</div>
-<br><br>
--->
-
-<body style="background-color:red">
-    <div class="listsContainer">
+<div class="listsContainer">
         <div class="resultsDiv">
             <div style="display: inline-block; width:100%; border: solid 2px silver; background-color: white; padding: 10px;">
-                <div style="font-size: 3em; float:left; display:inline-block; width:40%;">Podcast Search</div>
+                <div style="font-size: 3em; float:left; display:inline-block; width:40%;" class="borderText">Podcast Search</div>
                 <div style="text-align: right; float:left; display:inline-block; width:50%;">
                     <input type="text" size="40" ng-model="MC.keywordSearch" style="width: 300px;" placeholder="    Search by keyword">
                     <br>
@@ -34,6 +22,14 @@
                     <button id="submitSearchBtn" ng-click="MC.submitSearch(MC.keywordSearch, MC.genre)" style="font-size: large;">Search</button>
                 </div>
             </div>
+            <div class="sortDiv">
+	            <div class="btn-group">
+	            	<button type="button" class="btn btn-primary">Apple</button>
+	  				<button type="button" class="btn btn-primary">Samsung</button>
+	  				<button type="button" class="btn btn-primary">Sony</button>
+	            </div>
+            </div>
+            
             <br>
             <br>
             <ul>
@@ -44,7 +40,7 @@
                                 <a data-toggle="collapse" data-target="#collapse{{ $index + 1 }}">
                                     <h4 class="panel-title">
         <div class="resultsWrapper hoverPointer">
-          <img src="{{ podcast.thumb }}">
+          <img src="{{ podcast.thumb }}" style="width: 13%;">
           <div class="wrapperDiv">
           <table class="resultsTable">
           <tr><td style="color:black;">Show: </td>
@@ -58,6 +54,7 @@
           </tr>
           </table>
           </div>
+          <button ng-click="MC.addToPL(podcast)" style="width:8%;">Add</span></button>
         </div>
         </h4> </a>
                             </div>
@@ -65,11 +62,13 @@
                                 <div class="panel-body">
                                     <table>
                                         <tr>
-                                            <td>{{ podcast.description }}</td>
-                                            <td style="width:5%;">
+                                            <td style="display: inline-block; width:100%; word-break: break-word;">{{ podcast.description }}</td>
+<!--
+                                            <td style="display: inline-block; width:5%;">
                                                 <button ng-click="MC.addToPL(podcast)" style="height: 100%;">Add</span>
                                                 </button>
                                             </td>
+-->
                                         </tr>
                                     </table>
                                 </div>
@@ -87,11 +86,11 @@
             </div>
             <br>
             <br>
-            <div ng-show="MC.readyToSave.length">
+            <div ng-show="MC.readyToSave.length || MC.notReadyToSave.length">
                 <div class="playlistDiv"> <span ng-show="MC.userDuration">Trip Duration: {{ MC.formatTime(MC.userDuration) }}</span>
                     <br> Playlist Duration: <span ng-style="(MC.playlistDurationBuilder() > MC.userDuration && MC.userDuration > 0) && {'color': '#ff3333'}">{{ MC.formatTime(MC.playlistDurationBuilder()) }}</span>
                     <br>
-                    <button ng-click="MC.savePlaylist()">Save Playlist</button>
+                    <button ng-click="MC.savePlaylist()" ng-show="MC.readyToSave.length">Save Playlist</button>
                 </div>
                 <br>
                 <br>
@@ -122,7 +121,7 @@
                         </td>
                     </tr>
                 </table>
-                <h3>Waiting for podcast host to respond</h3>
+                <h3 class="borderText" ng-show="MC.notReadyToSave.length">Waiting for podcast host to respond...</h3>
                 <table class="table table-hover table-bordered">
                     <tr ng-repeat="podcast in MC.notReadyToSave" ng-style=" {'background-color': 'silver', 'opacity': '.6'}">
                         <td>
@@ -146,8 +145,7 @@
                 </table>
             </div>
         </div>
-    </div>
-    </div>
+</div>
     <div class="namePopup" ng-show="MC.showNameDiv">
         <h3>Name your new playlist:</h3>
         <form ng-submit="MC.initializePL()" name="nameForm">
@@ -163,4 +161,3 @@
             <input type="submit" value="Save" ng-disabled="nameForm.$invalid"> </form>
     </div>
     <div class="namePopupBG" ng-show="MC.showNameDiv"></div>
-</body>

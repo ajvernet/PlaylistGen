@@ -68,6 +68,13 @@ function PlaylistService($http, $timeout, $rootScope) {
             console.log("Add podcast w/ Id: " + podcast.json.episodeId);
             if (service.episodeIds.indexOf(podcast.json.episodeId) == -1) {
                 console.log("Podcast " + podcast.json.episodeId + " was not already in playlist");
+              if (podcast.bytesReturned == true){
+            	service.loadedPlaylist.push(podcast);
+            	angular.copy(service.loadedPlaylist, service.readyToSave);
+            	service.episodeIds.push(podcast.json.episodeId);
+              }
+              else{
+                
                 service.tempPlaylist.push(podcast);
                 service.loadingPlaylist.push(podcast); //andy
                 console.log("Podcast added to service playlist: loading");
@@ -79,15 +86,7 @@ function PlaylistService($http, $timeout, $rootScope) {
                     , url: podcast.url
                     , whileloading: function () {
                         console.log("Whileloading called for " + podcast.title);
-                        if (!podcast.bytesReturned) {
-                            //                            //console.log(Math.round(tempPodcast.durationEstimate / 1000));
-                            //					  console.log(Math.round(tempPodcast.duration / 1000));
-                            //					  //un-gray
-                            //					  for(i=0; i<controller.createdPlaylist.length; i++){
-                            //						  if(controller.createdPlaylist[i].title == podcast.title && tempPodcast.readyState == 3){
-                            //							  controller.createdPlaylist[i].loaded = true;
-                            //							  //todo --- update durationbuilder and json object based on below
-                            //							  controller.createdPlaylist[i].duration = Math.round(tempPodcast.duration / 1000);
+                        if (!podcast.hasOwnProperty('bytesReturned')) {
                             console.log("Estimated duration: " + Math.round(tempPodcast.durationEstimate));
                             podcast.duration = Math.round(tempPodcast.durationEstimate / 1000) || podcast.duration;
                             podcast.bytesReturned = true;
@@ -106,21 +105,27 @@ function PlaylistService($http, $timeout, $rootScope) {
                                     $rootScope.$apply();
                                 }
                         }
+                        
                         tempPodcast.destruct();
                     }
                 }).load();
+            }
             }
         }
         , dropPodcast: function (index) {
             service.loadedPlaylist.splice(index, 1);
             angular.copy(service.loadedPlaylist, service.readyToSave);
-            service.titles.splice(index, 1);
+            service.episodeIds.splice(index, 1);
         }
         , movePodcast: function (origin, destination) {
             var temp = service.loadedPlaylist[destination];
             service.loadedPlaylist[destination] = service.loadedPlaylist[origin];
             service.loadedPlaylist[origin] = temp;
             angular.copy(service.loadedPlaylist, service.readyToSave);
+            
+            var temp2 = service.episodeIds[destination];
+            service.episodeIds[destination] = service.episodeIds[origin];
+            service.episodeIds[origin] = temp2;
         }
         , getSearchResults: service.searchResults
         , getPlaylist: service.createdPlaylist
