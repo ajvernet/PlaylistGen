@@ -82,14 +82,4 @@ public class PlaylistController {
     public ResponseEntity<ResponseObject> getPlaylistById(@PathVariable Integer playlistId) {
 	return ResponseEntity.ok().body(ResponseObject.instanceOf(STATUS.SUCCESS, "Here's your selected playlist", playlistService.getPlaylistById(playlistId)));
     }
-    
-    @RequestMapping(value="test/{episodeId}", method = RequestMethod.GET)
-    public ResponseEntity<ResponseObject> testEpisodeById(@PathVariable Integer episodeId){
-	return ResponseEntity.ok().body(ResponseObject.instanceOf(STATUS.SUCCESS, "checked", playlistService.testPodcastAvailable(episodeId)));
-    }
-    
-    @RequestMapping(value="test", method=RequestMethod.POST)
-    public ResponseEntity<ResponseObject> testEpisodeByURl(@RequestBody Map<String, String> map){
-	return ResponseEntity.ok().body(ResponseObject.instanceOf(STATUS.SUCCESS, "checked", playlistService.testPodcastAvailable(map.get("url"))));
-    }
 }

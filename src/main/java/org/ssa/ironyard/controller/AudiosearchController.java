@@ -58,14 +58,31 @@ public class AudiosearchController {
     
     @RequestMapping(value="tasties", method=RequestMethod.GET)
     ResponseEntity<ResponseObject> getTasties(){
+	STATUS status = STATUS.SUCCESS;
+	String msg = "Tasties results returned";
+	List<Episode> episodes = new ArrayList<>();
+	try{
+	episodes = ass.getTasties();}
+	catch (Exception e){
+	    status = STATUS.ERROR;
+	    msg = e.getMessage();
+	}
 	return ResponseEntity.ok()
-		.body(ResponseObject.instanceOf(STATUS.SUCCESS, "Here's some tasties", ass.getTasties()));
+		.body(ResponseObject.instanceOf(status, msg, episodes));
     }
     
     @RequestMapping(value="user/{userId}/newshows")
-    ResponseEntity<ResponseObject> getNewShows(@PathVariable Integer userId){
+    ResponseEntity<ResponseObject> getNewShows(@PathVariable Integer userId){STATUS status = STATUS.SUCCESS;
+	String msg = "New(er) episodes returned";
+	List<Episode> episodes = new ArrayList<>();
+	try{
+	    episodes = ass.getNewShowsByUserId(userId);
+	}catch(Exception e){
+	    status = STATUS.ERROR;
+	    msg = e.getMessage();
+	}
 	return ResponseEntity.ok()
-		.body(ResponseObject.instanceOf(STATUS.SUCCESS, "New shows", ass.getNewShowsByUserId(userId)));
+		.body(ResponseObject.instanceOf(status, msg, episodes));
     }
 
 }

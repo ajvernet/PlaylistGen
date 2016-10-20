@@ -10,7 +10,6 @@ import org.ssa.ironyard.dao.EpisodeDAO;
 import org.ssa.ironyard.dao.PlaylistDAO;
 import org.ssa.ironyard.model.Episode;
 import org.ssa.ironyard.model.Playlist;
-import org.ssa.ironyard.service.util.Ping;
 
 @Service
 public class PlaylistService {
@@ -49,15 +48,7 @@ public class PlaylistService {
 	return playlist.of().id(playlistId).build();
     }
 
-    public boolean testPodcastAvailable(Integer episodeId) {
-	return testPodcastAvailable(episodeDao.read(episodeId).getFileUrl());
-    }
-
-    public boolean testPodcastAvailable(String episodeUrl) {
-	return Ping.pingURL(episodeUrl, 1000);
-    }
-    
-    public List<Episode> getTopTenShowsByUserId(Integer userId){
+    public List<Episode> getTopTenShowsByUserId(Integer userId) {
 	return episodeDao.getTopTenShows(userId);
     }
 

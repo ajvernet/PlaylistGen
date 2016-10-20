@@ -1,6 +1,5 @@
 package org.ssa.ironyard.service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -36,9 +35,6 @@ import org.ssa.ironyard.service.mapper.TastiesEpisodeResult;
 import org.ssa.ironyard.service.mapper.TastiesResult;
 
 import com.google.gson.Gson;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 
 @Service
 public class AudiosearchService {
@@ -162,7 +158,15 @@ public class AudiosearchService {
 	List<ClientHttpRequestInterceptor> ris = new ArrayList<ClientHttpRequestInterceptor>();
 	ris.add(ri);
 	restTemplate.setInterceptors(ris);
-	String tastiesList = restTemplate.getForObject(uri, String.class, oauth);
+	String tastiesList;
+	try {
+	    tastiesList = restTemplate.getForObject(uri, String.class);
+//	     tastiesList = restTemplate.exchange(uri, HttpMethod.GET, oauth,
+//	     String.class).getBody();
+	} catch (Exception e) {
+	    LOGGER.debug("getTasties: {}", e.getMessage());
+	    throw new RuntimeException("No response received from audiosear.ch");
+	}
 	LOGGER.debug("Response received and loaded");
 
 	Gson gson = new Gson();
@@ -235,7 +239,12 @@ public class AudiosearchService {
 	searchUri += maxEpisodes > 10 ? "?size=" + maxEpisodes + "&from=0" : "";
 	LOGGER.debug("searchUrl: {}", searchUri);
 	ResponseEntity<EpisodeQueryResult> response;
-	response = restTemplate.exchange(searchUri, HttpMethod.GET, oauth, EpisodeQueryResult.class);
+	try {
+	    response = restTemplate.exchange(searchUri, HttpMethod.GET, oauth, EpisodeQueryResult.class);
+	} catch (Exception e) {
+	    LOGGER.debug("getNewShowsByUserId: {}", e.getMessage());
+	    throw new RuntimeException("No response from audiosear.ch");
+	}
 	LOGGER.info("Response contained {} results", response.getBody().getResults().size());
 	for (EpisodeResult episodeResult : response.getBody().getResults()) {
 	    Episode episode = Episode.builder().episodeId(episodeResult.getId()).name(episodeResult.getTitle())
@@ -286,5 +295,21 @@ public class AudiosearchService {
 	HttpEntity<String> entity = new HttpEntity<String>(headers);
 	LOGGER.debug(headers.toString());
 	return entity;
+    }
+
+    protected boolean urlHeadRequestSucceeds(String url) {
+	RestTemplate restTemplate = new RestTemplate();
+	HttpHeaders headers = new HttpHeaders();
+	headers.setAccept(Arrays.asList(MediaType.ALL));
+	HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+
+	try {
+	    restTemplate.exchange(url, HttpMethod.HEAD, entity, String.class);
+	} catch (Exception e) {
+	    LOGGER.debug("Exception thrown getting headers for resource: {}", url);
+	    LOGGER.debug(e.getMessage());
+	    return false;
+	}
+	return true;
     }
 }

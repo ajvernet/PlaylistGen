@@ -1,38 +1,48 @@
-<body style="background-color:red">
-<div class="listsContainer">
-
-	<div class="resultsDiv">
-	
-	<div style="display: inline-block; width:100%; border: solid 2px silver; background-color: white; padding: 10px;">
-	<div style="font-size: 3em; float:left; display:inline-block; width:40%;">Podcast Search</div>
-	<div style="text-align: right; float:left; display:inline-block; width:50%;"><input type="text" size="40" ng-model="MC.keywordSearch" style="width: 300px;" placeholder="    Search by keyword"><br>
-	<select class="form-control" id="genre" ng-model="MC.genre" style="width: 300px;">
-		<option value="" disabled selected style="display: none;">Optional: choose a genre</option>
-        <option>Comedy</option>
-        <option>Sports & Recreation</option>
-        <option>Business</option>
-        <option>Other</option>
-        <option>Society & Culture</option>
-        <option>Arts</option>
-        <option>News & Politics</option>
-        <option>Technology</option>
-        <option>Education</option>
-      </select>
-	</div>
-	<div style="text-align: right; float:right; display:inline-block; width:10%;">
-		<button id="submitSearchBtn" ng-click="MC.submitSearch(MC.keywordSearch, MC.genre)" style="font-size: large;"">Search</button>
-	</div>
-	</div>
-
-
+<!--
+<div id="newPL" class="playlistTitle">
+<ul class="nav nav-pills" role="tablist">
+    <li class="active" style="font-size:2em;"><a>{{ MC.playlistName }}</a></li>
+    <li class="hoverPointer"><a ng-click="MC.rename()">Edit</a></li>
+    <li class="hoverPointer"><a ng-click="MC.clear()">Clear</a></li>
+  </ul>
+</div>
 <br><br>
-<ul>
-<li ng-repeat="podcast in MC.searchResults" ng-if="MC.inPlaylist.indexOf(podcast.title) == -1">
-<div class="panel-group">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-      	<a data-toggle="collapse" data-target="#collapse{{ $index + 1 }}">
-        <h4 class="panel-title">
+-->
+
+<body style="background-color:red">
+    <div class="listsContainer">
+        <div class="resultsDiv">
+            <div style="display: inline-block; width:100%; border: solid 2px silver; background-color: white; padding: 10px;">
+                <div style="font-size: 3em; float:left; display:inline-block; width:40%;">Podcast Search</div>
+                <div style="text-align: right; float:left; display:inline-block; width:50%;">
+                    <input type="text" size="40" ng-model="MC.keywordSearch" style="width: 300px;" placeholder="    Search by keyword">
+                    <br>
+                    <select class="form-control" id="genre" ng-model="MC.genre" style="width: 300px;">
+                        <option value="" disabled selected style="display: none;">Optional: choose a genre</option>
+                        <option>Comedy</option>
+                        <option>Sports & Recreation</option>
+                        <option>Business</option>
+                        <option>Other</option>
+                        <option>Society & Culture</option>
+                        <option>Arts</option>
+                        <option>News & Politics</option>
+                        <option>Technology</option>
+                        <option>Education</option>
+                    </select>
+                </div>
+                <div style="text-align: right; float:right; display:inline-block; width:10%;">
+                    <button id="submitSearchBtn" ng-click="MC.submitSearch(MC.keywordSearch, MC.genre)" style="font-size: large;">Search</button>
+                </div>
+            </div>
+            <br>
+            <br>
+            <ul>
+                <li ng-repeat="podcast in MC.searchResults" ng-if="MC.inPlaylist.indexOf(podcast.json.episodeId) == -1">
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a data-toggle="collapse" data-target="#collapse{{ $index + 1 }}">
+                                    <h4 class="panel-title">
         <div class="resultsWrapper hoverPointer">
           <img src="{{ podcast.thumb }}">
           <div class="wrapperDiv">
@@ -49,93 +59,108 @@
           </table>
           </div>
         </div>
-        </h4>
-        </a>
-      </div>
-      <div id="collapse{{ $index + 1 }}" class="panel-collapse collapse">
-      <div class="panel-body">
-      	<table>
-      	<tr><td>{{ podcast.description }}</td><td style="width:5%;"><button ng-click="MC.addToPL(podcast)" style="height: 100%;">Add</span></button></td></tr>
-      	</table>
+        </h4> </a>
+                            </div>
+                            <div id="collapse{{ $index + 1 }}" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <table>
+                                        <tr>
+                                            <td>{{ podcast.description }}</td>
+                                            <td style="width:5%;">
+                                                <button ng-click="MC.addToPL(podcast)" style="height: 100%;">Add</span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
         </div>
-      </div>
+        <div class="rightDiv">
+            <div id="newPL" class="playlistTitle">
+                <ul class="nav nav-pills" role="tablist">
+                    <li class="active" style="font-size:2em;"><a>{{ MC.playlistName }}</a></li>
+                    <li class="hoverPointer"><a ng-click="MC.rename()">Edit</a></li>
+                    <li class="hoverPointer"><a ng-click="MC.clear()">Clear</a></li>
+                </ul>
+            </div>
+            <br>
+            <br>
+            <div ng-show="MC.readyToSave.length">
+                <div class="playlistDiv"> <span ng-show="MC.userDuration">Trip Duration: {{ MC.formatTime(MC.userDuration) }}</span>
+                    <br> Playlist Duration: <span ng-style="(MC.playlistDurationBuilder() > MC.userDuration && MC.userDuration > 0) && {'color': '#ff3333'}">{{ MC.formatTime(MC.playlistDurationBuilder()) }}</span>
+                    <br>
+                    <button ng-click="MC.savePlaylist()">Save Playlist</button>
+                </div>
+                <br>
+                <br>
+                <table class="table table-hover table-bordered">
+                    <tr ng-repeat="podcast in MC.readyToSave" ng-style=" {'background-color': 'white', 'opacity': '.6'}">
+                        <td>
+                            <div class="resultsWrapper"> <img src="{{ podcast.json.show.thumbUrl }}">
+                                <div class="wrapperDiv">
+                                    <table class="resultsTable">
+                                        <tr>
+                                            <td>{{ podcast.show }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="white-space: wrap;">{{ podcast.title }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ MC.formatTime(podcast.duration) }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="btn-group-vertical wrapInline">
+                                    <button type="button" class="btn btn-primary" ng-click="MC.raiseSong($index)" ng-hide="$first"><i class="fa fa-sort-asc" aria-hidden="true"></i></span>
+                                    </button>
+                                    <button type="button" class="btn btn-primary" ng-click="MC.dropPodcast($index)"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                    <button type="button" class="btn btn-primary" ng-click="MC.lowerSong($index)" ng-hide="$last"><i class="fa fa-sort-desc" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <h3>Waiting for podcast host to respond</h3>
+                <table class="table table-hover table-bordered">
+                    <tr ng-repeat="podcast in MC.notReadyToSave" ng-style=" {'background-color': 'silver', 'opacity': '.6'}">
+                        <td>
+                            <div class="resultsWrapper"> <img src="{{ podcast.json.show.thumbUrl }}">
+                                <div class="wrapperDiv">
+                                    <table class="resultsTable">
+                                        <tr>
+                                            <td>{{ podcast.show }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="white-space: wrap;">{{ podcast.title }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ MC.formatTime(podcast.duration) }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
-</div>
-</div>
-
-<div class="rightDiv">
-
-<div id="newPL" class="playlistTitle">
-<ul class="nav nav-pills" role="tablist">
-    <li class="active" style="font-size:2em; word-wrap: break-word; max-width: 400px;"><a>{{ MC.playlistName }}</a></li>
-    <li class="hoverPointer"><a ng-click="MC.rename()">Edit</a></li>
-    <li class="hoverPointer"><a ng-click="MC.clear()">Clear</a></li>
-  </ul>
-</div>
-
-<br><br>
-
-<div ng-show="MC.createdPlaylist.length">
-<div class="playlistDiv">
-
-<span ng-show="MC.userDuration">Trip Duration: {{ MC.formatTime(MC.userDuration) }}</span>
-<br>
-Playlist Duration: <span ng-style="(MC.playlistDurationBuilder() > MC.userDuration && MC.userDuration > 0) && {'color': '#ff3333'}">{{ MC.formatTime(MC.playlistDurationBuilder()) }}</span>
-<br>
-Playlist Status: <span ng-style="MC.playlistStatus == 'Verifying podcast audio...' && {'color': 'blue'} || MC.playlistStatus == 'Ready to save.' && {'color': 'green'}">{{ MC.playlistStatus }}</span>
-<br>
-<button ng-click="MC.savePlaylist()" ng-hide="MC.isLoading()">Save Playlist</button>
-</div>
-<br>
-
-<table class="table table-hover table-striped table-bordered stripeColorOdd">
-			<tr ng-repeat="podcast in MC.createdPlaylist"  ng-style="podcast.loaded == true && {} || !podcasthasOwnProperty('loaded') && {'background-color': '#666666', 'opacity': '.6'}">
-
-		  <td>
-		  <div class="resultsWrapper">
-          <img src="{{ podcast.json.show.thumbUrl }}">
-          <div class="wrapperDiv">
-          <table class="resultsTable">
-          <tr>
-          <td>{{ podcast.show }}</td>
-       	  </tr>
-          <tr>
-          <td style="white-space: wrap;">{{ podcast.title }}</td>
-          </tr>
-          <tr>
-          <td>{{ MC.formatTime(podcast.duration) }}</td>
-          </tr>
-          </table>
-          </div>
-          	<div class="btn-group-vertical wrapInline">
-    			<button type="button" class="btn btn-primary" ng-click="MC.raiseSong($index)" ng-hide="$first"><i class="fa fa-sort-asc" aria-hidden="true"></i></span></button>
-    			<button type="button" class="btn btn-primary" ng-click="MC.dropPodcast($index)"><i class="fa fa-times" aria-hidden="true"></i></button>
-    			<button type="button" class="btn btn-primary" ng-click="MC.lowerSong($index)" ng-hide="$last"><i class="fa fa-sort-desc" aria-hidden="true"></i></button>
-  			</div>
-        </div>
-        </td>
-        </tr>
-</table>
-
-	</div>
-	</div>
-	</div>
-</div>
-
-
-<div class="namePopup" ng-show="MC.showNameDiv">
-<h3>Name your new playlist:</h3>
-<form ng-submit="MC.initializePL()" name="nameForm">
-	<label for="playlistName">Playlist Name: </label>
-	<input id="playlistName" type="text" ng-model="MC.playlistName" required>
-	<br><br>
-	<label for="userDurHours">Duration: </label>
-	<input id="userDurHours" type="number" min="0" value="0" placeholder="Hours" ng-model="MC.userDurHours"> -
-	<input id="userDurMinutes" type="number" min="0" value="0" placeholder="Minutes" ng-model="MC.userDurMinutes">
-	<br><br>
-	<input type="submit" value="Save" ng-disabled="nameForm.$invalid">
-</form>
-</div>
-
-<div class="namePopupBG" ng-show="MC.showNameDiv"></div>
+    </div>
+    <div class="namePopup" ng-show="MC.showNameDiv">
+        <h3>Name your new playlist:</h3>
+        <form ng-submit="MC.initializePL()" name="nameForm">
+            <label for="playlistName">Playlist Name: </label>
+            <input id="playlistName" type="text" ng-model="MC.playlistName" required>
+            <br>
+            <br>
+            <label for="userDurHours">Duration: </label>
+            <input id="userDurHours" type="number" min="0" value="0" placeholder="Hours" ng-model="MC.userDurHours"> -
+            <input id="userDurMinutes" type="number" min="0" value="0" placeholder="Minutes" ng-model="MC.userDurMinutes">
+            <br>
+            <br>
+            <input type="submit" value="Save" ng-disabled="nameForm.$invalid"> </form>
+    </div>
+    <div class="namePopupBG" ng-show="MC.showNameDiv"></div>
 </body>
