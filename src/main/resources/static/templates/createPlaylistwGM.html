@@ -3,7 +3,7 @@
 
 <body>   <!-- include body tags -->
 
-<div class="namePopup" ng-show="MC.showNameDiv">
+  <div class="namePopup" ng-show="MC.showNameDiv">
 <h3>Name your new playlist:</h3>
 <form ng-submit="MC.initializePL()" name="nameForm">
 	<label for="playlistName">Playlist Name: </label>
@@ -12,9 +12,7 @@
 	<label for="userDurHours">Duration: </label>
 	<input id="userDurHours" type="number" min="0" value="0" placeholder="Hours" ng-model="MC.userDurHours"> -
 	<input id="userDurMinutes" type="number" min="0" value="0" placeholder="Minutes" ng-model="MC.userDurMinutes">
-	
-	<input id="useTrip" type="button" value="Use Trip" ng-click="MC.showTrip()">   <!--  add this button to the namePopUp -->
-	
+	<input id="useTrip" type="button" value="Use Trip" ng-click="MC.showTrip()">
 	<br><br>
 	<input type="submit" value="Save" ng-disabled="nameForm.$invalid">
 </form>
@@ -22,12 +20,11 @@
 
 <div class="namePopupBG" ng-show="MC.showNameDiv"></div>
 
-<!--  The map code is from here down  -->
+ 
 
 <div class="tripPopup" ng-if="MC.showTripDiv">
    
     <div id="floating-panel">
-    
 	    <b>Start: </b>
 	    <input id="start" type="text" placeholder=" Start location">
 	
@@ -40,12 +37,9 @@
     <div id="map"></div>
     
     <div id="duration-panel">
-    
   	 <b>Duration: </b><div id = "duration"></div>
   	 <input id="submit" type="button" value="Use Duration" ng-click="MC.closeTrip()">
-  	 
    </div>
-   
     <script>
       function initMap() {
     	  
@@ -78,8 +72,7 @@
             directionsDisplay.setDirections(response);
             console.log(response.routes[0].legs[0].duration.value)
             document.getElementById("duration").textContent = response.routes[0].legs[0].duration.text
-            document.getElementById("userDurHours").value = new Number(response.routes[0].legs[0].duration.value / 3600) | 0)
-            document.getElementById("userDurMinutes").value = new Number (((response.routes[0].legs[0].duration.value % 3600) / 60) | 0)
+            document.getElementById("userDurMinutes").value = new Number (response.routes[0].legs[0].duration.value / 60)
 
             console.log(document.getElementById("userDurMinutes").value)
  
@@ -88,16 +81,12 @@
         });
       }
     </script>
-    
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4JJmBrEKHOjclyDdkaxZp4JtvYrSpeWc&callback=initMap">
     </script>
-
 </div>
 
 <div class="tripPopupBG" ng-show="MC.showTripDiv"></div>
-
-
 
 </body>
 
