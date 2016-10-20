@@ -137,11 +137,16 @@ input[type=number]{
 
 .resultsWrapper > img {
     display: inline-block;
+    vertical-align: top;
+}
+
+.resultsWrapper > button {
+    display: inline-block;
 }
 
 .wrapperDiv{
 	display: inline-block;
-    width: 80%;
+    width: 77%;
 	position: relative;
 }
 
@@ -185,4 +190,9 @@ input[type=number]{
 }
 .tableRecommended:nth-child(even){
 	background-color: #cccccc;
+}
+
+.borderText{
+	color: black;
+    text-shadow: -1px 0 silver, 0 1px silver, 1px 0 silver, 0 -1px silver;
 }
