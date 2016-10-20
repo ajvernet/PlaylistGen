@@ -78,7 +78,7 @@
             directionsDisplay.setDirections(response);
             console.log(response.routes[0].legs[0].duration.value)
             document.getElementById("duration").textContent = response.routes[0].legs[0].duration.text
-            document.getElementById("userDurMinutes").value = new Number (response.routes[0].legs[0].duration.value / 60)
+            document.getElementById("userDurMinutes").value = new Number ((response.routes[0].legs[0].duration.value / 60) | 0)
 
             console.log(document.getElementById("userDurMinutes").value)
  
