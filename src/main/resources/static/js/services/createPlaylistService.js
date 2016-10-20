@@ -79,16 +79,14 @@ function PlaylistService($http, $timeout, $rootScope) {
                     , url: podcast.url
                     , whileloading: function () {
                         console.log("Whileloading called for " + podcast.title);
-                        if (!podcast.loaded) {
+                        if (!podcast.bytesReturned) {
+                            podcast.bytesReturned = true;
                             podcast.loaded = true;
                             console.log("Bytes returned for: " + podcast.title);
                             console.log("To load size: " + service.loadingPlaylist.length + ", Loaded size: " + service.loadedPlaylist.length);
                             service.loadedPlaylist.push(podcast);
                             console.log("Added " + podcast.title + " to service playlist: loaded");
                             angular.copy(service.loadedPlaylist, service.readyToSave);
-                            //                                for (i = 0; i < service.tempResults.length; i++) {
-                            //                                    if (service.tempResults[i].json.episodeId === podcast.json.episodeId) service.tempResults.splice(i, 1);
-                            //                                }
                             for (i = 0; i < service.loadingPlaylist.length; i++)
                                 if (service.loadingPlaylist[i].json.episodeId === podcast.json.episodeId) {
                                     service.loadingPlaylist.splice(i, 1);
