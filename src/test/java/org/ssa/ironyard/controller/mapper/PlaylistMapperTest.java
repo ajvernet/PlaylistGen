@@ -1,7 +1,5 @@
 package org.ssa.ironyard.controller.mapper;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 import java.io.IOException;
 
@@ -10,18 +8,19 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.mock.http.MockHttpInputMessage;
-import org.ssa.ironyard.controller.mapper.PlaylistMapper;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class PlaylistMapperTest {
 
     MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
     
-    String responseJson;
+    String requestJSON;
     
     @Before
     public void setUp() {
                 
-        responseJson =
+        requestJSON =
           
            "{\"id\":21"
            + ",\"loaded\":false"
@@ -40,7 +39,7 @@ public class PlaylistMapperTest {
     @Test
     public void testJsonToPlaylist() throws IOException
     {
-        MockHttpInputMessage inputMessage = new MockHttpInputMessage(responseJson.getBytes("UTF-8"));
+        MockHttpInputMessage inputMessage = new MockHttpInputMessage(requestJSON.getBytes("UTF-8"));
         inputMessage.getHeaders().setContentType(new MediaType("application", "json"));
         PlaylistMapper playlist = (PlaylistMapper) converter.read(PlaylistMapper.class, inputMessage);
         
