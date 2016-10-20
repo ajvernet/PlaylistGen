@@ -73,5 +73,10 @@ public class AudiosearchServiceTest {
 	ass.getNewShowsByUserId(7);
 	// https://www.audiosear.ch/api/shows/1800
     }
+    
+    @Test
+    public void testStrippingForeignChars(){
+	
+    }
 
 }

@@ -33,10 +33,17 @@ public class UserDAOImpl extends AbstractSpringDAO<User> implements UserDAO {
 	insertStatement.setString(3, domainToInsert.getPassword().getHash());
 	insertStatement.setString(4, domainToInsert.getFirstName());
 	insertStatement.setString(5, domainToInsert.getLastName());
-	insertStatement.setString(6, domainToInsert.getAddress().getStreet());
-	insertStatement.setString(7, domainToInsert.getAddress().getCity());
-	insertStatement.setString(8, domainToInsert.getAddress().getState().getAbbreviation());
-	insertStatement.setString(9, domainToInsert.getAddress().getZip().datafy());
+	if (domainToInsert.getAddress() == null) {
+	    insertStatement.setString(6, null);
+	    insertStatement.setString(7, null);
+	    insertStatement.setString(8, null);
+	    insertStatement.setString(9, null);
+	} else {
+	    insertStatement.setString(6, domainToInsert.getAddress().getStreet());
+	    insertStatement.setString(7, domainToInsert.getAddress().getCity());
+	    insertStatement.setString(8, domainToInsert.getAddress().getState().getAbbreviation());
+	    insertStatement.setString(9, domainToInsert.getAddress().getZip().datafy());
+	}
     }
 
     @Override
@@ -69,17 +76,19 @@ public class UserDAOImpl extends AbstractSpringDAO<User> implements UserDAO {
 	};
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.ssa.ironyard.dao.UserDAO#readByEmail(java.lang.String)
      */
     @Override
-    public User readByEmail(String email){
-	return this.springTemplate.query(((UserORM)this.orm).prepareReadByEmail(), (PreparedStatement ps) -> ps.setString(1, email),
-		(ResultSet cursor) -> 
-	     {  if (cursor.next())
-	          return this.orm.map(cursor);
-	       return null;
-	     });
+    public User readByEmail(String email) {
+	return this.springTemplate.query(((UserORM) this.orm).prepareReadByEmail(),
+		(PreparedStatement ps) -> ps.setString(1, email), (ResultSet cursor) -> {
+		    if (cursor.next())
+			return this.orm.map(cursor);
+		    return null;
+		});
     }
 
 }

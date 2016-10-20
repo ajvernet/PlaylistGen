@@ -49,9 +49,13 @@ public interface UserORM extends ORM<User> {
         String firstName = results.getString(table() + ".firstname");
         String lastName  = results.getString(table() + ".lastname");
         String street = results.getString(table() + ".street");
+        if(results.wasNull()) street = null;
         String city = results.getString(table() + ".city");
+        if(results.wasNull()) city = null;
         String state = results.getString(table() + ".state");
+        if(results.wasNull()) state = null;
         String zip = results.getString(table() + ".zip");
+        if(results.wasNull()) zip = null;
         
         return new UserBuilder()
         	.id(id)
