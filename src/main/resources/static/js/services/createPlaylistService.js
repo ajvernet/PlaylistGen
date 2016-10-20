@@ -80,6 +80,16 @@ function PlaylistService($http, $timeout, $rootScope) {
                     , whileloading: function () {
                         console.log("Whileloading called for " + podcast.title);
                         if (!podcast.bytesReturned) {
+                            //                            //console.log(Math.round(tempPodcast.durationEstimate / 1000));
+                            //					  console.log(Math.round(tempPodcast.duration / 1000));
+                            //					  //un-gray
+                            //					  for(i=0; i<controller.createdPlaylist.length; i++){
+                            //						  if(controller.createdPlaylist[i].title == podcast.title && tempPodcast.readyState == 3){
+                            //							  controller.createdPlaylist[i].loaded = true;
+                            //							  //todo --- update durationbuilder and json object based on below
+                            //							  controller.createdPlaylist[i].duration = Math.round(tempPodcast.duration / 1000);
+                            console.log("Estimated duration: " + Math.round(tempPodcast.durationEstimate));
+                            podcast.duration = Math.round(tempPodcast.durationEstimate / 1000) || podcast.duration;
                             podcast.bytesReturned = true;
                             podcast.loaded = true;
                             console.log("Bytes returned for: " + podcast.title);
