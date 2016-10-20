@@ -1,3 +1,12 @@
+body{
+	background: black;
+    background: linear-gradient(black, gray) no-repeat center center fixed;
+    -webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+    background-size: cover;
+}
+
 .listsContainer{
 	display: block;
 }
@@ -102,11 +111,6 @@ input[type=number]{
 	float: right;
 }
 
-.genreLabel{
-	float: right;
-	font-size: large;
-}
-
 .resultsWrapper{
 	overflow: hidden;
 	font-size: 18px;
@@ -131,4 +135,36 @@ input[type=number]{
 
 .wrapInline{
 	display: inline-block;
+}
+
+.stripeColorOdd:nth-child(odd){
+	background-color: #cccccc;
+}
+
+.stripeColorEven:nth-child(even){
+	background-color: #cccccc;
+}
+
+.tasties{
+	width: 45%;
+	float: right;
+}
+
+.tableTasties:nth-child(odd){
+	background-color: #cccccc;
+}
+.tableTasties:nth-child(even){
+	background-color: #cccccc;
+}
+
+.recommended{
+	width: 45%;
+	float: left;
+}
+
+.tableRecommended:nth-child(odd){
+	background-color: #cccccc;
+}
+.tableRecommended:nth-child(even){
+	background-color: #cccccc;
 }

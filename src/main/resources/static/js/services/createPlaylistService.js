@@ -113,10 +113,6 @@ function PlaylistService($http, $timeout, $rootScope) {
             service.loadedPlaylist[destination] = service.loadedPlaylist[origin];
             service.loadedPlaylist[origin] = temp;
             angular.copy(service.loadedPlaylist, service.readyToSave);
-            //mirrored move for title array
-            var temp2 = service.titles[destination];
-            service.titles[destination] = service.titles[origin];
-            service.titles[origin] = temp2;
         }
         , getSearchResults: service.searchResults
         , getPlaylist: service.createdPlaylist
