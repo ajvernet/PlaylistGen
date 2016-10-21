@@ -163,7 +163,7 @@
         <h3>Name your new playlist:</h3>
         <form ng-submit="MC.initializePL()" name="nameForm">
             <label for="playlistName">Playlist Name: </label>
-            <input id="playlistName" type="text" ng-model="MC.playlistName" required>
+            <input id="playlistName" type="text" ng-model="MC.playlistName" required maxlength="100">
             <br>
             <br>
             <label for="userDurHours">Duration: </label>

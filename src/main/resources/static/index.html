@@ -31,6 +31,29 @@
                 <li style="float:right;"><a href="/podcasts/logout" >Logout</a></li>
             </ul>
         </nav>
+        
+<div id="playerDiv" ng-show="playlist.length">
+<sound-manager></sound-manager>
+
+		<p>Currently Playing: {{ currentPlaying.title }} by {{
+			currentPlaying.artist }} ({{ currentPostion }} / {{ currentDuration
+			}})</p>
+		<div class="seekBase" seek-track>
+			<div class="seekLoad" ng-style="{width : ( progress + '%' ) }"></div>
+		</div>
+		<button play-pause-toggle data-play="Play!" data-pause="Pause!">Play Toggle</button>
+		<br>
+		Volume: {{ volume }} -
+                <button music-volume data-type="increase">+</button>
+                <button music-volume data-type="decrease">-</button>
+		<br>
+		<button mute-music>Mute ({{ mute }})</button>
+		<br>
+		<button prev-track>Prev Track</button>
+        <button next-track>Next Track</button>
+
+</div>
+        
     </header>
     <div class="headDiv"></div>
     <div class="bgDiv"><img src="/images/sndwv.jpg"></div>
