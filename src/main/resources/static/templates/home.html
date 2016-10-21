@@ -1,13 +1,14 @@
-<div style="display: block; position: relative; width:50%; left:25%; border: solid 2px silver; background-color: white; padding: 10px;">
+<div style="display: block; position: relative; width:50%; left:25%; border: solid 2px silver; border-radius: 5px; background-color: white; padding: 10px;">
 <button ng-click="dash.initPL()">Start New Playlist</button> 
 <span style="font-size:large;"> Select podcasts below to quickly add them to a new playlist</span>
 </div>
 
 <div class="recommended">
 <h2 style="color:lightgray;">Recommended based on your playlists...</h2>
-<table class="table table-hover table-striped tableRecommended">
+<table class="table table-striped tableRecommended">
 	<tr ng-repeat="podcast in dash.recommended">
-		<td style="width: 5%;"><span ng-if="$index == 0">Show: <br>Episode: <br>Length: </span></td>
+		<td style="width:1%; white-space:nowrap;"><img src="{{ podcast.json.show.thumbUrl }}"></td>
+		<td style="width: 5%; font-weight: bold;">Show: <br>Episode: <br>Length: </span></td>
 		<td>{{ podcast.show }}<br>{{ podcast.title }}<br>{{ dash.formatTime(podcast.duration) }}</td>
 		<td style="width: 5%;"><input type="checkbox" ng-model="podcast.selected" style="width: 100%;height: 100%;"></td>
 	</tr>
@@ -17,9 +18,10 @@
 
 <div class="tasties">
 <h2 style="color:lightgray;">From the Tastemakers...</h2>
-<table class="table table-hover table-striped tableTasties">
+<table class="table table-striped tableTasties">
 	<tr ng-repeat="podcast in dash.podcasts">
-		<td style="width: 5%;"><span ng-if="$index == 0">Show: <br>Episode: <br>Length: </span></td>
+		<td style="width:1%; white-space:nowrap;"><img src="{{ podcast.json.show.thumbUrl }}"></td>
+		<td style="width: 5%; font-weight: bold;">Show: <br>Episode: <br>Length: </span></td>
 		<td>{{ podcast.show }}<br>{{ podcast.title }}<br>{{ dash.formatTime(podcast.duration) }}</td>
 		<td style="width: 5%;"><input type="checkbox" ng-model="podcast.selected" style="width: 100%;height: 100%;"></td>
 	</tr>

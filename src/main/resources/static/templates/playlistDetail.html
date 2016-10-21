@@ -4,7 +4,7 @@
 
     <div id="listDiv" ng-show="PC.shown">
     
-        <table class="table table-hover table-striped table-bordered stripeColorOdd">
+        <table class="table table-striped table-bordered stripeColorOdd stripeColorEven">
             
             <tbody>
                 <tr ng-repeat="podcast in PC.playlist">
@@ -25,7 +25,7 @@
 <div id="playerDiv" ng-hide="PC.shown">
 		<sound-manager></sound-manager>
 		
-<table class="table table-hover table-striped table-bordered">
+<table class="table table-striped table-bordered  stripeColorOdd stripeColorEven">
 	<tbody>
 		<tr ng-repeat="song in playlist">
 			<td><a play-from-playlist="song">{{song.title}} <span ng-if="currentPlaying.id == song.id"> - (current)</a></td>
@@ -53,12 +53,5 @@
 		<br>
 		<button prev-track>Prev Track</button>
         <button next-track>Next Track</button>
-        
-<!--  counter for player
-<p ng-bind="MC.counter"></p>
-<button ng-click="MC.stop()">Stop</button>
-<button ng-click="MC.countdown()">Start</button>
--->
-        
-        
+
 </div>

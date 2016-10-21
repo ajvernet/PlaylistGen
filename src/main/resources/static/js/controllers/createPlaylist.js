@@ -17,6 +17,7 @@ function CreatePlaylistCtrl($scope, $timeout, $http, $state, PlaylistService) {
     controller.userDurHours = "";
     controller.userDurHours = "";
     controller.showNameDiv = false;
+    controller.searched = false;
     //controller.startAddress = "";
     //controller.endAddress = "";
     //controller.tripDuration = "";
@@ -29,6 +30,7 @@ function CreatePlaylistCtrl($scope, $timeout, $http, $state, PlaylistService) {
         return durationBuilder;
     };
     controller.submitSearch = function (keyword, genre) {
+    	controller.searched = true;
         PlaylistService.searchResults(keyword, genre);
     }
     controller.addToPL = function (podcast) {
@@ -124,6 +126,10 @@ function CreatePlaylistCtrl($scope, $timeout, $http, $state, PlaylistService) {
         return hours + ':' + minutes + ':' + seconds;
     }
     controller.rename = function () {
+    	if (controller.playlistName == "New Playlist") {
+            controller.playlistName = "";
+            controller.showNameDiv = true;
+        }
         controller.showNameDiv = true;
     }
     controller.clear = function () {

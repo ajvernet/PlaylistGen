@@ -1,6 +1,6 @@
 <div class="listsContainer">
         <div class="resultsDiv">
-            <div style="display: inline-block; width:100%; border: solid 2px silver; background-color: white; padding: 10px;">
+            <div style="display: inline-block; width:100%; border: solid 2px silver; border-radius: 10px; background-color: white; padding: 10px;">
                 <div style="font-size: 3em; float:left; display:inline-block; width:40%;" class="borderText">Podcast Search</div>
                 <div style="text-align: right; float:left; display:inline-block; width:50%;">
                     <input type="text" size="40" ng-model="MC.keywordSearch" style="width: 300px;" placeholder="    Search by keyword">
@@ -23,23 +23,36 @@
                 </div>
             </div>
             <div class="sortDiv">
+            <h4 class="borderTextInverse" style="display:inline-block;">Sort by </h4>
 	            <div class="btn-group">
-	            	<button type="button" class="btn btn-primary">Apple</button>
-	  				<button type="button" class="btn btn-primary">Samsung</button>
-	  				<button type="button" class="btn btn-primary">Sony</button>
+	            	<button type="button"  style="display:inline-block;" class="btn btn-primary" ng-click="MC.sortType = 'show'; MC.sortReverse = !MC.sortReverse">
+	            		Show Name<span ng-show="MC.sortType == 'show' && !MC.sortReverse" class="fa fa-caret-up"></span>
+            			<span ng-show="MC.sortType == 'show' && MC.sortReverse" class="fa fa-caret-down"></span>
+            		</button>
+	  				<button type="button" class="btn btn-primary" ng-click="MC.sortType = 'title'; MC.sortReverse = !MC.sortReverse">
+	            		Episode Title<span ng-show="MC.sortType == 'title' && !MC.sortReverse" class="fa fa-caret-up"></span>
+            			<span ng-show="MC.sortType == 'title' && MC.sortReverse" class="fa fa-caret-down"></span>
+            		</button>
+	  				<button type="button" class="btn btn-primary" ng-click="MC.sortType = 'duration'; MC.sortReverse = !MC.sortReverse">
+	            		Length<span ng-show="MC.sortType == 'duration' && !MC.sortReverse" class="fa fa-caret-up"></span>
+            			<span ng-show="MC.sortType == 'duration' && MC.sortReverse" class="fa fa-caret-down"></span>
+            		</button>
 	            </div>
             </div>
             
             <br>
             <br>
+            
+            <div class="loading" ng-if="MC.searchResults.length == 0 && MC.searched"><img src="/images/loading.gif" class="img-thumbnail"></div>
+            
             <ul>
-                <li ng-repeat="podcast in MC.searchResults" ng-if="MC.inPlaylist.indexOf(podcast.json.episodeId) == -1">
+                <li ng-repeat="podcast in MC.searchResults | orderBy:MC.sortType:MC.sortReverse" ng-if="MC.inPlaylist.indexOf(podcast.json.episodeId) == -1" class="hoverPointer">
                     <div class="panel-group">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <a data-toggle="collapse" data-target="#collapse{{ $index + 1 }}">
                                     <h4 class="panel-title">
-        <div class="resultsWrapper hoverPointer">
+        <div class="resultsWrapper hoverPointer" style="font-size: 18px;">
           <img src="{{ podcast.thumb }}" style="width: 13%;">
           <div class="wrapperDiv">
           <table class="resultsTable">
@@ -78,13 +91,14 @@
         </div>
         <div class="rightDiv">
             <div id="newPL" class="playlistTitle">
-                <ul class="nav nav-pills" role="tablist">
-                    <li class="active" style="font-size:2em;"><a>{{ MC.playlistName }}</a></li>
+            <div class="borderText" style="display: inline-block; max-width:70%; border: solid 2px silver; border-radius: 10px; background-color: white; padding: 10px; word-wrap: break-word; font-size:3em;">
+            	{{ MC.playlistName }}
+            </div>
+                <ul class="nav nav-pills" role="tablist" style="display: inline-block;">
                     <li class="hoverPointer"><a ng-click="MC.rename()">Edit</a></li>
                     <li class="hoverPointer"><a ng-click="MC.clear()">Clear</a></li>
                 </ul>
             </div>
-            <br>
             <br>
             <div ng-show="MC.readyToSave.length || MC.notReadyToSave.length">
                 <div class="playlistDiv"> <span ng-show="MC.userDuration">Trip Duration: {{ MC.formatTime(MC.userDuration) }}</span>
@@ -93,9 +107,8 @@
                     <button ng-click="MC.savePlaylist()" ng-show="MC.readyToSave.length">Save Playlist</button>
                 </div>
                 <br>
-                <br>
-                <table class="table table-hover table-bordered">
-                    <tr ng-repeat="podcast in MC.readyToSave" ng-style=" {'background-color': 'white', 'opacity': '.6'}">
+                <table class="table table-bordered table-striped stripeColorEven stripeColorOdd">
+                    <tr ng-repeat="podcast in MC.readyToSave">
                         <td>
                             <div class="resultsWrapper"> <img src="{{ podcast.json.show.thumbUrl }}">
                                 <div class="wrapperDiv">
