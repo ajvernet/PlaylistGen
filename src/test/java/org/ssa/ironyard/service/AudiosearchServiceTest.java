@@ -1,59 +1,44 @@
 package org.ssa.ironyard.service;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.ssa.ironyard.dao.EpisodeDAO;
-import org.ssa.ironyard.dao.EpisodeDAOImpl;
-import org.ssa.ironyard.dao.PlaylistDAO;
-import org.ssa.ironyard.dao.PlaylistDAOImpl;
-import org.ssa.ironyard.model.Genre;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mysql.cj.jdbc.MysqlDataSource;
+import org.easymock.EasyMock;
+import org.junit.Before;
+import org.junit.Test;
+import org.ssa.ironyard.model.Episode;
+import org.ssa.ironyard.model.Genre;
+import org.ssa.ironyard.model.Show;
 
 public class AudiosearchServiceTest {
 
     private static AudiosearchService ass;
-    private static ObjectMapper mapper;
-
-    String keyword;
     private static String URL = "jdbc:mysql://localhost/Playlistdb?" + "user=root&password=root&"
 	    + "useServerPrepStmts=true";
-
-    @BeforeClass
-    public static void initServices() {
-	MysqlDataSource datasource = new MysqlDataSource();
-	datasource.setUrl(URL);
-	EpisodeDAO episodes = new EpisodeDAOImpl(datasource);
-	PlaylistDAO playlists = new PlaylistDAOImpl(datasource, episodes);
-	PlaylistService playlistService = new PlaylistService(playlists, episodes);
-	ass = new AudiosearchService(new AudiosearchAuthorizationService(), playlistService);
-	mapper = new ObjectMapper(); // can reuse, share globally
-	mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    }
+    private PlaylistService playlistService;
 
     @Before
     public void setup() {
-	keyword = "a";
+	playlistService = EasyMock.createNiceMock(PlaylistService.class);
+	ass = new AudiosearchService(new AudiosearchAuthorizationService(), playlistService);
     }
 
     @Test
     public void searchEpisodesAltTest() {
-	assertTrue(ass.searchEpisodesAlt(null, keyword, 50).size() >= 0);
-	assertTrue(ass.searchEpisodesAlt(null, keyword, 50).size() < 51);
-
+	List<Episode> episodes = ass.searchEpisodesAlt(null, null, 50);
+	assertTrue(0 <= episodes.size() && episodes.size() <= 50);
     }
 
     @Test
     public void searchEpisodesWithGenre() {
-	assertTrue(ass.searchEpisodesAlt(Genre.ARTS.getName(), keyword, 50).size() >= 0);
-	assertTrue(ass.searchEpisodesAlt(Genre.ARTS.getName(), keyword, 50).size() < 51);
-
+	List<Episode> episodes = ass.searchEpisodesAlt(Genre.ARTS.getName(), null, 50);
+	assertTrue(0 <= episodes.size() && episodes.size() <= 50);
+	for (Episode episode : episodes)
+	    assertTrue("Expected : " + Genre.ARTS.getId() + ", Received: " + episode.getGenreId(),
+		    episode.getGenreId() <= Genre.ARTS.getId());
     }
 
     @Test
@@ -64,19 +49,21 @@ public class AudiosearchServiceTest {
 
     @Test
     public void testTasties() {
-	ass.getTasties();
+	assertFalse(ass.getTasties().isEmpty());
     }
 
-    @Ignore
     @Test
-    public void testGetNewEpisodes() {
-	ass.getNewShowsByUserId(7);
-	// https://www.audiosear.ch/api/shows/1800
-    }
-    
-    @Test
-    public void testStrippingForeignChars(){
-	
+    public void testGetNewShows() {
+	Integer showId = 27; // This American Life
+	Integer userId = 1;
+	Integer episodeId = 1;
+	List<Episode> episodes = new ArrayList<>();
+	episodes.add(Episode.builder().episodeId(episodeId).show(new Show(showId, null, null)).build());
+	EasyMock.expect(playlistService.getTopTenShowsByUserId(userId)).andReturn(episodes);
+	EasyMock.replay(playlistService);
+	List<Episode> results = ass.getNewShowsByUserId(userId);
+	for (Episode episode : results)
+	    assertTrue(episode.getShow().getId().equals(showId));
     }
 
 }
