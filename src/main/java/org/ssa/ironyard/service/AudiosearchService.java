@@ -90,6 +90,7 @@ public class AudiosearchService {
 	return episodes;
     }
 
+    @SuppressWarnings("unchecked")
     private String getThumbnail(EpisodeResult episodeResult) {
 	if (episodeResult.getImageUrls() != null && episodeResult.getImageUrls() instanceof Map)
 	    return ((Map<String, String>) episodeResult.getImageUrls()).get("thumb");
