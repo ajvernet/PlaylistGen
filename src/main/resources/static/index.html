@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="/vendor/jquery-3.1.0.min.js"></script>  
     <script src="/vendor/angular.min.js"></script>
     <script src="/vendor/angular-ui-router.min.js"></script>
     <script src="/vendor/angular-soundmanager2.js"></script>
-    <script src="/vendor/jquery-3.1.0.min.js"></script>
     <script src="/vendor/bootstrap.min.js"></script>
     <script src="/js/main.js"></script>
     <script src="/js/controllers/dashboard.js"></script>
@@ -32,7 +32,7 @@
             </ul>
         </nav>
         
-<div id="playerDiv" ng-show="playlist.length">
+<div id="playerDiv" class="navPlayer" ng-show="playlist.length">
 <sound-manager></sound-manager>
 
 		<p>Currently Playing: {{ currentPlaying.title }} by {{
@@ -51,6 +51,8 @@
 		<br>
 		<button prev-track>Prev Track</button>
         <button next-track>Next Track</button>
+        
+        <button next-track>Self Destruct</button>
 
 </div>
         
