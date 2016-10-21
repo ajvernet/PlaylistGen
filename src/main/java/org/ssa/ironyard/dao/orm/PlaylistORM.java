@@ -26,7 +26,7 @@ public interface PlaylistORM extends ORM<Playlist> {
 
     @Override
     default String table() {
-	return "Playlists";
+	return "playlists";
     }
 
     @Override
@@ -68,8 +68,8 @@ public interface PlaylistORM extends ORM<Playlist> {
 
     @Override
     default String prepareEagerRead() {
-	return "SELECT " + projection() + ", " + episodeOrm.projection() + " FROM " + table() + " INNER JOIN PlaylistEpisodes ON " + table()
-		+ ".id=PlaylistEpisodes.playlistId INNER JOIN " + episodeOrm.table() + " ON PlaylistEpisodes.episodeId="
-		+ episodeOrm.table() + ".id WHERE " + table() + ".id=? ORDER BY PlaylistEpisodes.sortOrder ASC";
+	return "SELECT " + projection() + ", " + episodeOrm.projection() + " FROM " + table() + " INNER JOIN playlistepisodes ON " + table()
+		+ ".id=playlistepisodes.playlistId INNER JOIN " + episodeOrm.table() + " ON playlistepisodes.episodeId="
+		+ episodeOrm.table() + ".id WHERE " + table() + ".id=? ORDER BY playlistepisodes.sortOrder ASC";
     }
 }
