@@ -103,11 +103,11 @@ public class PlaylistDAOImpl extends AbstractSpringDAO<Playlist> implements Play
     public boolean replaceEpisodes(Integer playlistId, List<Episode> episodes) {
 	LOGGER.debug("Updating episodes in playlist: {}", playlistId);
 	LOGGER.debug("Updated playlist will have {} episodes", episodes.size());
-	this.springTemplate.update(("DELETE FROM PlaylistEpisodes WHERE playlistId = ?"),
+	this.springTemplate.update(("DELETE FROM playlistepisodes WHERE playlistId = ?"),
 		(PreparedStatement ps) -> ps.setInt(1, playlistId));
 	LOGGER.debug("Old playlist data cleared");
 	StringBuilder updateString = new StringBuilder(
-		"INSERT INTO PlaylistEpisodes(playlistId, episodeId, sortOrder) VALUES");
+		"INSERT INTO playlistepisodes(playlistId, episodeId, sortOrder) VALUES");
 	for (int i = 0; i < episodes.size(); i++) {
 	    LOGGER.debug("Loading episodes");
 	    Episode loadedEpisode = episodeDao.insertIfAbsent(episodes.get(i));
