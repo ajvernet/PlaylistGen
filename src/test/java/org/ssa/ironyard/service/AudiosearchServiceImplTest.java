@@ -13,7 +13,7 @@ import org.ssa.ironyard.model.Episode;
 import org.ssa.ironyard.model.Genre;
 import org.ssa.ironyard.model.Show;
 
-public class AudiosearchServiceTest {
+public class AudiosearchServiceImplTest {
 
     private static AudiosearchService ass;
     private static String URL = "jdbc:mysql://localhost/Playlistdb?" + "user=root&password=root&"
@@ -23,7 +23,7 @@ public class AudiosearchServiceTest {
     @Before
     public void setup() {
 	playlistService = EasyMock.createNiceMock(PlaylistService.class);
-	ass = new AudiosearchService(new AudiosearchAuthorizationService(), playlistService);
+	ass = new AudiosearchServiceImpl(new AudiosearchAuthorizationService(), playlistService);
     }
 
     @Test

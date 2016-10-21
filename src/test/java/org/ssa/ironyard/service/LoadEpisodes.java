@@ -18,7 +18,7 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 
 public class LoadEpisodes {
 
-    private static AudiosearchService ass;
+    private static AudiosearchServiceImpl ass;
     private static String URL = "jdbc:mysql://localhost/Playlistdb?" + "user=root&password=root&"
 	    + "useServerPrepStmts=true";
     private EpisodeDAO episodeDao;
@@ -30,7 +30,7 @@ public class LoadEpisodes {
 	EpisodeDAO episodes = new EpisodeDAOImpl(datasource);
 	PlaylistDAO playlists = new PlaylistDAOImpl(datasource, episodes);
 	PlaylistService playlistService = new PlaylistService(playlists,episodes);
-	ass = new AudiosearchService(new AudiosearchAuthorizationService(), playlistService);
+	ass = new AudiosearchServiceImpl(new AudiosearchAuthorizationService(), playlistService);
     }
 
     @Before
