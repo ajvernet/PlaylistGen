@@ -32,7 +32,7 @@
             </ul>
         </nav>
         
-<div id="playerDiv" ng-show="playlist.length">
+<div id="playerDiv" class="navPlayer" ng-show="playlist.length">
 <sound-manager></sound-manager>
 
 		<p>Currently Playing: {{ currentPlaying.title }} by {{
@@ -51,6 +51,8 @@
 		<br>
 		<button prev-track>Prev Track</button>
         <button next-track>Next Track</button>
+        
+        <button next-track>Self Destruct</button>
 
 </div>
         
