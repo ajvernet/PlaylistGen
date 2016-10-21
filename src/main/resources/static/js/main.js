@@ -17,16 +17,6 @@ function configure($stateProvider, $urlRouterProvider) {
         , controller: 'PlaylistController'
         , controllerAs: 'PC'
         , templateUrl: '/templates/savedPlaylists.html'
-//    }).state('playlists.detail', {
-//        url: '/:id'
-//        , controller: 'PlaylistQuickDetailController'
-//        , controllerAs: 'PC'
-//        , templateUrl: '/templates/playlistQuickDetail.html'
-//    }).state('player', {
-//        url: '/player'
-//            , controller: 'PlayerController'
-//            , controllerAs: 'PC'
-//            , templateUrl: '/templates/player.html'
     }).state('playlistDetail', {
         url: '/playlistDetail'
             , controller: 'PlaylistDetailController'

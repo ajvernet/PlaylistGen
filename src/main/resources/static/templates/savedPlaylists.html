@@ -1,7 +1,10 @@
 <h2 style="color:silver">Playlists</h2>
 
-<table class="table table-hover table-striped table-bordered stripeColorEven">
-	<tr ng-repeat="playlist in PC.playlists">
-		<td ng-click="PC.toDetail(playlist)">{{ playlist.name }} --- {{ playlist.currentDuration }}</td>
+<table class="table table-striped table-bordered stripeColorEven stripeColorOdd hoverPointer">
+	<tr>
+	<th>Playlist Title</th><th>Length</th>
+	</tr>
+	<tr ng-repeat="playlist in PC.playlists | orderBy:PC.sortType:PC.sortReverse" ng-click="PC.toDetail(playlist)">
+		<td>{{ playlist.name }}</td><td>{{ PC.formatTime(playlist.currentDuration) }}</td>
 	</tr>
 </table>

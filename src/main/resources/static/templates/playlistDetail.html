@@ -10,18 +10,19 @@
                 <tr ng-repeat="podcast in PC.playlist">
                     <td>{{podcast.json.name}}</td>
                     <td>{{podcast.json.show.name}}</td>
-                    <td>{{podcast.json.duration}}</td>
+                    <td>{{PC.formatTime(podcast.json.duration)}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
     
-    <button play-all="PC.playlist" data-play="true" ng-click="PC.playPL()">Play</button>
+    <button clear-playlist ng-if="playlist.length">Stop Currently Playing</button>
+    <button play-all="PC.playlist" data-play="true" ng-if="playlist.length == 0" ng-click="PC.playPL()">Play</button>
     <button ng-click="PC.editPL()">Edit</button>
     <button ng-click="PC.deletePL()">Delete</button>
     
 </div>
-
+<!--
 <div id="playerDiv" ng-hide="PC.shown">
 		<sound-manager></sound-manager>
 		
@@ -30,28 +31,9 @@
 		<tr ng-repeat="song in playlist">
 			<td><a play-from-playlist="song">{{song.title}} <span ng-if="currentPlaying.id == song.id"> - (current)</a></td>
             <td>{{song.artist}}</td>
-            <td>{{song.duration}}</td>
+            <td>{{song.duration }}</td>
 		</tr>
 	</tbody>
 </table>
-
-		<h5>Player</h5>
-
-		<p>Currently Playing: {{ currentPlaying.title }} by {{
-			currentPlaying.artist }} ({{ currentPostion }} / {{ currentDuration
-			}})</p>
-		<div class="seekBase" seek-track>
-			<div class="seekLoad" ng-style="{width : ( progress + '%' ) }"></div>
-		</div>
-		<button play-pause-toggle data-play="Play!" data-pause="Pause!">Play Toggle</button>
-		<br>
-		Volume: {{ volume }} -
-                <button music-volume data-type="increase">+</button>
-                <button music-volume data-type="decrease">-</button>
-		<br>
-		<button mute-music>Mute ({{ mute }})</button>
-		<br>
-		<button prev-track>Prev Track</button>
-        <button next-track>Next Track</button>
-
 </div>
+-->

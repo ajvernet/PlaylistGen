@@ -82,14 +82,14 @@ li {
 }
 
 .seekBase {
-  height: 30px;
-  width: 90%;
-  border: 1px solid #cccccc;
+	display: inline-block;
+	height: 30px;
+	width: 100%;
+	border: 1px solid #cccccc;
 }
 .seekLoad {
 	height: 30px;
-  width: 0;
-  background-color: #E0EAF1;
+	background-color: #E0EAF1;
 }
 
 .podcastDetail{
@@ -223,13 +223,6 @@ input[type=number]{
 	text-align: center;
 }
 
-.navPlayer{
-	display: block;
-	width: 100%;
-	background-color: white;
-}
-
-
 .tripPopup{
 	display: block;
 	position: fixed;
@@ -295,3 +288,79 @@ input[type=number]{
         padding-left: 5px;
 }
 
+.navPlayer{
+	display: block;
+	position:relative;
+	width: 100%;
+	background-color: white;
+	margin-bottom: 10px;
+	border: black 4px solid;
+	border-radius: 8px;
+	padding: 4px;
+}
+
+.playerWrapper{
+	display: inline-block;
+	width: 70%
+}
+
+.playerGraphic{
+	display: inline-block;
+	height: 110px;
+	width: 20%;
+	background-color: silver;
+	vertical-align: top;
+}
+
+.nowPlaying{
+	vertical-align: top;
+	font-size: large;
+}
+
+.progressBar{
+	display: inline-block;
+	position: relative;
+	width: 80%;
+}
+
+.playerButtons{
+	display: inline-block;
+}
+
+.destroyButton{
+	display: inline-block;
+	vertical-align: top;
+}
+
+.playerImg{
+	width: 100%;
+	height: 100%;
+}
+
+.panel-transparent {
+        background: none;
+        border:black solid 1px;
+        padding: 0;
+        margin: 0;
+    }
+
+    .panel-transparent .panel-heading{
+        background: black!important; 
+        border: black solid 1px!important;
+        padding: 0!important;
+        margin: 0!important;
+    }
+
+    .panel-transparent .panel-body{
+        background: black!important;
+        border: black solid 1px!important;
+        padding: 0!important;
+        margin: 0!important;
+    }
+    
+    .panel-transparent .panel-default{
+    	background: black!important;
+        border: black solid 1px!important;
+        padding: 0!important;
+        margin: 0!important;
+    }

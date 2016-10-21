@@ -23,7 +23,7 @@
 <body>
     <header>
         <h1 class="title">Audio Search Service</h1>
-        <nav class="navbar navbar-default" style="font-size: large;">
+        <nav class="navbar navbar-default" style="font-size: large; margin:0!important; padding:0!important;">
             <ul class="nav navbar-nav" style="float: none!Important;">
                 <li style="padding-left:5%;"><a ui-sref="dashboard" ui-sref-active="active">Home</a></li>
                 <li style="padding-left:5%;"><a ui-sref="createPlaylist" ui-sref-active="active">Create Playlist</a></li>
@@ -31,31 +31,55 @@
                 <li style="float:right;"><a href="/podcasts/logout" >Logout</a></li>
             </ul>
         </nav>
-        
-<div id="playerDiv" class="navPlayer" ng-show="playlist.length">
+
+<div class="panel-group panel-transparent" ng-show="playlist.length	">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                    <h4 class="panel-title">
+        								<div id="playerDiv" class="navPlayer" ng-show="playlist.length">
 <sound-manager></sound-manager>
 
-		<p>Currently Playing: {{ currentPlaying.title }} by {{
-			currentPlaying.artist }} ({{ currentPostion }} / {{ currentDuration
-			}})</p>
-		<div class="seekBase" seek-track>
-			<div class="seekLoad" ng-style="{width : ( progress + '%' ) }"></div>
-		</div>
-		<button play-pause-toggle data-play="Play!" data-pause="Pause!">Play Toggle</button>
-		<br>
-		Volume: {{ volume }} -
-                <button music-volume data-type="increase">+</button>
-                <button music-volume data-type="decrease">-</button>
-		<br>
-		<button mute-music>Mute ({{ mute }})</button>
-		<br>
-		<button prev-track>Prev Track</button>
-        <button next-track>Next Track</button>
-        
-        <button next-track>Self Destruct</button>
+<div class="playerGraphic"><img class="img-rounded playerImg" src="{{ isPlaying && '/images/audio-analyzer.gif' || '/images/paused.png' }}"></div>
+<div class="playerWrapper">
 
+<div class="nowPlaying">
+{{ currentPlaying.title }} by {{ currentPlaying.artist }} ({{ currentPostion }} / {{ currentDuration }})
 </div>
-        
+<br>
+<div class="progressBar">
+	<div class="seekBase" seek-track>
+			<div class="seekLoad" ng-style="{width : ( progress + '%' ) }"></div>
+	</div>
+</div>
+<div class="playerButtons">
+<button play-pause-toggle data-play="Play" data-pause="Pause">Play Toggle</button><button prev-track>Prev Track</button><button next-track>Next Track</button> 
+<button mute-music>Mute ({{ mute }})</button><button music-volume data-type="increase">+</button>{{ volume }}<button music-volume data-type="decrease">-</button>
+</div>
+</div>  
+<div class="destroyButton">
+<button clear-playlist style="height: 50px; width: 100%;">Self Destruct</button><br>
+<button data-toggle="collapse" data-target="#collapse1" style="height: 50px; width: 100%;">Toggle Playlist</button>
+</div>
+</div>
+        							</h4>
+                            </div>
+                            <div id="collapse1" class="panel-collapse collapse">
+                                <div class="panel-body">
+
+<table class="table table-striped table-bordered  stripeColorOdd stripeColorEven">
+	<tbody>
+		<tr ng-repeat="song in playlist">
+			<td><a play-from-playlist="song">{{song.title}}</a></td>
+			<td>{{ song.artist }}</td>
+			<td>{{ song.duration }}</td>
+		</tr>
+	</tbody>
+</table>
+                                </div>
+                            </div>
+                        </div>
+</div>
+     
     </header>
     <div class="headDiv"></div>
     <div class="bgDiv"><img src="/images/sndwv.jpg"></div>
