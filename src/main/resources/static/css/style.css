@@ -1,155 +1,156 @@
-body{
-	background: black;
+body {
+    background: black;
     background: radial-gradient(black, #1e1e2f) no-repeat center center fixed;
     -webkit-background-size: cover;
-  	-moz-background-size: cover;
-  	-o-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
 }
 
-.headDiv{
-	display: block;
-	position: absolute;
-	width: 100%;
-	height: 10%;
-	left:0;
-	top:-2%;
-	z-index: -1;
-	background-image: url("/images/podcast-01-background-noise.png");
+.headDiv {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 10%;
+    left: 0;
+    top: -2%;
+    z-index: -1;
+    background-image: url("/images/podcast-01-background-noise.png");
 }
 
-.bgDiv{
-	display: block;
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	left:0;
-	top:0;
-	z-index: -2;
-	opacity: .5;
+.bgDiv {
+    display: block;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: -2;
+    opacity: .5;
 }
 
-.bgDiv img{
-	width: 100%;
-	height: 100%;
+.bgDiv img {
+    width: 100%;
+    height: 100%;
 }
 
-.title{
-	font-size: 3em;
-	color: black;
+.title {
+    font-size: 3em;
+    color: black;
     text-shadow: -2px 0 silver, 0 2px silver, 2px 0 silver, 0 -2px silver;
     text-align: center;
 }
 
-.listsContainer{
-	display: block;
+.listsContainer {
+    display: block;
 }
 
 .resultsDiv {
-	display: block;
-	float: left;
-	width: 45%;
+    display: block;
+    float: left;
+    width: 45%;
 }
 
-.rightDiv{
-	float: right;
-	width: 45%;
+.rightDiv {
+    float: right;
+    width: 45%;
 }
 
 .playlistDiv {
-	display: block;
-	width: 100%;
-	border: solid 2px silver;
-	padding: 4px;
-	background-color: white;
-	border-radius: 10px;
+    display: block;
+    width: 100%;
+    border: solid 2px silver;
+    padding: 4px;
+    background-color: white;
+    border-radius: 10px;
 }
 
-.hoverPointer{
-	cursor: pointer;
+.hoverPointer {
+    cursor: pointer;
 }
 
 li {
-	display: block;
+    display: block;
 }
 
 .playlistDiv ul {
-	border: black solid 2px;
+    border: black solid 2px;
 }
 
 .playlistDiv li {
-	border: black dotted 1px;
+    border: black dotted 1px;
 }
 
 .seekBase {
-  height: 30px;
-  width: 90%;
-  border: 1px solid #cccccc;
+    display: inline-block;
+    height: 30px;
+    width: 100%;
+    border: 1px solid #cccccc;
 }
+
 .seekLoad {
-	height: 30px;
-  width: 0;
-  background-color: #E0EAF1;
+    height: 30px;
+    background-color: #E0EAF1;
 }
 
-.podcastDetail{
-	display: block;
-	position: absolute;
-	width: 500px;
-	z-index: 1000;
-	background-color: white;
-	border: black solid 2px;
+.podcastDetail {
+    display: block;
+    position: absolute;
+    width: 500px;
+    z-index: 1000;
+    background-color: white;
+    border: black solid 2px;
 }
 
-.playlistTitle{
-	display: block;
-	width: 100%;
+.playlistTitle {
+    display: block;
+    width: 100%;
 }
 
-.namePopup{
-	display: block;
-	position: fixed;
-	top: 30%;
-	left: 25%;
-	width: 50%;
-	z-index: 2001;
-	background-color: white;
-	border: black solid 4px;
-	border-radius: 15px;
-	text-align: center;
-	padding: 30px;
-	margin: 30px;
+.namePopup {
+    display: block;
+    position: fixed;
+    top: 30%;
+    left: 25%;
+    width: 50%;
+    z-index: 2001;
+    background-color: white;
+    border: black solid 4px;
+    border-radius: 15px;
+    text-align: center;
+    padding: 30px;
+    margin: 30px;
 }
 
-.namePopupBG{
-	display: block;
-	position: fixed;
-	top: 0%;
-	left: 0%;
-	width: 100%;
-	height: 100%;
-	z-index: 2000;
-	background-color: gray;
-	opacity: .7;
+.namePopupBG {
+    display: block;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+    background-color: gray;
+    opacity: .7;
 }
 
-input[type=number]{
+input[type=number] {
     width: 70px;
-} 
-
-.container{
-	width: 95%;
 }
 
-.form-control{
-	width: 40%;
-	float: right;
+.container {
+    width: 95%;
 }
 
-.resultsWrapper{
-	overflow: hidden;
-	font-size: 14px;
-	postion: relative;
+.form-control {
+    width: 40%;
+    float: right;
+}
+
+.resultsWrapper {
+    overflow: hidden;
+    font-size: 14px;
+    position: relative;
 }
 
 .resultsWrapper > img {
@@ -161,138 +162,201 @@ input[type=number]{
     display: inline-block;
 }
 
-.wrapperDiv{
-	display: inline-block;
+.wrapperDiv {
+    display: inline-block;
     width: 77%;
-	position: relative;
+    position: relative;
 }
 
-.resultsTables{
-	position: absolute;
+.resultsTables {
+    position: absolute;
     bottom: 0;
     word-wrap: break-word;
 }
 
-.wrapInline{
-	display: inline-block;
+.wrapInline {
+    display: inline-block;
 }
 
-.stripeColorOdd:nth-child(odd){
-	background-color: #cccccc;
+.stripeColorOdd:nth-child(odd) {
+    background-color: #cccccc;
 }
 
-.stripeColorEven:nth-child(even){
-	background-color: #cccccc;
+.stripeColorEven:nth-child(even) {
+    background-color: #cccccc;
 }
 
-.tasties{
-	width: 48%;
-	float: right;
+.tasties {
+    width: 48%;
+    float: right;
 }
 
-.tableTasties:nth-child(odd){
-	background-color: #cccccc;
-}
-.tableTasties:nth-child(even){
-	background-color: #cccccc;
+.tableTasties:nth-child(odd) {
+    background-color: #cccccc;
 }
 
-.recommended{
-	width: 48%;
-	float: left;
+.tableTasties:nth-child(even) {
+    background-color: #cccccc;
 }
 
-.tableRecommended:nth-child(odd){
-	background-color: #cccccc;
-}
-.tableRecommended:nth-child(even){
-	background-color: #cccccc;
+.recommended {
+    width: 48%;
+    float: left;
 }
 
-.borderText{
-	color: black;
+.tableRecommended:nth-child(odd) {
+    background-color: #cccccc;
+}
+
+.tableRecommended:nth-child(even) {
+    background-color: #cccccc;
+}
+
+.borderText {
+    color: black;
     text-shadow: -1px 0 silver, 0 1px silver, 1px 0 silver, 0 -1px silver;
 }
 
-.borderTextInverse{
-	color: silver;
+.borderTextInverse {
+    color: silver;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
-.sortDiv{
-	text-align: center;
+.sortDiv {
+    text-align: center;
 }
 
-.navPlayer{
-	display: block;
-	width: 100%;
-	background-color: white;
+.tripPopup {
+    display: block;
+    position: fixed;
+    top: 20%;
+    left: 25%;
+    width: 70%;
+    height: 70%;
+    z-index: 2001;
+    background-color: white;
+    border: black solid 2px;
+    text-align: center;
+    padding: 30px;
+    margin: 30px;
 }
 
-
-.tripPopup{
-	display: block;
-	position: fixed;
-	top: 20%;
-	left: 25%;
-	width: 70%;
-	height: 70%;
-	z-index: 2001;
-	background-color: white;
-	border: black solid 2px;
-	text-align: center;
-	padding: 30px;
-	margin: 30px;
+.tripPopupBG {
+    display: block;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+    background-color: gray;
+    opacity: .7;
 }
 
-.tripPopupBG{
-	display: block;
-	position: fixed;
-	top: 0%;
-	left: 0%;
-	width: 100%;
-	height: 100%;
-	z-index: 2000;
-	background-color: gray;
-	opacity: .7;
-}
-
-#map{
-	
-	max-width: none;
-	height: 85%;
-	top: 1.5em;
-	
+#map {
+    max-width: none;
+    height: 85%;
+    top: 1.5em;
 }
 
 #floating-panel {
-        position: absolute;
-        top: 10px;
-        left: 7%;
-        right: 7%;
-        z-index: 5;
-        background-color: #fff;
-        padding: 5px;
-        border: 1px solid #999;
-        text-align: center;
-        font-family: 'Roboto','sans-serif';
-        line-height: 30px;
-        padding-left: 5px;
-      }
-      
+    position: absolute;
+    top: 10px;
+    left: 7%;
+    right: 7%;
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #999;
+    text-align: center;
+    font-family: 'Roboto', 'sans-serif';
+    line-height: 30px;
+    padding-left: 5px;
+}
+
 #duration-panel {
-	    position: absolute;
-        top: 87%;
-        left: 7%;
-        right: 7%;
-        z-index: 5;
-        background-color: #fff;
-        padding: 5px;
-        border: 1px solid #999;
-        text-align: center;
-        font-family: 'Roboto','sans-serif';
-        line-height: 30px;
-        padding-left: 5px;
+    position: absolute;
+    top: 87%;
+    left: 7%;
+    right: 7%;
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #999;
+    text-align: center;
+    font-family: 'Roboto', 'sans-serif';
+    line-height: 30px;
+    padding-left: 5px;
+}
+
+.navPlayer {
+    display: block;
+    position: relative;
+    width: 100%;
+    background-color: white;
+    margin-bottom: 10px;
+    border: black 4px solid;
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.playerWrapper {
+    display: inline-block;
+    width: 70%
+}
+
+.playerGraphic {
+    display: inline-block;
+    height: 110px;
+    width: 20%;
+    background-color: silver;
+    vertical-align: top;
+}
+
+.nowPlaying {
+    vertical-align: top;
+    font-size: large;
+}
+
+.progressBar {
+    display: inline-block;
+    position: relative;
+    width: 80%;
+}
+
+.playerButtons {
+    display: inline-block;
+}
+
+.destroyButton {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.playerImg {
+    width: 100%;
+    height: 100%;
+}
+
+.panel-transparent {
+    background: none;
+    border: black solid 1px;
+    padding: 0;
+    margin: 0;
+}
+
+.panel-transparent .panel-heading {
+    background: black!important;
+    border: black solid 1px!important;
+    padding: 0!important;
+    margin: 0!important;
+}
+
+.panel-transparent .panel-body {
+    background: black!important;
+    border: black solid 1px!important;
+    padding: 0!important;
+    margin: 0!important;
 }
 
 #mapClose{
@@ -303,3 +367,9 @@ input[type=number]{
 	
 }
 
+.panel-transparent .panel-default {
+    background: black!important;
+    border: black solid 1px!important;
+    padding: 0!important;
+    margin: 0!important;
+}
