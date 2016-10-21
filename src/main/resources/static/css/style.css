@@ -295,3 +295,11 @@ input[type=number]{
         padding-left: 5px;
 }
 
+#mapClose{
+	
+	position:absolute;
+	right: 0px;
+	top: 0px;
+	
+}
+
