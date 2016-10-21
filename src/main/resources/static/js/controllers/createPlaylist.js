@@ -17,6 +17,7 @@ function CreatePlaylistCtrl($scope, $timeout, $http, $state, PlaylistService) {
     controller.userDurHours = "";
     controller.userDurHours = "";
     controller.showNameDiv = false;
+    controller.showTripDiv = false;    
     controller.searched = false;
     //controller.startAddress = "";
     //controller.endAddress = "";
@@ -135,4 +136,17 @@ function CreatePlaylistCtrl($scope, $timeout, $http, $state, PlaylistService) {
     controller.clear = function () {
         location.reload(true);
     }
+    
+    controller.showTrip = function(){
+   	 controller.showNameDiv = false;
+   	 controller.showTripDiv = true;
+    }
+    
+    controller.closeTrip = function(){
+   	 controller.showTripDiv = false;
+   	 controller.showNameDiv = true;
+    }
+    
+
+
 }
