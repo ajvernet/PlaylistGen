@@ -47,6 +47,8 @@ public class AudiosearchController {
 	    msg = r.getMessage();
 	    status = STATUS.ERROR;
 	}
+	if(episodes.size()==0)
+	    msg = "Search returned no results";
 	return ResponseEntity.ok().body(ResponseObject.instanceOf(status, msg, episodes));
     }
 
