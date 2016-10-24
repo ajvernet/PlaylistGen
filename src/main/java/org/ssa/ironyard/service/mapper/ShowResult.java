@@ -25,7 +25,7 @@ public class ShowResult {
         this.episode = episode;
     }
 
-    public List<Integer> filter()
+    public void filter()
     {
         final Integer externalId = this.episode.getEpisodeId();
         List<Integer> results = new ArrayList<>(this.episode_ids.size() >> 1);
@@ -35,7 +35,7 @@ public class ShowResult {
                 results.add(external);
         }
         results.sort(Comparator.<Integer>naturalOrder().reversed());
-        return results;
+        episode_ids = results;
     }
     Show getShow()
     {
