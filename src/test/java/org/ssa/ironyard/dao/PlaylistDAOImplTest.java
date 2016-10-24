@@ -49,7 +49,8 @@ public class PlaylistDAOImplTest {
 	dao = new PlaylistDAOImpl(dataSource, episodeDao);
 	UserDAO userDao = new UserDAOImpl(dataSource);
 	userDao.clear();
-
+	dao.clear();
+	episodeDao.clear();
 	user = User.builder().email("test@test.com").firstName("Bob").lastName("Loblaw")
 		.address(Address.builder().street("123 Mockingbird Ln").city("Mockingbird Heights").state(State.ALABAMA)
 			.zip(new ZipCode("12345")).build())

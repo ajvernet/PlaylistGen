@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/vendor/jquery-3.1.0.min.js"></script>  
     <script src="/vendor/angular.min.js"></script>
     <script src="/vendor/angular-ui-router.min.js"></script>
@@ -23,7 +23,7 @@
 <body>
     <header>
         <h1 class="title">Audio Search Service</h1>
-        <nav class="navbar navbar-default" style="font-size: large; margin:0!important; padding:0!important;">
+        <nav class="navbar navbar-default" style="font-size: large; margin:0!important; margin-bottom: 8px!important; padding:0!important;">
             <ul class="nav navbar-nav" style="float: none!Important;">
                 <li style="padding-left:5%;"><a ui-sref="dashboard" ui-sref-active="active">Home</a></li>
                 <li style="padding-left:5%;"><a ui-sref="createPlaylist" ui-sref-active="active">Create Playlist</a></li>
@@ -52,13 +52,18 @@
 	</div>
 </div>
 <div class="playerButtons">
-<button play-pause-toggle data-play="Play" data-pause="Pause">Play Toggle</button><button prev-track>Prev Track</button><button next-track>Next Track</button> 
-<button mute-music>Mute ({{ mute }})</button><button music-volume data-type="increase">+</button>{{ volume }}<button music-volume data-type="decrease">-</button>
+<div class="btn-group">
+<button play-pause-toggle data-play="Play" data-pause="Pause"  class="btn btn-primary">Play Toggle</button><button prev-track  class="btn btn-primary">Prev Track</button><button next-track  class="btn btn-primary">Next Track</button> 
+<button mute-music  class="btn btn-primary">Mute ({{ mute }})</button>
+</div>
+<button music-volume data-type="increase"  class="btn btn-primary">+</button>{{ volume }}<button music-volume data-type="decrease"  class="btn btn-primary">-</button>
 </div>
 </div>  
 <div class="destroyButton">
-<button clear-playlist style="height: 50px; width: 100%;">Self Destruct</button><br>
-<button data-toggle="collapse" data-target="#collapse1" style="height: 50px; width: 100%;">Toggle Playlist</button>
+<div class="btn-group-vertical">
+<button clear-playlist class="btn btn-primary" style="height:50px">Close Player</button><br>
+<button data-toggle="collapse" data-target="#collapse1" class="btn btn-primary" style="height:50px">Toggle Playlist</button>
+</div>
 </div>
 </div>
         							</h4>
@@ -68,8 +73,8 @@
 
 <table class="table table-striped table-bordered  stripeColorOdd stripeColorEven">
 	<tbody>
-		<tr ng-repeat="song in playlist">
-			<td><a play-from-playlist="song">{{song.title}}</a></td>
+		<tr ng-repeat="song in playlist" class="hoverHighlight">
+			<td><a play-from-playlist="song" class="hoverPointer">{{song.title}}</a><span ng-if="currentPlaying.title == song.title"> - (current)</span></td>
 			<td>{{ song.artist }}</td>
 			<td>{{ song.duration }}</td>
 		</tr>
