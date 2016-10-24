@@ -1,9 +1,3 @@
-html{
-	font-size: 100%;
-    -ms-text-size-adjust: 100%; 
-    -webkit-text-size-adjust: 100%;
-}
-
 body {
     background: black;
     background: radial-gradient(black, #1e1e2f) no-repeat center center fixed;
@@ -17,12 +11,11 @@ body {
     display: block;
     position: absolute;
     width: 100%;
-    height: 125px;
+    height: 10%;
     left: 0;
-    top: 0;
+    top: -2%;
     z-index: -1;
-    background-color: silver;
-<!--    background-image: url("/images/podcast-01-background-noise.png");    -->
+    background-image: url("/images/podcast-01-background-noise.png");
 }
 
 .bgDiv {
@@ -55,12 +48,12 @@ body {
 .resultsDiv {
     display: block;
     float: left;
-    width: 48%;
+    width: 45%;
 }
 
 .rightDiv {
     float: right;
-    width: 48%;
+    width: 45%;
 }
 
 .playlistDiv {
@@ -74,10 +67,6 @@ body {
 
 .hoverPointer {
     cursor: pointer;
-}
-
-.hoverHighlight:hover{
-	background-color: #99b3e6!important;
 }
 
 li {
@@ -175,7 +164,8 @@ input[type=number] {
 
 .wrapperDiv {
     display: inline-block;
-    position: relative; 
+    width: 77%;
+    position: relative;
 }
 
 .resultsTables {
@@ -354,7 +344,7 @@ input[type=number] {
 }
 
 .panel-transparent {
-    background: black;
+    background: none;
     border: black solid 1px;
     padding: 0;
     margin: 0;

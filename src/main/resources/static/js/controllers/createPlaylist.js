@@ -98,6 +98,11 @@ function CreatePlaylistCtrl($scope, $timeout, $http, $state, PlaylistService) {
     controller.initializePL = function () {
         controller.showNameDiv = false;
         PlaylistService.setName(controller.playlistName);
+        // overwrite userDurHours/minutes with their current value
+        controller.userDurHours = angular.element("#userDurHours").val()
+        controller.userDurMinutes = angular.element("#userDurMin").val()
+        
+        
         controller.userDurHours = controller.userDurHours || 0;
         controller.userDurMinutes = controller.userDurMinutes || 0;
         var hourToSec = Number(controller.userDurHours) * 3600;
