@@ -1,7 +1,7 @@
 <h2 style="color:silver">Playlists</h2>
 
 <table class="table table-striped table-bordered stripeColorEven stripeColorOdd hoverPointer">
-	<tr>
+	<tr style="background-color: gray; color: white;">
 	<th>Playlist Title</th><th>Length</th>
 	</tr>
 	<tr ng-repeat="playlist in PC.playlists | orderBy:PC.sortType:PC.sortReverse" ng-click="PC.toDetail(playlist)">

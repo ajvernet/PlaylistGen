@@ -14,6 +14,7 @@ function CreatePlaylistCtrl($scope, $timeout, $http, $state, PlaylistService) {
     controller.readyToSave = PlaylistService.getLoadedPlaylist;
     controller.notReadyToSave = PlaylistService.getLoadingPlaylist;
     controller.userDuration = PlaylistService.getUserDuration.duration;
+    controller.searchStatus = PlaylistService.getSearchStatus;
     controller.userDurHours = "";
     controller.userDurHours = "";
     controller.showNameDiv = false;

@@ -18,6 +18,11 @@ function PlaylistService($http, $timeout, $rootScope) {
     service.id = {
         'id': null
     };
+    
+    service.nullReturn = {
+    	'status': false
+    }
+    
     service.searchResults = [];
     service.tempResults = [];
     service.createdPlaylist = [];
@@ -31,6 +36,7 @@ function PlaylistService($http, $timeout, $rootScope) {
     service.emptyArray = [];
     return {
         searchResults: function (key, gen) {
+        	service.nullReturn.status = false;
             service.keyword.key = key;
             service.genre.gen = gen;
             angular.copy(service.emptyArray, service.tempResults);
@@ -60,6 +66,15 @@ function PlaylistService($http, $timeout, $rootScope) {
                     service.tempResults.push(temp);
                 }
                 angular.copy(service.tempResults, service.searchResults);
+                
+                if(service.searchResults.length === 0){
+                	service.nullReturn.status = true;
+                }
+                else{
+                	service.nullReturn.status = false;
+                }
+                console.log(service.nullReturn);
+                
             }).error(function (response) {
                 console.log("http error");
             })
@@ -143,6 +158,7 @@ function PlaylistService($http, $timeout, $rootScope) {
             service.userDuration.duration = duration;
         }
         , getId: service.id
+        , getSearchStatus: service.nullReturn
         , clear: function () {
             angular.copy(service.emptyArray, service.searchResults);
             angular.copy(service.emptyArray, service.tempResults);
