@@ -44,7 +44,7 @@ import com.google.gson.Gson;
 
 @Service
 public class AudiosearchServiceImpl implements AudiosearchService {
-    private final static String apiBaseUri = "https://www.audiosear.ch/api";
+    public final static String apiBaseUri = "https://www.audiosear.ch/api";
     private final static String redirect = "urn:ietf:wg:oauth:2.0:oob";
     private final static String fileLocation = "src/main/resources/secrets.properties";
     private final AudiosearchAuthorizationService authorizationService;
