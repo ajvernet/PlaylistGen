@@ -76,6 +76,10 @@ body {
     cursor: pointer;
 }
 
+.hoverHighlight:hover{
+	background-color: #99b3e6!important;
+}
+
 li {
     display: block;
 }
