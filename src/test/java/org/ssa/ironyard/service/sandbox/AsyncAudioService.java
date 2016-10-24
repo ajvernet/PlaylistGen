@@ -33,7 +33,8 @@ import org.ssa.ironyard.service.mapper.ShowResult;
 public class AsyncAudioService implements AudiosearchService
 {
     static final Logger LOGGER = LogManager.getLogger(AudiosearchService.class);
-    
+
+    private final static String apiBaseUri = "https://www.audiosear.ch/api";
     final AudiosearchAuthorizationService authorizer;
     final AuthToken token;
     final AsyncRestTemplate asyncTemplate;
@@ -87,7 +88,7 @@ public class AsyncAudioService implements AudiosearchService
     void testShows(List<Episode> shows) throws Exception
     {
         LOGGER.info("Starting #testShows");
-        final String endPoint = AudiosearchServiceImpl.apiBaseUri + "/shows/";
+        final String endPoint = apiBaseUri + "/shows/";
         final AsyncRestTemplate asyncRestTemplate = this.asyncTemplate;
         
         

@@ -10,7 +10,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Queue;
 import java.util.StringJoiner;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -25,6 +29,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.concurrent.ListenableFuture;
+import org.springframework.util.concurrent.ListenableFutureCallback;
+import org.springframework.web.client.AsyncRestTemplate;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.ssa.ironyard.interceptor.LoggingRequestInterceptor;
@@ -44,13 +51,14 @@ import com.google.gson.Gson;
 
 @Service
 public class AudiosearchServiceImpl implements AudiosearchService {
-    public final static String apiBaseUri = "https://www.audiosear.ch/api";
+    private final static String apiBaseUri = "https://www.audiosear.ch/api";
     private final static String redirect = "urn:ietf:wg:oauth:2.0:oob";
     private final static String fileLocation = "src/main/resources/secrets.properties";
     private final AudiosearchAuthorizationService authorizationService;
     private final PlaylistService playlistService;
     private Logger LOGGER = LogManager.getLogger(AudiosearchServiceImpl.class);
     private final HttpEntity<String> oauth;
+    private final AsyncRestTemplate asyncTemplate;
 
     @Autowired
     public AudiosearchServiceImpl(PlaylistService playlistService) {
@@ -64,14 +72,20 @@ public class AudiosearchServiceImpl implements AudiosearchService {
 	    throw new RuntimeException(e.getMessage());
 	}
 	LOGGER.info("AudioSearchService is loading");
-	this.authorizationService = new AudiosearchAuthorizationService(p.getProperty("appId"), p.getProperty("secret"), redirect);
+	this.authorizationService = new AudiosearchAuthorizationService(p.getProperty("appId"), p.getProperty("secret"),
+		redirect);
 	this.playlistService = playlistService;
 	this.oauth = getHeaders();
 	LOGGER.info("AudioSearchService has loaded");
+	this.asyncTemplate = new AsyncRestTemplate();
     }
 
-    /* (non-Javadoc)
-     * @see org.ssa.ironyard.service.AudiosearchService#searchEpisodesAlt(java.lang.String, java.lang.String, java.lang.Integer)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.ssa.ironyard.service.AudiosearchService#searchEpisodesAlt(java.lang.
+     * String, java.lang.String, java.lang.Integer)
      */
     @Override
     public List<Episode> searchEpisodesAlt(String genre, String searchText, Integer size) {
@@ -96,8 +110,10 @@ public class AudiosearchServiceImpl implements AudiosearchService {
 	}
 	List<Episode> episodes = new ArrayList<>();
 	for (EpisodeResult episodeResult : response.getBody().getResults()) {
-	    Episode episode = Episode.builder().episodeId(episodeResult.getId()).name(Jsoup.parse(episodeResult.getTitle()).text())
-		    .genreId(getGenreId(episodeResult)).description(episodeResult.getDescription() == null ? null : Jsoup.parse(episodeResult.getDescription()).text())
+	    Episode episode = Episode.builder().episodeId(episodeResult.getId())
+		    .name(Jsoup.parse(episodeResult.getTitle()).text()).genreId(getGenreId(episodeResult))
+		    .description(episodeResult.getDescription() == null ? null
+			    : Jsoup.parse(episodeResult.getDescription()).text())
 		    .duration(getDuration(episodeResult)).fileUrl(getAudioFileUrl(episodeResult))
 		    .show(new Show(episodeResult.getShowId(), episodeResult.getShowTitle(),
 			    getThumbnail(episodeResult)))
@@ -171,7 +187,9 @@ public class AudiosearchServiceImpl implements AudiosearchService {
 	return categoryIds.size() > 0 ? categoryIds.get(0) : null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.ssa.ironyard.service.AudiosearchService#getTasties()
      */
     @Override
@@ -210,10 +228,11 @@ public class AudiosearchServiceImpl implements AudiosearchService {
 	}
 	List<Episode> episodes = new ArrayList<>();
 	for (TastiesEpisodeResult episodeResult : episodeResults) {
-	    Episode episode = Episode.builder().episodeId(episodeResult.getId()).name(Jsoup.parse(episodeResult.getTitle()).text())
-		    .description(episodeResult.getDescription() == null ? null : Jsoup.parse(episodeResult.getDescription()).text())
-			    .duration(episodeResult.getAudio_files().getDuration())
-		    .fileUrl(getTastiesAudioFile(episodeResult))
+	    Episode episode = Episode.builder().episodeId(episodeResult.getId())
+		    .name(Jsoup.parse(episodeResult.getTitle()).text())
+		    .description(episodeResult.getDescription() == null ? null
+			    : Jsoup.parse(episodeResult.getDescription()).text())
+		    .duration(episodeResult.getAudio_files().getDuration()).fileUrl(getTastiesAudioFile(episodeResult))
 		    .show(new Show(episodeResult.getShow_id(), episodeResult.getShow_title(), null)).build();
 	    if (episode.getFileUrl() != null)
 		episodes.add(episode);
@@ -254,7 +273,9 @@ public class AudiosearchServiceImpl implements AudiosearchService {
 	return episodes;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.ssa.ironyard.service.AudiosearchService#getGenres()
      */
     @Override
@@ -262,8 +283,12 @@ public class AudiosearchServiceImpl implements AudiosearchService {
 	return Stream.of(Genre.values()).map(g -> g.getName()).collect(Collectors.toList());
     }
 
-    /* (non-Javadoc)
-     * @see org.ssa.ironyard.service.AudiosearchService#getNewShowsByUserId(java.lang.Integer)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.ssa.ironyard.service.AudiosearchService#getNewShowsByUserId(java.lang
+     * .Integer)
      */
     @Override
     public List<Episode> getNewShowsByUserId(Integer userId) {
@@ -278,21 +303,33 @@ public class AudiosearchServiceImpl implements AudiosearchService {
 	List<ClientHttpRequestInterceptor> ris = new ArrayList<>();
 	ris.add(ri);
 	restTemplate.setInterceptors(ris);
-	for (Episode episode : topTenShows) {
-	    LOGGER.trace("Checking for new episodes for show: {}", episode.getShow().getId());
-	    String showUri = uri + episode.getShow().getId().toString();
-	    LOGGER.trace("Going to " + showUri);
-	    ShowResult showResults;
-	    try {
-		showResults = restTemplate.exchange(showUri, HttpMethod.GET, oauth, ShowResult.class).getBody();
-	    } catch (RestClientException r) {
-		continue;
+	// for (Episode episode : topTenShows) {
+	// LOGGER.trace("Checking for new episodes for show: {}",
+	// episode.getShow().getId());
+	// String showUri = uri + episode.getShow().getId().toString();
+	// LOGGER.trace("Going to " + showUri);
+	// ShowResult showResults;
+	// try {
+	// showResults = restTemplate.exchange(showUri, HttpMethod.GET, oauth,
+	// ShowResult.class).getBody();
+	// } catch (RestClientException r) {
+	// continue;
+	// }
+	// LOGGER.trace("{}", showResults.getEpisode_ids());
+	// episodes.addAll(showResults.getEpisode_ids().stream().filter(e -> e >
+	// episode.getEpisodeId())
+	// .map(e ->
+	// Episode.builder().episodeId(e).build()).limit(3).collect(Collectors.toList()));
+	// if (episodes.size() >= maxEpisodes)
+	// break;
+	// }
+
+	Queue<ShowResult> shows = getShowEpisodes(topTenShows);
+	for(ShowResult show: shows){
+	    List<Integer> episodeIds = show.getEpisode_ids();
+	    for(int i = 0; i < episodeIds.size() && i < 3; i++){
+		episodes.add(Episode.builder().episodeId(episodeIds.get(i)).build());
 	    }
-	    LOGGER.trace("{}", showResults.getEpisode_ids());
-	    episodes.addAll(showResults.getEpisode_ids().stream().filter(e -> e > episode.getEpisodeId())
-		    .map(e -> Episode.builder().episodeId(e).build()).limit(3).collect(Collectors.toList()));
-	    if (episodes.size() >= maxEpisodes)
-		break;
 	}
 
 	episodes = episodes.subList(0, episodes.size() < maxEpisodes ? episodes.size() : maxEpisodes);
@@ -314,7 +351,9 @@ public class AudiosearchServiceImpl implements AudiosearchService {
 	LOGGER.info("Response contained {} results", response.getBody().getResults().size());
 	for (EpisodeResult episodeResult : response.getBody().getResults()) {
 	    Episode episode = Episode.builder().episodeId(episodeResult.getId()).name(episodeResult.getTitle())
-		    .genreId(getGenreId(episodeResult)).description(episodeResult.getDescription()==null ? null: Jsoup.parse(episodeResult.getDescription()).text())
+		    .genreId(getGenreId(episodeResult))
+		    .description(episodeResult.getDescription() == null ? null
+			    : Jsoup.parse(episodeResult.getDescription()).text())
 		    .duration(getDuration(episodeResult)).fileUrl(getAudioFileUrl(episodeResult))
 		    .show(new Show(episodeResult.getShowId(), episodeResult.getShowTitle(),
 			    getThumbnail(episodeResult)))
@@ -341,7 +380,9 @@ public class AudiosearchServiceImpl implements AudiosearchService {
 	List<Episode> episodes = new ArrayList<>();
 	for (EpisodeResult episodeResult : response.getBody().getResults()) {
 	    Episode episode = Episode.builder().episodeId(episodeResult.getId()).name(episodeResult.getTitle())
-		    .genreId(getGenreId(episodeResult)).description(episodeResult.getDescription()==null ? null: Jsoup.parse(episodeResult.getDescription()).text())
+		    .genreId(getGenreId(episodeResult))
+		    .description(episodeResult.getDescription() == null ? null
+			    : Jsoup.parse(episodeResult.getDescription()).text())
 		    .duration(getDuration(episodeResult)).fileUrl(getAudioFileUrl(episodeResult))
 		    .show(new Show(episodeResult.getShowId(), episodeResult.getShowTitle(),
 			    getThumbnail(episodeResult)))
@@ -362,8 +403,68 @@ public class AudiosearchServiceImpl implements AudiosearchService {
 	LOGGER.debug(headers.toString());
 	return entity;
     }
-    
-    
+
+    protected Queue<ShowResult> getShowEpisodes(List<Episode> shows) {
+	LOGGER.info("Starting #testShows");
+	final String endPoint = apiBaseUri + "/shows/";
+	final AsyncRestTemplate asyncRestTemplate = this.asyncTemplate;
+
+	final Queue<ShowResult> results = new ConcurrentLinkedQueue<>();
+	final List<ListenableFuture<ResponseEntity<ShowResult>>> futures = new ArrayList<>();
+
+	final HttpEntity<String> headers = getHeaders();
+	for (int index = 1; index < shows.size(); index++) {
+	    final Episode episode = shows.get(index);
+	    ListenableFuture<ResponseEntity<ShowResult>> futureResponse = asyncRestTemplate.exchange(
+		    endPoint + episode.getShow().getId().toString(), HttpMethod.GET, headers, ShowResult.class);
+	    futures.add(futureResponse);
+	    futureResponse.addCallback(new ListenableFutureCallback<ResponseEntity<ShowResult>>() {
+		@Override
+		public void onSuccess(ResponseEntity<ShowResult> response) {
+		    ShowResult sr = response.getBody();
+		    sr.setEpisode(episode);
+		    sr.filter();
+		    results.add(sr);
+		}
+
+		@Override
+		public void onFailure(Throwable thrwbl) {
+		    LOGGER.warn("show request {} failed -> {}", episode.getShow(), thrwbl);
+		}
+	    });
+	}
+	/*
+	 * Always have the join thread do some work as well, use up it's CPU
+	 * time slice/quantum
+	 * 
+	 */
+	final Episode episode = shows.get(0);
+	try {
+	    ResponseEntity<ShowResult> response = asyncRestTemplate.getRestOperations().exchange(
+		    endPoint + episode.getShow().getId().toString(), HttpMethod.GET, headers, ShowResult.class);
+	    ShowResult body = response.getBody();
+	    body.setEpisode(episode);
+	    body.filter();
+	    results.add(body);
+	} catch (Exception ex) {
+	    LOGGER.info(ex);
+	}
+	for (ListenableFuture<?> future : futures) {
+	    try {
+		future.get(1_000L, TimeUnit.MILLISECONDS); // we naiively block,
+							   // but we're a joiner
+	    } catch (TimeoutException timeout) {
+		LOGGER.info(timeout);
+		future.cancel(true);
+	    } catch (Exception ignore) {
+
+	    }
+	}
+
+	LOGGER.info("{}", results);
+	LOGGER.info("episodes -> {}", results.stream().flatMap(sr -> sr.getEpisode_ids().stream()).distinct().count());
+	return results;
+    }
 
     protected boolean urlHeadRequestSucceeds(String url) {
 	RestTemplate restTemplate = new RestTemplate();
