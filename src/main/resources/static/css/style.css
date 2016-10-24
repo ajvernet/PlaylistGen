@@ -236,6 +236,7 @@ input[type=number] {
     z-index: 2001;
     background-color: white;
     border: black solid 2px;
+    border-radius: 10px;
     text-align: center;
     padding: 30px;
     margin: 30px;
@@ -260,6 +261,8 @@ input[type=number] {
 }
 
 #floating-panel {
+		display: inline-flex;
+	justify-content: space-around;
     position: absolute;
     top: 10px;
     left: 7%;
@@ -275,6 +278,8 @@ input[type=number] {
 }
 
 #duration-panel {
+	display: inline-flex;
+	justify-content: space-around;
     position: absolute;
     top: 87%;
     left: 7%;
@@ -362,6 +367,7 @@ input[type=number] {
 #mapClose{
 	
 	position:absolute;
+	border-top-right-radius: 10px;
 	right: 0px;
 	top: 0px;
 	
