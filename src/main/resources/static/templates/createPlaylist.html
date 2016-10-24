@@ -49,31 +49,31 @@
                                     <h4 class="panel-title">
         <div class="resultsWrapper hoverPointer" style="font-size: 18px; padding:0px!important; text-align: left!important;">
         
-        <div class="container">
-        	<div class="row">
-        		<div class="col-sm-2">
-          <img src="{{ podcast.thumb }}">
-          		</div>
-          		<div class="col-sm-8">
-          <div class="wrapperDiv">
-          <table class="resultsTable">
-          <tr><td style="color:black; vertical-align: top;">Show: </td>
-          <td>{{ podcast.show }}</td>
-       	  </tr>
-          <tr><td style="color:black; vertical-align: top;">Episode: </td>
-          <td style="white-space: wrap;">{{ podcast.title }}</td>
-          </tr>
-          <tr><td style="color:black;">Length: </td>
-          <td>{{ MC.formatTime(podcast.duration) }}</td>
-          </tr>
-          </table>
-          </div>
-          </div>
-          <div class="col-sm-2">
-          <button ng-click="MC.addToPL(podcast)" style="display:inline-block;">Add</span></button>
-          </div>
-          </div>
-          </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-2">
+              <img src="{{ podcast.thumb }}">
+                </div>
+                    <div class="col-sm-8">
+              <div class="wrapperDiv">
+              <table class="resultsTable">
+              <tr><td style="color:black; vertical-align: top;">Show: </td>
+              <td>{{ podcast.show }}</td>
+              </tr>
+              <tr><td style="color:black; vertical-align: top;">Episode: </td>
+              <td style="white-space: wrap;">{{ podcast.title }}</td>
+              </tr>
+              <tr><td style="color:black;">Length: </td>
+              <td>{{ MC.formatTime(podcast.duration) }}</td>
+              </tr>
+              </table>
+              </div>
+                </div>
+                    <div class="col-sm-2">
+              <button ng-click="MC.addToPL(podcast)" style="display:inline-block;">Add</span></button>
+                </div>
+                </div>
+            </div>
         </div>
         </h4> </a>
                             </div>
@@ -88,6 +88,8 @@
                             </div>
                         </div>
                     </div>
+                </li>
+            </ul>
         </div>
     </div>
     <div class="rightDiv">
