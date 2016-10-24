@@ -1,3 +1,9 @@
+html{
+	font-size: 100%;
+    -ms-text-size-adjust: 100%; 
+    -webkit-text-size-adjust: 100%;
+}
+
 body {
     background: black;
     background: radial-gradient(black, #1e1e2f) no-repeat center center fixed;
