@@ -4,13 +4,18 @@
 
 <div class="listsContainer">
         <div class="resultsDiv">
-            <div style="display: inline-block; width:100%; border: solid 2px silver; border-radius: 10px; background-color: white; padding: 10px;">
-                <div style="font-size: 3em; float:left; display:inline-block; width:40%;" class="borderText">Podcast Search</div>
-                <div style="text-align: right; float:left; display:inline-block; width:50%;">
-                    <input type="text" size="40" ng-model="MC.keywordSearch" style="width: 300px;" placeholder="    Search by keyword">
-                    <br>
-                    <select class="form-control" id="genre" ng-model="MC.genre" style="width: 300px;">
-                        <option value="" disabled selected style="display: none;">Optional: choose a genre</option>
+        
+<div class="container"  style="display: inline-block; width:100%; border: solid 2px silver; border-radius: 10px; background-color: white; padding: 10px;">
+  <div class="row">
+    <div class="col-sm-3" style="text-align:center;">
+    	<span style="font-size: large">Podcast Search</span>
+  	</div>
+    <div class="col-sm-7">
+    	<div class="form-group">
+    		
+    		<!--<label for="genre">Name:</label>-->
+  			<select class="form-control" id="genre" ng-model="MC.genre">
+                        <option value="" disabled selected style="display: none;">genre</option>
                         <option></option>
                         <option>Comedy</option>
                         <option>Sports & Recreation</option>
@@ -21,13 +26,20 @@
                         <option>News & Politics</option>
                         <option>Technology</option>
                         <option>Education</option>
-                    </select>
-                </div>
-                <div style="text-align: right; float:right; display:inline-block; width:10%;">
-                    <button id="submitSearchBtn" ng-click="MC.submitSearch(MC.keywordSearch, MC.genre)" style="font-size: large;">Search</button>
-                </div>
-            </div>
-            <div class="sortDiv">
+			</select>
+    	
+  			<!--<label for="keyword">Name:</label>-->
+  			<input type="text" size="40" ng-model="MC.keywordSearch" placeholder="keyword" class="form-control" id="keyword">
+  			
+		</div>
+    </div>
+    <div class="col-sm-2"  style="text-align:center;">
+    	<button id="submitSearchBtn" class="btn btn-default" ng-click="MC.submitSearch(MC.keywordSearch, MC.genre)">Search</button>
+    </div>
+  </div>
+</div>
+        
+<div class="sortDiv" ng-if="MC.searchResults.length">
             <h4 class="borderTextInverse" style="display:inline-block;">Sort by </h4>
 	            <div class="btn-group">
 	            	<button type="button"  style="display:inline-block;" class="btn btn-primary" ng-click="MC.sortType = 'show'; MC.sortReverse = !MC.sortReverse">
@@ -43,28 +55,32 @@
             			<span ng-show="MC.sortType == 'duration' && MC.sortReverse" class="fa fa-caret-down"></span>
             		</button>
 	            </div>
-            </div>
-            
-            <br>
-            <br>
-            
-            <div class="loading" ng-if="MC.searchResults.length == 0 && MC.searched"><img src="/images/loading.gif" class="img-thumbnail"></div>
-            
-            <ul>
-                <li ng-repeat="podcast in MC.searchResults | orderBy:MC.sortType:MC.sortReverse" ng-if="MC.inPlaylist.indexOf(podcast.json.episodeId) == -1" class="hoverPointer">
+</div>
+
+<div class="loading" ng-if="MC.searchResults.length == 0 && MC.searched"><img src="/images/loading.gif" class="img-thumbnail"></div>
+
+
+<ul>
+                <li ng-repeat="podcast in MC.searchResults | orderBy:MC.sortType:MC.sortReverse" ng-if="MC.inPlaylist.indexOf(podcast.json.episodeId) == -1 && $index != 0" class="hoverPointer">
                     <div class="panel-group">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <a data-toggle="collapse" data-target="#collapse{{ $index + 1 }}">
                                     <h4 class="panel-title">
         <div class="resultsWrapper hoverPointer" style="font-size: 18px;">
-          <img src="{{ podcast.thumb }}" style="width: 13%;">
+        
+        <div class="container">
+        	<div class="row">
+        		<div class="col-sm-2">
+          <img src="{{ podcast.thumb }}" style="width: 80px;">
+          		</div>
+          		<div class="col-sm-8">
           <div class="wrapperDiv">
           <table class="resultsTable">
-          <tr><td style="color:black;">Show: </td>
+          <tr><td style="color:black; vertical-align: top;">Show: </td>
           <td>{{ podcast.show }}</td>
        	  </tr>
-          <tr><td style="color:black;">Episode: </td>
+          <tr><td style="color:black; vertical-align: top;">Episode: </td>
           <td style="white-space: wrap;">{{ podcast.title }}</td>
           </tr>
           <tr><td style="color:black;">Length: </td>
@@ -72,7 +88,12 @@
           </tr>
           </table>
           </div>
-          <button ng-click="MC.addToPL(podcast)" style="width:8%;">Add</span></button>
+          </div>
+          <div class="col-sm-2">
+          <button ng-click="MC.addToPL(podcast)" style="display:inline-block;">Add</span></button>
+          </div>
+          </div>
+          </div>
         </div>
         </h4> </a>
                             </div>
@@ -88,6 +109,8 @@
                         </div>
                     </div>
         </div>
+
+</div>
         <div class="rightDiv">
             <div id="newPL" class="playlistTitle">
             <div class="borderText" style="display: inline-block; max-width:70%; border: solid 2px silver; border-radius: 10px; background-color: white; padding: 10px; word-wrap: break-word; font-size:3em;">
@@ -109,7 +132,14 @@
                 <table class="table table-bordered table-striped stripeColorEven stripeColorOdd">
                     <tr ng-repeat="podcast in MC.readyToSave">
                         <td>
-                            <div class="resultsWrapper"> <img src="{{ podcast.json.show.thumbUrl }}">
+                            <div class="resultsWrapper">
+                            	<div class="container">
+                            	<div class="row">
+                            	
+                            	<div class="col-sm-3">
+                            	<img src="{{ podcast.json.show.thumbUrl }}">
+                            	</div>
+                            	<div class="col-sm-8">
                                 <div class="wrapperDiv">
                                     <table class="resultsTable">
                                         <tr>
@@ -123,11 +153,18 @@
                                         </tr>
                                     </table>
                                 </div>
+                                </div>
+                                <div class="col-sm-1">
                                 <div class="btn-group-vertical wrapInline">
                                     <button type="button" class="btn btn-primary" ng-click="MC.raiseSong($index)" ng-hide="$first"><i class="fa fa-sort-asc" aria-hidden="true"></i></span>
                                     </button>
                                     <button type="button" class="btn btn-primary" ng-click="MC.dropPodcast($index)"><i class="fa fa-times" aria-hidden="true"></i></button>
                                     <button type="button" class="btn btn-primary" ng-click="MC.lowerSong($index)" ng-hide="$last"><i class="fa fa-sort-desc" aria-hidden="true"></i></button>
+                                </div>
+                                </div>
+                                
+                                
+                                </div>
                                 </div>
                             </div>
                         </td>

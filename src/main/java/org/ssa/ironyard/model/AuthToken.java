@@ -27,4 +27,12 @@ public class AuthToken {
     public void setToken_type(String token_type) {
 	this.token_type = token_type;
     }
+
+    @Override
+    public String toString()
+    {
+        return "AuthToken{" + "access_token=" + access_token + ", token_type=" + token_type + '}';
+    }
+    
+    
 }

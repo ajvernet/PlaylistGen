@@ -275,7 +275,7 @@ public class AudiosearchServiceImpl implements AudiosearchService {
 	LOGGER.trace(topTenShows);
 	RestTemplate restTemplate = new RestTemplate();
 	ClientHttpRequestInterceptor ri = new LoggingRequestInterceptor();
-	List<ClientHttpRequestInterceptor> ris = new ArrayList<ClientHttpRequestInterceptor>();
+	List<ClientHttpRequestInterceptor> ris = new ArrayList<>();
 	ris.add(ri);
 	restTemplate.setInterceptors(ris);
 	for (Episode episode : topTenShows) {
@@ -298,7 +298,7 @@ public class AudiosearchServiceImpl implements AudiosearchService {
 	episodes = episodes.subList(0, episodes.size() < maxEpisodes ? episodes.size() : maxEpisodes);
 	StringJoiner joiner = new StringJoiner(" id: ", "id: ", "");
 	episodes.stream().forEach(e -> joiner.add(e.getEpisodeId().toString()));
-	String searchText = episodes.size() == 0 ? "*" : joiner.toString();
+	String searchText = episodes.isEmpty() ? "*" : joiner.toString();
 	episodes.clear();
 	LOGGER.trace("Search text: " + searchText);
 	String searchUri = apiBaseUri + "/search/episodes/" + searchText;
@@ -358,10 +358,12 @@ public class AudiosearchServiceImpl implements AudiosearchService {
 	headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 	headers.setContentType(MediaType.APPLICATION_JSON);
 	headers.set("Authorization", "Bearer " + authorizationService.getAccessToken().getAccess_token());
-	HttpEntity<String> entity = new HttpEntity<String>(headers);
+	HttpEntity<String> entity = new HttpEntity<>(headers);
 	LOGGER.debug(headers.toString());
 	return entity;
     }
+    
+    
 
     protected boolean urlHeadRequestSucceeds(String url) {
 	RestTemplate restTemplate = new RestTemplate();
