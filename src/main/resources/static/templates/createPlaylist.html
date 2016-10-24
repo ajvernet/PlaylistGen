@@ -13,7 +13,6 @@
     <div class="col-sm-7">
     	<div class="form-group">
     		
-    		<!--<label for="genre">Name:</label>-->
   			<select class="form-control" id="genre" ng-model="MC.genre">
                         <option value="" disabled selected style="display: none;">genre</option>
                         <option></option>
@@ -56,9 +55,11 @@
             		</button>
 	            </div>
 </div>
-
-<div class="loading" ng-if="MC.searchResults.length == 0 && MC.searched"><img src="/images/loading.gif" class="img-thumbnail"></div>
-
+<br>
+<div class="loading" ng-if="MC.searchResults.length == 0 && MC.searched && !MC.searchStatus.status"><img src="/images/loading.gif" class="img-thumbnail"></div>
+<div ng-if="MC.searchStatus.status != false" style="color:white; font-size: large;">
+{{ MC.searchStatus.status }}
+</div>
 
 <ul>
                 <li ng-repeat="podcast in MC.searchResults | orderBy:MC.sortType:MC.sortReverse" ng-if="MC.inPlaylist.indexOf(podcast.json.episodeId) == -1 && $index != 0" class="hoverPointer">
@@ -67,12 +68,12 @@
                             <div class="panel-heading">
                                 <a data-toggle="collapse" data-target="#collapse{{ $index + 1 }}">
                                     <h4 class="panel-title">
-        <div class="resultsWrapper hoverPointer" style="font-size: 18px;">
+        <div class="resultsWrapper hoverPointer" style="font-size: 18px; padding:0px!important; text-align: left!important;">
         
         <div class="container">
         	<div class="row">
         		<div class="col-sm-2">
-          <img src="{{ podcast.thumb }}" style="width: 80px;">
+          <img src="{{ podcast.thumb }}">
           		</div>
           		<div class="col-sm-8">
           <div class="wrapperDiv">

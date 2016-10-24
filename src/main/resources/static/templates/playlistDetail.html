@@ -6,6 +6,12 @@
     
         <table class="table table-striped table-bordered stripeColorOdd stripeColorEven">
             
+            <thead>
+            <tr style="background-color: gray; color: white;">
+            	<th>Title</th><th>Show</th><th>Length</th>
+            </tr>
+            </thead>
+            
             <tbody>
                 <tr ng-repeat="podcast in PC.playlist">
                     <td>{{podcast.json.name}}</td>

@@ -14,6 +14,7 @@ function CreatePlaylistCtrl($scope, $timeout, $http, $state, PlaylistService) {
     controller.readyToSave = PlaylistService.getLoadedPlaylist;
     controller.notReadyToSave = PlaylistService.getLoadingPlaylist;
     controller.userDuration = PlaylistService.getUserDuration.duration;
+    controller.searchStatus = PlaylistService.getSearchStatus;
     controller.userDurHours = "";
     controller.userDurHours = "";
     controller.showNameDiv = false;
@@ -38,6 +39,10 @@ function CreatePlaylistCtrl($scope, $timeout, $http, $state, PlaylistService) {
         if (controller.playlistName == "New Playlist") {
             controller.playlistName = "";
             controller.showNameDiv = true;
+            var element = angular.element('#playlistName');
+            $timeout(function () {                                                
+                element.focus();
+            })
         }
         console.log("Loaded playlist size: " + controller.readyToSave.length);
         PlaylistService.addPodcast(podcast);
@@ -59,6 +64,10 @@ function CreatePlaylistCtrl($scope, $timeout, $http, $state, PlaylistService) {
         if (controller.playlistName == "New Playlist") {
             controller.playlistName = "";
             controller.showNameDiv = true;
+            var element = angular.element('#playlistName');
+            $timeout(function () {                                                
+                element.focus();
+            })
         }
         else {
             var tempObjArray = [];
@@ -137,6 +146,10 @@ function CreatePlaylistCtrl($scope, $timeout, $http, $state, PlaylistService) {
             controller.showNameDiv = true;
         }
         controller.showNameDiv = true;
+        var element = angular.element('#playlistName');
+        $timeout(function () {                                                
+            element.focus();
+        })
     }
     controller.clear = function () {
         location.reload(true);
