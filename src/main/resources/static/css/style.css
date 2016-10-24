@@ -359,6 +359,14 @@ input[type=number] {
     margin: 0!important;
 }
 
+#mapClose{
+	
+	position:absolute;
+	right: 0px;
+	top: 0px;
+	
+}
+
 .panel-transparent .panel-default {
     background: black!important;
     border: black solid 1px!important;

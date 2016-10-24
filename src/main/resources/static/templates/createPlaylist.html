@@ -213,6 +213,9 @@
     <div class="namePopupBG" ng-show="MC.showNameDiv"></div>
     
     <div class="tripPopup" ng-if="MC.showTripDiv">
+    
+    
+    	<input id="mapClose" type="button" value = "&times" ng-click="MC.closeTrip()">
    
     <div id="floating-panel">
 	    <b>Start: </b>
@@ -221,6 +224,8 @@
 	    <b>End: </b>
 	    
 	    <input id="end" type="text" placeholder=" End location">
+	    
+	    <input id="getDirections" type="button" value = "Get Directions">
     
     </div>
     
@@ -237,11 +242,11 @@
         var directionsService = new google.maps.DirectionsService;
         var directionsDisplay = new google.maps.DirectionsRenderer;
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 7,
-          center: {lat: 41.85, lng: -87.65}
+          zoom: 9,
+          center: {lat: 39.20, lng: -76.86}
         });
         directionsDisplay.setMap(map);
-
+     
 
         var onChangeHandler = function() {
           calculateAndDisplayRoute(directionsService, directionsDisplay);
@@ -266,6 +271,8 @@
           }
         });
       }
+      
+      
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4JJmBrEKHOjclyDdkaxZp4JtvYrSpeWc&callback=initMap">
