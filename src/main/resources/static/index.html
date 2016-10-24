@@ -23,7 +23,7 @@
 <body>
     <header>
         <h1 class="title">Audio Search Service</h1>
-        <nav class="navbar navbar-default" style="font-size: large; margin:0!important; padding:0!important;">
+        <nav class="navbar navbar-default" style="font-size: large; margin:0!important; margin-bottom: 8px!important; padding:0!important;">
             <ul class="nav navbar-nav" style="float: none!Important;">
                 <li style="padding-left:5%;"><a ui-sref="dashboard" ui-sref-active="active">Home</a></li>
                 <li style="padding-left:5%;"><a ui-sref="createPlaylist" ui-sref-active="active">Create Playlist</a></li>
@@ -69,7 +69,7 @@
 <table class="table table-striped table-bordered  stripeColorOdd stripeColorEven">
 	<tbody>
 		<tr ng-repeat="song in playlist">
-			<td><a play-from-playlist="song">{{song.title}}</a></td>
+			<td><a play-from-playlist="song" class="hoverPointer">{{song.title}}</a></td>
 			<td>{{ song.artist }}</td>
 			<td>{{ song.duration }}</td>
 		</tr>
