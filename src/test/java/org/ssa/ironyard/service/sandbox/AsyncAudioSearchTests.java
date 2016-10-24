@@ -72,7 +72,7 @@ public class AsyncAudioSearchTests
 //        uniqueShows.add(new Show(1203, "CLUBCast EDM", ""));
 //        uniqueShows.add(new Show(7806, "House of Bourgeous", ""));
         
-        this.service.testShows(latestEpisodes);
+//        this.service.testShows(latestEpisodes);
         
     }
 }
