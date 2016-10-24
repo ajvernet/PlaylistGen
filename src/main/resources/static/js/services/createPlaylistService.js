@@ -68,7 +68,13 @@ function PlaylistService($http, $timeout, $rootScope) {
                 angular.copy(service.tempResults, service.searchResults);
                 
                 if(service.searchResults.length === 0){
-                	service.nullReturn.status = true;
+                	console.log(response.status);
+                	if(response.status == "ERROR"){
+                		service.nullReturn.status = "Error contacting search partner.  Try again.";
+                	}
+                	else{
+                	service.nullReturn.status = response.msg;
+                	}
                 }
                 else{
                 	service.nullReturn.status = false;

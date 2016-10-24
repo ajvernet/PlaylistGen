@@ -57,9 +57,8 @@
 </div>
 <br>
 <div class="loading" ng-if="MC.searchResults.length == 0 && MC.searched && !MC.searchStatus.status"><img src="/images/loading.gif" class="img-thumbnail"></div>
-<div ng-if="MC.searchStatus.status" style="color:white; font-size: large;">
-No search results.<br>
-Try another search.
+<div ng-if="MC.searchStatus.status != false" style="color:white; font-size: large;">
+{{ MC.searchStatus.status }}
 </div>
 
 <ul>
