@@ -9,13 +9,13 @@ body {
 
 .headDiv {
     display: block;
+    background: gray;
     position: absolute;
     width: 100%;
-    height: 10%;
+    height: 14%;
     left: 0;
     top: -2%;
     z-index: -1;
-    background-image: url("/images/podcast-01-background-noise.png");
 }
 
 .bgDiv {

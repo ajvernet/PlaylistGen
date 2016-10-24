@@ -10,6 +10,8 @@ function DashboardCtrl($http, PlaylistService, $state) {
     ctrl.podcasts = [];
     ctrl.recommended = [];
     ctrl.selectedPodcasts = [];
+    ctrl.statusR = false;
+    ctrl.statusT = false;
     
     $http.get("/podcasts/user/" + ctrl.user + "/newshows/")
     .then(function(response) {
@@ -19,15 +21,40 @@ function DashboardCtrl($http, PlaylistService, $state) {
 	    	ctrl.recommended.push(temp);
 	    	}
     	console.log(ctrl.recommended);
+    	if(ctrl.recommended.length === 0){
+        	console.log(response);
+        	if(response.status == "ERROR"){
+        		ctrl.statusR = "Error contacting search partner.  Try again.";
+        	}
+        	else{
+        		ctrl.statusR = response.data.msg;
+        	}
+        }
+        else{
+        	ctrl.statusR = false;
+        }
+    	console.log(ctrl.statusR);
     })
     
     $http.get("/podcasts/tasties/")
     .then(function(response) {
-    	//console.log(response);
+    	console.log(response);
     	for(i=0; i<response.data.obj.length; i++){
 	    	var temp = {'id': i, 'title': response.data.obj[i].name, 'duration': response.data.obj[i].duration, 'url': response.data.obj[i].fileUrl, 'show': response.data.obj[i].show.name, 'json': response.data.obj[i]}
 	    	ctrl.podcasts.push(temp);
 	    	}
+    	if(ctrl.podcasts.length === 0){
+        	if(response.status == "ERROR"){
+        		ctrl.statusT = "Error contacting search partner.  Try again.";
+        	}
+        	else{
+        		ctrl.statusT = response.data.msg;
+        	}
+        }
+        else{
+        	ctrl.statusT = false;
+        }
+    	console.log(ctrl.statusT);
     })
     
     ctrl.initPL = function(){
