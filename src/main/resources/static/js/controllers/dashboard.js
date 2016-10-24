@@ -11,15 +11,6 @@ function DashboardCtrl($http, PlaylistService, $state) {
     ctrl.recommended = [];
     ctrl.selectedPodcasts = [];
     
-    $http.get("/podcasts/tasties/")
-    .then(function(response) {
-    	//console.log(response);
-    	for(i=0; i<response.data.obj.length; i++){
-	    	var temp = {'id': i, 'title': response.data.obj[i].name, 'duration': response.data.obj[i].duration, 'url': response.data.obj[i].fileUrl, 'show': response.data.obj[i].show.name, 'json': response.data.obj[i]}
-	    	ctrl.podcasts.push(temp);
-	    	}
-    })
-    
     $http.get("/podcasts/user/" + ctrl.user + "/newshows/")
     .then(function(response) {
     	console.log(response);
@@ -28,6 +19,15 @@ function DashboardCtrl($http, PlaylistService, $state) {
 	    	ctrl.recommended.push(temp);
 	    	}
     	console.log(ctrl.recommended);
+    })
+    
+    $http.get("/podcasts/tasties/")
+    .then(function(response) {
+    	//console.log(response);
+    	for(i=0; i<response.data.obj.length; i++){
+	    	var temp = {'id': i, 'title': response.data.obj[i].name, 'duration': response.data.obj[i].duration, 'url': response.data.obj[i].fileUrl, 'show': response.data.obj[i].show.name, 'json': response.data.obj[i]}
+	    	ctrl.podcasts.push(temp);
+	    	}
     })
     
     ctrl.initPL = function(){
