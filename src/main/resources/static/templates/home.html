@@ -1,7 +1,7 @@
 <div style="display: block; position: relative; width:50%; left:25%; border: solid 2px silver; border-radius: 5px; background-color: white; padding: 10px;">
     <button ng-click="dash.initPL()">Start New Playlist</button> <span style="font-size:large;"> Select podcasts below to quickly add them to a new playlist</span> </div>
 <div class="recommended">
-    <h2 style="color:lightgray;">Newer episodes of shows you listen to</h2>
+    <h2 style="color:lightgray;">Newer Episodes</h2>
     <table class="table table-striped tableRecommended">
         <tr ng-repeat="podcast in dash.recommended">
             <td style="width:1%; white-space:nowrap;"><img src="{{ podcast.json.show.thumbUrl }}"></td>
@@ -13,8 +13,7 @@
                 <br>{{ podcast.title }}
                 <br>{{ dash.formatTime(podcast.duration) }}</td>
             <td style="width: 5%;">
-                <input type="checkbox" ng-model="podcast.selected" style="width: 100%;height: 100%;">
-            </td>
+                <input type="checkbox" ng-model="podcast.selected" style="width: 100%;height: 100%;"> </td>
         </tr>
     </table>
     <div class="loading" ng-if="dash.recommended.length == 0"><img src="/images/loading.gif" class="img-thumbnail"></div>
@@ -32,8 +31,7 @@
                 <br>{{ podcast.title }}
                 <br>{{ dash.formatTime(podcast.duration) }}</td>
             <td style="width: 5%;">
-                <input type="checkbox" ng-model="podcast.selected" style="width: 100%;height: 100%;">
-            </td>
+                <input type="checkbox" ng-model="podcast.selected" style="width: 100%;height: 100%;"> </td>
         </tr>
     </table>
 </div>
