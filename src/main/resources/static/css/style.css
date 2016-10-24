@@ -134,6 +134,21 @@ li {
     opacity: .7;
 }
 
+.deletePopup{
+	display: block;
+    position: fixed;
+    top: 30%;
+    left: 25%;
+    width: 50%;
+    z-index: 2001;
+    background-color: white;
+    border: black solid 4px;
+    border-radius: 15px;
+    text-align: center;
+    padding: 30px;
+    margin: 30px;
+}
+
 input[type=number] {
     width: 70px;
 }

@@ -17,7 +17,7 @@
         </tr>
     </table>
     <div class="loading" ng-if="dash.recommended.length == 0 && !dash.statusR"><img src="/images/loading.gif" class="img-thumbnail"></div>
-    <div ng-if="dash.statusR != false" style="color:white; font-size: large;">{{ dash.statusT }}</div>
+    <div ng-if="dash.statusR != false" style="color:white; font-size: large;">{{ dash.statusR }}</div>
 </div>
 <div class="tasties">
     <h2 style="color:lightgray;">Recommended by Tastemakers</h2>
@@ -36,5 +36,5 @@
         </tr>
     </table>
 <div class="loading" ng-if="dash.podcasts.length == 0 && !dash.statusT"><img src="/images/loading.gif" class="img-thumbnail"></div>
-<div ng-if="dash.statusT != false" style="color:white; font-size: large;">{{ dash.statusR }}</div>
+<div ng-if="dash.statusT != false" style="color:white; font-size: large;">{{ dash.statusT }}</div>
 </div>
