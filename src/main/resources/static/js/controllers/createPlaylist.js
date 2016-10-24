@@ -18,7 +18,7 @@ function CreatePlaylistCtrl($scope, $timeout, $http, $state, PlaylistService) {
     controller.userDurHours = "";
     controller.userDurHours = "";
     controller.showNameDiv = false;
-    controller.showTripDiv = false;    
+    controller.showTripDiv = false;
     controller.searched = false;
     //controller.startAddress = "";
     //controller.endAddress = "";
@@ -32,7 +32,7 @@ function CreatePlaylistCtrl($scope, $timeout, $http, $state, PlaylistService) {
         return durationBuilder;
     };
     controller.submitSearch = function (keyword, genre) {
-    	controller.searched = true;
+        controller.searched = true;
         PlaylistService.searchResults(keyword, genre);
     }
     controller.addToPL = function (podcast) {
@@ -40,7 +40,7 @@ function CreatePlaylistCtrl($scope, $timeout, $http, $state, PlaylistService) {
             controller.playlistName = "";
             controller.showNameDiv = true;
             var element = angular.element('#playlistName');
-            $timeout(function () {                                                
+            $timeout(function () {
                 element.focus();
             })
         }
@@ -65,7 +65,7 @@ function CreatePlaylistCtrl($scope, $timeout, $http, $state, PlaylistService) {
             controller.playlistName = "";
             controller.showNameDiv = true;
             var element = angular.element('#playlistName');
-            $timeout(function () {                                                
+            $timeout(function () {
                 element.focus();
             })
         }
@@ -107,11 +107,8 @@ function CreatePlaylistCtrl($scope, $timeout, $http, $state, PlaylistService) {
     controller.initializePL = function () {
         controller.showNameDiv = false;
         PlaylistService.setName(controller.playlistName);
-
         controller.userDurHours = angular.element("#userDurHours").val()
         controller.userDurMinutes = angular.element("#userDurMinutes").val()
-        
-        
         controller.userDurHours = controller.userDurHours || 0;
         controller.userDurMinutes = controller.userDurMinutes || 0;
         var hourToSec = Number(controller.userDurHours) * 3600;
@@ -141,30 +138,25 @@ function CreatePlaylistCtrl($scope, $timeout, $http, $state, PlaylistService) {
         return hours + ':' + minutes + ':' + seconds;
     }
     controller.rename = function () {
-    	if (controller.playlistName == "New Playlist") {
+        if (controller.playlistName == "New Playlist") {
             controller.playlistName = "";
             controller.showNameDiv = true;
         }
         controller.showNameDiv = true;
         var element = angular.element('#playlistName');
-        $timeout(function () {                                                
+        $timeout(function () {
             element.focus();
         })
     }
     controller.clear = function () {
-        location.reload(true);
+        PlaylistService.clearLoadedPlaylist();
     }
-    
-    controller.showTrip = function(){
-   	 controller.showNameDiv = false;
-   	 controller.showTripDiv = true;
+    controller.showTrip = function () {
+        controller.showNameDiv = false;
+        controller.showTripDiv = true;
     }
-    
-    controller.closeTrip = function(){
-   	 controller.showTripDiv = false;
-   	 controller.showNameDiv = true;
+    controller.closeTrip = function () {
+        controller.showTripDiv = false;
+        controller.showNameDiv = true;
     }
-    
-
-
 }
