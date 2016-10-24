@@ -18,7 +18,7 @@ public class AsyncAudioSearchTests
     @Before
     public void setup()
     {
-        this.service = new AsyncAudioService(new AudiosearchAuthorizationService());
+//        this.service = new AsyncAudioService(new AudiosearchAuthorizationService());
     }
     
     //@Test

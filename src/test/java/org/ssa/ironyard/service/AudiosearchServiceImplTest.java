@@ -23,7 +23,7 @@ public class AudiosearchServiceImplTest {
     @Before
     public void setup() {
 	playlistService = EasyMock.createNiceMock(PlaylistService.class);
-	ass = new AudiosearchServiceImpl(new AudiosearchAuthorizationService(), playlistService);
+	ass = new AudiosearchServiceImpl( playlistService);
     }
 
     @Test

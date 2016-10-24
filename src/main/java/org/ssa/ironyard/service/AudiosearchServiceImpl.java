@@ -1,10 +1,15 @@
 package org.ssa.ironyard.service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -39,17 +44,27 @@ import com.google.gson.Gson;
 
 @Service
 public class AudiosearchServiceImpl implements AudiosearchService {
-    public static final String apiBaseUri = "https://www.audiosear.ch/api";
-
+    public final static String apiBaseUri = "https://www.audiosear.ch/api";
+    private final static String redirect = "urn:ietf:wg:oauth:2.0:oob";
+    private final static String fileLocation = "src/main/resources/secrets.properties";
     private final AudiosearchAuthorizationService authorizationService;
     private final PlaylistService playlistService;
     private Logger LOGGER = LogManager.getLogger(AudiosearchServiceImpl.class);
     private final HttpEntity<String> oauth;
 
     @Autowired
-    public AudiosearchServiceImpl(AudiosearchAuthorizationService authorizationService, PlaylistService playlistService) {
+    public AudiosearchServiceImpl(PlaylistService playlistService) {
+
+	File initialFile = new File(fileLocation);
+
+	Properties p = new Properties();
+	try (InputStream inputStream = new FileInputStream(initialFile);) {
+	    p.load(inputStream);
+	} catch (IOException e) {
+	    throw new RuntimeException(e.getMessage());
+	}
 	LOGGER.info("AudioSearchService is loading");
-	this.authorizationService = authorizationService;
+	this.authorizationService = new AudiosearchAuthorizationService(p.getProperty("appId"), p.getProperty("secret"), redirect);
 	this.playlistService = playlistService;
 	this.oauth = getHeaders();
 	LOGGER.info("AudioSearchService has loaded");

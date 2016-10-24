@@ -1,7 +1,12 @@
 package org.ssa.ironyard.service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -25,12 +30,13 @@ public class LoadEpisodes {
 
     @BeforeClass
     public static void initServices() {
+
 	MysqlDataSource datasource = new MysqlDataSource();
 	datasource.setUrl(URL);
 	EpisodeDAO episodes = new EpisodeDAOImpl(datasource);
 	PlaylistDAO playlists = new PlaylistDAOImpl(datasource, episodes);
-	PlaylistService playlistService = new PlaylistService(playlists,episodes);
-	ass = new AudiosearchServiceImpl(new AudiosearchAuthorizationService(), playlistService);
+	PlaylistService playlistService = new PlaylistService(playlists, episodes);
+	ass = new AudiosearchServiceImpl(playlistService);
     }
 
     @Before
