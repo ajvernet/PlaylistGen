@@ -132,6 +132,10 @@ function CreatePlaylistCtrl($scope, $timeout, $http, $state, PlaylistService) {
             controller.showNameDiv = true;
         }
         controller.showNameDiv = true;
+        var element = angular.element('#playlistName');
+        $timeout(function () {                                                
+            element.focus();
+        })
     }
     controller.clear = function () {
         location.reload(true);
