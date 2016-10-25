@@ -63,7 +63,7 @@
               <tr><td style="color:black; vertical-align: top;">Episode: </td>
               <td style="white-space: wrap;">{{ podcast.title }}</td>
               </tr>
-              <tr><td style="color:black;">Length: </td>
+              <tr ng-show="podcast.duration > 0"><td style="color:black;">Length: </td>
               <td>{{ MC.formatTime(podcast.duration) }}</td>
               </tr>
               </table>
@@ -125,7 +125,7 @@
                                                     <td style="white-space: wrap;">{{ podcast.title }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>{{ MC.formatTime(podcast.duration) }}</td>
+                                                    <td><span ng-show="podcast.duration > 0">{{ MC.formatTime(podcast.duration) }}</span></td>
                                                 </tr>
                                             </table>
                                         </div>

@@ -16,16 +16,18 @@
                 <tr ng-repeat="podcast in PC.playlist">
                     <td>{{podcast.json.name}}</td>
                     <td>{{podcast.json.show.name}}</td>
-                    <td>{{PC.formatTime(podcast.json.duration)}}</td>
+                    <td><span ng-show="podcast.json.duration > 0">{{PC.formatTime(podcast.json.duration)}}</span></td>
                 </tr>
             </tbody>
         </table>
     </div>
     
-    <button clear-playlist ng-if="playlist.length">Stop Currently Playing</button>
-    <button play-all="PC.playlist" data-play="true" ng-if="playlist.length == 0" ng-click="PC.playPL()">Play</button>
-    <button ng-click="PC.editPL()">Edit</button>
-    <button ng-click="PC.deletePL()">Delete</button>
+    <div class="btn-group">
+    <button clear-playlist ng-if="playlist.length" class="btn btn-primary">Stop Currently Playing</button>
+    <button play-all="PC.playlist" data-play="true" ng-if="playlist.length == 0" ng-click="PC.playPL()" class="btn btn-primary">Play</button>
+    <button ng-click="PC.editPL()" class="btn btn-primary">Edit</button>
+    <button ng-click="PC.deletePL()" class="btn btn-primary">Delete</button>
+    </div>
     
 </div>
 
