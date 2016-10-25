@@ -76,7 +76,6 @@
 		<tr ng-repeat="song in playlist" class="hoverHighlight">
 			<td><a play-from-playlist="song" class="hoverPointer">{{song.title}}</a><span ng-if="currentPlaying.title == song.title"> - (current)</span></td>
 			<td>{{ song.artist }}</td>
-			<td>{{ song.duration }}</td>
 		</tr>
 	</tbody>
 </table>

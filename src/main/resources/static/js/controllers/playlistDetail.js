@@ -12,6 +12,7 @@ function PlaylistDetailCtrl($scope, $http, $state, $stateParams, PlaylistService
     ctrl.playlist = [];
     
     ctrl.shown = true;
+    ctrl.showDeleteDiv = false;
     
     ctrl.catchNullParam = function(){
     	
@@ -60,8 +61,8 @@ function PlaylistDetailCtrl($scope, $http, $state, $stateParams, PlaylistService
     .then(function(response) {
     	console.log(response);
     	if(response.data.obj == true){
-    		alert("Playlist successfully deleted");
-    		$state.go("playlists");
+    		ctrl.showDeleteDiv = true;
+    		
     	}
     	else{
     		alert("Delete failed");
@@ -83,5 +84,9 @@ function PlaylistDetailCtrl($scope, $http, $state, $stateParams, PlaylistService
             seconds = "0" + seconds;
         }
         return hours + ':' + minutes + ':' + seconds;
+    }
+    
+    ctrl.redirect = function(){
+    	$state.go("playlists");
     }
 }

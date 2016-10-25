@@ -28,18 +28,9 @@
     <button ng-click="PC.deletePL()">Delete</button>
     
 </div>
-<!--
-<div id="playerDiv" ng-hide="PC.shown">
-		<sound-manager></sound-manager>
-		
-<table class="table table-striped table-bordered  stripeColorOdd stripeColorEven">
-	<tbody>
-		<tr ng-repeat="song in playlist">
-			<td><a play-from-playlist="song">{{song.title}} <span ng-if="currentPlaying.id == song.id"> - (current)</a></td>
-            <td>{{song.artist}}</td>
-            <td>{{song.duration }}</td>
-		</tr>
-	</tbody>
-</table>
+
+<div class="deletePopup" ng-show="PC.showDeleteDiv">
+	<h3>Delete Successful</h3>
+	<button ng-click="PC.redirect()">OK</button>
 </div>
--->
+<div class="namePopupBG" ng-show="PC.showDeleteDiv"></div>
